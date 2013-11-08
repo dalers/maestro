@@ -52,7 +52,7 @@ $yii=dirname(__FILE__).'/../yii-1.1.14.f0fee9/framework/yii.php';
 
 You can now access Maestro and login (e.g. [localhost/maestro](http://localhost/maestro)).
 
-Once you have logged in to Maestro, you are encouraged to review the [Maestro Guided Tour](http://github.com/dalers/maestro/wiki/Maestro-guided-tour), which will guide you step-by-step through configuring Maestro and using its basic features.
+Once you have logged in to Maestro, you are encouraged to review the Maestro [Guided Tour](http://github.com/dalers/maestro/wiki/Guided-tour), which will guide you step-by-step through configuring Maestro and using its basic features.
 
 Version Control and Issue Tracking
 ==================================
@@ -83,8 +83,8 @@ Official project documentation is found in the [Maestro wiki](https://github.com
 * [Wiki style guide](https://github.com/dalers/maestro/wiki/Wiki-style-guide)
 * [General guidelines](https://github.com/dalers/maestro/wiki/General-guidelines)
 * [Trademark and logo policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy)
-* [Setting up your development environment](http://github.com/dalers/maestro/wiki/Setting-up-your-development-environment)
-* [Hacking maestro](http://github.com/dalers/maestro/wiki/Hacking-maestro)
+* [Setting up a development environment](http://github.com/dalers/maestro/wiki/Setting-up-a-development-environment)
+* [Developing maestro](http://github.com/dalers/maestro/wiki/Developing-maestro)
 * [Legal](https://github.com/dalers/maestro/wiki/Legal)
 
 Support
