@@ -604,8 +604,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		//e.g $this->delete('tbl_serial_number');
 
 		//drop tables
-		$this->dropTable('tbl_issue'); //fk -> tbl_project
-
+		$this->dropTable('tbl_issue'); //drop before project, issue, pv_pn, person
 		$this->dropTable('tbl_project');
 
 		$this->dropTable('tbl_pv_al');
@@ -613,7 +612,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_pv_cost');
 		$this->dropTable('tbl_pv_cu');
 		$this->dropTable('tbl_pv_cur');
-		$this->dropTable('tbl_pv_fil'); //must drop before pn
+		$this->dropTable('tbl_pv_fil'); //drop before pn
 		$this->dropTable('tbl_pv_hist');
 		$this->dropTable('tbl_pv_hpref');
 		$this->dropTable('tbl_pv_job');
@@ -623,7 +622,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_pv_mfr');
 		$this->dropTable('tbl_pv_mfrpn');
 		$this->dropTable('tbl_pv_org');
-		$this->dropTable('tbl_pv_pl'); //must drop before pn
+		$this->dropTable('tbl_pv_pl'); //drop before pn
 		$this->dropTable('tbl_pv_pll');
 		$this->dropTable('tbl_pv_po');
 		$this->dropTable('tbl_pv_pod');
@@ -634,10 +633,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_pv_task');
 		$this->dropTable('tbl_pv_type');
 		$this->dropTable('tbl_pv_un');
-		$this->dropTable('tbl_pv_pn'); //must drop after fil, pl
-
-		$this->dropTable('tbl_stock_location');
+		
 		$this->dropTable('tbl_stock_serial');
+		$this->dropTable('tbl_pv_pn');
+		$this->dropTable('tbl_stock_location');
 		$this->dropTable('tbl_person');
 	}
 

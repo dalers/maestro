@@ -1,18 +1,20 @@
-Files here are used by Maestro - the *new* Part and Vendor data management system.
+Files here are used by Maestro - the SME business management system.
 
 Maestro integrates data from the following sources: 
-* Parts&Vendors				Part numbers, bills of materials and sources
-* SerialNumber Spreadsheet	Production serial numbers and status
-* Issue Reporting System	Issue report with job number and overview
-* Projects Spreadsheet		Client project information
+* Issue Spreadsheet				Issue list with description and project/part/serial numbers
+* Person spreadsheet			Person master data
+* Project spreadsheet			Project master data, including client and financial accounts
+* Parts&Vendors					Part numbers, bills of materials and sources
+* Serial # spreadsheet			Production serial numbers and status
+* Stock location spreadsheet	Production serial numbers and status
  
-Maestro is updated nightly from Parts&Vendors and other sources
+Maestro is updated nightly from Parts&Vendors and from other sources
 as required.
 
-For more information, contact your Maestro system administrator.
+For more information, consult your Maestro system administrator.
 
-To access files in DOCVAULT from Parts&Vendors
-----------------------------------------------
+To access files from within Parts&Vendors
+-----------------------------------------
 1. Map a drive letter (e.g. "X") to the Windows file share on the Maestro
 server  (e.g. \\hotstuff.scc.loc). The root of the mapped drive must contain
 the vault\ directory. 
