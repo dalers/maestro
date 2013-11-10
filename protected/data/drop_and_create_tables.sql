@@ -20,11 +20,10 @@ use maestro;
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2013 at 10:47 PM
+-- Generation Time: Nov 11, 2013 at 08:06 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -45,11 +44,12 @@ CREATE TABLE IF NOT EXISTS `tbl_issue` (
   `name` varchar(255) NOT NULL,
   `description` text,
   `project` varchar(255) DEFAULT NULL,
-  `project_id` int(11) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  `type_id` int(11) DEFAULT NULL,
   `corrective_action` varchar(255) DEFAULT NULL,
   `cost` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
   `part_id` int(11) DEFAULT NULL,
   `stock_serial_id` int(11) DEFAULT NULL,
   `status_id` int(11) DEFAULT NULL,
@@ -67,20 +67,7 @@ CREATE TABLE IF NOT EXISTS `tbl_issue` (
   KEY `fk_issue_to_requester` (`requester_id`),
   KEY `fk_issue_to_create_user` (`create_user_id`),
   KEY `fk_issue_to_update_user` (`update_user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_migration`
---
-
--- DROP TABLE IF EXISTS `tbl_migration`;
--- CREATE TABLE IF NOT EXISTS `tbl_migration` (
---   `version` varchar(255) NOT NULL,
---   `apply_time` int(11) DEFAULT NULL,
---   PRIMARY KEY (`version`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -99,13 +86,14 @@ CREATE TABLE IF NOT EXISTS `tbl_person` (
   `lname` varchar(255) DEFAULT NULL,
   `fname` varchar(255) DEFAULT NULL,
   `initial` varchar(255) DEFAULT NULL,
+  `profile` int(11) DEFAULT NULL,
   `last_login_time` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
 
@@ -124,15 +112,17 @@ CREATE TABLE IF NOT EXISTS `tbl_project` (
   `client` varchar(255) DEFAULT NULL,
   `description` text,
   `type` varchar(255) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `milestone` varchar(255) DEFAULT NULL,
   `milestone_date` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`),
+  KEY `fk_project_to_create_user` (`create_user_id`),
+  KEY `fk_project_to_update_user` (`update_user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -180,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_cost` (
   `COSTLeadtime` int(11) DEFAULT '0',
   `COSTCost` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
@@ -210,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_cu` (
   `CUStateTaxID` varchar(20) DEFAULT NULL,
   `CUNoPhonePrefix` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -227,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_cur` (
   `CURFormat` varchar(35) DEFAULT NULL,
   `CURFormatExt` varchar(35) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -246,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_fil` (
   `FILNotes` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_pv_fil_pn` (`FILPNID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
 
 -- --------------------------------------------------------
 
@@ -291,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_hpref` (
   `GPREFText9` varchar(50) DEFAULT NULL,
   `GPREFText10` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 -- --------------------------------------------------------
 
@@ -342,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_lin` (
   `LINSUID` int(11) NOT NULL DEFAULT '0',
   `LINMFRID` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -373,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_lnk` (
   `LNKRoHSDoc` varchar(50) DEFAULT NULL,
   `LNKRoHSNote` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
@@ -414,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_mfr` (
   `MFREMail2` varchar(50) DEFAULT NULL,
   `MFRNoPhonePrefix` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 -- --------------------------------------------------------
 
@@ -428,7 +418,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_mfrpn` (
   `MFRPNMFRID` int(11) DEFAULT '0',
   `MFRPNPart` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 -- --------------------------------------------------------
 
@@ -448,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_org` (
   `ORGRFQUseShpgAddr` tinyint(1) DEFAULT '0',
   `ORGListOrder` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -474,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pl` (
   PRIMARY KEY (`id`),
   KEY `fk_pv_pl_pn_1` (`PLListID`),
   KEY `fk_pv_pl_pn_2` (`PLPartID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 -- --------------------------------------------------------
 
@@ -492,7 +482,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pll` (
   `PLLCost` float DEFAULT '0',
   `PLLItemNumber` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -549,12 +539,18 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pn` (
   `PNLastRollupCost` double DEFAULT '0',
   `PNUSRID` int(11) DEFAULT '0',
   `PNUserLock` tinyint(1) DEFAULT '0',
-  `person_id` int(11) DEFAULT NULL,
   `stock_location_id` int(11) DEFAULT NULL,
+  `requester_id` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `create_user_id` int(11) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_pv_pn_person` (`person_id`),
-  KEY `fk_pv_pn_location` (`stock_location_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `fk_pv_pn_location` (`stock_location_id`),
+  KEY `fk_pv_pn_person` (`requester_id`),
+  KEY `fk_part_to_create_user` (`create_user_id`),
+  KEY `fk_part_to_update_user` (`update_user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 -- --------------------------------------------------------
 
@@ -614,7 +610,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pod` (
   `PODNewLineJOB` tinyint(1) DEFAULT '0',
   `PODUseCaptionJOB` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -687,7 +683,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_ship` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `SHIPMethod` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -724,7 +720,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_su` (
   `SUNoPhonePrefix` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `SUSupplier` (`SUSupplier`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -767,7 +763,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `TYPEType` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -782,7 +778,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_un` (
   `UNPurchUnits` varchar(20) NOT NULL,
   `UNConvUnits` float NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -793,12 +789,12 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_un` (
 DROP TABLE IF EXISTS `tbl_stock_location`;
 CREATE TABLE IF NOT EXISTS `tbl_stock_location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `location_name` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `use_sublocation` int(11) DEFAULT NULL,
   `sublocation_min` int(11) DEFAULT NULL,
   `sublocation_max` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -813,11 +809,11 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_serial` (
   `part_number` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `version` varchar(255) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `part_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_stock_serial_to_pv_pn` (`part_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `fk_stock_serial_to_part` (`part_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Constraints for dumped tables
@@ -836,6 +832,13 @@ ALTER TABLE `tbl_issue`
   ADD CONSTRAINT `fk_issue_to_stock_serial` FOREIGN KEY (`stock_serial_id`) REFERENCES `tbl_stock_serial` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `tbl_project`
+--
+ALTER TABLE `tbl_project`
+  ADD CONSTRAINT `fk_project_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_project_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `tbl_pv_fil`
 --
 ALTER TABLE `tbl_pv_fil`
@@ -852,13 +855,15 @@ ALTER TABLE `tbl_pv_pl`
 -- Constraints for table `tbl_pv_pn`
 --
 ALTER TABLE `tbl_pv_pn`
+  ADD CONSTRAINT `fk_part_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_part_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_pv_pn_location` FOREIGN KEY (`stock_location_id`) REFERENCES `tbl_stock_location` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pv_pn_person` FOREIGN KEY (`person_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_pv_pn_person` FOREIGN KEY (`requester_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_stock_serial`
 --
 ALTER TABLE `tbl_stock_serial`
-  ADD CONSTRAINT `fk_stock_serial_to_pv_pn` FOREIGN KEY (`part_id`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
-SET FOREIGN_KEY_CHECKS=1;
+  ADD CONSTRAINT `fk_stock_serial_to_part` FOREIGN KEY (`part_id`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
 
+-- end

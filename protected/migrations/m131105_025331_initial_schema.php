@@ -12,11 +12,12 @@ class m131105_025331_initial_schema extends CDbMigration
 			'name' => 'string NOT NULL',
 			'description' => 'text',
 			'project' => 'string',
-			'project_id' => 'integer',
 			'type' => 'string',
-			'type_id' => 'integer',
 			'corrective_action' => 'string',
 			'cost' => 'string',
+			'status' => 'string',
+			'project_id' => 'integer',
+			'type_id' => 'integer',
 			'part_id' => 'integer',
 			'stock_serial_id' => 'integer',
 			'status_id' => 'integer',
@@ -33,13 +34,14 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->createTable('tbl_person', array(
 			'id' => 'pk',  //not imported
 			'username' => 'string NOT NULL', //network login id
-			'status' => 'integer', //e.g. 0=ACTIVE, 1=NOTACTIVE
+			'status' => 'integer', //e.g. 0=inactive, 1=active
 			'password' => 'string NOT NULL',
 			'email' => 'string',
 			'nick' => 'string', //fk <- pv_pn.PNReqBy
-			'lname' => 'string',
-			'fname' => 'string',
-			'initial' => 'string',
+			'lname' => 'string', //e.g. "Tom"
+			'fname' => 'string', //e.g. "Swift"
+			'initial' => 'string', //e.g. "TS"
+			'profile' => 'integer', //security profile
 			'last_login_time' => 'datetime DEFAULT NULL',
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
@@ -59,7 +61,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'client' => 'string', //e.g. "B&E Submarines"
 			'description' => 'text', //e.g. "Preliminary evaluation and sea trial"
 			'type' => 'string', //e.g. "Research"
-			'status' => 'integer', //e.g. 0=NotActive, 1=Active...	
+			'status' => 'string', //NOTACTIVE, ACTIVE...	
 			'milestone' => 'string', //e.g. "Sanction", "Definition", "Design", "Validation", "Pilot", "Production", "Termination"
 			'milestone_date' => 'datetime', //forecast date for completion of milestone			
 			'create_time' => 'datetime',
@@ -68,6 +70,15 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer',
 		), 'ENGINE = InnoDB');
 						
+		//stock location table
+		$this->createTable('tbl_stock_location', array(
+			'id' => 'pk', //not imported from source
+			'name' => 'string',
+			'use_sublocation' => 'integer', //TODO boolean
+			'sublocation_min' => 'integer',
+			'sublocation_max' => 'integer',
+		), 'ENGINE=InnoDB');        
+
 		//stock serial number table
 		$this->createTable('tbl_stock_serial', array(
 			'id' => 'pk', //not included in source csv
@@ -79,15 +90,6 @@ class m131105_025331_initial_schema extends CDbMigration
 			'part_id' => 'integer',
 			), 'ENGINE=InnoDB');
 		
-		//stock location table
-		$this->createTable('tbl_stock_location', array(
-			'id' => 'pk', //not imported from source
-			'location_name' => 'integer',
-			'use_sublocation' => 'integer',
-			'sublocation_min' => 'integer',
-			'sublocation_max' => 'integer',
-		), 'ENGINE=InnoDB');        
-
 		//part and vendor tables
 		//pv_al table
 		$this->createTable('tbl_pv_al', array(
@@ -376,9 +378,13 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PNLastRollupCost' => 'DOUBLE NULL DEFAULT 0', 
 			'PNUSRID' => 'INTEGER DEFAULT 0', 
 			'PNUserLock' => 'TINYINT(1) DEFAULT 0', 
-			//following fields are additions to PV schema
-			'person_id' => 'integer', //fk -> person
+			//additions to basic schema
 			'stock_location_id' => 'integer', //fk -> stock_location
+			'requester_id' => 'integer', //fk -> person
+			'create_time' => 'datetime',
+			'create_user_id' => 'integer',
+			'update_time' => 'datetime',
+			'update_user_id' => 'integer',			
 		), 'ENGINE=InnoDB');
 
 		//pv_po table
@@ -563,27 +569,34 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
+		//project
+		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		
 		//stock_serial
 		//part_id has been included to reference the stock part number (or null), implied
 		//by the value of the part_number column. A part_number field should have the
 		//same value as one of the part numbers in the pv_pn table - similar to a foreign
 		//key but without being being required for referential integrity.
-		$this->addForeignKey("fk_stock_serial_to_pv_pn", "tbl_stock_serial", "part_id", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_stock_serial_to_part", "tbl_stock_serial", "part_id", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
 
+		//part and vendor
 		//pv_pn
-		//person_id has been added to the Parts&Vendors part master table
-		//to reference the person referred to in the pre-existing ReqBy
-		//column (or is null). A ReqBy field should have the same value
-		//one of the nicks in the person table - similar to a foreign
-		//key but without being required for integrity.
-		$this->addForeignKey("fk_pv_pn_person", "tbl_pv_pn", "person_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		//stock_location_id has been added to the Parts&Vendors part master
 		//table to reference the stock location referred to in the pre-existing
 		//PNUser9 column (or is null). The value of PNUser9 should be the same
 		//as one of the stock locations in the stock_location table - similar to
 		//a foreign key, but without being required for integrity.		
 		$this->addForeignKey("fk_pv_pn_location", "tbl_pv_pn", "stock_location_id", "tbl_stock_location", "id", "CASCADE", "RESTRICT");
-
+		//person_id has been added to the Parts&Vendors part master table
+		//to reference the person referred to in the pre-existing ReqBy
+		//column (or is null). A ReqBy field should have the same value
+		//one of the nicks in the person table - similar to a foreign
+		//key but without being required for integrity.
+		$this->addForeignKey("fk_pv_pn_person", "tbl_pv_pn", "requester_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_create_user", "tbl_pv_pn", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_update_user", "tbl_pv_pn", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		
 		//pv_pl
 		//reference parent part number for parts list item
 		$this->addForeignKey("fk_pv_pl_pn_1", "tbl_pv_pl", "PLListID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
@@ -592,7 +605,6 @@ class m131105_025331_initial_schema extends CDbMigration
 		  
 		//pv_fil
 		$this->addForeignKey("fk_pv_fil_pn", "tbl_pv_fil", "FILPNID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-	
 	}
 
 	public function down()

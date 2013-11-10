@@ -1,0 +1,5 @@
+name,use_sublocation,sublocation_min,sublocation_max
+active parts,1,1,100
+passive parts,1,1,100
+stock room 1,1,1,10
+stock room 2,0,0,0
