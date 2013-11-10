@@ -58,7 +58,7 @@ echo ""
 
 # load csv data files
 echo "Loading CSV files..."
-/usr/local/bin/mysql -uroot -p --local-infile=1 --show-warnings --verbose < /usr/local/www/maestro/protected/data/load_maestro_unix.sql
+/usr/local/bin/mysql -uroot -p --local-infile=1 --show-warnings --verbose < /usr/local/www/maestro/protected/data/load_demo_csv_unix.sql
 echo ""
 
 echo "Done!"

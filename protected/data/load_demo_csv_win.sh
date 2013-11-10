@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Load demo data in CSV-format
-# - use on Windows system (execute from maestro/protected/data/)
+# - use on Windows dev system, execute from maestro/protected/data/
 # - first confirms csv files have correct EOL marker for import on
 #   windows system
 #
@@ -49,8 +49,13 @@ dos2unix ./csv/pv_type.csv
 dos2unix ./csv/pv_un.csv
 echo ""
 
+# drop and re-create database tables (except for migration)
+echo "Creating clean database tables..."
+mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./drop_and_create_tables.sql
+echo ""
+
 echo "Loading CSV files..."
-mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_maestro_win.sql
+mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo_csv_win.sql
 echo ""
 
 echo "Done!"
