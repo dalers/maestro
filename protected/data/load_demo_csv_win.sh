@@ -1,7 +1,9 @@
 #!/bin/sh
 #
-# Import CSV data from source files
-# - for use on Windows system (execute from maestro/protected/data/)
+# Load demo data in CSV-format
+# - use on Windows system (execute from maestro/protected/data/)
+# - first confirms csv files have correct EOL marker for import on
+#   windows system
 #
 # History
 # ------------------------------

@@ -1,7 +1,10 @@
 #!/bin/sh
 #
-# Import CSV data from source files
-# - conversion is forced in cases where flip incorrectly interprets file as binary
+# Load demo data in CSV-format
+# - use on unix system (execute from maestro/protected/data/)
+# - first confirms csv files have correct EOL marker for import on
+#   unix (conversion forced for files flip is known to incorrectly
+#   interpret, e.g. pv_pn.csv)
 #
 # History
 # ------------------------------

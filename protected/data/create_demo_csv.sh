@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# Export source data and import to Maestro
+# Create CSV-format demo data from source files (mdb, xlsx...)
 # - file paths hardcoded for server
-# - execute by root using cron
+# - execute using cron for scheduled periodic updating
 #
 # History
 # ------------------------------
@@ -24,39 +24,39 @@ echo ""
 
 # Serial number spreadsheet
 # csv file will have Windows EOL (SaveAs from Excel to Maestro Windows/CIFS share)
-echo "Serial numbers - not exported, export manually from Excel serial_number.xlsx"
+echo "Serial numbers - NOT EXPORTED. Export manually from Excel serial_number.xlsx"
 echo "  - Save/As from Excel to: csv\serial_number.csv"
 echo ""
 
 # Project spreadsheet
 # csv file will have Windows EOL (SaveAs from Excel to Maestro Windows/CIFS share)
-echo "Projects - not exported, export manually from Excel project.xlsx"
+echo "Projects - NOT EXPORTED. Export manually from Excel project.xlsx"
 echo "  - Save/As from Excel to: csv\project.csv"
 echo ""
 
 # Issue spreadsheet
 # csv file will have Windows EOL (SaveAs from Excel to Maestro Windows/CIFS share)
-echo "Issues - not exported, export manually from Excel issue.xlsx"
+echo "Issues - NOT EXPORTED. Export manually from Excel issue.xlsx"
 echo "  - Save/As from Excel to: csv\issue.csv"
 echo ""
 
 # Stock location spreadsheet
 # csv file will have Windows EOL (SaveAs from Excel to Maestro Windows/CIFS share)
-echo "Stock locations - not exported, export manually from Excel stock_location.xlsx"
+echo "Stock locations - NOT EXPORTED. Export manually from Excel stock_location.xlsx"
 echo "  - Save/As from Excel to: csv\stock_location.csv"
 echo ""
 
 # Person spreadsheet
 # network ID, email address and nick (Parts&Vendors ReqBy)
 # csv file will have Windows EOL (SaveAs from Excel to CIFS share)
-echo "Person - not exported, export manually from Excel person.xlsx"
-echo "  - Save/As from Excel to csv\person.csv (e.g. X:\csv\person.csv)"
+echo "Person - NOT EXPORTED. Export manually from Excel person.xlsx"
+echo "  - Save/As from Excel to csv\person.csv"
 echo ""
 
 # Parts&Vendors
 # comma-delimited csv will have Unix EOL (output from mdb-export on Unix system)
 # prevent access to P&V database during export or export may not be consistent
-# Export date with format yyyy-mm-dd
+# Export date format: yyyy-mm-dd
 echo "Parts&Vendors - exporting to CSV...."
 /usr/local/bin/mdb-export -D "%F" /usr/home/samba/maestro/pv.mdb AL    > /usr/home/samba/maestro/csv/pv_al.csv
 /usr/local/bin/mdb-export -D "%F" /usr/home/samba/maestro/pv.mdb CNV   > /usr/home/samba/maestro/csv/pv_cnv.csv
