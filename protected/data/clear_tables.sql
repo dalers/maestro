@@ -1,17 +1,18 @@
 -- clear tables
 -- delete all tables from maestro for clean migration
+-- MAY NEED TO BE RUN MORE THAN ONCE (
 --
 -- > mysql -uroot -p --show-warnings --verbose --force < ./clear_tables.sql
 --
+
+SET foreign_key_checks = 0;
 
 USE maestro;
 
 DROP TABLE `tbl_migration`;
 
 DROP TABLE `tbl_stock_serial`;
-
 DROP TABLE `tbl_issue`;
-
 DROP TABLE `tbl_project`;
 
 DROP TABLE `tbl_pv_al`;
@@ -43,5 +44,6 @@ DROP TABLE `tbl_pv_type`;
 DROP TABLE `tbl_pv_un`;
 
 DROP TABLE `tbl_stock_location`;
-
 DROP TABLE `tbl_person`;
+
+SET foreign_key_checks = 1;

@@ -1,6 +1,6 @@
 Maestro(TM) is a web application for design and manufacturing teams to manage their part and supplier (vendor) information. Maestro is compatible with Parts&Vendors(TM), "The Personal Parts List Manager and Vendor Database"(1). Maestro has a modular architecture, additional  modules are planned for material management and project planning.
 
-Although Maestro is in active development, it may be suitable for production use. For more information on the current status of Maestro, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your use cases.
+Maestro is in active development and may be suitable for production use. For more information on the current status of Maestro, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experimenting with your own use cases.
 
 The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading environment for integrating SME business processs.
 
@@ -35,19 +35,18 @@ $yii=dirname(__FILE__).'/../yii-1.1.14.f0fee9/framework/yii.php';
 > mysql -u root -p < ./create_db.sql
 ```
 
-* Load the database schema.
+* Migrate the database to the current schema.
 
 ```
 > cd maestro
-> ./protected/yiic migrate new
 > ./protected/yiic migrate
 ```
 
-* Load demo data from SCC (Swift Construction Company).
+* Load demo data from the Swift Construction Company.
 
 ```
-> cd /usr/local/www/maestro/protected/data
-> ./load_maestro_unix.sh
+> cd maestro/protected/data
+> mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo.sql
 ```
 
 You can now access Maestro and login (e.g. [localhost/maestro](http://localhost/maestro)).
