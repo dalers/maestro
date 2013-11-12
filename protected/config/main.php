@@ -49,7 +49,7 @@ return array(
 		),
 		*/
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'connectionString' => 'mysql:host=localhost;dbname=maestro',
 			'emulatePrepare' => true,
 			'username' => 'maestro',
 			'password' => 'stratemeyer',

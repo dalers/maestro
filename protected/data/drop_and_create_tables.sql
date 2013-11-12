@@ -20,10 +20,11 @@ use maestro;
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2013 at 08:06 AM
+-- Generation Time: Nov 12, 2013 at 07:09 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -236,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_fil` (
   `FILNotes` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_pv_fil_pn` (`FILPNID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 -- --------------------------------------------------------
 
@@ -418,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_mfrpn` (
   `MFRPNMFRID` int(11) DEFAULT '0',
   `MFRPNPart` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -683,7 +684,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_ship` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `SHIPMethod` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -763,7 +764,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `TYPEType` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -865,5 +866,4 @@ ALTER TABLE `tbl_pv_pn`
 --
 ALTER TABLE `tbl_stock_serial`
   ADD CONSTRAINT `fk_stock_serial_to_part` FOREIGN KEY (`part_id`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
-
--- end
+SET FOREIGN_KEY_CHECKS=1;

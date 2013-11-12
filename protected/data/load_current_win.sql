@@ -1,10 +1,8 @@
--- load csv legacy data
+-- load current data from csv
+-- normally executed from load_current_win.sh
+-- file paths hard-coded for XAMPP
 --
--- normally executed from load_demo_csv_win.sh
--- assumes csv files have Windows EOL markers
--- file paths are hardcoded for XAMPP
---
--- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo_csv_win.sql
+-- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_current_win.sql
 --
 
 use maestro;

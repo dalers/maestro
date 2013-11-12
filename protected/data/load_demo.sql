@@ -1,4 +1,4 @@
--- Swift Construction Company demo data
+-- load demo data (Swift Construction Company pv-4.mdb)
 --
 -- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo.sql
 --
@@ -10,18 +10,13 @@ use maestro;
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2013 at 09:21 PM
+-- Generation Time: Nov 12, 2013 at 07:53 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `maestro`
@@ -62,35 +57,15 @@ CREATE TABLE IF NOT EXISTS `tbl_issue` (
   KEY `fk_issue_to_requester` (`requester_id`),
   KEY `fk_issue_to_create_user` (`create_user_id`),
   KEY `fk_issue_to_update_user` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `tbl_issue`
 --
 
 INSERT INTO `tbl_issue` (`id`, `number`, `name`, `description`, `project`, `type`, `corrective_action`, `cost`, `status`, `project_id`, `type_id`, `part_id`, `stock_serial_id`, `status_id`, `owner_id`, `requester_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1, 'IR00001', 'Incorrect PCB layout', 'Connectivity of PCB-type inductor in layout is incorrect.', 'P09-001', 'PCB', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-01-10 00:00:00', NULL, NULL, NULL),
-(2, 'IR00002', 'Difficult assembly procedure', 'Difficult to assemble and test PCA due to copper-side-up orientation. Orienting PCA component-side up allows for full access to components for debugging after assembly.', 'P09-001', 'ASSY', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-24 00:00:00', NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_migration`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_migration` (
-  `version` varchar(255) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_migration`
---
-
-INSERT INTO `tbl_migration` (`version`, `apply_time`) VALUES
-('m000000_000000_base', 1384200272),
-('m131105_025331_initial_schema', 1384200279);
+(4, 'IR00001', 'Incorrect PCB layout', 'Connectivity of PCB-type inductor in layout is incorrect.', 'P09-001', 'PCB', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-01-10 00:00:00', NULL, NULL, NULL),
+(5, 'IR00002', 'Difficult assembly procedure', 'Difficult to assemble and test PCA due to copper-side-up orientation. Orienting PCA component-side up allows for full access to components for debugging after assembly.', 'P09-001', 'ASSY', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-24 00:00:00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -115,35 +90,35 @@ CREATE TABLE IF NOT EXISTS `tbl_person` (
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
 
 --
 -- Dumping data for table `tbl_person`
 --
 
 INSERT INTO `tbl_person` (`id`, `username`, `status`, `password`, `email`, `nick`, `lname`, `fname`, `initial`, `profile`, `last_login_time`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1, 'bjenks', 1, 'appleton', 'bjenks@firefly.scc.loc', 'BJ', 'Jenks', 'Barcoe', 'JB', 2, NULL, NULL, NULL, NULL, NULL),
-(2, 'bswift', 1, 'appleton', 'bswift@firefly.scc.loc', 'BS', 'Swift', 'Barton', 'SB', 1, NULL, NULL, NULL, NULL, NULL),
-(3, 'barmstrong', 1, 'appleton', 'barmstrong@firefly.scc.loc', 'BA', 'Armstrong', 'Bub', 'AB', 2, NULL, NULL, NULL, NULL, NULL),
-(4, 'fmason', 1, 'appleton', 'fmason@firefly.scc.loc', 'FM', 'Mason', 'Frank', 'MF', 2, NULL, NULL, NULL, NULL, NULL),
-(5, 'gjackson', 1, 'appleton', 'gjackson@firefly.scc.loc', 'GJ', 'Jackson', 'Garret', 'JG', 3, NULL, NULL, NULL, NULL, NULL),
-(6, 'hbaldwin', 1, 'appleton', 'hbaldwin@firefly.scc.loc', 'HB', 'Baldwin', 'Hank', 'BH', 1, NULL, NULL, NULL, NULL, NULL),
-(7, 'hrandall', 1, 'appleton', 'hrandall@firefly.scc.loc', 'HR', 'Randall', 'Helen', 'RH', 4, NULL, NULL, NULL, NULL, NULL),
-(8, 'jwood', 1, 'appleton', 'jwood@firefly.scc.loc', 'JW', 'Wood', 'Jacab', 'WJ', 5, NULL, NULL, NULL, NULL, NULL),
-(9, 'jperiod', 1, 'appleton', 'jperiod@firefly.scc.loc', 'JP', 'Period', 'James', 'PJ', 1, NULL, NULL, NULL, NULL, NULL),
-(10, 'jhaddon', 1, 'appleton', 'jhaddon@firefly.scc.loc', 'JH', 'Haddon', 'Jennie', 'HJ', 6, NULL, NULL, NULL, NULL, NULL),
-(11, 'jmorse', 1, 'appleton', 'jmorse@firefly.scc.loc', 'JM', 'Morse', 'Jennie', 'MJ', 4, NULL, NULL, NULL, NULL, NULL),
-(12, 'jsharp', 1, 'appleton', 'jsharp@firefly.scc.loc', 'JS', 'Sharp', 'John', 'SJ', 1, NULL, NULL, NULL, NULL, NULL),
-(13, 'mbaggert', 1, 'appleton', 'mbaggert@firefly.scc.loc', 'MB', 'Baggert', 'Martha', 'BM', 1, NULL, NULL, NULL, NULL, NULL),
-(14, 'mnestor', 1, 'appleton', 'mnestor@firefly.scc.loc', 'MN', 'Nestor', 'Mary', 'NM', 0, NULL, NULL, NULL, NULL, NULL),
-(15, 'mblair', 1, 'appleton', 'mblair@firefly.scc.loc', 'MB', 'Blair', 'Minnie', 'BM', 2, NULL, NULL, NULL, NULL, NULL),
-(16, 'mdelazes', 1, 'appleton', 'mdelazes@firefly.scc.loc', 'MD', 'DeLazes', 'Miquel', 'DM', 7, NULL, NULL, NULL, NULL, NULL),
-(17, 'nnewton', 1, 'appleton', 'nnewton@firefly.scc.loc', 'NN', 'Newton', 'Ned', 'NN', 1, NULL, NULL, NULL, NULL, NULL),
-(18, 'rsampson', 1, 'appleton', 'rsampson@firefly.scc.loc', 'RS', 'Sampson', 'Rad', 'SR', 1, NULL, NULL, NULL, NULL, NULL),
-(19, 'smalloy', 1, 'appleton', 'smalloy@firefly.scc.loc', 'SM', 'Malloy', 'Sarah', 'MS', 6, NULL, NULL, NULL, NULL, NULL),
-(20, 'tswift', 1, 'appleton', 'tswift@firefly.scc.loc', 'TS', 'Swift', 'Tom', 'ST', 1, NULL, NULL, NULL, NULL, NULL),
-(21, 'wdamon', 1, 'appleton', 'wdamon@firefly.scc.loc', 'WD', 'Damon', 'Wakefield', 'DW', 1, NULL, NULL, NULL, NULL, NULL),
-(22, 'wcrawford', 1, 'appleton', 'wcrawford@firefly.scc.loc', 'WC', 'Crawford', 'William', 'CW', 1, NULL, NULL, NULL, NULL, NULL);
+(32, 'bjenks', 1, 'appleton', 'bjenks@firefly.scc.loc', 'BJ', 'Jenks', 'Barcoe', 'JB', 2, NULL, NULL, NULL, NULL, NULL),
+(33, 'bswift', 1, 'appleton', 'bswift@firefly.scc.loc', 'BS', 'Swift', 'Barton', 'SB', 1, NULL, NULL, NULL, NULL, NULL),
+(34, 'barmstrong', 1, 'appleton', 'barmstrong@firefly.scc.loc', 'BA', 'Armstrong', 'Bub', 'AB', 2, NULL, NULL, NULL, NULL, NULL),
+(35, 'fmason', 1, 'appleton', 'fmason@firefly.scc.loc', 'FM', 'Mason', 'Frank', 'MF', 2, NULL, NULL, NULL, NULL, NULL),
+(36, 'gjackson', 1, 'appleton', 'gjackson@firefly.scc.loc', 'GJ', 'Jackson', 'Garret', 'JG', 3, NULL, NULL, NULL, NULL, NULL),
+(37, 'hbaldwin', 1, 'appleton', 'hbaldwin@firefly.scc.loc', 'HB', 'Baldwin', 'Hank', 'BH', 1, NULL, NULL, NULL, NULL, NULL),
+(38, 'hrandall', 1, 'appleton', 'hrandall@firefly.scc.loc', 'HR', 'Randall', 'Helen', 'RH', 4, NULL, NULL, NULL, NULL, NULL),
+(39, 'jwood', 1, 'appleton', 'jwood@firefly.scc.loc', 'JW', 'Wood', 'Jacab', 'WJ', 5, NULL, NULL, NULL, NULL, NULL),
+(40, 'jperiod', 1, 'appleton', 'jperiod@firefly.scc.loc', 'JP', 'Period', 'James', 'PJ', 1, NULL, NULL, NULL, NULL, NULL),
+(41, 'jhaddon', 1, 'appleton', 'jhaddon@firefly.scc.loc', 'JH', 'Haddon', 'Jennie', 'HJ', 6, NULL, NULL, NULL, NULL, NULL),
+(42, 'jmorse', 1, 'appleton', 'jmorse@firefly.scc.loc', 'JM', 'Morse', 'Jennie', 'MJ', 4, NULL, NULL, NULL, NULL, NULL),
+(43, 'jsharp', 1, 'appleton', 'jsharp@firefly.scc.loc', 'JS', 'Sharp', 'John', 'SJ', 1, NULL, NULL, NULL, NULL, NULL),
+(44, 'mbaggert', 1, 'appleton', 'mbaggert@firefly.scc.loc', 'MB', 'Baggert', 'Martha', 'BM', 1, NULL, NULL, NULL, NULL, NULL),
+(45, 'mnestor', 1, 'appleton', 'mnestor@firefly.scc.loc', 'MN', 'Nestor', 'Mary', 'NM', 0, NULL, NULL, NULL, NULL, NULL),
+(46, 'mblair', 1, 'appleton', 'mblair@firefly.scc.loc', 'MB', 'Blair', 'Minnie', 'BM', 2, NULL, NULL, NULL, NULL, NULL),
+(47, 'mdelazes', 1, 'appleton', 'mdelazes@firefly.scc.loc', 'MD', 'DeLazes', 'Miquel', 'DM', 7, NULL, NULL, NULL, NULL, NULL),
+(48, 'nnewton', 1, 'appleton', 'nnewton@firefly.scc.loc', 'NN', 'Newton', 'Ned', 'NN', 1, NULL, NULL, NULL, NULL, NULL),
+(49, 'rsampson', 1, 'appleton', 'rsampson@firefly.scc.loc', 'RS', 'Sampson', 'Rad', 'SR', 1, NULL, NULL, NULL, NULL, NULL),
+(50, 'smalloy', 1, 'appleton', 'smalloy@firefly.scc.loc', 'SM', 'Malloy', 'Sarah', 'MS', 6, NULL, NULL, NULL, NULL, NULL),
+(51, 'tswift', 1, 'appleton', 'tswift@firefly.scc.loc', 'TS', 'Swift', 'Tom', 'ST', 1, NULL, NULL, NULL, NULL, NULL),
+(52, 'wdamon', 1, 'appleton', 'wdamon@firefly.scc.loc', 'WD', 'Damon', 'Wakefield', 'DW', 1, NULL, NULL, NULL, NULL, NULL),
+(53, 'wcrawford', 1, 'appleton', 'wcrawford@firefly.scc.loc', 'WC', 'Crawford', 'William', 'CW', 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -171,15 +146,15 @@ CREATE TABLE IF NOT EXISTS `tbl_project` (
   PRIMARY KEY (`id`),
   KEY `fk_project_to_create_user` (`create_user_id`),
   KEY `fk_project_to_update_user` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `tbl_project`
 --
 
 INSERT INTO `tbl_project` (`id`, `acct1`, `acct2`, `acct3`, `acct4`, `name`, `client`, `description`, `type`, `status`, `milestone`, `milestone_date`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1, '12345678', '12345679', '12345680', '12345681', 'P09-001', 'Aircraft Wireless', 'Development and air trials', 'R&D', 'ACTIVE', 'PILOT', '2013-02-14 00:00:00', NULL, NULL, NULL, NULL),
-(2, '23456789', '23456790', '23456791', '23456792', 'P09-002', 'Fire-fighting Bombsight', 'Development and air trials', 'R&D', 'HOLD', 'DEFINITION', '2013-03-16 00:00:00', NULL, NULL, NULL, NULL);
+(4, '12345678', '12345679', '12345680', '12345681', 'P09-001', 'Aircraft Wireless', 'Development and air trials', 'R&D', 'ACTIVE', 'PILOT', '2013-02-14 00:00:00', NULL, NULL, NULL, NULL),
+(5, '23456789', '23456790', '23456791', '23456792', 'P09-002', 'Fire-fighting Bombsight', 'Development and air trials', 'R&D', 'HOLD', 'DEFINITION', '2013-03-16 00:00:00', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -320,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_cur` (
 --
 
 INSERT INTO `tbl_pv_cur` (`id`, `CURCurrencyName`, `CURExchangeRate`, `CURCurrencyChar`, `CURFormat`, `CURFormatExt`) VALUES
-(1, '$ USD', 1, '$', '$#,##0.000;($#,##0.000)', '"$#,##0.00;($#,##0.00)"\r\n');
+(1, '$ USD', 1, '$', '$#,##0.000;($#,##0.000)', '$#,##0.00;($#,##0.00)');
 
 -- --------------------------------------------------------
 
@@ -338,45 +313,77 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_fil` (
   `FILNotes` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_pv_fil_pn` (`FILPNID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
 
 --
 -- Dumping data for table `tbl_pv_fil`
 --
 
 INSERT INTO `tbl_pv_fil` (`id`, `FILPNID`, `FILPNPartNumber`, `FILFilePath`, `FILFileName`, `FILView`, `FILNotes`) VALUES
-(1, 3, '', '', 'D:\\scc-pdm\\20000001\\20000001_WI-00_graphics.odg', 0, 'graphics used in WI-00"\r\n4,15,,,"D:\\scc-pdm\\200000'),
-(9, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_WI-02.pdf', 0, 'Work Instruction - PDF"\r\n10,1,,,"D:\\scc-pdm\\200000'),
-(11, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_PBS-02.pdf', 0, 'Product Breakdown Structure - PDF"\r\n12,1,,,"D:\\scc'),
-(13, 16, '', '', 'D:\\scc-pdm\\90000001\\Belden-8085.pdf', 0, 'Datasheet"\r\n14,17,,,"D:\\scc-pdm\\90000002\\CWS-ByteM'),
-(15, 17, '', '', 'D:\\scc-pdm\\90000002\\CWS-ByteMark-2009-12-04.pdf', 0, 'Quote"\r\n16,17,,,"D:\\scc-pdm\\90000002\\CWS-ByteMark-'),
-(17, 18, '', '', 'D:\\scc-pdm\\90000003\\Scotch-Vinyl-Electrical-Tape.pdf', 0, 'Datasheet"\r\n18,18,,,"D:\\scc-pdm\\90000003\\MSDS-Scot'),
-(19, 14, '', '', 'D:\\scc-pdm\\90000004\\DS-CUI-MJ-3536NG.pdf', 0, 'Datasheet"\r\n20,13,,,"D:\\scc-pdm\\90000005\\Sprague-G'),
-(21, 12, '', '', 'D:\\scc-pdm\\90000006\\Magnatec-OA95.pdf', 0, 'Datasheet"\r\n22,11,,,"D:\\scc-pdm\\90000007\\Panasonic'),
-(23, 10, '', '', 'D:\\scc-pdm\\90000008\\AVX-Radial-SkyCap.pdf', 0, 'Datasheet"\r\n24,9,,,"D:\\scc-pdm\\90000009\\Kemet-Cera'),
-(25, 8, '', '', 'D:\\scc-pdm\\90000010\\Vishay-5063JD-Spacemiser.pdf', 0, 'Datasheet"\r\n26,7,,,"D:\\scc-pdm\\90000011\\Vishay-506'),
-(27, 5, '', '', 'D:\\scc-pdm\\90000012\\Maplin-crystal-earph-LB25C.pdf', 0, 'Datasheet"\r\n28,6,,,"D:\\scc-pdm\\50000001\\50000001_D'),
-(29, 6, '', '', 'D:\\scc-pdm\\50000001\\50000001_DSN-01.odt', 0, 'Design Source"\r\n30,3,,,"D:\\scc-pdm\\20000001\\200000'),
-(31, 3, '', '', 'D:\\scc-pdm\\20000001\\20000001_WI-01.odt', 0, 'Work Instruction - Source"\r\n32,15,,,"D:\\scc-pdm\\20'),
-(33, 15, '', '', 'D:\\scc-pdm\\20000002\\20000002_CAM-01.pdf', 0, 'CAM plot"\r\n34,15,,,"D:\\scc-pdm\\20000002\\20000002_C'),
-(35, 15, '', '', 'D:\\scc-pdm\\20000002\\20000002_MA-00.odg', 0, 'Master Drawing - Source"\r\n36,2,,,"D:\\scc-pdm\\20000'),
-(37, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_ASSY-01.odg', 0, 'Assembly drawing - Source"\r\n38,2,,,"D:\\scc-pdm\\200'),
-(39, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_DSN-01.zip', 0, 'Design archive"\r\n40,2,,,"D:\\scc-pdm\\20000003\\20000'),
-(41, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_WI-01.odt', 0, 'Work Instruction - Source"\r\n42,20,,,"D:\\scc-pdm\\10'),
-(43, 20, '', '', 'D:\\scc-pdm\\10000001\\10000001_ART-01.pdf', 0, 'Artwork PDF"\r\n44,20,,,"D:\\scc-pdm\\10000001\\1000000'),
-(45, 20, '', '', 'D:\\scc-pdm\\10000001\\10000001_FAB-01.pdf', 0, 'Fab PDF"\r\n46,19,,,"D:\\scc-pdm\\10000002\\10000002_PB'),
-(47, 19, '', '', 'D:\\scc-pdm\\10000002\\10000002_PBS-00.pdf', 0, 'Product Breakdown Structure diagram PDF"\r\n48,19,,,'),
-(49, 19, '', '', 'D:\\scc-pdm\\10000002\\10000002_WI-00.pdf', 0, 'Work Instruction PDF"\r\n50,1,,,"D:\\scc-pdm\\20000004'),
-(51, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_ASSY-01.pdf', 0, 'Assembly drawing PDF"\r\n52,22,,,"D:\\scc-pdm\\8000000'),
-(53, 22, '', '', 'D:\\scc-pdm\\80000001\\Hammond-1590T.dwg', 0, 'Datasheet drawing"\r\n54,22,,,"D:\\scc-pdm\\80000001\\H'),
-(55, 27, '', '', 'D:\\scc-pdm\\80000002\\Keystone-M55-prod31.pdf', 0, 'Datasheet"\r\n56,28,,,"D:\\scc-pdm\\80000003\\Machinepa'),
-(57, 29, '', '', 'D:\\scc-pdm\\80000004\\TYCO-ENG_CD_5205820_O.pdf', 0, 'Datasheet"\r\n58,21,,,"D:\\scc-pdm\\80000005\\IS-435.PD'),
-(59, 21, '', '', 'D:\\scc-pdm\\80000005\\MSDS-MS-4040.pdf', 0, 'MSDS"\r\n60,21,,,"D:\\scc-pdm\\80000005\\Quote-ULINE-S-'),
-(61, 21, '', '', 'D:\\scc-pdm\\80000005\\ULINE-S463.pdf', 0, 'Catalogue"\r\n62,32,,,"D:\\scc-pdm\\80000006\\Keystone-'),
-(63, 26, '', '', 'D:\\scc-pdm\\80000007\\INT LWZ 004.jpg', 0, 'Drawing"\r\n64,4,,,"D:\\scc-pdm\\90000013\\BICC-General'),
-(65, 30, '', '', 'D:\\scc-pdm\\90000014\\1110104001.pdf', 0, 'Datasheet"\r\n66,31,,,"D:\\scc-pdm\\90000015\\111010700'),
-(67, 23, '', '', 'D:\\scc-pdm\\90000016\\ENG_CD_330648_F1.pdf', 0, 'Datasheet"\r\n68,24,,,"D:\\scc-pdm\\90000017\\Hookup.pd'),
-(69, 25, '', '', 'D:\\scc-pdm\\90000018\\Hookup.pdf', 0, 'Datasheet"\r\n70,6,,,"D:\\scc-pdm\\50000001\\50000001_D');
+(1, 3, '', '', 'D:\\scc-pdm\\20000001\\20000001_WI-00_graphics.odg', 0, 'graphics used in WI-00'),
+(4, 15, '', '', 'D:\\scc-pdm\\20000002\\20000002_QUO-00-APC-2004-12-23.pdf', 0, 'Quote'),
+(9, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_WI-02.pdf', 0, 'Work Instruction - PDF'),
+(10, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_PBS-02.odg', 0, 'Product Breakdown Structure - Source'),
+(11, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_PBS-02.pdf', 0, 'Product Breakdown Structure - PDF'),
+(12, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_WI-02.odt', 0, 'Work Instruction - Source'),
+(13, 16, '', '', 'D:\\scc-pdm\\90000001\\Belden-8085.pdf', 0, 'Datasheet'),
+(14, 17, '', '', 'D:\\scc-pdm\\90000002\\CWS-ByteMark-ferrite-datasheet.pdf', 0, 'Datasheet'),
+(15, 17, '', '', 'D:\\scc-pdm\\90000002\\CWS-ByteMark-2009-12-04.pdf', 0, 'Quote'),
+(16, 17, '', '', 'D:\\scc-pdm\\90000002\\CWS-ByteMark-ferrite-appnote.pdf', 0, 'App note'),
+(17, 18, '', '', 'D:\\scc-pdm\\90000003\\Scotch-Vinyl-Electrical-Tape.pdf', 0, 'Datasheet'),
+(18, 18, '', '', 'D:\\scc-pdm\\90000003\\MSDS-Scotch-Vinyl-Electrical-Tape-2007-01-05.pdf', 0, 'MSDS'),
+(19, 14, '', '', 'D:\\scc-pdm\\90000004\\DS-CUI-MJ-3536NG.pdf', 0, 'Datasheet'),
+(20, 13, '', '', 'D:\\scc-pdm\\90000005\\Sprague-Goodman-GM-Series.pdf', 0, 'Datasheet'),
+(21, 12, '', '', 'D:\\scc-pdm\\90000006\\Magnatec-OA95.pdf', 0, 'Datasheet'),
+(22, 11, '', '', 'D:\\scc-pdm\\90000007\\Panasonic-RadLead-KS.pdf', 0, 'Datasheet'),
+(23, 10, '', '', 'D:\\scc-pdm\\90000008\\AVX-Radial-SkyCap.pdf', 0, 'Datasheet'),
+(24, 9, '', '', 'D:\\scc-pdm\\90000009\\Kemet-Ceramic.pdf', 0, 'Datasheet'),
+(25, 8, '', '', 'D:\\scc-pdm\\90000010\\Vishay-5063JD-Spacemiser.pdf', 0, 'Datasheet'),
+(26, 7, '', '', 'D:\\scc-pdm\\90000011\\Vishay-5063JD-Spacemiser.pdf', 0, 'Datasheet'),
+(27, 5, '', '', 'D:\\scc-pdm\\90000012\\Maplin-crystal-earph-LB25C.pdf', 0, 'Datasheet'),
+(28, 6, '', '', 'D:\\scc-pdm\\50000001\\50000001_DSN-01.pdf', 0, 'Design Output - PDF'),
+(29, 6, '', '', 'D:\\scc-pdm\\50000001\\50000001_DSN-01.odt', 0, 'Design Source'),
+(30, 3, '', '', 'D:\\scc-pdm\\20000001\\20000001_WI-01.pdf', 0, 'Work Instruction - PDF'),
+(31, 3, '', '', 'D:\\scc-pdm\\20000001\\20000001_WI-01.odt', 0, 'Work Instruction - Source'),
+(32, 15, '', '', 'D:\\scc-pdm\\20000002\\20000002_MA-00.pdf', 0, 'Master Drawing - PDF'),
+(33, 15, '', '', 'D:\\scc-pdm\\20000002\\20000002_CAM-01.pdf', 0, 'CAM plot'),
+(34, 15, '', '', 'D:\\scc-pdm\\20000002\\20000002_CAM-01.zip', 0, 'CAM archive'),
+(35, 15, '', '', 'D:\\scc-pdm\\20000002\\20000002_MA-00.odg', 0, 'Master Drawing - Source'),
+(36, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_WI-01.pdf', 0, 'Work Instruction - PDF'),
+(37, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_ASSY-01.odg', 0, 'Assembly drawing - Source'),
+(38, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_ASSY-01.pdf', 0, 'Assembly drawing - PDF'),
+(39, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_DSN-01.zip', 0, 'Design archive'),
+(40, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_SCH-01.pdf', 0, 'Schematic'),
+(41, 2, '', '', 'D:\\scc-pdm\\20000003\\20000003_WI-01.odt', 0, 'Work Instruction - Source'),
+(42, 20, '', '', 'D:\\scc-pdm\\10000001\\10000001_ART-01.odg', 0, 'Artwork source'),
+(43, 20, '', '', 'D:\\scc-pdm\\10000001\\10000001_ART-01.pdf', 0, 'Artwork PDF'),
+(44, 20, '', '', 'D:\\scc-pdm\\10000001\\10000001_FAB-01.odg', 0, 'Fab source'),
+(45, 20, '', '', 'D:\\scc-pdm\\10000001\\10000001_FAB-01.pdf', 0, 'Fab PDF'),
+(46, 19, '', '', 'D:\\scc-pdm\\10000002\\10000002_PBS-00.odg', 0, 'Product Breakdown Structure diagram source'),
+(47, 19, '', '', 'D:\\scc-pdm\\10000002\\10000002_PBS-00.pdf', 0, 'Product Breakdown Structure diagram PDF'),
+(48, 19, '', '', 'D:\\scc-pdm\\10000002\\10000002_WI-00.odt', 0, 'Work Instruction source'),
+(49, 19, '', '', 'D:\\scc-pdm\\10000002\\10000002_WI-00.pdf', 0, 'Work Instruction PDF'),
+(50, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_ASSY-01.odg', 0, 'Assembly drawing source'),
+(51, 1, '', '', 'D:\\scc-pdm\\20000004\\20000004_ASSY-01.pdf', 0, 'Assembly drawing PDF'),
+(52, 22, '', '', 'D:\\scc-pdm\\80000001\\Hammond-9c2pg42-43.pdf', 0, 'Application note'),
+(53, 22, '', '', 'D:\\scc-pdm\\80000001\\Hammond-1590T.dwg', 0, 'Datasheet drawing'),
+(54, 22, '', '', 'D:\\scc-pdm\\80000001\\Hammond-1590T.pdf', 0, 'Datasheet'),
+(55, 27, '', '', 'D:\\scc-pdm\\80000002\\Keystone-M55-prod31.pdf', 0, 'Datasheet'),
+(56, 28, '', '', 'D:\\scc-pdm\\80000003\\Machinepancombo.pdf', 0, 'Datasheet'),
+(57, 29, '', '', 'D:\\scc-pdm\\80000004\\TYCO-ENG_CD_5205820_O.pdf', 0, 'Datasheet'),
+(58, 21, '', '', 'D:\\scc-pdm\\80000005\\IS-435.PDF', 0, 'Application'),
+(59, 21, '', '', 'D:\\scc-pdm\\80000005\\MSDS-MS-4040.pdf', 0, 'MSDS'),
+(60, 21, '', '', 'D:\\scc-pdm\\80000005\\Quote-ULINE-S-463.pdf', 0, 'Quote'),
+(61, 21, '', '', 'D:\\scc-pdm\\80000005\\ULINE-S463.pdf', 0, 'Catalogue'),
+(62, 32, '', '', 'D:\\scc-pdm\\80000006\\Keystone-M55-prod31.pdf', 0, 'Datasheet'),
+(63, 26, '', '', 'D:\\scc-pdm\\80000007\\INT LWZ 004.jpg', 0, 'Drawing'),
+(64, 4, '', '', 'D:\\scc-pdm\\90000013\\BICC-General-Carol-Hookup-Wire.pdf', 0, 'Datasheet'),
+(65, 30, '', '', 'D:\\scc-pdm\\90000014\\1110104001.pdf', 0, 'Datasheet'),
+(66, 31, '', '', 'D:\\scc-pdm\\90000015\\1110107001.pdf', 0, 'Datasheet'),
+(67, 23, '', '', 'D:\\scc-pdm\\90000016\\ENG_CD_330648_F1.pdf', 0, 'Datasheet'),
+(68, 24, '', '', 'D:\\scc-pdm\\90000017\\Hookup.pdf', 0, 'Datasheet'),
+(69, 25, '', '', 'D:\\scc-pdm\\90000018\\Hookup.pdf', 0, 'Datasheet'),
+(70, 6, '', '', 'D:\\scc-pdm\\50000001\\50000001_DSN-01-graphics.zip', 0, 'Design Source (graphic files)');
 
 -- --------------------------------------------------------
 
@@ -426,15 +433,16 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_hpref` (
 --
 
 INSERT INTO `tbl_pv_hpref` (`id`, `GPREFKey`, `GPREFText1`, `GPREFText2`, `GPREFText3`, `GPREFText4`, `GPREFText5`, `GPREFBool1`, `GPREFBool2`, `GPREFBool3`, `GPREFBool4`, `GPREFInt1`, `GPREFText6`, `GPREFText7`, `GPREFText8`, `GPREFText9`, `GPREFText10`) VALUES
-(2, 'PLOptions', '', '', '', '', '', 0, 0, 0, 1, 1, '', '', '', '', '\r'),
-(3, 'PNOptions', '', '', '', '', '', 1, 1, 0, 0, 0, '', '', '', '', '\r'),
-(4, 'POOptions', 'ASAP', 'Destination', '', 'ASAP', 'Net 30', 1, 1, 0, 1, 2, '', '', '', '', '\r'),
-(6, 'UserFields', 'User 1', 'User 2', 'User 3', 'User 4', 'User 5', 0, 0, 0, 1, 2, 'Stk Class', 'User 7', 'User 8', 'Stk Loc', 'Stk Bin"\r\n7,"Version'),
-(22, 'JOBTBL', '', '', '', '', '', 1, 0, 0, 0, 0, '', '', '', '', '\r'),
-(23, 'JOBTBL2', '', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', '\r'),
-(24, 'Lic', 'TDSN61021626213488025', 'active', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', '\r'),
-(25, 'CustomerCaption', 'Customer', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', '\r'),
-(26, 'Lic', 'DEMO', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', '\r');
+(2, 'PLOptions', '', '', '', '', '', 0, 0, 0, 1, 1, '', '', '', '', ''),
+(3, 'PNOptions', '', '', '', '', '', 1, 1, 0, 0, 0, '', '', '', '', ''),
+(4, 'POOptions', 'ASAP', 'Destination', '', 'ASAP', 'Net 30', 1, 1, 0, 1, 2, '', '', '', '', ''),
+(6, 'UserFields', 'User 1', 'User 2', 'User 3', 'User 4', 'User 5', 0, 0, 0, 1, 2, 'Stk Class', 'User 7', 'User 8', 'Stk Loc', 'Stk Bin'),
+(7, 'Version', '6.0.136', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', ''),
+(22, 'JOBTBL', '', '', '', '', '', 1, 0, 0, 0, 0, '', '', '', '', ''),
+(23, 'JOBTBL2', '', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', ''),
+(24, 'Lic', 'TDSN61021626213488025', 'active', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', ''),
+(25, 'CustomerCaption', 'Customer', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', ''),
+(26, 'Lic', 'DEMO', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -542,34 +550,34 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_lnk` (
 --
 
 INSERT INTO `tbl_pv_lnk` (`id`, `LNKSUID`, `LNKMFRPNID`, `LNKMFRID`, `LNKUNID`, `LNKPNID`, `LNKToPNID`, `LNKUse`, `LNKLeadtime`, `LNKChoice`, `LNKVendorPN`, `LNKVendorDesc`, `LNKAtQty`, `LNKRFQDate`, `LNKMinIncrement`, `LNKCurrentCost`, `LNKSetupCost`, `LNKRoHS`, `LNKRoHSDoc`, `LNKRoHSNote`) VALUES
-(1, 3, 1, 1, 23, 4, 0, 1, '', 0, 'C2119W-100-ND', 'WHITE 18AWG HOOKUP WIRE SOLID', 1, '0000-00-00 00:00:00', 0, 23.42, 0, 0, '', '\r'),
-(2, 5, 0, 0, 1, 5, 0, 1, '', 0, 'LB25C', 'Crystal Earpiece, Hi-z, 1m lead, 3.5mm plug', 1, '0000-00-00 00:00:00', 0, 3.3432, 0, 0, '', '\r'),
-(3, 9, 0, 0, 1, 2, 0, 1, '', 0, 'SCC:20000003', 'PCA,AIRCRAFT WIRELESS', 10, '0000-00-00 00:00:00', 0, 5, 0, 0, '', '\r'),
-(4, 3, 2, 2, 1, 7, 0, 1, '', 0, '5063JD5M600F12AF5-ND', 'RES 5.60MEG OHM MTLFLM.40W 1% TR', 5000, '0000-00-00 00:00:00', 0, 0.075, 0, 0, '', '\r'),
-(5, 3, 3, 2, 1, 8, 0, 1, '', 0, 'BC2.00MXTR-ND', 'RES 2.00M OHM MTL FILM .40W 1% T', 5000, '0000-00-00 00:00:00', 0, 0.06188, 0, 0, '', '\r'),
-(6, 3, 4, 3, 1, 9, 0, 1, '', 0, '399-4233-ND', 'CAP 3300PF 100V 10% CER RADIAL', 5000, '0000-00-00 00:00:00', 0, 0.05148, 0, 0, '', '\r'),
-(7, 3, 5, 4, 1, 10, 0, 1, '', 0, 'SR151A330KAA-ND', 'CAP CER 33PF 100V 10% NP0 RADIAL', 1000, '0000-00-00 00:00:00', 0, 0.11375, 0, 0, '', '\r'),
-(8, 3, 6, 5, 1, 11, 0, 1, '', 0, 'P965-ND', 'CAP ELECT 10UF 16V KK RADIAL', 1000, '0000-00-00 00:00:00', 0, 0.059, 0, 0, '', '\r'),
-(9, 7, 7, 6, 1, 12, 0, 1, '', 0, '97K6768', 'SEMELAB - OA95/05 - DIODE, GERMANIUM, DO-7', 1000, '0000-00-00 00:00:00', 0, 0.567, 0, 0, '', '\r'),
-(10, 3, 8, 7, 1, 13, 0, 1, '', 0, 'GMC30600-ND', 'CAP TRIM 56-250PF TOP ADJUST PCB', 1, '0000-00-00 00:00:00', 0, 11.74, 0, 0, '', '\r'),
-(11, 3, 9, 8, 1, 14, 0, 1, '', 0, 'CP-3536NG-ND', 'CONN AUDIO JACK 3.5MM MONO', 500, '0000-00-00 00:00:00', 0, 0.2324, 0, 0, '', '\r'),
-(12, 1, 0, 9, 1, 15, 0, 1, '', 0, 'SCC:20000002', 'PCB,AIRCRAFT WIRELESS', 1, '0000-00-00 00:00:00', 0, 354.1, 0, 0, '', '\r'),
-(13, 7, 10, 10, 1, 16, 0, 1, '', 0, '36F779', 'BELDEN - 8085 - Hook-Up Wire', 1, '0000-00-00 00:00:00', 0, 154.83, 0, 0, '', '\r'),
-(14, 2, 0, 0, 1, 17, 0, 1, '', 0, 'R-025400-61', 'FERRITE ROD 1/4-INCH X 4IN MATL=61', 1, '0000-00-00 00:00:00', 0, 6, 0, 0, '', '\r'),
-(15, 3, 11, 11, 1, 18, 0, 1, '', 0, '3M35-BL-ND', 'TAPE ELECTRICAL VINYL 3/4" BLUE', 1, '0000-00-00 00:00:00', 0, 5.62, 0, 0, '', '\r'),
-(16, 12, 0, 0, 1, 21, 0, 1, '', 0, 'S-463', '5 x 4 x 2" Indestructo Mailers', 100, '0000-00-00 00:00:00', 0, 50, 0, 0, '', '\r'),
-(17, 11, 0, 0, 1, 20, 0, 1, '', 0, 'SCC:10000001', 'ENCL,AIRCRAFT WIRELESS', 1, '0000-00-00 00:00:00', 0, 5, 0, 0, '', '\r'),
-(18, 3, 12, 13, 1, 22, 0, 1, '', 0, '1590TBK-ND', 'BOX ALUM BLACK 4.74X3.13X2.17"', 1, '0000-00-00 00:00:00', 0, 14.9, 0, 0, '', '\r'),
-(19, 3, 13, 15, 1, 23, 0, 1, '', 0, 'A27230-ND', 'CONN RING 16-22 AWG #4 RED PIDG', 1, '0000-00-00 00:00:00', 0, 6.21, 0, 0, '', '\r'),
-(20, 3, 14, 1, 1, 24, 0, 1, '', 0, 'C2065G-100-ND', 'GREEN STRANDED-HOOKUP WIRE-16AWG', 1, '0000-00-00 00:00:00', 0, 35.5, 0, 0, '', '\r'),
-(21, 3, 15, 1, 1, 25, 0, 1, '', 0, 'C2065Y-100-ND', 'HOOK-UP WIRE YEL STRANDED 16 AWG', 1, '0000-00-00 00:00:00', 0, 35.5, 0, 0, '', '\r'),
-(22, 3, 16, 12, 1, 26, 0, 1, '', 0, 'H236-ND', 'WASHER LOCK INT TOOTH #4 ZINC', 1, '0000-00-00 00:00:00', 0, 0.97, 0, 0, '', '\r'),
-(23, 3, 17, 14, 1, 27, 0, 1, '', 0, '8440EK-ND', 'STDOFF HEX FLA-RET 4-40 .750"L', 10, '0000-00-00 00:00:00', 0, 1.016, 0, 0, '', '\r'),
-(24, 3, 18, 12, 1, 28, 0, 1, '', 0, 'H703-ND', 'SCREW MACHINE PHIL 4-40X1/4 SS', 100, '0000-00-00 00:00:00', 0, 4.13, 0, 0, '', '\r'),
-(25, 3, 19, 15, 1, 29, 0, 1, '', 0, '5205820-3-ND', 'CONN HARDWARE FLAT WASHER 4-40', 100, '0000-00-00 00:00:00', 0, 0.0125, 0, 0, '', '\r'),
-(26, 3, 20, 17, 1, 30, 0, 1, '', 0, 'J371-ND', 'POST BINDING BANANA INSULATED GR', 1, '0000-00-00 00:00:00', 0, 2.59, 0, 0, '', '\r'),
-(27, 3, 21, 17, 1, 31, 0, 1, '', 0, 'J372-ND', 'POST BINDING BANANA INSULATED YE', 1, '0000-00-00 00:00:00', 0, 2.4, 0, 0, '', '\r'),
-(28, 3, 22, 14, 1, 32, 0, 1, '', 0, '2203K-ND', 'STANDOFF HEX 4-40THR ALUM .500"L', 10, '0000-00-00 00:00:00', 0, 0.419, 0, 0, '', '\r');
+(1, 3, 1, 1, 23, 4, 0, 1, '', 0, 'C2119W-100-ND', 'WHITE 18AWG HOOKUP WIRE SOLID', 1, '0000-00-00 00:00:00', 0, 23.42, 0, 0, '', ''),
+(2, 5, 0, 0, 1, 5, 0, 1, '', 0, 'LB25C', 'Crystal Earpiece, Hi-z, 1m lead, 3.5mm plug', 1, '0000-00-00 00:00:00', 0, 3.3432, 0, 0, '', ''),
+(3, 9, 0, 0, 1, 2, 0, 1, '', 0, 'SCC:20000003', 'PCA,AIRCRAFT WIRELESS', 10, '0000-00-00 00:00:00', 0, 5, 0, 0, '', ''),
+(4, 3, 2, 2, 1, 7, 0, 1, '', 0, '5063JD5M600F12AF5-ND', 'RES 5.60MEG OHM MTLFLM.40W 1% TR', 5000, '0000-00-00 00:00:00', 0, 0.075, 0, 0, '', ''),
+(5, 3, 3, 2, 1, 8, 0, 1, '', 0, 'BC2.00MXTR-ND', 'RES 2.00M OHM MTL FILM .40W 1% T', 5000, '0000-00-00 00:00:00', 0, 0.06188, 0, 0, '', ''),
+(6, 3, 4, 3, 1, 9, 0, 1, '', 0, '399-4233-ND', 'CAP 3300PF 100V 10% CER RADIAL', 5000, '0000-00-00 00:00:00', 0, 0.05148, 0, 0, '', ''),
+(7, 3, 5, 4, 1, 10, 0, 1, '', 0, 'SR151A330KAA-ND', 'CAP CER 33PF 100V 10% NP0 RADIAL', 1000, '0000-00-00 00:00:00', 0, 0.11375, 0, 0, '', ''),
+(8, 3, 6, 5, 1, 11, 0, 1, '', 0, 'P965-ND', 'CAP ELECT 10UF 16V KK RADIAL', 1000, '0000-00-00 00:00:00', 0, 0.059, 0, 0, '', ''),
+(9, 7, 7, 6, 1, 12, 0, 1, '', 0, '97K6768', 'SEMELAB - OA95/05 - DIODE, GERMANIUM, DO-7', 1000, '0000-00-00 00:00:00', 0, 0.567, 0, 0, '', ''),
+(10, 3, 8, 7, 1, 13, 0, 1, '', 0, 'GMC30600-ND', 'CAP TRIM 56-250PF TOP ADJUST PCB', 1, '0000-00-00 00:00:00', 0, 11.74, 0, 0, '', ''),
+(11, 3, 9, 8, 1, 14, 0, 1, '', 0, 'CP-3536NG-ND', 'CONN AUDIO JACK 3.5MM MONO', 500, '0000-00-00 00:00:00', 0, 0.2324, 0, 0, '', ''),
+(12, 1, 0, 9, 1, 15, 0, 1, '', 0, 'SCC:20000002', 'PCB,AIRCRAFT WIRELESS', 1, '0000-00-00 00:00:00', 0, 354.1, 0, 0, '', ''),
+(13, 7, 10, 10, 1, 16, 0, 1, '', 0, '36F779', 'BELDEN - 8085 - Hook-Up Wire', 1, '0000-00-00 00:00:00', 0, 154.83, 0, 0, '', ''),
+(14, 2, 0, 0, 1, 17, 0, 1, '', 0, 'R-025400-61', 'FERRITE ROD 1/4-INCH X 4IN MATL=61', 1, '0000-00-00 00:00:00', 0, 6, 0, 0, '', ''),
+(15, 3, 11, 11, 1, 18, 0, 1, '', 0, '3M35-BL-ND', 'TAPE ELECTRICAL VINYL 3/4" BLUE', 1, '0000-00-00 00:00:00', 0, 5.62, 0, 0, '', ''),
+(16, 12, 0, 0, 1, 21, 0, 1, '', 0, 'S-463', '5 x 4 x 2" Indestructo Mailers', 100, '0000-00-00 00:00:00', 0, 50, 0, 0, '', ''),
+(17, 11, 0, 0, 1, 20, 0, 1, '', 0, 'SCC:10000001', 'ENCL,AIRCRAFT WIRELESS', 1, '0000-00-00 00:00:00', 0, 5, 0, 0, '', ''),
+(18, 3, 12, 13, 1, 22, 0, 1, '', 0, '1590TBK-ND', 'BOX ALUM BLACK 4.74X3.13X2.17"', 1, '0000-00-00 00:00:00', 0, 14.9, 0, 0, '', ''),
+(19, 3, 13, 15, 1, 23, 0, 1, '', 0, 'A27230-ND', 'CONN RING 16-22 AWG #4 RED PIDG', 1, '0000-00-00 00:00:00', 0, 6.21, 0, 0, '', ''),
+(20, 3, 14, 1, 1, 24, 0, 1, '', 0, 'C2065G-100-ND', 'GREEN STRANDED-HOOKUP WIRE-16AWG', 1, '0000-00-00 00:00:00', 0, 35.5, 0, 0, '', ''),
+(21, 3, 15, 1, 1, 25, 0, 1, '', 0, 'C2065Y-100-ND', 'HOOK-UP WIRE YEL STRANDED 16 AWG', 1, '0000-00-00 00:00:00', 0, 35.5, 0, 0, '', ''),
+(22, 3, 16, 12, 1, 26, 0, 1, '', 0, 'H236-ND', 'WASHER LOCK INT TOOTH #4 ZINC', 1, '0000-00-00 00:00:00', 0, 0.97, 0, 0, '', ''),
+(23, 3, 17, 14, 1, 27, 0, 1, '', 0, '8440EK-ND', 'STDOFF HEX FLA-RET 4-40 .750"L', 10, '0000-00-00 00:00:00', 0, 1.016, 0, 0, '', ''),
+(24, 3, 18, 12, 1, 28, 0, 1, '', 0, 'H703-ND', 'SCREW MACHINE PHIL 4-40X1/4 SS', 100, '0000-00-00 00:00:00', 0, 4.13, 0, 0, '', ''),
+(25, 3, 19, 15, 1, 29, 0, 1, '', 0, '5205820-3-ND', 'CONN HARDWARE FLAT WASHER 4-40', 100, '0000-00-00 00:00:00', 0, 0.0125, 0, 0, '', ''),
+(26, 3, 20, 17, 1, 30, 0, 1, '', 0, 'J371-ND', 'POST BINDING BANANA INSULATED GR', 1, '0000-00-00 00:00:00', 0, 2.59, 0, 0, '', ''),
+(27, 3, 21, 17, 1, 31, 0, 1, '', 0, 'J372-ND', 'POST BINDING BANANA INSULATED YE', 1, '0000-00-00 00:00:00', 0, 2.4, 0, 0, '', ''),
+(28, 3, 22, 14, 1, 32, 0, 1, '', 0, '2203K-ND', 'STANDOFF HEX 4-40THR ALUM .500"L', 10, '0000-00-00 00:00:00', 0, 0.419, 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -644,14 +652,35 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_mfrpn` (
   `MFRPNMFRID` int(11) DEFAULT '0',
   `MFRPNPart` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `tbl_pv_mfrpn`
 --
 
 INSERT INTO `tbl_pv_mfrpn` (`id`, `MFRPNMFRID`, `MFRPNPart`) VALUES
-(1, 1, '"C2119A-12-02"\r\n2,2,"MBA02040C5604FRP00"\r\n3,2,"MBA');
+(1, 1, 'C2119A-12-02'),
+(2, 2, 'MBA02040C5604FRP00'),
+(3, 2, 'MBA02040C2004FRP00'),
+(4, 3, 'C317C332K1R5TA'),
+(5, 4, 'SR151A330KAA'),
+(6, 5, 'ECE-A1CKK100'),
+(7, 6, 'OA95/05'),
+(8, 7, 'GM-C-3-06-00'),
+(9, 8, 'MJ-3536NG'),
+(10, 10, '8085'),
+(11, 11, '35 BLUE (3/4"X66'')'),
+(12, 13, '1590TBK'),
+(13, 15, '330648'),
+(14, 1, 'C2065A.12.06'),
+(15, 1, 'C2065A.12.05'),
+(16, 12, 'INT LWZ 004'),
+(17, 14, '8440E'),
+(18, 12, 'PMSSS 440 0025 PH'),
+(19, 15, '5205820-3'),
+(20, 17, '111-0104-001'),
+(21, 17, '111-0107-001'),
+(22, 14, '2203K-ND');
 
 -- --------------------------------------------------------
 
@@ -677,8 +706,8 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_org` (
 --
 
 INSERT INTO `tbl_pv_org` (`id`, `ORGKey`, `ORGName`, `ORGAddress`, `ORGPhone`, `ORGFaax`, `ORGPOUseShpgAddr`, `ORGRFQUseShpgAddr`, `ORGListOrder`) VALUES
-(1, 'Billing', 'Swift Construction Company', '1 Swift Way\r\nShopton, NY 13054, USA', '1-315-123-4567', '1-315-123-4568', 0, 0, 0),
-(6, 'Shipping', '', 'Swift Construction Company\r\n1 Swift Way\r\nShopton, NY 13054, USA', '', '', 1, 1, 1);
+(1, 'Billing', 'Swift Construction Company', '1 Swift Way\nShopton, NY 13054, USA', '1-315-123-4567', '1-315-123-4568', 0, 0, 0),
+(6, 'Shipping', '', 'Swift Construction Company\n1 Swift Way\nShopton, NY 13054, USA', '', '', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1028,14 +1057,16 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_ship` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `SHIPMethod` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `tbl_pv_ship`
 --
 
 INSERT INTO `tbl_pv_ship` (`id`, `SHIPMethod`) VALUES
-(1, '"FEDX Overnight"\r\n2,"FEDX Economy"\r\n3,"UPS"\r\n');
+(1, 'FEDX Overnight'),
+(2, 'FEDX Economy'),
+(3, 'UPS');
 
 -- --------------------------------------------------------
 
@@ -1130,14 +1161,19 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `TYPEType` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `tbl_pv_type`
 --
 
 INSERT INTO `tbl_pv_type` (`id`, `TYPEType`) VALUES
-(1, '"AW"\r\n');
+(1, 'AW'),
+(2, 'DOC'),
+(3, 'DWG'),
+(4, 'PL'),
+(5, 'PS'),
+(6, 'CAT');
 
 -- --------------------------------------------------------
 
@@ -1178,17 +1214,17 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_location` (
   `sublocation_min` int(11) DEFAULT NULL,
   `sublocation_max` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `tbl_stock_location`
 --
 
 INSERT INTO `tbl_stock_location` (`id`, `name`, `use_sublocation`, `sublocation_min`, `sublocation_max`) VALUES
-(1, 'active parts', 1, 1, 100),
-(2, 'passive parts', 1, 1, 100),
-(3, 'stock room 1', 1, 1, 10),
-(4, 'stock room 2', 0, 0, 0);
+(8, 'active parts', 1, 1, 100),
+(9, 'passive parts', 1, 1, 100),
+(10, 'stock room 1', 1, 1, 10),
+(11, 'stock room 2', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1206,32 +1242,32 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_serial` (
   `part_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_stock_serial_to_part` (`part_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
 
 --
 -- Dumping data for table `tbl_stock_serial`
 --
 
 INSERT INTO `tbl_stock_serial` (`id`, `serial_number`, `part_number`, `description`, `version`, `status`, `part_id`) VALUES
-(1, 'AW123456', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(2, 'AW123457', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(3, 'AW123458', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(4, 'AW123459', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(5, 'AD123459', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(6, 'AW123460', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(7, 'AW123461', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(8, 'AW123462', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(9, 'AW123463', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(10, 'AW123460', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(11, 'AW123464', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(12, 'AW123465', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(13, 'AW123466', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(14, 'AW123467', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(15, 'AW123461', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(16, 'AW123468', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(17, 'AW123469', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(18, 'AW123470', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(19, 'AW123471', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL);
+(32, 'AW123456', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(33, 'AW123457', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(34, 'AW123458', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(35, 'AW123459', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(36, 'AD123459', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(37, 'AW123460', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(38, 'AW123461', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(39, 'AW123462', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(40, 'AW123463', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(41, 'AW123460', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(42, 'AW123464', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(43, 'AW123465', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(44, 'AW123466', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(45, 'AW123467', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(46, 'AW123461', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(47, 'AW123468', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(48, 'AW123469', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(49, 'AW123470', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(50, 'AW123471', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL);
 
 --
 -- Constraints for dumped tables
@@ -1283,7 +1319,4 @@ ALTER TABLE `tbl_pv_pn`
 --
 ALTER TABLE `tbl_stock_serial`
   ADD CONSTRAINT `fk_stock_serial_to_part` FOREIGN KEY (`part_id`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS=1;

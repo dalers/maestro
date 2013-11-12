@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Load demo data in CSV-format
+# Load current data from csv on Windows system
 # - use on Windows dev system, execute from maestro/protected/data/
 # - first confirms csv files have correct EOL marker for import on
 #   windows system
@@ -16,7 +16,7 @@ echo
 echo "Ensure expected EOL in CSV files..."
 unix2dos ./csv/issue.csv
 unix2dos ./csv/person.csv
-dos2unix ./csv/project.csv
+unix2dos ./csv/project.csv
 unix2dos ./csv/stock_serial.csv
 unix2dos ./csv/stock_location.csv
 
@@ -55,7 +55,7 @@ mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./drop_and_create_t
 echo ""
 
 echo "Loading CSV files..."
-mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo_csv_win.sql
+mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_current_win.sql
 echo ""
 
 echo "Done!"
