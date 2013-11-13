@@ -68,6 +68,7 @@ $this->menu=array(
 		'PNLastRollupCost',
 		'PNUSRID',
 		'PNUserLock',
+		'type_id',
 		'stock_location_id',
 		'requester_id',
 		'create_time',

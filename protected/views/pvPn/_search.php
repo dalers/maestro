@@ -247,6 +247,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'stock_location_id'); ?>
 		<?php echo $form->textField($model,'stock_location_id'); ?>
 	</div>

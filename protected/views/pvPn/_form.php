@@ -296,6 +296,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id'); ?>
+		<?php echo $form->error($model,'type_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'stock_location_id'); ?>
 		<?php echo $form->textField($model,'stock_location_id'); ?>
 		<?php echo $form->error($model,'stock_location_id'); ?>

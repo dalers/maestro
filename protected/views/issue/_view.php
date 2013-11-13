@@ -50,16 +50,16 @@
 	<?php echo CHtml::encode($data->type_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status_id')); ?>:</b>
+	<?php echo CHtml::encode($data->status_id); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('part_id')); ?>:</b>
 	<?php echo CHtml::encode($data->part_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('stock_serial_id')); ?>:</b>
 	<?php echo CHtml::encode($data->stock_serial_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status_id')); ?>:</b>
-	<?php echo CHtml::encode($data->status_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('owner_id')); ?>:</b>

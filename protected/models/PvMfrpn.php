@@ -7,6 +7,11 @@
  * @property integer $id
  * @property integer $MFRPNMFRID
  * @property string $MFRPNPart
+ *
+ * The followings are the available model relations:
+ * @property PvLnk[] $pvLnks
+ * @property PvMfr $mFRPNMFR
+ * @property PvPl[] $pvPls
  */
 class PvMfrpn extends CActiveRecord
 {
@@ -42,6 +47,9 @@ class PvMfrpn extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pvLnks' => array(self::HAS_MANY, 'PvLnk', 'LNKMFRPNID'),
+			'mFRPNMFR' => array(self::BELONGS_TO, 'PvMfr', 'MFRPNMFRID'),
+			'pvPls' => array(self::HAS_MANY, 'PvPl', 'PLMFRPNID'),
 		);
 	}
 

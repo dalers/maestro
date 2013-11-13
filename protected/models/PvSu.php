@@ -29,6 +29,11 @@
  * @property integer $SUCURID
  * @property integer $SUCurReverse
  * @property integer $SUNoPhonePrefix
+ *
+ * The followings are the available model relations:
+ * @property PvLnk[] $pvLnks
+ * @property PvPl[] $pvPls
+ * @property PvCur $sUCUR
  */
 class PvSu extends CActiveRecord
 {
@@ -69,6 +74,9 @@ class PvSu extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pvLnks' => array(self::HAS_MANY, 'PvLnk', 'LNKSUID'),
+			'pvPls' => array(self::HAS_MANY, 'PvPl', 'PLSUID'),
+			'sUCUR' => array(self::BELONGS_TO, 'PvCur', 'SUCURID'),
 		);
 	}
 

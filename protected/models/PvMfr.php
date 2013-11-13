@@ -19,6 +19,12 @@
  * @property string $MFREMail1
  * @property string $MFREMail2
  * @property integer $MFRNoPhonePrefix
+ *
+ * The followings are the available model relations:
+ * @property PvLin[] $pvLins
+ * @property PvLnk[] $pvLnks
+ * @property PvMfrpn[] $pvMfrpns
+ * @property PvPl[] $pvPls
  */
 class PvMfr extends CActiveRecord
 {
@@ -58,6 +64,10 @@ class PvMfr extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pvLins' => array(self::HAS_MANY, 'PvLin', 'LINMFRID'),
+			'pvLnks' => array(self::HAS_MANY, 'PvLnk', 'LNKMFRID'),
+			'pvMfrpns' => array(self::HAS_MANY, 'PvMfrpn', 'MFRPNMFRID'),
+			'pvPls' => array(self::HAS_MANY, 'PvPl', 'PLMFRID'),
 		);
 	}
 

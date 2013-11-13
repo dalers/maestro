@@ -19,8 +19,12 @@
  * @property integer $PLLNKID
  *
  * The followings are the available model relations:
+ * @property PvLnk $pLLNK
+ * @property PvMfr $pLMFR
+ * @property PvMfrpn $pLMFRPN
  * @property PvPn $pLPart
  * @property PvPn $pLList
+ * @property PvSu $pLSU
  */
 class PvPl extends CActiveRecord
 {
@@ -59,8 +63,12 @@ class PvPl extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pLLNK' => array(self::BELONGS_TO, 'PvLnk', 'PLLNKID'),
+			'pLMFR' => array(self::BELONGS_TO, 'PvMfr', 'PLMFRID'),
+			'pLMFRPN' => array(self::BELONGS_TO, 'PvMfrpn', 'PLMFRPNID'),
 			'pLPart' => array(self::BELONGS_TO, 'PvPn', 'PLPartID'),
 			'pLList' => array(self::BELONGS_TO, 'PvPn', 'PLListID'),
+			'pLSU' => array(self::BELONGS_TO, 'PvSu', 'PLSUID'),
 		);
 	}
 

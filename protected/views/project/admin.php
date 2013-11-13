@@ -1,15 +1,15 @@
 <?php
-/* @var $this PvPnController */
-/* @var $model PvPn */
+/* @var $this ProjectController */
+/* @var $model Project */
 
 $this->breadcrumbs=array(
-	'Pv Pns'=>array('index'),
+	'Projects'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List PvPn', 'url'=>array('index')),
-	array('label'=>'Create PvPn', 'url'=>array('create')),
+	array('label'=>'List Project', 'url'=>array('index')),
+	array('label'=>'Create Project', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +18,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#pv-pn-grid').yiiGridView('update', {
+	$('#project-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Pv Pns</h1>
+<h1>Manage Projects</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -41,61 +41,23 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'pv-pn-grid',
+	'id'=>'project-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'PNIDToLNK',
-		'PNUNID',
-		'PNTabParentID',
-		'PNPrefix',
-		'PNPartNumber',
+		'acct1',
+		'acct2',
+		'acct3',
+		'acct4',
+		'name',
 		/*
-		'PNSuffix',
-		'PNType',
-		'PNRevision',
-		'PNTitle',
-		'PNDetail',
-		'PNStatus',
-		'PNReqBy',
-		'PNNotes',
-		'PNUser1',
-		'PNUser2',
-		'PNUser3',
-		'PNUser4',
-		'PNUser5',
-		'PNUser6',
-		'PNUser7',
-		'PNUser8',
-		'PNUser9',
-		'PNUser10',
-		'PNDate',
-		'PNTab',
-		'PNControlled',
-		'PNAux1',
-		'PNQty',
-		'PNQty2',
-		'PNCostChanged',
-		'PNParentCost',
-		'PNExpandList',
-		'PNAssyCostOption',
-		'PNInclAssyOnPurchList',
-		'PNMadeFrom',
-		'PNMinStockQty',
-		'PNOrderToMaintain',
-		'PNOnECO',
-		'PNOverKit',
-		'PNOverKitQty',
-		'PNOverKitBy',
-		'PNOverKitFor',
-		'PNCurrentCost',
-		'PNLastRollupCost',
-		'PNUSRID',
-		'PNUserLock',
-		'type_id',
-		'stock_location_id',
-		'requester_id',
+		'client',
+		'description',
+		'type',
+		'status',
+		'milestone',
+		'milestone_date',
 		'create_time',
 		'create_user_id',
 		'update_time',

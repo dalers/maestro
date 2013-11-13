@@ -7,6 +7,11 @@
  * @property integer $id
  * @property integer $LINSUID
  * @property integer $LINMFRID
+ *
+ * The followings are the available model relations:
+ * @property PvMfr $lINMFR
+ * @property PvLin $lINSU
+ * @property PvLin[] $pvLins
  */
 class PvLin extends CActiveRecord
 {
@@ -41,6 +46,9 @@ class PvLin extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'lINMFR' => array(self::BELONGS_TO, 'PvMfr', 'LINMFRID'),
+			'lINSU' => array(self::BELONGS_TO, 'PvLin', 'LINSUID'),
+			'pvLins' => array(self::HAS_MANY, 'PvLin', 'LINSUID'),
 		);
 	}
 

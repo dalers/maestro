@@ -15,9 +15,9 @@
  * @property string $status
  * @property integer $project_id
  * @property integer $type_id
+ * @property integer $status_id
  * @property integer $part_id
  * @property integer $stock_serial_id
- * @property integer $status_id
  * @property integer $owner_id
  * @property integer $requester_id
  * @property string $create_time
@@ -53,12 +53,12 @@ class Issue extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('project_id, type_id, part_id, stock_serial_id, status_id, owner_id, requester_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('project_id, type_id, status_id, part_id, stock_serial_id, owner_id, requester_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('number, name, project, type, corrective_action, cost, status', 'length', 'max'=>255),
 			array('description, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, number, name, description, project, type, corrective_action, cost, status, project_id, type_id, part_id, stock_serial_id, status_id, owner_id, requester_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, number, name, description, project, type, corrective_action, cost, status, project_id, type_id, status_id, part_id, stock_serial_id, owner_id, requester_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,9 +97,9 @@ class Issue extends CActiveRecord
 			'status' => 'Status',
 			'project_id' => 'Project',
 			'type_id' => 'Type',
+			'status_id' => 'Status',
 			'part_id' => 'Part',
 			'stock_serial_id' => 'Stock Serial',
-			'status_id' => 'Status',
 			'owner_id' => 'Owner',
 			'requester_id' => 'Requester',
 			'create_time' => 'Create Time',
@@ -138,9 +138,9 @@ class Issue extends CActiveRecord
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('type_id',$this->type_id);
+		$criteria->compare('status_id',$this->status_id);
 		$criteria->compare('part_id',$this->part_id);
 		$criteria->compare('stock_serial_id',$this->stock_serial_id);
-		$criteria->compare('status_id',$this->status_id);
 		$criteria->compare('owner_id',$this->owner_id);
 		$criteria->compare('requester_id',$this->requester_id);
 		$criteria->compare('create_time',$this->create_time,true);

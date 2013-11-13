@@ -194,6 +194,10 @@
 	<?php echo CHtml::encode($data->PNUserLock); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->type_id); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('stock_location_id')); ?>:</b>
 	<?php echo CHtml::encode($data->stock_location_id); ?>
 	<br />

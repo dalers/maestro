@@ -80,6 +80,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->error($model,'status_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'part_id'); ?>
 		<?php echo $form->textField($model,'part_id'); ?>
 		<?php echo $form->error($model,'part_id'); ?>
@@ -89,12 +95,6 @@
 		<?php echo $form->labelEx($model,'stock_serial_id'); ?>
 		<?php echo $form->textField($model,'stock_serial_id'); ?>
 		<?php echo $form->error($model,'stock_serial_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'status_id'); ?>
-		<?php echo $form->textField($model,'status_id'); ?>
-		<?php echo $form->error($model,'status_id'); ?>
 	</div>
 
 	<div class="row">

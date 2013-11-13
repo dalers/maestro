@@ -24,6 +24,14 @@
  * @property integer $LNKRoHS
  * @property string $LNKRoHSDoc
  * @property string $LNKRoHSNote
+ *
+ * The followings are the available model relations:
+ * @property PvPn $lNKPN
+ * @property PvMfr $lNKMFR
+ * @property PvMfrpn $lNKMFRPN
+ * @property PvSu $lNKSU
+ * @property PvUn $lNKUN
+ * @property PvPl[] $pvPls
  */
 class PvLnk extends CActiveRecord
 {
@@ -63,6 +71,12 @@ class PvLnk extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'lNKPN' => array(self::BELONGS_TO, 'PvPn', 'LNKPNID'),
+			'lNKMFR' => array(self::BELONGS_TO, 'PvMfr', 'LNKMFRID'),
+			'lNKMFRPN' => array(self::BELONGS_TO, 'PvMfrpn', 'LNKMFRPNID'),
+			'lNKSU' => array(self::BELONGS_TO, 'PvSu', 'LNKSUID'),
+			'lNKUN' => array(self::BELONGS_TO, 'PvUn', 'LNKUNID'),
+			'pvPls' => array(self::HAS_MANY, 'PvPl', 'PLLNKID'),
 		);
 	}
 

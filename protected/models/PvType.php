@@ -6,6 +6,9 @@
  * The followings are the available columns in table 'tbl_pv_type':
  * @property integer $id
  * @property string $TYPEType
+ *
+ * The followings are the available model relations:
+ * @property PvPn[] $pvPns
  */
 class PvType extends CActiveRecord
 {
@@ -40,6 +43,7 @@ class PvType extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pvPns' => array(self::HAS_MANY, 'PvPn', 'type_id'),
 		);
 	}
 

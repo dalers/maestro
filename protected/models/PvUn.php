@@ -8,6 +8,10 @@
  * @property string $UNUseUnits
  * @property string $UNPurchUnits
  * @property double $UNConvUnits
+ *
+ * The followings are the available model relations:
+ * @property PvLnk[] $pvLnks
+ * @property PvPn[] $pvPns
  */
 class PvUn extends CActiveRecord
 {
@@ -44,6 +48,8 @@ class PvUn extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pvLnks' => array(self::HAS_MANY, 'PvLnk', 'LNKUNID'),
+			'pvPns' => array(self::HAS_MANY, 'PvPn', 'PNUNID'),
 		);
 	}
 
