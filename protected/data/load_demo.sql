@@ -10,7 +10,7 @@ use maestro;
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2013 at 07:53 AM
+-- Generation Time: Nov 13, 2013 at 04:16 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `tbl_issue`
 --
 
+DROP TABLE IF EXISTS `tbl_issue`;
 CREATE TABLE IF NOT EXISTS `tbl_issue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` varchar(255) DEFAULT NULL,
@@ -40,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `tbl_issue` (
   `status` varchar(255) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   `type_id` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
   `part_id` int(11) DEFAULT NULL,
   `stock_serial_id` int(11) DEFAULT NULL,
-  `status_id` int(11) DEFAULT NULL,
   `owner_id` int(11) DEFAULT NULL,
   `requester_id` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -57,15 +58,33 @@ CREATE TABLE IF NOT EXISTS `tbl_issue` (
   KEY `fk_issue_to_requester` (`requester_id`),
   KEY `fk_issue_to_create_user` (`create_user_id`),
   KEY `fk_issue_to_update_user` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_issue`:
+--   `update_user_id`
+--       `tbl_person` -> `id`
+--   `create_user_id`
+--       `tbl_person` -> `id`
+--   `owner_id`
+--       `tbl_person` -> `id`
+--   `part_id`
+--       `tbl_pv_pn` -> `id`
+--   `project_id`
+--       `tbl_project` -> `id`
+--   `requester_id`
+--       `tbl_person` -> `id`
+--   `stock_serial_id`
+--       `tbl_stock_serial` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_issue`
 --
 
-INSERT INTO `tbl_issue` (`id`, `number`, `name`, `description`, `project`, `type`, `corrective_action`, `cost`, `status`, `project_id`, `type_id`, `part_id`, `stock_serial_id`, `status_id`, `owner_id`, `requester_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(4, 'IR00001', 'Incorrect PCB layout', 'Connectivity of PCB-type inductor in layout is incorrect.', 'P09-001', 'PCB', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-01-10 00:00:00', NULL, NULL, NULL),
-(5, 'IR00002', 'Difficult assembly procedure', 'Difficult to assemble and test PCA due to copper-side-up orientation. Orienting PCA component-side up allows for full access to components for debugging after assembly.', 'P09-001', 'ASSY', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-24 00:00:00', NULL, NULL, NULL);
+INSERT INTO `tbl_issue` (`id`, `number`, `name`, `description`, `project`, `type`, `corrective_action`, `cost`, `status`, `project_id`, `type_id`, `status_id`, `part_id`, `stock_serial_id`, `owner_id`, `requester_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
+(1, 'IR00001', 'Incorrect PCB layout', 'Connectivity of PCB-type inductor in layout is incorrect.', 'P09-001', 'PCB', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-01-10 00:00:00', NULL, NULL, NULL),
+(2, 'IR00002', 'Difficult assembly procedure', 'Difficult to assemble and test PCA due to copper-side-up orientation. Orienting PCA component-side up allows for full access to components for debugging after assembly.', 'P09-001', 'ASSY', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-24 00:00:00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -73,6 +92,7 @@ INSERT INTO `tbl_issue` (`id`, `number`, `name`, `description`, `project`, `type
 -- Table structure for table `tbl_person`
 --
 
+DROP TABLE IF EXISTS `tbl_person`;
 CREATE TABLE IF NOT EXISTS `tbl_person` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
@@ -90,35 +110,35 @@ CREATE TABLE IF NOT EXISTS `tbl_person` (
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `tbl_person`
 --
 
 INSERT INTO `tbl_person` (`id`, `username`, `status`, `password`, `email`, `nick`, `lname`, `fname`, `initial`, `profile`, `last_login_time`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(32, 'bjenks', 1, 'appleton', 'bjenks@firefly.scc.loc', 'BJ', 'Jenks', 'Barcoe', 'JB', 2, NULL, NULL, NULL, NULL, NULL),
-(33, 'bswift', 1, 'appleton', 'bswift@firefly.scc.loc', 'BS', 'Swift', 'Barton', 'SB', 1, NULL, NULL, NULL, NULL, NULL),
-(34, 'barmstrong', 1, 'appleton', 'barmstrong@firefly.scc.loc', 'BA', 'Armstrong', 'Bub', 'AB', 2, NULL, NULL, NULL, NULL, NULL),
-(35, 'fmason', 1, 'appleton', 'fmason@firefly.scc.loc', 'FM', 'Mason', 'Frank', 'MF', 2, NULL, NULL, NULL, NULL, NULL),
-(36, 'gjackson', 1, 'appleton', 'gjackson@firefly.scc.loc', 'GJ', 'Jackson', 'Garret', 'JG', 3, NULL, NULL, NULL, NULL, NULL),
-(37, 'hbaldwin', 1, 'appleton', 'hbaldwin@firefly.scc.loc', 'HB', 'Baldwin', 'Hank', 'BH', 1, NULL, NULL, NULL, NULL, NULL),
-(38, 'hrandall', 1, 'appleton', 'hrandall@firefly.scc.loc', 'HR', 'Randall', 'Helen', 'RH', 4, NULL, NULL, NULL, NULL, NULL),
-(39, 'jwood', 1, 'appleton', 'jwood@firefly.scc.loc', 'JW', 'Wood', 'Jacab', 'WJ', 5, NULL, NULL, NULL, NULL, NULL),
-(40, 'jperiod', 1, 'appleton', 'jperiod@firefly.scc.loc', 'JP', 'Period', 'James', 'PJ', 1, NULL, NULL, NULL, NULL, NULL),
-(41, 'jhaddon', 1, 'appleton', 'jhaddon@firefly.scc.loc', 'JH', 'Haddon', 'Jennie', 'HJ', 6, NULL, NULL, NULL, NULL, NULL),
-(42, 'jmorse', 1, 'appleton', 'jmorse@firefly.scc.loc', 'JM', 'Morse', 'Jennie', 'MJ', 4, NULL, NULL, NULL, NULL, NULL),
-(43, 'jsharp', 1, 'appleton', 'jsharp@firefly.scc.loc', 'JS', 'Sharp', 'John', 'SJ', 1, NULL, NULL, NULL, NULL, NULL),
-(44, 'mbaggert', 1, 'appleton', 'mbaggert@firefly.scc.loc', 'MB', 'Baggert', 'Martha', 'BM', 1, NULL, NULL, NULL, NULL, NULL),
-(45, 'mnestor', 1, 'appleton', 'mnestor@firefly.scc.loc', 'MN', 'Nestor', 'Mary', 'NM', 0, NULL, NULL, NULL, NULL, NULL),
-(46, 'mblair', 1, 'appleton', 'mblair@firefly.scc.loc', 'MB', 'Blair', 'Minnie', 'BM', 2, NULL, NULL, NULL, NULL, NULL),
-(47, 'mdelazes', 1, 'appleton', 'mdelazes@firefly.scc.loc', 'MD', 'DeLazes', 'Miquel', 'DM', 7, NULL, NULL, NULL, NULL, NULL),
-(48, 'nnewton', 1, 'appleton', 'nnewton@firefly.scc.loc', 'NN', 'Newton', 'Ned', 'NN', 1, NULL, NULL, NULL, NULL, NULL),
-(49, 'rsampson', 1, 'appleton', 'rsampson@firefly.scc.loc', 'RS', 'Sampson', 'Rad', 'SR', 1, NULL, NULL, NULL, NULL, NULL),
-(50, 'smalloy', 1, 'appleton', 'smalloy@firefly.scc.loc', 'SM', 'Malloy', 'Sarah', 'MS', 6, NULL, NULL, NULL, NULL, NULL),
-(51, 'tswift', 1, 'appleton', 'tswift@firefly.scc.loc', 'TS', 'Swift', 'Tom', 'ST', 1, NULL, NULL, NULL, NULL, NULL),
-(52, 'wdamon', 1, 'appleton', 'wdamon@firefly.scc.loc', 'WD', 'Damon', 'Wakefield', 'DW', 1, NULL, NULL, NULL, NULL, NULL),
-(53, 'wcrawford', 1, 'appleton', 'wcrawford@firefly.scc.loc', 'WC', 'Crawford', 'William', 'CW', 1, NULL, NULL, NULL, NULL, NULL);
+(1, 'bjenks', 1, 'appleton', 'bjenks@firefly.scc.loc', 'BJ', 'Jenks', 'Barcoe', 'BJ', 2, NULL, NULL, NULL, NULL, NULL),
+(2, 'bswift', 1, 'appleton', 'bswift@firefly.scc.loc', 'BS', 'Swift', 'Barton', 'BS', 1, NULL, NULL, NULL, NULL, NULL),
+(3, 'barmstrong', 1, 'appleton', 'barmstrong@firefly.scc.loc', 'BA', 'Armstrong', 'Bub', 'BA', 2, NULL, NULL, NULL, NULL, NULL),
+(4, 'fmason', 1, 'appleton', 'fmason@firefly.scc.loc', 'FM', 'Mason', 'Frank', 'FM', 2, NULL, NULL, NULL, NULL, NULL),
+(5, 'gjackson', 1, 'appleton', 'gjackson@firefly.scc.loc', 'GJ', 'Jackson', 'Garret', 'GJ', 3, NULL, NULL, NULL, NULL, NULL),
+(6, 'hbaldwin', 1, 'appleton', 'hbaldwin@firefly.scc.loc', 'HB', 'Baldwin', 'Hank', 'HB', 1, NULL, NULL, NULL, NULL, NULL),
+(7, 'hrandall', 1, 'appleton', 'hrandall@firefly.scc.loc', 'HR', 'Randall', 'Helen', 'HR', 4, NULL, NULL, NULL, NULL, NULL),
+(8, 'jwood', 1, 'appleton', 'jwood@firefly.scc.loc', 'JW', 'Wood', 'Jacab', 'JW', 5, NULL, NULL, NULL, NULL, NULL),
+(9, 'jperiod', 1, 'appleton', 'jperiod@firefly.scc.loc', 'JP', 'Period', 'James', 'JP', 1, NULL, NULL, NULL, NULL, NULL),
+(10, 'jhaddon', 1, 'appleton', 'jhaddon@firefly.scc.loc', 'JH', 'Haddon', 'Jennie', 'JH', 6, NULL, NULL, NULL, NULL, NULL),
+(11, 'jmorse', 1, 'appleton', 'jmorse@firefly.scc.loc', 'JM', 'Morse', 'Jennie', 'JM', 4, NULL, NULL, NULL, NULL, NULL),
+(12, 'jsharp', 1, 'appleton', 'jsharp@firefly.scc.loc', 'JS', 'Sharp', 'John', 'JS', 1, NULL, NULL, NULL, NULL, NULL),
+(13, 'mbaggert', 1, 'appleton', 'mbaggert@firefly.scc.loc', 'MB', 'Baggert', 'Martha', 'MB', 1, NULL, NULL, NULL, NULL, NULL),
+(14, 'mnestor', 1, 'appleton', 'mnestor@firefly.scc.loc', 'MN', 'Nestor', 'Mary', 'MN', 0, NULL, NULL, NULL, NULL, NULL),
+(15, 'mblair', 1, 'appleton', 'mblair@firefly.scc.loc', 'MB', 'Blair', 'Minnie', 'MB', 2, NULL, NULL, NULL, NULL, NULL),
+(16, 'mdelazes', 1, 'appleton', 'mdelazes@firefly.scc.loc', 'MD', 'DeLazes', 'Miquel', 'MD', 7, NULL, NULL, NULL, NULL, NULL),
+(17, 'nnewton', 1, 'appleton', 'nnewton@firefly.scc.loc', 'NN', 'Newton', 'Ned', 'NN', 1, NULL, NULL, NULL, NULL, NULL),
+(18, 'rsampson', 1, 'appleton', 'rsampson@firefly.scc.loc', 'RS', 'Sampson', 'Rad', 'RS', 1, NULL, NULL, NULL, NULL, NULL),
+(19, 'smalloy', 1, 'appleton', 'smalloy@firefly.scc.loc', 'SM', 'Malloy', 'Sarah', 'SM', 6, NULL, NULL, NULL, NULL, NULL),
+(20, 'tswift', 1, 'appleton', 'tswift@firefly.scc.loc', 'TS', 'Swift', 'Tom', 'TS', 1, NULL, NULL, NULL, NULL, NULL),
+(21, 'wdamon', 1, 'appleton', 'wdamon@firefly.scc.loc', 'WD', 'Damon', 'Wakefield', 'WD', 1, NULL, NULL, NULL, NULL, NULL),
+(22, 'wcrawford', 1, 'appleton', 'wcrawford@firefly.scc.loc', 'WC', 'Crawford', 'William', 'WC', 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -126,6 +146,7 @@ INSERT INTO `tbl_person` (`id`, `username`, `status`, `password`, `email`, `nick
 -- Table structure for table `tbl_project`
 --
 
+DROP TABLE IF EXISTS `tbl_project`;
 CREATE TABLE IF NOT EXISTS `tbl_project` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `acct1` varchar(255) DEFAULT NULL,
@@ -146,15 +167,23 @@ CREATE TABLE IF NOT EXISTS `tbl_project` (
   PRIMARY KEY (`id`),
   KEY `fk_project_to_create_user` (`create_user_id`),
   KEY `fk_project_to_update_user` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_project`:
+--   `update_user_id`
+--       `tbl_person` -> `id`
+--   `create_user_id`
+--       `tbl_person` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_project`
 --
 
 INSERT INTO `tbl_project` (`id`, `acct1`, `acct2`, `acct3`, `acct4`, `name`, `client`, `description`, `type`, `status`, `milestone`, `milestone_date`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(4, '12345678', '12345679', '12345680', '12345681', 'P09-001', 'Aircraft Wireless', 'Development and air trials', 'R&D', 'ACTIVE', 'PILOT', '2013-02-14 00:00:00', NULL, NULL, NULL, NULL),
-(5, '23456789', '23456790', '23456791', '23456792', 'P09-002', 'Fire-fighting Bombsight', 'Development and air trials', 'R&D', 'HOLD', 'DEFINITION', '2013-03-16 00:00:00', NULL, NULL, NULL, NULL);
+(1, '12345678', '12345679', '12345680', '12345681', 'P09-001', 'Aircraft Wireless', 'Development and air trials', 'R&D', 'ACTIVE', 'PILOT', '2013-02-14 00:00:00', NULL, NULL, NULL, NULL),
+(2, '23456789', '23456790', '23456791', '23456792', 'P09-002', 'Fire-fighting Bombsight', 'Development and air trials', 'R&D', 'HOLD', 'DEFINITION', '2013-03-16 00:00:00', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -162,6 +191,7 @@ INSERT INTO `tbl_project` (`id`, `acct1`, `acct2`, `acct3`, `acct4`, `name`, `cl
 -- Table structure for table `tbl_pv_al`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_al`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_al` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ALPNID` int(11) DEFAULT '0',
@@ -180,6 +210,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_al` (
 -- Table structure for table `tbl_pv_cnv`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_cnv`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_cnv` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `CNVLNKID` int(11) NOT NULL DEFAULT '0',
@@ -192,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_cnv` (
 -- Table structure for table `tbl_pv_cost`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_cost`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_cost` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `COSTLNKID` int(11) NOT NULL,
@@ -241,6 +273,7 @@ INSERT INTO `tbl_pv_cost` (`id`, `COSTLNKID`, `COSTAtQty`, `COSTLeadtime`, `COST
 -- Table structure for table `tbl_pv_cu`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_cu`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_cu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `CUCustomer` varchar(255) DEFAULT NULL,
@@ -280,6 +313,7 @@ INSERT INTO `tbl_pv_cu` (`id`, `CUCustomer`, `CUAddress`, `CUShipAddress`, `CUPh
 -- Table structure for table `tbl_pv_cur`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_cur`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_cur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `CURCurrencyName` varchar(50) DEFAULT NULL,
@@ -303,6 +337,7 @@ INSERT INTO `tbl_pv_cur` (`id`, `CURCurrencyName`, `CURExchangeRate`, `CURCurren
 -- Table structure for table `tbl_pv_fil`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_fil`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_fil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `FILPNID` int(11) DEFAULT '0',
@@ -312,8 +347,14 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_fil` (
   `FILView` tinyint(1) DEFAULT '0',
   `FILNotes` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_pv_fil_pn` (`FILPNID`)
+  KEY `fk_pv_fil_part` (`FILPNID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_fil`:
+--   `FILPNID`
+--       `tbl_pv_pn` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_pv_fil`
@@ -391,6 +432,7 @@ INSERT INTO `tbl_pv_fil` (`id`, `FILPNID`, `FILPNPartNumber`, `FILFilePath`, `FI
 -- Table structure for table `tbl_pv_hist`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_hist`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_hist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `HISTWho` varchar(20) DEFAULT NULL,
@@ -407,6 +449,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_hist` (
 -- Table structure for table `tbl_pv_hpref`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_hpref`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_hpref` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `GPREFKey` varchar(50) NOT NULL,
@@ -449,6 +492,7 @@ INSERT INTO `tbl_pv_hpref` (`id`, `GPREFKey`, `GPREFText1`, `GPREFText2`, `GPREF
 -- Table structure for table `tbl_pv_job`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_job`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_job` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `JOBNumber` varchar(50) DEFAULT NULL,
@@ -485,12 +529,23 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_job` (
 -- Table structure for table `tbl_pv_lin`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_lin`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_lin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `LINSUID` int(11) NOT NULL DEFAULT '0',
   `LINMFRID` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_pv_lin_supplier` (`LINSUID`),
+  KEY `fk_pv_lin_mfr` (`LINMFRID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_lin`:
+--   `LINMFRID`
+--       `tbl_pv_mfr` -> `id`
+--   `LINSUID`
+--       `tbl_pv_lin` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_pv_lin`
@@ -520,6 +575,7 @@ INSERT INTO `tbl_pv_lin` (`id`, `LINSUID`, `LINMFRID`) VALUES
 -- Table structure for table `tbl_pv_lnk`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_lnk`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_lnk` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `LNKSUID` int(11) DEFAULT NULL,
@@ -541,8 +597,27 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_lnk` (
   `LNKRoHS` tinyint(1) DEFAULT '0',
   `LNKRoHSDoc` varchar(50) DEFAULT NULL,
   `LNKRoHSNote` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_pv_lnk_supplier` (`LNKSUID`),
+  KEY `fk_pv_lnk_mfr_part` (`LNKMFRPNID`),
+  KEY `fk_pv_lnk_mfr` (`LNKMFRID`),
+  KEY `fk_pv_lnk_units` (`LNKUNID`),
+  KEY `fk_pv_lnk_part` (`LNKPNID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_lnk`:
+--   `LNKPNID`
+--       `tbl_pv_pn` -> `id`
+--   `LNKMFRID`
+--       `tbl_pv_mfr` -> `id`
+--   `LNKMFRPNID`
+--       `tbl_pv_mfrpn` -> `id`
+--   `LNKSUID`
+--       `tbl_pv_su` -> `id`
+--   `LNKUNID`
+--       `tbl_pv_un` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_pv_lnk`
@@ -584,6 +659,7 @@ INSERT INTO `tbl_pv_lnk` (`id`, `LNKSUID`, `LNKMFRPNID`, `LNKMFRID`, `LNKUNID`, 
 -- Table structure for table `tbl_pv_mf`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_mf`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_mf` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `MFPNIDParent` int(11) DEFAULT '0',
@@ -598,6 +674,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_mf` (
 -- Table structure for table `tbl_pv_mfr`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_mfr`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_mfr` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `MFRMfrName` varchar(50) NOT NULL,
@@ -646,12 +723,20 @@ INSERT INTO `tbl_pv_mfr` (`id`, `MFRMfrName`, `MFRAddress`, `MFRCountry`, `MFRCo
 -- Table structure for table `tbl_pv_mfrpn`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_mfrpn`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_mfrpn` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `MFRPNMFRID` int(11) DEFAULT '0',
   `MFRPNPart` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_pv_mfrpn_mfr` (`MFRPNMFRID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_mfrpn`:
+--   `MFRPNMFRID`
+--       `tbl_pv_mfr` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_pv_mfrpn`
@@ -687,6 +772,7 @@ INSERT INTO `tbl_pv_mfrpn` (`id`, `MFRPNMFRID`, `MFRPNPart`) VALUES
 -- Table structure for table `tbl_pv_org`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_org`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_org` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ORGKey` varchar(20) DEFAULT NULL,
@@ -714,6 +800,7 @@ INSERT INTO `tbl_pv_org` (`id`, `ORGKey`, `ORGName`, `ORGAddress`, `ORGPhone`, `
 -- Table structure for table `tbl_pv_pl`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_pl`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_pl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `PLListID` int(11) NOT NULL DEFAULT '0',
@@ -729,9 +816,29 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pl` (
   `PLSUID` int(11) DEFAULT NULL,
   `PLLNKID` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_pv_pl_pn_1` (`PLListID`),
-  KEY `fk_pv_pl_pn_2` (`PLPartID`)
+  KEY `fk_pv_pl_pn_parent` (`PLListID`),
+  KEY `fk_pv_pl_pn_child` (`PLPartID`),
+  KEY `fk_pv_pl_mfrpn` (`PLMFRPNID`),
+  KEY `fk_pv_pl_mfr` (`PLMFRID`),
+  KEY `fk_pv_pl_su` (`PLSUID`),
+  KEY `fk_pv_pl_lnk` (`PLLNKID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_pl`:
+--   `PLLNKID`
+--       `tbl_pv_lnk` -> `id`
+--   `PLMFRID`
+--       `tbl_pv_mfr` -> `id`
+--   `PLMFRPNID`
+--       `tbl_pv_mfrpn` -> `id`
+--   `PLPartID`
+--       `tbl_pv_pn` -> `id`
+--   `PLListID`
+--       `tbl_pv_pn` -> `id`
+--   `PLSUID`
+--       `tbl_pv_su` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_pv_pl`
@@ -774,6 +881,7 @@ INSERT INTO `tbl_pv_pl` (`id`, `PLListID`, `PLPartID`, `PLItem`, `PLQty`, `PLRef
 -- Table structure for table `tbl_pv_pll`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_pll`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_pll` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `PLLParentListID` int(11) DEFAULT '0',
@@ -801,6 +909,7 @@ INSERT INTO `tbl_pv_pll` (`id`, `PLLParentListID`, `PLLSubListID`, `PLLQty`, `PL
 -- Table structure for table `tbl_pv_pn`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_pn`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_pn` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `PNIDToLNK` int(11) DEFAULT NULL,
@@ -849,6 +958,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pn` (
   `PNLastRollupCost` double DEFAULT '0',
   `PNUSRID` int(11) DEFAULT '0',
   `PNUserLock` tinyint(1) DEFAULT '0',
+  `type_id` int(11) DEFAULT NULL,
   `stock_location_id` int(11) DEFAULT NULL,
   `requester_id` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -856,49 +966,70 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pn` (
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_pv_pn_location` (`stock_location_id`),
+  KEY `fk_pv_pn_units` (`PNUNID`),
+  KEY `fk_pv_pn_tab_parent` (`PNTabParentID`),
+  KEY `fk_pv_pn_type` (`type_id`),
+  KEY `fk_pv_pn_stock_location` (`stock_location_id`),
   KEY `fk_pv_pn_person` (`requester_id`),
   KEY `fk_part_to_create_user` (`create_user_id`),
   KEY `fk_part_to_update_user` (`update_user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 --
+-- RELATIONS FOR TABLE `tbl_pv_pn`:
+--   `update_user_id`
+--       `tbl_person` -> `id`
+--   `create_user_id`
+--       `tbl_person` -> `id`
+--   `requester_id`
+--       `tbl_person` -> `id`
+--   `stock_location_id`
+--       `tbl_stock_location` -> `id`
+--   `PNTabParentID`
+--       `tbl_pv_pn` -> `id`
+--   `type_id`
+--       `tbl_pv_type` -> `id`
+--   `PNUNID`
+--       `tbl_pv_un` -> `id`
+--
+
+--
 -- Dumping data for table `tbl_pv_pn`
 --
 
-INSERT INTO `tbl_pv_pn` (`id`, `PNIDToLNK`, `PNUNID`, `PNTabParentID`, `PNPrefix`, `PNPartNumber`, `PNSuffix`, `PNType`, `PNRevision`, `PNTitle`, `PNDetail`, `PNStatus`, `PNReqBy`, `PNNotes`, `PNUser1`, `PNUser2`, `PNUser3`, `PNUser4`, `PNUser5`, `PNUser6`, `PNUser7`, `PNUser8`, `PNUser9`, `PNUser10`, `PNDate`, `PNTab`, `PNControlled`, `PNAux1`, `PNQty`, `PNQty2`, `PNCostChanged`, `PNParentCost`, `PNExpandList`, `PNAssyCostOption`, `PNInclAssyOnPurchList`, `PNMadeFrom`, `PNMinStockQty`, `PNOrderToMaintain`, `PNOnECO`, `PNOverKit`, `PNOverKitQty`, `PNOverKitBy`, `PNOverKitFor`, `PNCurrentCost`, `PNLastRollupCost`, `PNUSRID`, `PNUserLock`, `stock_location_id`, `requester_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1, 0, 1, 0, '', '20000004', '', 'PL', '3', 'ASSY,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'FIN', '', '', 'FINGOODS', '0002', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 0, 1, 0, '', '20000003', '', 'PL', '2', 'PCA,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'ASSY', '', '', 'ELEC-PCB', '0001', '2005-03-15 00:00:00', 0, 0, '', 4, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 0, 1, 0, '', '20000001', '', 'PL', '0', 'IND,830UH,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'ASSY', '', '', 'ELEC-COMPS', '0010', '2004-12-23 00:00:00', 0, 0, '', 4, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 7.5, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 0, 23, 0, '', '90000013', '', 'PS', '0', 'WIRE,SOLID,18AWG,WHITE,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0001', '2004-12-23 00:00:00', 0, 0, '', 420, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.007684, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 0, 1, 0, '', '90000012', '', 'PS', '0', 'EARPH,MONO,HI-Z,3.5MM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0001', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3.3432, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 0, 1, 0, '', '50000001', '', 'DWG', '1', 'DOC,USER,AIRCRAFT WIRELESS', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'FIN', '', '', 'DOCS', '0001', '2005-02-24 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 0, 1, 0, '', '90000011', '', 'PS', '0', 'RES,AXIAL,5.6M,0.4W,1%,MF,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0002', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.075, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 0, 1, 0, '', '90000010', '', 'PS', '0', 'RES,AXIAL,2.0M,0.4W,1%,MF,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0003', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.06188, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 0, 1, 0, '', '90000009', '', 'PS', '0', 'CAP,CER,3300PF,100V,10%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0004', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.05148, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 0, 1, 0, '', '90000008', '', 'PS', '0', 'CAP,CER,33PF,100V,10%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0005', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.11375, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 0, 1, 0, '', '90000007', '', 'PS', '0', 'CAP,ELEC,10UF,16V,20%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0006', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.059, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 0, 1, 0, '', '90000006', '', 'PS', '0', 'DIO,SIG,GERM,0A95,AXIAL,D0-7,GLASS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0007', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.567, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 0, 1, 0, '', '90000005', '', 'PS', '0', 'CAPV,150-230PF,TOP ADJUST,PCB', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0008', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 11.74, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 0, 1, 0, '', '90000004', '', 'PS', '0', 'CONN,PHONE,F,MONO,PCB,3.5MM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0009', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.2324, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 0, 1, 0, '', '20000002', '', 'DWG', '1', 'PCB,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-PCB', '0002', '2005-10-01 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 354.1, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 0, 23, 0, '', '90000001', '', 'PS', '0', 'WIRE,MAGNET,38AWG,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0004', '2004-12-23 00:00:00', 0, 0, '', 2000, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 154.83, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, 0, 1, 0, '', '90000002', '', 'PS', '0', 'MAG,FERRITE ROD,1/4IN X 4IN,MATL=61', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'DETAIL', '', '', 'ELEC-COMPS', '0011', '2004-12-23 00:00:00', 0, 0, '', 6, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(18, 0, 22, 0, '', '90000003', '', 'PS', '0', 'TAPE,ELECTRICAL,3/4",BLUE,VINYL', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'SHOPSUP', '0001', '2004-12-23 00:00:00', 0, 1, '', 24, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5.62, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(19, 0, 1, 0, '', '10000002', '', 'CAT', '1', 'ASSY,MKTG,AIRCRAFT WIRELESS', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'FIN', '', '', 'FINGOODS', '0001', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.34, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 0, 1, 0, '', '10000001', '', 'PL', '1', 'ENCL,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'DETAIL', '', '', 'MECH', '0001', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(21, 0, 1, 0, '', '80000005', '', 'PS', '0', 'BOX,SHIPPING,5X4X2,CARDBOARD,WHITE', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'BOF', '', '', 'SHIPPING', '0001', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, 0, 1, 0, '', '80000001', '', 'PS', '0', 'BOX,IP54,4.74X3.13X2.17",ALUM,BLK,SCREWS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'MECH', '0002', '2005-02-24 00:00:00', 0, 0, '', 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 14.9, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(23, 0, 1, 0, '', '90000016', '', 'PS', '0', 'CONN,RING,16-22AWG,#4,RED', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0001', '2005-02-24 00:00:00', 0, 0, '', 48, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 6.21, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(24, 0, 1, 0, '', '90000017', '', 'PS', '0', 'WIRE,STRANDED,16AWG,GREEN,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0002', '2005-02-24 00:00:00', 0, 0, '', 400, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 35.5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, 0, 1, 0, '', '90000018', '', 'PS', '0', 'WIRE,STRANDED,16AWG,YELLOW,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0003', '2005-02-24 00:00:00', 0, 0, '', 475, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 35.5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(26, 0, 1, 0, '', '80000007', '', 'PS', '0', 'WASHER,LOCK,#4,INTERNAL TOOTH', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0001', '2005-02-24 00:00:00', 0, 0, '', 420, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.97, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 0, 1, 0, '', '80000002', '', 'PS', '0', 'STANDOFF,HEX,4-40,0.75"L,NYLON', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0002', '2005-02-24 00:00:00', 0, 0, '', 83, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1.016, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 0, 1, 0, '', '80000003', '', 'PS', '0', 'SCREW,MACHINE,PHIL,4-40X1/4,SS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0004', '2005-02-24 00:00:00', 0, 0, '', 300, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4.13, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, 0, 1, 0, '', '80000004', '', 'PS', '0', 'WASHER,FLAT,4-40', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0005', '2005-02-24 00:00:00', 0, 0, '', 300, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.0125, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(30, 0, 1, 0, '', '90000014', '', 'PS', '0', 'CONN,BINDING POST BANANA,INSUL,GRN', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0002', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2.59, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, 0, 1, 0, '', '90000015', '', 'PS', '0', 'CONN,BINDING POST BANANA,INSUL,YEL', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0003', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2.4, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(32, 0, 1, 0, '', '80000006', '', 'PS', '0', 'STANDOFF,HEX,4-40,0.5"L,ALUM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0003', '2005-03-15 00:00:00', 0, 0, '', 79, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.419, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_pv_pn` (`id`, `PNIDToLNK`, `PNUNID`, `PNTabParentID`, `PNPrefix`, `PNPartNumber`, `PNSuffix`, `PNType`, `PNRevision`, `PNTitle`, `PNDetail`, `PNStatus`, `PNReqBy`, `PNNotes`, `PNUser1`, `PNUser2`, `PNUser3`, `PNUser4`, `PNUser5`, `PNUser6`, `PNUser7`, `PNUser8`, `PNUser9`, `PNUser10`, `PNDate`, `PNTab`, `PNControlled`, `PNAux1`, `PNQty`, `PNQty2`, `PNCostChanged`, `PNParentCost`, `PNExpandList`, `PNAssyCostOption`, `PNInclAssyOnPurchList`, `PNMadeFrom`, `PNMinStockQty`, `PNOrderToMaintain`, `PNOnECO`, `PNOverKit`, `PNOverKitQty`, `PNOverKitBy`, `PNOverKitFor`, `PNCurrentCost`, `PNLastRollupCost`, `PNUSRID`, `PNUserLock`, `type_id`, `stock_location_id`, `requester_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
+(1, 0, 1, 0, '', '20000004', '', 'PL', '3', 'ASSY,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'FIN', '', '', 'FINGOODS', '0002', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 0, 1, 0, '', '20000003', '', 'PL', '2', 'PCA,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'ASSY', '', '', 'ELEC-PCB', '0001', '2005-03-15 00:00:00', 0, 0, '', 4, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 0, 1, 0, '', '20000001', '', 'PL', '0', 'IND,830UH,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'ASSY', '', '', 'ELEC-COMPS', '0010', '2004-12-23 00:00:00', 0, 0, '', 4, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 7.5, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 0, 23, 0, '', '90000013', '', 'PS', '0', 'WIRE,SOLID,18AWG,WHITE,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0001', '2004-12-23 00:00:00', 0, 0, '', 420, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.007684, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 0, 1, 0, '', '90000012', '', 'PS', '0', 'EARPH,MONO,HI-Z,3.5MM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0001', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3.3432, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 0, 1, 0, '', '50000001', '', 'DWG', '1', 'DOC,USER,AIRCRAFT WIRELESS', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'FIN', '', '', 'DOCS', '0001', '2005-02-24 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 0, 1, 0, '', '90000011', '', 'PS', '0', 'RES,AXIAL,5.6M,0.4W,1%,MF,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0002', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.075, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 0, 1, 0, '', '90000010', '', 'PS', '0', 'RES,AXIAL,2.0M,0.4W,1%,MF,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0003', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.06188, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 0, 1, 0, '', '90000009', '', 'PS', '0', 'CAP,CER,3300PF,100V,10%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0004', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.05148, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 0, 1, 0, '', '90000008', '', 'PS', '0', 'CAP,CER,33PF,100V,10%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0005', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.11375, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 0, 1, 0, '', '90000007', '', 'PS', '0', 'CAP,ELEC,10UF,16V,20%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0006', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.059, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 0, 1, 0, '', '90000006', '', 'PS', '0', 'DIO,SIG,GERM,0A95,AXIAL,D0-7,GLASS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0007', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.567, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 0, 1, 0, '', '90000005', '', 'PS', '0', 'CAPV,150-230PF,TOP ADJUST,PCB', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0008', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 11.74, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 0, 1, 0, '', '90000004', '', 'PS', '0', 'CONN,PHONE,F,MONO,PCB,3.5MM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0009', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.2324, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 0, 1, 0, '', '20000002', '', 'DWG', '1', 'PCB,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-PCB', '0002', '2005-10-01 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 354.1, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 0, 23, 0, '', '90000001', '', 'PS', '0', 'WIRE,MAGNET,38AWG,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0004', '2004-12-23 00:00:00', 0, 0, '', 2000, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 154.83, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 0, 1, 0, '', '90000002', '', 'PS', '0', 'MAG,FERRITE ROD,1/4IN X 4IN,MATL=61', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'DETAIL', '', '', 'ELEC-COMPS', '0011', '2004-12-23 00:00:00', 0, 0, '', 6, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 0, 22, 0, '', '90000003', '', 'PS', '0', 'TAPE,ELECTRICAL,3/4",BLUE,VINYL', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'SHOPSUP', '0001', '2004-12-23 00:00:00', 0, 1, '', 24, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5.62, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 0, 1, 0, '', '10000002', '', 'CAT', '1', 'ASSY,MKTG,AIRCRAFT WIRELESS', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'FIN', '', '', 'FINGOODS', '0001', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.34, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 0, 1, 0, '', '10000001', '', 'PL', '1', 'ENCL,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'DETAIL', '', '', 'MECH', '0001', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 0, 1, 0, '', '80000005', '', 'PS', '0', 'BOX,SHIPPING,5X4X2,CARDBOARD,WHITE', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'BOF', '', '', 'SHIPPING', '0001', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 0, 1, 0, '', '80000001', '', 'PS', '0', 'BOX,IP54,4.74X3.13X2.17",ALUM,BLK,SCREWS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'MECH', '0002', '2005-02-24 00:00:00', 0, 0, '', 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 14.9, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 0, 1, 0, '', '90000016', '', 'PS', '0', 'CONN,RING,16-22AWG,#4,RED', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0001', '2005-02-24 00:00:00', 0, 0, '', 48, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 6.21, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 0, 1, 0, '', '90000017', '', 'PS', '0', 'WIRE,STRANDED,16AWG,GREEN,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0002', '2005-02-24 00:00:00', 0, 0, '', 400, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 35.5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 0, 1, 0, '', '90000018', '', 'PS', '0', 'WIRE,STRANDED,16AWG,YELLOW,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0003', '2005-02-24 00:00:00', 0, 0, '', 475, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 35.5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 0, 1, 0, '', '80000007', '', 'PS', '0', 'WASHER,LOCK,#4,INTERNAL TOOTH', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0001', '2005-02-24 00:00:00', 0, 0, '', 420, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.97, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 0, 1, 0, '', '80000002', '', 'PS', '0', 'STANDOFF,HEX,4-40,0.75"L,NYLON', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0002', '2005-02-24 00:00:00', 0, 0, '', 83, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1.016, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 0, 1, 0, '', '80000003', '', 'PS', '0', 'SCREW,MACHINE,PHIL,4-40X1/4,SS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0004', '2005-02-24 00:00:00', 0, 0, '', 300, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4.13, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 0, 1, 0, '', '80000004', '', 'PS', '0', 'WASHER,FLAT,4-40', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0005', '2005-02-24 00:00:00', 0, 0, '', 300, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.0125, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 0, 1, 0, '', '90000014', '', 'PS', '0', 'CONN,BINDING POST BANANA,INSUL,GRN', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0002', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2.59, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 0, 1, 0, '', '90000015', '', 'PS', '0', 'CONN,BINDING POST BANANA,INSUL,YEL', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0003', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2.4, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 0, 1, 0, '', '80000006', '', 'PS', '0', 'STANDOFF,HEX,4-40,0.5"L,ALUM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0003', '2005-03-15 00:00:00', 0, 0, '', 79, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.419, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -906,6 +1037,7 @@ INSERT INTO `tbl_pv_pn` (`id`, `PNIDToLNK`, `PNUNID`, `PNTabParentID`, `PNPrefix
 -- Table structure for table `tbl_pv_po`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_po`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_po` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `POPOMID` int(11) DEFAULT '0',
@@ -942,6 +1074,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_po` (
 -- Table structure for table `tbl_pv_pod`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_pod`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_pod` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `PODField` varchar(50) DEFAULT NULL,
@@ -994,6 +1127,7 @@ INSERT INTO `tbl_pv_pod` (`id`, `PODField`, `PODCaption`, `PODOrder`, `PODUse`, 
 -- Table structure for table `tbl_pv_pom`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_pom`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_pom` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `POMNumber` varchar(20) NOT NULL,
@@ -1036,6 +1170,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pom` (
 -- Table structure for table `tbl_pv_rpx`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_rpx`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_rpx` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `RPXGrid` varchar(50) NOT NULL,
@@ -1052,6 +1187,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_rpx` (
 -- Table structure for table `tbl_pv_ship`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_ship`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_ship` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `SHIPMethod` varchar(50) DEFAULT NULL,
@@ -1073,6 +1209,7 @@ INSERT INTO `tbl_pv_ship` (`id`, `SHIPMethod`) VALUES
 -- Table structure for table `tbl_pv_su`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_su`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_su` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `SUSupplier` varchar(50) NOT NULL,
@@ -1100,8 +1237,15 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_su` (
   `SUCurReverse` tinyint(1) DEFAULT '0',
   `SUNoPhonePrefix` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `SUSupplier` (`SUSupplier`)
+  UNIQUE KEY `SUSupplier` (`SUSupplier`),
+  KEY `fk_pv_su_currency` (`SUCURID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_su`:
+--   `SUCURID`
+--       `tbl_pv_cur` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_pv_su`
@@ -1127,6 +1271,7 @@ INSERT INTO `tbl_pv_su` (`id`, `SUSupplier`, `SUAddress`, `SUCountry`, `SUPhone1
 -- Table structure for table `tbl_pv_task`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_task`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `TASKJOBID` int(11) DEFAULT '0',
@@ -1156,6 +1301,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_task` (
 -- Table structure for table `tbl_pv_type`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_type`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `TYPEType` varchar(6) DEFAULT NULL,
@@ -1180,6 +1326,7 @@ INSERT INTO `tbl_pv_type` (`id`, `TYPEType`) VALUES
 -- Table structure for table `tbl_pv_un`
 --
 
+DROP TABLE IF EXISTS `tbl_pv_un`;
 CREATE TABLE IF NOT EXISTS `tbl_pv_un` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `UNUseUnits` varchar(20) NOT NULL,
@@ -1206,6 +1353,7 @@ INSERT INTO `tbl_pv_un` (`id`, `UNUseUnits`, `UNPurchUnits`, `UNConvUnits`) VALU
 -- Table structure for table `tbl_stock_location`
 --
 
+DROP TABLE IF EXISTS `tbl_stock_location`;
 CREATE TABLE IF NOT EXISTS `tbl_stock_location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -1213,17 +1361,17 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_location` (
   `sublocation_min` int(11) DEFAULT NULL,
   `sublocation_max` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `tbl_stock_location`
 --
 
 INSERT INTO `tbl_stock_location` (`id`, `name`, `use_sublocation`, `sublocation_min`, `sublocation_max`) VALUES
-(8, 'active parts', 1, 1, 100),
-(9, 'passive parts', 1, 1, 100),
-(10, 'stock room 1', 1, 1, 10),
-(11, 'stock room 2', 0, 0, 0);
+(1, 'active parts', 1, 1, 100),
+(2, 'passive parts', 1, 1, 100),
+(3, 'stock room 1', 1, 1, 10),
+(4, 'stock room 2', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1231,6 +1379,7 @@ INSERT INTO `tbl_stock_location` (`id`, `name`, `use_sublocation`, `sublocation_
 -- Table structure for table `tbl_stock_serial`
 --
 
+DROP TABLE IF EXISTS `tbl_stock_serial`;
 CREATE TABLE IF NOT EXISTS `tbl_stock_serial` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serial_number` varchar(255) DEFAULT NULL,
@@ -1241,32 +1390,38 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_serial` (
   `part_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_stock_serial_to_part` (`part_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_stock_serial`:
+--   `part_id`
+--       `tbl_pv_pn` -> `id`
+--
 
 --
 -- Dumping data for table `tbl_stock_serial`
 --
 
 INSERT INTO `tbl_stock_serial` (`id`, `serial_number`, `part_number`, `description`, `version`, `status`, `part_id`) VALUES
-(32, 'AW123456', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(33, 'AW123457', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(34, 'AW123458', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(35, 'AW123459', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(36, 'AD123459', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(37, 'AW123460', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
-(38, 'AW123461', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(39, 'AW123462', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(40, 'AW123463', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(41, 'AW123460', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(42, 'AW123464', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(43, 'AW123465', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(44, 'AW123466', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(45, 'AW123467', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(46, 'AW123461', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(47, 'AW123468', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(48, 'AW123469', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(49, 'AW123470', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
-(50, 'AW123471', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL);
+(1, 'AW123456', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(2, 'AW123457', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(3, 'AW123458', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(4, 'AW123459', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(5, 'AD123459', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(6, 'AW123460', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'DESTROYED', NULL),
+(7, 'AW123461', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(8, 'AW123462', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(9, 'AW123463', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(10, 'AW123460', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(11, 'AW123464', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(12, 'AW123465', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(13, 'AW123466', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(14, 'AW123467', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(15, 'AW123461', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(16, 'AW123468', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(17, 'AW123469', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(18, 'AW123470', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
+(19, 'AW123471', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL);
 
 --
 -- Constraints for dumped tables
@@ -1295,14 +1450,41 @@ ALTER TABLE `tbl_project`
 -- Constraints for table `tbl_pv_fil`
 --
 ALTER TABLE `tbl_pv_fil`
-  ADD CONSTRAINT `fk_pv_fil_pn` FOREIGN KEY (`FILPNID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_pv_fil_part` FOREIGN KEY (`FILPNID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_pv_lin`
+--
+ALTER TABLE `tbl_pv_lin`
+  ADD CONSTRAINT `fk_pv_lin_mfr` FOREIGN KEY (`LINMFRID`) REFERENCES `tbl_pv_mfr` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lin_supplier` FOREIGN KEY (`LINSUID`) REFERENCES `tbl_pv_lin` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_pv_lnk`
+--
+ALTER TABLE `tbl_pv_lnk`
+  ADD CONSTRAINT `fk_pv_lnk_part` FOREIGN KEY (`LNKPNID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lnk_mfr` FOREIGN KEY (`LNKMFRID`) REFERENCES `tbl_pv_mfr` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lnk_mfr_part` FOREIGN KEY (`LNKMFRPNID`) REFERENCES `tbl_pv_mfrpn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lnk_supplier` FOREIGN KEY (`LNKSUID`) REFERENCES `tbl_pv_su` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lnk_units` FOREIGN KEY (`LNKUNID`) REFERENCES `tbl_pv_un` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_pv_mfrpn`
+--
+ALTER TABLE `tbl_pv_mfrpn`
+  ADD CONSTRAINT `fk_pv_mfrpn_mfr` FOREIGN KEY (`MFRPNMFRID`) REFERENCES `tbl_pv_mfr` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_pv_pl`
 --
 ALTER TABLE `tbl_pv_pl`
-  ADD CONSTRAINT `fk_pv_pl_pn_2` FOREIGN KEY (`PLPartID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pv_pl_pn_1` FOREIGN KEY (`PLListID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_pv_pl_lnk` FOREIGN KEY (`PLLNKID`) REFERENCES `tbl_pv_lnk` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_mfr` FOREIGN KEY (`PLMFRID`) REFERENCES `tbl_pv_mfr` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_mfrpn` FOREIGN KEY (`PLMFRPNID`) REFERENCES `tbl_pv_mfrpn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_pn_child` FOREIGN KEY (`PLPartID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_pn_parent` FOREIGN KEY (`PLListID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_su` FOREIGN KEY (`PLSUID`) REFERENCES `tbl_pv_su` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_pv_pn`
@@ -1310,8 +1492,17 @@ ALTER TABLE `tbl_pv_pl`
 ALTER TABLE `tbl_pv_pn`
   ADD CONSTRAINT `fk_part_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_part_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pv_pn_location` FOREIGN KEY (`stock_location_id`) REFERENCES `tbl_stock_location` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pv_pn_person` FOREIGN KEY (`requester_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_pv_pn_person` FOREIGN KEY (`requester_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pn_stock_location` FOREIGN KEY (`stock_location_id`) REFERENCES `tbl_stock_location` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pn_tab_parent` FOREIGN KEY (`PNTabParentID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pn_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_pv_type` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pn_units` FOREIGN KEY (`PNUNID`) REFERENCES `tbl_pv_un` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_pv_su`
+--
+ALTER TABLE `tbl_pv_su`
+  ADD CONSTRAINT `fk_pv_su_currency` FOREIGN KEY (`SUCURID`) REFERENCES `tbl_pv_cur` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_stock_serial`

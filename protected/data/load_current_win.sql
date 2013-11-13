@@ -25,7 +25,7 @@ LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (number,name,description,project,type,corrective_action,cost,status,create_time)
-SET id = NULL, project_id = NULL, type_id = NULL, part_id = NULL, stock_serial_id = NULL, status_id = NULL, owner_id = NULL, requester_id = NULL, create_user_id = NULL, update_time = NULL, update_user_id = NULL;
+SET id = NULL, project_id = NULL, type_id = NULL, status_id = NULL, part_id = NULL, stock_serial_id = NULL, owner_id = NULL, requester_id = NULL, create_user_id = NULL, update_time = NULL, update_user_id = NULL;
 
 -- person table
 -- use Windows EOL (CSV created by Excel on Windows)

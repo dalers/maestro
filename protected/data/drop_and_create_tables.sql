@@ -1,8 +1,9 @@
 -- drop and re-create maestro tables (except migration)
 --
--- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < /path/to/drop_and_create_tables.sql
+-- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./drop_and_create_tables.sql
 --
--- THIS FILE MUST MATCH MIGRATION!! (i.e. this file MUST be updated if the migration is edited)
+-- THIS FILE MUST BE CONSISTENT WITH MIGRATION!!
+-- i.e. update this file if you edit the migration
 --
 -- To create with phpMyAdmin: Export > Custom:
 --		All tables EXCEPT migration
@@ -20,7 +21,7 @@ use maestro;
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2013 at 07:09 AM
+-- Generation Time: Nov 13, 2013 at 02:47 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -51,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `tbl_issue` (
   `status` varchar(255) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   `type_id` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
   `part_id` int(11) DEFAULT NULL,
   `stock_serial_id` int(11) DEFAULT NULL,
-  `status_id` int(11) DEFAULT NULL,
   `owner_id` int(11) DEFAULT NULL,
   `requester_id` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -68,7 +69,25 @@ CREATE TABLE IF NOT EXISTS `tbl_issue` (
   KEY `fk_issue_to_requester` (`requester_id`),
   KEY `fk_issue_to_create_user` (`create_user_id`),
   KEY `fk_issue_to_update_user` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_issue`:
+--   `update_user_id`
+--       `tbl_person` -> `id`
+--   `create_user_id`
+--       `tbl_person` -> `id`
+--   `owner_id`
+--       `tbl_person` -> `id`
+--   `part_id`
+--       `tbl_pv_pn` -> `id`
+--   `project_id`
+--       `tbl_project` -> `id`
+--   `requester_id`
+--       `tbl_person` -> `id`
+--   `stock_serial_id`
+--       `tbl_stock_serial` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -94,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `tbl_person` (
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -123,7 +142,15 @@ CREATE TABLE IF NOT EXISTS `tbl_project` (
   PRIMARY KEY (`id`),
   KEY `fk_project_to_create_user` (`create_user_id`),
   KEY `fk_project_to_update_user` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_project`:
+--   `update_user_id`
+--       `tbl_person` -> `id`
+--   `create_user_id`
+--       `tbl_person` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -171,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_cost` (
   `COSTLeadtime` int(11) DEFAULT '0',
   `COSTCost` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -201,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_cu` (
   `CUStateTaxID` varchar(20) DEFAULT NULL,
   `CUNoPhonePrefix` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -218,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_cur` (
   `CURFormat` varchar(35) DEFAULT NULL,
   `CURFormatExt` varchar(35) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -236,8 +263,14 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_fil` (
   `FILView` tinyint(1) DEFAULT '0',
   `FILNotes` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_pv_fil_pn` (`FILPNID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+  KEY `fk_pv_fil_part` (`FILPNID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_fil`:
+--   `FILPNID`
+--       `tbl_pv_pn` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -282,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_hpref` (
   `GPREFText9` varchar(50) DEFAULT NULL,
   `GPREFText10` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -332,8 +365,18 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_lin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `LINSUID` int(11) NOT NULL DEFAULT '0',
   `LINMFRID` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+  PRIMARY KEY (`id`),
+  KEY `fk_pv_lin_supplier` (`LINSUID`),
+  KEY `fk_pv_lin_mfr` (`LINMFRID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_lin`:
+--   `LINMFRID`
+--       `tbl_pv_mfr` -> `id`
+--   `LINSUID`
+--       `tbl_pv_lin` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -363,8 +406,27 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_lnk` (
   `LNKRoHS` tinyint(1) DEFAULT '0',
   `LNKRoHSDoc` varchar(50) DEFAULT NULL,
   `LNKRoHSNote` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+  PRIMARY KEY (`id`),
+  KEY `fk_pv_lnk_supplier` (`LNKSUID`),
+  KEY `fk_pv_lnk_mfr_part` (`LNKMFRPNID`),
+  KEY `fk_pv_lnk_mfr` (`LNKMFRID`),
+  KEY `fk_pv_lnk_units` (`LNKUNID`),
+  KEY `fk_pv_lnk_part` (`LNKPNID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_lnk`:
+--   `LNKPNID`
+--       `tbl_pv_pn` -> `id`
+--   `LNKMFRID`
+--       `tbl_pv_mfr` -> `id`
+--   `LNKMFRPNID`
+--       `tbl_pv_mfrpn` -> `id`
+--   `LNKSUID`
+--       `tbl_pv_su` -> `id`
+--   `LNKUNID`
+--       `tbl_pv_un` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -405,7 +467,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_mfr` (
   `MFREMail2` varchar(50) DEFAULT NULL,
   `MFRNoPhonePrefix` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -418,8 +480,15 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_mfrpn` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `MFRPNMFRID` int(11) DEFAULT '0',
   `MFRPNPart` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`id`),
+  KEY `fk_pv_mfrpn_mfr` (`MFRPNMFRID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_mfrpn`:
+--   `MFRPNMFRID`
+--       `tbl_pv_mfr` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -439,7 +508,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_org` (
   `ORGRFQUseShpgAddr` tinyint(1) DEFAULT '0',
   `ORGListOrder` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -463,9 +532,29 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pl` (
   `PLSUID` int(11) DEFAULT NULL,
   `PLLNKID` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_pv_pl_pn_1` (`PLListID`),
-  KEY `fk_pv_pl_pn_2` (`PLPartID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+  KEY `fk_pv_pl_pn_parent` (`PLListID`),
+  KEY `fk_pv_pl_pn_child` (`PLPartID`),
+  KEY `fk_pv_pl_mfrpn` (`PLMFRPNID`),
+  KEY `fk_pv_pl_mfr` (`PLMFRID`),
+  KEY `fk_pv_pl_su` (`PLSUID`),
+  KEY `fk_pv_pl_lnk` (`PLLNKID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_pl`:
+--   `PLLNKID`
+--       `tbl_pv_lnk` -> `id`
+--   `PLMFRID`
+--       `tbl_pv_mfr` -> `id`
+--   `PLMFRPNID`
+--       `tbl_pv_mfrpn` -> `id`
+--   `PLPartID`
+--       `tbl_pv_pn` -> `id`
+--   `PLListID`
+--       `tbl_pv_pn` -> `id`
+--   `PLSUID`
+--       `tbl_pv_su` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -483,7 +572,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pll` (
   `PLLCost` float DEFAULT '0',
   `PLLItemNumber` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -540,6 +629,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pn` (
   `PNLastRollupCost` double DEFAULT '0',
   `PNUSRID` int(11) DEFAULT '0',
   `PNUserLock` tinyint(1) DEFAULT '0',
+  `type_id` int(11) DEFAULT NULL,
   `stock_location_id` int(11) DEFAULT NULL,
   `requester_id` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -547,11 +637,32 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pn` (
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_pv_pn_location` (`stock_location_id`),
+  KEY `fk_pv_pn_units` (`PNUNID`),
+  KEY `fk_pv_pn_tab_parent` (`PNTabParentID`),
+  KEY `fk_pv_pn_type` (`type_id`),
+  KEY `fk_pv_pn_stock_location` (`stock_location_id`),
   KEY `fk_pv_pn_person` (`requester_id`),
   KEY `fk_part_to_create_user` (`create_user_id`),
   KEY `fk_part_to_update_user` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_pn`:
+--   `update_user_id`
+--       `tbl_person` -> `id`
+--   `create_user_id`
+--       `tbl_person` -> `id`
+--   `requester_id`
+--       `tbl_person` -> `id`
+--   `stock_location_id`
+--       `tbl_stock_location` -> `id`
+--   `PNTabParentID`
+--       `tbl_pv_pn` -> `id`
+--   `type_id`
+--       `tbl_pv_type` -> `id`
+--   `PNUNID`
+--       `tbl_pv_un` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -611,7 +722,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_pod` (
   `PODNewLineJOB` tinyint(1) DEFAULT '0',
   `PODUseCaptionJOB` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -684,7 +795,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_ship` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `SHIPMethod` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -720,8 +831,15 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_su` (
   `SUCurReverse` tinyint(1) DEFAULT '0',
   `SUNoPhonePrefix` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `SUSupplier` (`SUSupplier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+  UNIQUE KEY `SUSupplier` (`SUSupplier`),
+  KEY `fk_pv_su_currency` (`SUCURID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_pv_su`:
+--   `SUCURID`
+--       `tbl_pv_cur` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -764,7 +882,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `TYPEType` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -779,7 +897,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pv_un` (
   `UNPurchUnits` varchar(20) NOT NULL,
   `UNConvUnits` float NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -795,7 +913,7 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_location` (
   `sublocation_min` int(11) DEFAULT NULL,
   `sublocation_max` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -814,7 +932,13 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_serial` (
   `part_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_stock_serial_to_part` (`part_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `tbl_stock_serial`:
+--   `part_id`
+--       `tbl_pv_pn` -> `id`
+--
 
 --
 -- Constraints for dumped tables
@@ -843,14 +967,41 @@ ALTER TABLE `tbl_project`
 -- Constraints for table `tbl_pv_fil`
 --
 ALTER TABLE `tbl_pv_fil`
-  ADD CONSTRAINT `fk_pv_fil_pn` FOREIGN KEY (`FILPNID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_pv_fil_part` FOREIGN KEY (`FILPNID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_pv_lin`
+--
+ALTER TABLE `tbl_pv_lin`
+  ADD CONSTRAINT `fk_pv_lin_mfr` FOREIGN KEY (`LINMFRID`) REFERENCES `tbl_pv_mfr` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lin_supplier` FOREIGN KEY (`LINSUID`) REFERENCES `tbl_pv_lin` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_pv_lnk`
+--
+ALTER TABLE `tbl_pv_lnk`
+  ADD CONSTRAINT `fk_pv_lnk_part` FOREIGN KEY (`LNKPNID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lnk_mfr` FOREIGN KEY (`LNKMFRID`) REFERENCES `tbl_pv_mfr` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lnk_mfr_part` FOREIGN KEY (`LNKMFRPNID`) REFERENCES `tbl_pv_mfrpn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lnk_supplier` FOREIGN KEY (`LNKSUID`) REFERENCES `tbl_pv_su` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_lnk_units` FOREIGN KEY (`LNKUNID`) REFERENCES `tbl_pv_un` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_pv_mfrpn`
+--
+ALTER TABLE `tbl_pv_mfrpn`
+  ADD CONSTRAINT `fk_pv_mfrpn_mfr` FOREIGN KEY (`MFRPNMFRID`) REFERENCES `tbl_pv_mfr` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_pv_pl`
 --
 ALTER TABLE `tbl_pv_pl`
-  ADD CONSTRAINT `fk_pv_pl_pn_2` FOREIGN KEY (`PLPartID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pv_pl_pn_1` FOREIGN KEY (`PLListID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_pv_pl_lnk` FOREIGN KEY (`PLLNKID`) REFERENCES `tbl_pv_lnk` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_mfr` FOREIGN KEY (`PLMFRID`) REFERENCES `tbl_pv_mfr` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_mfrpn` FOREIGN KEY (`PLMFRPNID`) REFERENCES `tbl_pv_mfrpn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_pn_child` FOREIGN KEY (`PLPartID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_pn_parent` FOREIGN KEY (`PLListID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pl_su` FOREIGN KEY (`PLSUID`) REFERENCES `tbl_pv_su` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_pv_pn`
@@ -858,8 +1009,17 @@ ALTER TABLE `tbl_pv_pl`
 ALTER TABLE `tbl_pv_pn`
   ADD CONSTRAINT `fk_part_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_part_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pv_pn_location` FOREIGN KEY (`stock_location_id`) REFERENCES `tbl_stock_location` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pv_pn_person` FOREIGN KEY (`requester_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_pv_pn_person` FOREIGN KEY (`requester_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pn_stock_location` FOREIGN KEY (`stock_location_id`) REFERENCES `tbl_stock_location` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pn_tab_parent` FOREIGN KEY (`PNTabParentID`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pn_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_pv_type` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_pv_pn_units` FOREIGN KEY (`PNUNID`) REFERENCES `tbl_pv_un` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_pv_su`
+--
+ALTER TABLE `tbl_pv_su`
+  ADD CONSTRAINT `fk_pv_su_currency` FOREIGN KEY (`SUCURID`) REFERENCES `tbl_pv_cur` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_stock_serial`
