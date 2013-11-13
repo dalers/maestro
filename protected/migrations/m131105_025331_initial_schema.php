@@ -12,14 +12,23 @@ class m131105_025331_initial_schema extends CDbMigration
 			'name' => 'string NOT NULL',
 			'description' => 'text',
 			'project' => 'string',
-			'project_id' => 'integer',
 			'type' => 'string',
-			'type_id' => 'integer',
 			'corrective_action' => 'string',
 			'cost' => 'string',
+			'status' => 'string',
+			
+			//additions to basic schema
+			//validate issue.project
+			'project_id' => 'integer',
+			//validate issue.type
+			'type_id' => 'integer',
+			//validate issue.status
+			'status_id' => 'integer',
+			//reference related part number and/or serial number (if applicable)
 			'part_id' => 'integer',
 			'stock_serial_id' => 'integer',
-			'status_id' => 'integer',
+
+			//record creation user/time, update user/time and current owner
 			'owner_id' => 'integer',
 			'requester_id' => 'integer',
 			'create_time' => 'datetime',
@@ -33,13 +42,19 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->createTable('tbl_person', array(
 			'id' => 'pk',  //not imported
 			'username' => 'string NOT NULL', //network login id
-			'status' => 'integer', //e.g. 0=ACTIVE, 1=NOTACTIVE
+			'status' => 'integer', //e.g. 0=inactive, 1=active
 			'password' => 'string NOT NULL',
 			'email' => 'string',
-			'nick' => 'string', //fk <- pv_pn.PNReqBy
-			'lname' => 'string',
-			'fname' => 'string',
-			'initial' => 'string',
+			'nick' => 'string', //same as pv_pn.PNReqBy
+			'lname' => 'string', //e.g. "Tom"
+			'fname' => 'string', //e.g. "Swift"
+			'initial' => 'string', //e.g. "TS"
+
+			//additions to basic schema
+			//reference security profile
+			'profile' => 'integer', //security profile
+			
+			//record creation user/time, update user/time and last login time
 			'last_login_time' => 'datetime DEFAULT NULL',
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
@@ -59,15 +74,27 @@ class m131105_025331_initial_schema extends CDbMigration
 			'client' => 'string', //e.g. "B&E Submarines"
 			'description' => 'text', //e.g. "Preliminary evaluation and sea trial"
 			'type' => 'string', //e.g. "Research"
-			'status' => 'integer', //e.g. 0=NotActive, 1=Active...	
+			'status' => 'string', //NOTACTIVE, ACTIVE...	
 			'milestone' => 'string', //e.g. "Sanction", "Definition", "Design", "Validation", "Pilot", "Production", "Termination"
-			'milestone_date' => 'datetime', //forecast date for completion of milestone			
+			'milestone_date' => 'datetime', //forecast date for completion of milestone
+			
+			//additions to basic schema
+			//record creation user/time and update user/time
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
 			'update_time' => 'datetime',
 			'update_user_id' => 'integer',
 		), 'ENGINE = InnoDB');
 						
+		//stock location table
+		$this->createTable('tbl_stock_location', array(
+			'id' => 'pk', //not imported from source
+			'name' => 'string',
+			'use_sublocation' => 'integer', //TODO boolean
+			'sublocation_min' => 'integer',
+			'sublocation_max' => 'integer',
+		), 'ENGINE=InnoDB');        
+
 		//stock serial number table
 		$this->createTable('tbl_stock_serial', array(
 			'id' => 'pk', //not included in source csv
@@ -75,19 +102,13 @@ class m131105_025331_initial_schema extends CDbMigration
 			'part_number' => 'string', //e.g. 20123456
 			'description' => 'string', //e.g. "Aircraft Wireless"
 			'version' => 'string', //e.g. 0, 1, 1A...
-			'status' => 'integer', //e.g. 0=NotActive, 1=Active...
+			'status' => 'string', //e.g. ACTIVE, DESTROYED...
+
+			//additions to basic schema
+			//validate stock_serial.part_number
 			'part_id' => 'integer',
 			), 'ENGINE=InnoDB');
 		
-		//stock location table
-		$this->createTable('tbl_stock_location', array(
-			'id' => 'pk', //not imported from source
-			'location_name' => 'integer',
-			'use_sublocation' => 'integer',
-			'sublocation_min' => 'integer',
-			'sublocation_max' => 'integer',
-		), 'ENGINE=InnoDB');        
-
 		//part and vendor tables
 		//pv_al table
 		$this->createTable('tbl_pv_al', array(
@@ -376,9 +397,22 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PNLastRollupCost' => 'DOUBLE NULL DEFAULT 0', 
 			'PNUSRID' => 'INTEGER DEFAULT 0', 
 			'PNUserLock' => 'TINYINT(1) DEFAULT 0', 
-			//following fields are additions to PV schema
-			'person_id' => 'integer', //fk -> person
+			
+			//additions to basic schema
+			//validate pv_pn.PNType
+			'type_id' => 'integer', //fk -> pv_type
+
+			//validate pv_pn.PNUser9
 			'stock_location_id' => 'integer', //fk -> stock_location
+
+			//validate pv_pn.PNReqBy
+			'requester_id' => 'integer', //fk -> person
+
+			//record creation user/time and update user/time
+			'create_time' => 'datetime',
+			'create_user_id' => 'integer',
+			'update_time' => 'datetime',
+			'update_user_id' => 'integer',			
 		), 'ENGINE=InnoDB');
 
 		//pv_po table
@@ -550,11 +584,6 @@ class m131105_025331_initial_schema extends CDbMigration
 		//--------------
 
 		//issue
-		//project_id has been included to reference the associated project (or
-		//null), implied by the value of the project column. A project field
-		//should have the same value as one of the projects in the project table
-		//- similar to a foreign key but without being being required for
-		//referential integrity.		
 		$this->addForeignKey("fk_issue_to_project", "tbl_issue", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_part", "tbl_issue", "part_id", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_stock_serial", "tbl_issue", "stock_serial_id", "tbl_stock_serial", "id", "CASCADE", "RESTRICT");
@@ -563,36 +592,50 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
+		//project
+		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		
 		//stock_serial
-		//part_id has been included to reference the stock part number (or null), implied
-		//by the value of the part_number column. A part_number field should have the
-		//same value as one of the part numbers in the pv_pn table - similar to a foreign
-		//key but without being being required for referential integrity.
-		$this->addForeignKey("fk_stock_serial_to_pv_pn", "tbl_stock_serial", "part_id", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_stock_serial_to_part", "tbl_stock_serial", "part_id", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
 
-		//pv_pn
-		//person_id has been added to the Parts&Vendors part master table
-		//to reference the person referred to in the pre-existing ReqBy
-		//column (or is null). A ReqBy field should have the same value
-		//one of the nicks in the person table - similar to a foreign
-		//key but without being required for integrity.
-		$this->addForeignKey("fk_pv_pn_person", "tbl_pv_pn", "person_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		//stock_location_id has been added to the Parts&Vendors part master
-		//table to reference the stock location referred to in the pre-existing
-		//PNUser9 column (or is null). The value of PNUser9 should be the same
-		//as one of the stock locations in the stock_location table - similar to
-		//a foreign key, but without being required for integrity.		
-		$this->addForeignKey("fk_pv_pn_location", "tbl_pv_pn", "stock_location_id", "tbl_stock_location", "id", "CASCADE", "RESTRICT");
+		//part and vendor
+		//pv_fil
+		$this->addForeignKey("fk_pv_fil_part", "tbl_pv_fil", "FILPNID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+
+		//pv_lin
+		$this->addForeignKey("fk_pv_lin_supplier", "tbl_pv_lin", "LINSUID", "tbl_pv_lin", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_lin_mfr", "tbl_pv_lin", "LINMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
+
+		//pv_lnk
+		$this->addForeignKey("fk_pv_lnk_supplier", "tbl_pv_lnk", "LNKSUID", "tbl_pv_su", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_lnk_mfr_part", "tbl_pv_lnk", "LNKMFRPNID", "tbl_pv_mfrpn", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_lnk_mfr", "tbl_pv_lnk", "LNKMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_lnk_units", "tbl_pv_lnk", "LNKUNID", "tbl_pv_un", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_lnk_part", "tbl_pv_lnk", "LNKPNID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+		
+		//pv_mfrpn
+		$this->addForeignKey("fk_pv_mfrpn_mfr", "tbl_pv_mfrpn", "MFRPNMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
 
 		//pv_pl
-		//reference parent part number for parts list item
-		$this->addForeignKey("fk_pv_pl_pn_1", "tbl_pv_pl", "PLListID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-		//reference child part number for parts list item
-		$this->addForeignKey("fk_pv_pl_pn_2", "tbl_pv_pl", "PLPartID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-		  
-		//pv_fil
-		$this->addForeignKey("fk_pv_fil_pn", "tbl_pv_fil", "FILPNID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-	
+		$this->addForeignKey("fk_pv_pl_pn_parent", "tbl_pv_pl", "PLListID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pl_pn_child", "tbl_pv_pl", "PLPartID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pl_mfrpn", "tbl_pv_pl", "PLMFRPNID", "tbl_pv_mfrpn", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pl_mfr", "tbl_pv_pl", "PLMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pl_su", "tbl_pv_pl", "PLSUID", "tbl_pv_su", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pl_lnk", "tbl_pv_pl", "PLLNKID", "tbl_pv_lnk", "id", "CASCADE", "RESTRICT");
+
+		//pv_pn
+		$this->addForeignKey("fk_pv_pn_units", "tbl_pv_pn", "PNUNID", "tbl_pv_un", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pn_tab_parent", "tbl_pv_pn", "PNTabParentID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pn_type", "tbl_pv_pn", "type_id", "tbl_pv_type", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pn_stock_location", "tbl_pv_pn", "stock_location_id", "tbl_stock_location", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_pv_pn_person", "tbl_pv_pn", "requester_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_create_user", "tbl_pv_pn", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_update_user", "tbl_pv_pn", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		
+		//pv_su
+		$this->addForeignKey("fk_pv_su_currency", "tbl_pv_su", "SUCURID", "tbl_pv_cur", "id", "CASCADE", "RESTRICT");
 	}
 
 	public function down()
@@ -604,38 +647,40 @@ class m131105_025331_initial_schema extends CDbMigration
 		//e.g $this->delete('tbl_serial_number');
 
 		//drop tables
-		$this->dropTable('tbl_issue'); //drop before project, issue, pv_pn, person
+		$this->dropTable('tbl_issue');
 		$this->dropTable('tbl_project');
 
 		$this->dropTable('tbl_pv_al');
 		$this->dropTable('tbl_pv_cnv');
 		$this->dropTable('tbl_pv_cost');
 		$this->dropTable('tbl_pv_cu');
-		$this->dropTable('tbl_pv_cur');
-		$this->dropTable('tbl_pv_fil'); //drop before pn
+		$this->dropTable('tbl_pv_fil');
 		$this->dropTable('tbl_pv_hist');
 		$this->dropTable('tbl_pv_hpref');
 		$this->dropTable('tbl_pv_job');
 		$this->dropTable('tbl_pv_lin');
-		$this->dropTable('tbl_pv_lnk');
 		$this->dropTable('tbl_pv_mf');
-		$this->dropTable('tbl_pv_mfr');
-		$this->dropTable('tbl_pv_mfrpn');
 		$this->dropTable('tbl_pv_org');
-		$this->dropTable('tbl_pv_pl'); //drop before pn
+		$this->dropTable('tbl_pv_pl');
 		$this->dropTable('tbl_pv_pll');
 		$this->dropTable('tbl_pv_po');
 		$this->dropTable('tbl_pv_pod');
 		$this->dropTable('tbl_pv_pom');
 		$this->dropTable('tbl_pv_rpx');
 		$this->dropTable('tbl_pv_ship');
-		$this->dropTable('tbl_pv_su');
 		$this->dropTable('tbl_pv_task');
-		$this->dropTable('tbl_pv_type');
-		$this->dropTable('tbl_pv_un');
 		
 		$this->dropTable('tbl_stock_serial');
+
+		$this->dropTable('tbl_pv_lnk');
 		$this->dropTable('tbl_pv_pn');
+		$this->dropTable('tbl_pv_type');
+		$this->dropTable('tbl_pv_mfrpn');
+		$this->dropTable('tbl_pv_mfr');
+		$this->dropTable('tbl_pv_su');
+		$this->dropTable('tbl_pv_cur');
+		$this->dropTable('tbl_pv_un');
+		
 		$this->dropTable('tbl_stock_location');
 		$this->dropTable('tbl_person');
 	}
