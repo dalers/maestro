@@ -1,6 +1,5 @@
 -- clear tables
--- delete all tables from maestro for clean migration
--- MAY NEED TO BE RUN MORE THAN ONCE (
+-- delete ALL tables for fresh migration (including migration table)
 --
 -- > mysql -uroot -p --show-warnings --verbose --force < ./clear_tables.sql
 --
