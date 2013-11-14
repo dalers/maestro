@@ -51,7 +51,7 @@ class PvPl extends CActiveRecord
 			array('PLRefMemo', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, PLListID, PLPartID, PLItem, PLQty, PLRefMemo, PLRefText, PLAssyOrder, PLAssySpec, PLMFRPNID, PLMFRID, PLSUID, PLLNKID', 'safe', 'on'=>'search'),
+			array('PLListID, PLPartID, PLItem, PLQty, PLRefMemo, PLRefText, PLAssyOrder, PLAssySpec, PLMFRPNID, PLMFRID, PLSUID, PLLNKID', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +69,9 @@ class PvPl extends CActiveRecord
 			'pLPart' => array(self::BELONGS_TO, 'PvPn', 'PLPartID'),
 			'pLList' => array(self::BELONGS_TO, 'PvPn', 'PLListID'),
 			'pLSU' => array(self::BELONGS_TO, 'PvSu', 'PLSUID'),
+
+			'detail' => array(self::BELONGS_TO, 'PvPn', 'PLPartID'),
+			'partof' => array(self::BELONGS_TO, 'PvPn', 'PLListID'),
 		);
 	}
 
@@ -79,17 +82,17 @@ class PvPl extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'PLListID' => 'Pllist',
-			'PLPartID' => 'Plpart',
-			'PLItem' => 'Plitem',
-			'PLQty' => 'Plqty',
-			'PLRefMemo' => 'Plref Memo',
-			'PLRefText' => 'Plref Text',
-			'PLAssyOrder' => 'Plassy Order',
-			'PLAssySpec' => 'Plassy Spec',
-			'PLMFRPNID' => 'Plmfrpnid',
-			'PLMFRID' => 'Plmfrid',
-			'PLSUID' => 'Plsuid',
+			'PLListID' => 'List ID',
+			'PLPartID' => 'Part',
+			'PLItem' => 'Item',
+			'PLQty' => 'Qty',
+			'PLRefMemo' => 'Ref. Memo',
+			'PLRefText' => 'Ref. Text',
+			'PLAssyOrder' => 'Assy Order',
+			'PLAssySpec' => 'Assy Spec',
+			'PLMFRPNID' => 'MFR Part Number',
+			'PLMFRID' => 'MFR ID',
+			'PLSUID' => 'Ls UID',
 			'PLLNKID' => 'Pllnkid',
 		);
 	}

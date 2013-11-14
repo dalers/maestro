@@ -3,16 +3,16 @@
 /* @var $model PvPn */
 
 $this->breadcrumbs=array(
-	'Pv Pns'=>array('index'),
+	'Parts'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List PvPn', 'url'=>array('index')),
-	array('label'=>'Manage PvPn', 'url'=>array('admin')),
+	array('label'=>'List Parts', 'url'=>array('index')),
+	array('label'=>'Manage Parts', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create PvPn</h1>
+<h1>Create Part</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

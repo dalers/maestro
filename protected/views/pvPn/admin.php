@@ -3,13 +3,13 @@
 /* @var $model PvPn */
 
 $this->breadcrumbs=array(
-	'Pv Pns'=>array('index'),
+	'Parts'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List PvPn', 'url'=>array('index')),
-	array('label'=>'Create PvPn', 'url'=>array('create')),
+	array('label'=>'List Parts', 'url'=>array('index')),
+	array('label'=>'Create Part', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Pv Pns</h1>
+<h1>Manage Parts</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

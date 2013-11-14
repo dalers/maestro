@@ -28,7 +28,7 @@ class PvPnController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'saveaspdf', 'view4pdf'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -54,6 +54,47 @@ class PvPnController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView4PDF($id)
+	{
+        $this->layout='//layouts/pdf';
+
+        $this->render('view4PDF',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionSaveAsPDF($id)
+	{
+        $url = "http://" . $_SERVER['HTTP_HOST'] . Yii::app()->request->baseUrl . "/index.php/pvPn/view4PDF/" . $id;
+        $fname = Yii::getPathOfAlias('application.runtime') . "/part_" . $id . ".pdf";
+        $path = Yii::getPathOfAlias('application.bin') . "/wkhtmltopdf-i386";
+        $output = array();
+        $error = 0;
+        $cmd = $path . ' -s Letter "' . $url . '" "' . $fname . '"';
+
+        //echo $cmd . "<br/>";
+
+        exec($cmd, $output, $error);
+
+        if ($error == 0)
+        {
+            Yii::app()->request->sendFile("part_" . $id . ".pdf", file_get_contents($fname), null, true);
+            //Yii::app()->request->xSendFile($fname, array('mimeType'=>'application/pdf', 'terminate'=>true));
+        }
+        else
+        {
+            echo "Error " . $error;
+        }
 	}
 
 	/**
@@ -122,10 +163,24 @@ class PvPnController extends Controller
 	 */
 	public function actionIndex()
 	{
+        $model = new PvPn('search');
+
+        $model->unsetAttributes();
+
+		if (isset($_GET['PvPn']))
+			$model->attributes = $_GET['PvPn'];
+
+        $this->render('index', array(
+            'dataProvider' => $model->search(),
+			'model' => $model,
+		));
+
+        /*
 		$dataProvider=new CActiveDataProvider('PvPn');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+        */
 	}
 
 	/**
