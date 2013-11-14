@@ -40,7 +40,7 @@ return array(
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
-                        'caseSensitive' => true,
+            'caseSensitive' => true,
 			'urlFormat'=>'path',
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
@@ -82,5 +82,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+        'pagesize' => 30,
+        'partListPageSize' => 20,
 	),
 );

@@ -1,11 +1,15 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="span-19">
-	<div id="content">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr><td style="vertical-align: top;">
+<!-- <div class="span-19"> -->
+	<div id="content" style="width: 900px;">
 		<?php echo $content; ?>
 	</div><!-- content -->
-</div>
-<div class="span-5 last">
+<!-- </div> -->
+</td>
+<td style="vertical-align: top; padding-right: 15px;">
+ <div class="span-5 last">
 	<div id="sidebar">
 	<?php
 		$this->beginWidget('zii.widgets.CPortlet', array(
@@ -17,6 +21,10 @@
 		));
 		$this->endWidget();
 	?>
+
 	</div><!-- sidebar -->
-</div>
+ </div>
+</td>
+</tr>
+</table>
 <?php $this->endContent(); ?>

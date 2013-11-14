@@ -37,7 +37,7 @@
  * @property integer $PNCostChanged
  * @property integer $PNParentCost
  * @property integer $PNExpandList
- * @property integer $PNAssyCostOption
+ * @property integer $PNAssyCostOption           // 3 - Add to total, 1 - Use as total, 2 - Ignore
  * @property integer $PNInclAssyOnPurchList
  * @property integer $PNMadeFrom
  * @property double $PNMinStockQty
@@ -45,8 +45,8 @@
  * @property integer $PNOnECO
  * @property integer $PNOverKit
  * @property double $PNOverKitQty
- * @property integer $PNOverKitBy
- * @property integer $PNOverKitFor
+ * @property integer $PNOverKitBy               // =0 - Count, =-1 - Percent
+ * @property integer $PNOverKitFor              // =0 - Entire Build, =-1 - Each Top Assy
  * @property double $PNCurrentCost
  * @property double $PNLastRollupCost
  * @property integer $PNUSRID
@@ -131,6 +131,10 @@ class PvPn extends CActiveRecord
 			'type' => array(self::BELONGS_TO, 'PvType', 'type_id'),
 			'pNUN' => array(self::BELONGS_TO, 'PvUn', 'PNUNID'),
 			'stockSerials' => array(self::HAS_MANY, 'StockSerial', 'part_id'),
+
+			'unit' => array(self::BELONGS_TO, 'PvUn', 'PNUNID'),
+			'tabparent' => array(self::BELONGS_TO, 'PvPn', 'PNTabParentID'),
+
 		);
 	}
 
@@ -141,52 +145,53 @@ class PvPn extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'PNIDToLNK' => 'Pnidto Lnk',
-			'PNUNID' => 'Pnunid',
-			'PNTabParentID' => 'Pntab Parent',
-			'PNPrefix' => 'Pnprefix',
-			'PNPartNumber' => 'Pnpart Number',
-			'PNSuffix' => 'Pnsuffix',
-			'PNType' => 'Pntype',
-			'PNRevision' => 'Pnrevision',
-			'PNTitle' => 'Pntitle',
-			'PNDetail' => 'Pndetail',
-			'PNStatus' => 'Pnstatus',
-			'PNReqBy' => 'Pnreq By',
-			'PNNotes' => 'Pnnotes',
-			'PNUser1' => 'Pnuser1',
-			'PNUser2' => 'Pnuser2',
-			'PNUser3' => 'Pnuser3',
-			'PNUser4' => 'Pnuser4',
-			'PNUser5' => 'Pnuser5',
-			'PNUser6' => 'Pnuser6',
-			'PNUser7' => 'Pnuser7',
-			'PNUser8' => 'Pnuser8',
-			'PNUser9' => 'Pnuser9',
-			'PNUser10' => 'Pnuser10',
-			'PNDate' => 'Pndate',
-			'PNTab' => 'Pntab',
-			'PNControlled' => 'Pncontrolled',
+			'PNIDToLNK' => 'To ID',
+			'PNUNID' => 'Unit ID',
+			'PNTabParentID' => 'Parent Part Number',
+			'PNPrefix' => 'Prefix',
+			'PNPartNumber' => 'Part Number',
+			'PNSuffix' => 'Suffix',
+			'PNType' => 'Type',
+			'PNRevision' => 'Revision',
+			'PNTitle' => 'Title',
+			'PNDetail' => 'Detail',
+			'PNStatus' => 'Status',
+			'PNReqBy' => 'Req. By',
+			'PNNotes' => 'Notes',
+			'PNUser1' => 'User 1',
+			'PNUser2' => 'User 2',
+			'PNUser3' => 'User 3',
+			'PNUser4' => 'User 4',
+			'PNUser5' => 'User 5',
+			'PNUser6' => 'User 6',
+			'PNUser7' => 'User 7',
+			'PNUser8' => 'User 8',
+			'PNUser9' => 'User 9',
+			'PNUser10' => 'User 10',
+			'PNDate' => 'Date',
+			'PNTab' => 'Tab',
+			'PNControlled' => 'Controlled',
 			'PNAux1' => 'Pnaux1',
-			'PNQty' => 'Pnqty',
-			'PNQty2' => 'Pnqty2',
-			'PNCostChanged' => 'Pncost Changed',
-			'PNParentCost' => 'Pnparent Cost',
-			'PNExpandList' => 'Pnexpand List',
-			'PNAssyCostOption' => 'Pnassy Cost Option',
-			'PNInclAssyOnPurchList' => 'Pnincl Assy On Purch List',
-			'PNMadeFrom' => 'Pnmade From',
-			'PNMinStockQty' => 'Pnmin Stock Qty',
-			'PNOrderToMaintain' => 'Pnorder To Maintain',
-			'PNOnECO' => 'Pnon Eco',
-			'PNOverKit' => 'Pnover Kit',
-			'PNOverKitQty' => 'Pnover Kit Qty',
-			'PNOverKitBy' => 'Pnover Kit By',
-			'PNOverKitFor' => 'Pnover Kit For',
-			'PNCurrentCost' => 'Pncurrent Cost',
-			'PNLastRollupCost' => 'Pnlast Rollup Cost',
-			'PNUSRID' => 'Pnusrid',
-			'PNUserLock' => 'Pnuser Lock',
+			'PNQty' => 'Stock Qty',
+			'PNQty2' => 'Stock Qty 2',
+			'PNCostChanged' => 'Cost Changed',
+			'PNParentCost' => 'Use Parent Cost',
+			'PNExpandList' => 'Expand List',
+			'PNAssyCostOption' => 'Linked Vendor Cost',
+			'PNInclAssyOnPurchList' => 'Include Assy On Purch List',
+			'PNMadeFrom' => 'Made From',
+			'PNMinStockQty' => 'Minimum Stock Qty',
+			'PNOrderToMaintain' => 'When Ordering: Maintain Minimum',
+			'PNOnECO' => 'On Eco',
+			'PNOverKit' => 'Over Kit',
+			'PNOverKitQty' => 'Over Kit Qty',
+			'PNOverKitBy' => 'Over Kit By',
+			'PNOverKitFor' => 'Over Kit For',
+			'PNCurrentCost' => 'Current Cost',
+			'PNLastRollupCost' => 'Last Calculated Cost',
+			'PNUSRID' => 'User ID',
+			'PNUserLock' => 'User Lock',
+
 			'type_id' => 'Type',
 			'stock_location_id' => 'Stock Location',
 			'requester_id' => 'Requester',
@@ -211,69 +216,85 @@ class PvPn extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('PNIDToLNK',$this->PNIDToLNK);
-		$criteria->compare('PNUNID',$this->PNUNID);
-		$criteria->compare('PNTabParentID',$this->PNTabParentID);
-		$criteria->compare('PNPrefix',$this->PNPrefix,true);
 		$criteria->compare('PNPartNumber',$this->PNPartNumber,true);
-		$criteria->compare('PNSuffix',$this->PNSuffix,true);
 		$criteria->compare('PNType',$this->PNType,true);
 		$criteria->compare('PNRevision',$this->PNRevision,true);
 		$criteria->compare('PNTitle',$this->PNTitle,true);
 		$criteria->compare('PNDetail',$this->PNDetail,true);
 		$criteria->compare('PNStatus',$this->PNStatus,true);
-		$criteria->compare('PNReqBy',$this->PNReqBy,true);
-		$criteria->compare('PNNotes',$this->PNNotes,true);
-		$criteria->compare('PNUser1',$this->PNUser1,true);
-		$criteria->compare('PNUser2',$this->PNUser2,true);
-		$criteria->compare('PNUser3',$this->PNUser3,true);
-		$criteria->compare('PNUser4',$this->PNUser4,true);
-		$criteria->compare('PNUser5',$this->PNUser5,true);
-		$criteria->compare('PNUser6',$this->PNUser6,true);
-		$criteria->compare('PNUser7',$this->PNUser7,true);
-		$criteria->compare('PNUser8',$this->PNUser8,true);
-		$criteria->compare('PNUser9',$this->PNUser9,true);
-		$criteria->compare('PNUser10',$this->PNUser10,true);
-		$criteria->compare('PNDate',$this->PNDate,true);
-		$criteria->compare('PNTab',$this->PNTab);
-		$criteria->compare('PNControlled',$this->PNControlled);
-		$criteria->compare('PNAux1',$this->PNAux1,true);
-		$criteria->compare('PNQty',$this->PNQty);
-		$criteria->compare('PNQty2',$this->PNQty2);
-		$criteria->compare('PNCostChanged',$this->PNCostChanged);
-		$criteria->compare('PNParentCost',$this->PNParentCost);
-		$criteria->compare('PNExpandList',$this->PNExpandList);
-		$criteria->compare('PNAssyCostOption',$this->PNAssyCostOption);
-		$criteria->compare('PNInclAssyOnPurchList',$this->PNInclAssyOnPurchList);
-		$criteria->compare('PNMadeFrom',$this->PNMadeFrom);
-		$criteria->compare('PNMinStockQty',$this->PNMinStockQty);
-		$criteria->compare('PNOrderToMaintain',$this->PNOrderToMaintain);
-		$criteria->compare('PNOnECO',$this->PNOnECO);
-		$criteria->compare('PNOverKit',$this->PNOverKit);
-		$criteria->compare('PNOverKitQty',$this->PNOverKitQty);
-		$criteria->compare('PNOverKitBy',$this->PNOverKitBy);
-		$criteria->compare('PNOverKitFor',$this->PNOverKitFor);
-		$criteria->compare('PNCurrentCost',$this->PNCurrentCost);
-		$criteria->compare('PNLastRollupCost',$this->PNLastRollupCost);
-		$criteria->compare('PNUSRID',$this->PNUSRID);
-		$criteria->compare('PNUserLock',$this->PNUserLock);
-		$criteria->compare('type_id',$this->type_id);
-		$criteria->compare('stock_location_id',$this->stock_location_id);
-		$criteria->compare('requester_id',$this->requester_id);
-		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('create_user_id',$this->create_user_id);
-		$criteria->compare('update_time',$this->update_time,true);
-		$criteria->compare('update_user_id',$this->update_user_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination'=>array(
+                'pageSize'=>Yii::app()->params['pagesize'],
+            ),
+			'sort'=>array(
+				'defaultOrder'=>'PNPartNumber ASC',
+			),
 		));
 	}
+
+    /**
+	 * Retrieves the list of parts that are childs of the specified part.
+	 * @return CActiveDataProvider the data provider that can return the needed details.
+	 */
+	public function childs($id, $pagesize = -1)
+	{
+        $pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
+		$criteria = new CDbCriteria;
+
+		$criteria->compare('PLListID', $id, false);
+
+		return new CActiveDataProvider('PvPl', array(
+			'criteria' => $criteria,
+            'pagination'=>array(
+                'pageSize'=>$pagesize,
+            ),
+			'sort'=>array(
+				'defaultOrder'=>'PLItem ASC',
+			),
+		));
+	}
+
+    /**
+	 * Retrieves the list of parts that are parents to the speified part.
+	 * @return CActiveDataProvider the data provider that can return the needed details.
+	 */
+	public function parents($id, $pagesize = -1)
+	{
+        $pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
+
+		$criteria = new CDbCriteria;
+
+		$criteria->compare('PLPartID', $id, false);
+
+		return new CActiveDataProvider('PvPl', array(
+			'criteria' => $criteria,
+            'pagination'=>array(
+                'pageSize'=>$pagesize,
+            ),
+			'sort'=>array(
+				'defaultOrder'=>'PLItem ASC',
+			),
+		));
+	}
+
+    public function YesNo($value, $equal_to, $yes_text, $no_text)
+    {
+        return ($value == $equal_to) ? $yes_text : $no_text;
+    }
+
+    public function valueToText($value, $params)
+    {
+        return isset($params[$value]) ? strval($params[$value]) : strval($value);
+    }
+
+    public static function partsCount()
+    {
+        return parent::model('PartNumber')->count();
+    }
 
 	/**
 	 * Returns the static model of the specified AR class.
