@@ -1,6 +1,6 @@
 <?php
 
-class PvPnController extends Controller
+class PartNumberController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

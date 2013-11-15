@@ -24,6 +24,8 @@
  */
 class PvHpref extends CActiveRecord
 {
+    private static $_UserFields = array(); 
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -125,6 +127,49 @@ class PvHpref extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+    /**
+	 * Returns the Captions for user defined fields.
+	 * @param string field name
+	 * @return string the caption for given field.
+	 */
+	public static function captionByField($field)
+	{
+		if (count(self::$_UserFields) == 0)
+			self::loadHprefs();
+
+		return isset(self::$_UserFields[$field]) ? self::$_UserFields[$field] : $field;
+	}
+
+    /**
+	 * Loads the PODs from the database.
+	 */
+	private static function loadHprefs()
+	{
+		$models = self::model()->findAll(array(
+			'order'=>'id ASC',
+		));
+
+		foreach($models as $model)
+        {
+            if (strtolower($model->GPREFKey) == strtolower('UserFields'))
+            {
+                // This is hardcode, but at this time I do not know to do it better
+                // In the table tbl_pv_hpref there is no information about PvPn fields (PNUserN) 
+                // but insteadthere are fields GPREFTextN
+			    self::$_UserFields['PNUser1'] = $model->GPREFText1;
+			    self::$_UserFields['PNUser2'] = $model->GPREFText2;
+			    self::$_UserFields['PNUser3'] = $model->GPREFText3;
+			    self::$_UserFields['PNUser4'] = $model->GPREFText4;
+			    self::$_UserFields['PNUser5'] = $model->GPREFText5;
+			    self::$_UserFields['PNUser6'] = $model->GPREFText6;
+			    self::$_UserFields['PNUser7'] = $model->GPREFText7;
+			    self::$_UserFields['PNUser8'] = $model->GPREFText8;
+			    self::$_UserFields['PNUser9'] = $model->GPREFText9;
+			    self::$_UserFields['PNUser10'] = $model->GPREFText10;
+            }
+        }
 	}
 
 	/**

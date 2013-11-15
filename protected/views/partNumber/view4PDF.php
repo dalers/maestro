@@ -1,5 +1,5 @@
 <?php
-/* @var $this PvPnController */
+/* @var $this PartNumberController */
 /* @var $model PvPn */
 
 $this->breadcrumbs=array(
