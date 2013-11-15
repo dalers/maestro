@@ -10,7 +10,7 @@ use maestro;
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2013 at 04:16 AM
+-- Generation Time: Nov 15, 2013 at 06:00 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -1361,17 +1361,24 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_location` (
   `sublocation_min` int(11) DEFAULT NULL,
   `sublocation_max` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `tbl_stock_location`
 --
 
 INSERT INTO `tbl_stock_location` (`id`, `name`, `use_sublocation`, `sublocation_min`, `sublocation_max`) VALUES
-(1, 'active parts', 1, 1, 100),
-(2, 'passive parts', 1, 1, 100),
-(3, 'stock room 1', 1, 1, 10),
-(4, 'stock room 2', 0, 0, 0);
+(1, 'DOCS', 1, 1, 10),
+(2, 'ELEC-COMPS', 1, 1, 20),
+(3, 'ELEC-CONNS', 1, 1, 10),
+(4, 'ELEC-PCB', 1, 1, 10),
+(5, 'ELEC-WIRE', 1, 1, 10),
+(6, 'FINGOODS', 1, 1, 10),
+(7, 'MECH', 1, 1, 10),
+(8, 'MECH-HW', 1, 1, 10),
+(9, 'SHIPPING', 1, 1, 10),
+(10, 'SHOPSUP', 1, 1, 10),
+(11, 'YARD', 0, 0, 0);
 
 -- --------------------------------------------------------
 
