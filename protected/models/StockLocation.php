@@ -95,6 +95,22 @@ class StockLocation extends CActiveRecord
 	}
 
 	/**
+	 * Retrieves a list of free bins for specified location (room)
+	 *
+     * @param int $room_id identfier of location
+	 * @return array of free bins
+     */
+    public static function siggestLocation($room_id)
+    {
+        // Call stored procedure that returns free Bins numbers
+        $sql = 'call suggest_location(' . $room_id . ');';
+        // Query database
+        $bins = Yii::app()->db->createCommand($sql)->queryAll();
+
+        return $bins;
+    }
+
+	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.

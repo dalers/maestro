@@ -1,5 +1,5 @@
 <?php
-/* @var $this PvPnController */
+/* @var $this PartNumberController */
 /* @var $model PvPn */
 
 $this->breadcrumbs=array(
@@ -185,12 +185,13 @@ $this->widget('zii.widgets.CDetailView', array(
 		array(
 			'name'=>$model->getAttributeLabel('PNTitle'),
 			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 250px;'),
+            'htmlOptions'=>array('style'=>'width: 250px; display: table-cell; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;'),
 			'value'=>'CHtml::encode($data->detail->PNTitle)',
 		),
 		array(
 			'name'=>$model->getAttributeLabel('PNDetail'),
 			'type'=>'raw',
+            'htmlOptions'=>array('style'=>'width: 250px; display: table-cell; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;'),
 			'value'=>'CHtml::encode($data->detail->PNDetail)',
 		),
 	),
@@ -233,12 +234,13 @@ $this->widget('zii.widgets.CDetailView', array(
 		array(
 			'name'=>$model->getAttributeLabel('PNTitle'),
 			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 250px;'),
+            'htmlOptions'=>array('style'=>'width: 250px; display: table-cell; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;'),
 			'value'=>'CHtml::encode($data->partof->PNTitle)',
 		),
 		array(
 			'name'=>$model->getAttributeLabel('PNDetail'),
 			'type'=>'raw',
+            'htmlOptions'=>array('style'=>'width: 250px; display: table-cell; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;'),
 			'value'=>'CHtml::encode($data->partof->PNDetail)',
 		),
 	),
