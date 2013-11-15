@@ -1,6 +1,6 @@
 Maestro(TM) is a web application for design and manufacturing teams to manage their part and supplier (vendor) information. Maestro is compatible with Parts&Vendors(TM), "The Personal Parts List Manager and Vendor Database"(1). Maestro has a modular architecture, additional  modules are planned for material management and project planning.
 
-Maestro is in active development and may be suitable for production use. For more information on the current status of Maestro, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experimenting with your own use cases.
+Maestro is in active development and may be suitable for production use. For more information on the current status of Maestro, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your own use cases.
 
 The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading environment for integrating SME business processs.
 
