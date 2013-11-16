@@ -8,12 +8,20 @@ Maestro is licensed under the terms of the BSD 2-clause license. See  [LEGAL](ht
 
 Getting Started
 ===============
-Maestro is a PHP/MySQL application. You must have a standard AMP stack or equivalent on your system in order to configure and use Maestro. Maestro uses the Yii framework, and requires PHP 5.1 or greater.
+Maestro is a PHP/MySQL application. You must have a standard AMP stack or equivalent on your system in order to configure and use Maestro. Maestro uses the Yii framework, and requires PHP 5.1 or greater. The instructions here reference a FreeBSD unix system.
 
 * Clone the [Maestro project repo](https://github.com/dalers/maestro) to your system. The master branch contains the most recent release.
 
 ```
+> cd /usr/local/www
 > git clone git://github.com/dalers/maestro.git maestro
+```
+
+* Make the assets and runtime directories in the maestro application writable by the web server.
+
+```
+chown -R www:www maestro/assets
+chown -R www:www maestro/protected/runtime
 ```
 
 * Download the [latest Yii v1 release](http://www.yiiframework.com) to your system. E.g. download yii-1.1.14.f0fee9.tar.gz. Extract the Yii framework to your system.
@@ -22,10 +30,10 @@ Maestro is a PHP/MySQL application. You must have a standard AMP stack or equiva
 > tar -xzf yii-1.1.14.f0fee9.tar.gz
 ```
 
-* Confirm the path to the Yii framework is correct in files maestro/index.php and index-test.php.
+* Make the Yii framework readable by the web server.
 
 ```
-$yii=dirname(__FILE__).'/../yii-1.1.14.f0fee9/framework/yii.php';
+chown -R www:www yii-1.1.14.f0fe99
 ```
 
 * Create a database for Maestro.
