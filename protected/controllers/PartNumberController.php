@@ -84,7 +84,7 @@ class PartNumberController extends Controller
         $fname = Yii::getPathOfAlias('application.runtime') . '/' . $pdfname;
         // Path to wkhtmltopdf converter 
         //$path = Yii::getPathOfAlias('application.bin') . "/wkhtmltopdf-i386";
-        $path = Yii::params('Path2Wkhtmltopdf');
+        $path = Yii::app()->params['Path2Wkhtmltopdf'];
 
         $output = array();
         $error = 0;
