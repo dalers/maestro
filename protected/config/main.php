@@ -123,7 +123,7 @@ return array(
         'partListPageSize' => 20,
         'PDFconverter' => 1, // 1 - wkhtmltopdf, 2 - mpdf, 3 - html2pdf
         'PDFPageSize' => 'A4', // allowed 'A4', 'Letter'
-        'Path2Wkhtmltopdf' => Yii::getPathOfAlias('application.bin') . "/wkhtmltopdf-i386", // path and name of Path2Wkhtmltopdf binary that is used for PDF convertation
+        'Path2Wkhtmltopdf' => "protected/bin/wkhtmltopdf-i386", // path and name of Path2Wkhtmltopdf binary that is used for PDF convertation
         //'Path2Wkhtmltopdf' => "/opt/wkhtmltopdf-i386",
 	),
 );
