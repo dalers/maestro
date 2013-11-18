@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Delete', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Parts', 'url'=>array('admin')),
 	array('label'=>'Save As PDF', 'url'=> array('saveAsPDF', 'id' => $model->id)),
+    array('label'=>'Suggest Location', 'url'=> array('suggestLocation', 'id' => $model->id)),
 );
 ?>
 

@@ -94,13 +94,33 @@ class StockLocation extends CActiveRecord
 		));
 	}
 
+    public static function getLocations()
+    {
+        $models = StockLocation::model()->findAll('', array(
+			'sort'=>array(
+				'defaultOrder'=>'name ASC',
+			),
+		));
+
+        return $models;
+    }
+
+    public static function findLocationByName($name)
+    {
+        $model = StockLocation::model()->find(array('condition' => 'name=:name',
+            'params' => array(':name'=>$name))
+        );
+
+        return $model;
+    }
+
 	/**
 	 * Retrieves a list of free bins for specified location (room)
 	 *
      * @param int $room_id identfier of location
 	 * @return array of free bins
      */
-    public static function siggestLocation($room_id)
+    public static function suggestLocation($room_id)
     {
         // Call stored procedure that returns free Bins numbers
         $sql = 'call suggest_location(' . $room_id . ');';

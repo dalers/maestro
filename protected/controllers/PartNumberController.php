@@ -28,7 +28,7 @@ class PartNumberController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'saveaspdf', 'view4pdf'),
+				'actions'=>array('index','view', 'saveaspdf', 'view4pdf', 'SuggestLocation'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -247,6 +247,8 @@ class PartNumberController extends Controller
 	 */
 	public function actionIndex()
 	{
+        //print_r(StockLocation::getLocations()); die;
+
         $model = new PvPn('search');
 
         $model->unsetAttributes();
@@ -259,6 +261,20 @@ class PartNumberController extends Controller
 			'model' => $model,
 		));
 	}
+
+    public function actionSuggestLocation($id)
+    {
+        $model = $this->loadModel($id);
+        $location = StockLocation::findLocationByName($model->PNUser9);
+        if ($location != null)
+            $bins = StockLocation::suggestLocation($location->id);
+
+        $this->render('suggestLocation', array(
+            'location' => $location,
+            'bins' => $bins,
+			'model' => $model,
+		));
+    }
 
 	/**
 	 * Manages all models.
