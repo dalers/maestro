@@ -1,8 +1,8 @@
-Maestro(TM) is a web application for design and manufacturing teams to manage their part and supplier (vendor) information. Maestro is compatible with Parts&Vendors(TM), "The Personal Parts List Manager and Vendor Database"(1). Maestro has a modular architecture, additional  modules are planned for material management and project planning.
+Maestro(TM) is a web application for design and manufacturing teams to manage business processes, including part and supplier (vendor) information. Maestro is compatible with Parts&Vendors(TM)(1).
 
 The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
-Maestrio is in active development and is likely not suitable at this time for production use. For more information, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your own use cases.
+Maestro is in active development, and is not likely suitable for production at this time. For more information, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your own use cases.
 
 Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), a copy of which is provided with Maestro. By submitting work to the Maestro project, you are also acknowledging that a) you have the legal right to do so, and b) you are licensing it according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
