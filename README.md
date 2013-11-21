@@ -4,7 +4,7 @@ Maestro is in active development and may be suitable for production use. For mor
 
 The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
-Maestro is licensed according to the [http://opensource.org/licenses/BSD-2-Clause BSD 2-Clause License], which includes all files in the project repository (e.g. PHP, HTML, CSS, Javascript, CSV, spreadsheets, etc.). A copy of the license is included with Maestro. By submitting your work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) it is licensed according to the terms of the [http://opensource.org/licenses/BSD-2-Clause BSD 2-Clause License].
+Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), which includes all files in the project repository (e.g. PHP, HTML, CSS, Javascript, CSV, spreadsheets...). A copy of the license is included with Maestro. By submitting your work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) it is licensed according to the terms of the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
 The Maestro project is copyright by its original authors, as recorded in the repository commit log. Maestro does not use either a Contributor Licence Agreement (CLA) or Copyright Assignment Agreement (CAA).
 
@@ -106,7 +106,7 @@ In the event you have a problem:
 * Search the [Maestro issue tracker](https://github.com/dalers/maestro/issues).
 * Post an issue to [Maestro issue tracker](https://github.com/dalers/maestro/issues).
 
-To get the most informed response when posting, try to include:
+For the best response when posting, try to include:
 
 * What are you trying to achieve?
 * What are the symptoms of your problem? Why do you think this  *is* a problem?
