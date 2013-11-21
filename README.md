@@ -4,7 +4,9 @@ Maestro is in active development and may be suitable for production use. For mor
 
 The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
-Maestro is licensed under the terms of the BSD 2-clause license. See  [LEGAL](https://github.com/dalers/maestro/wiki/Legal) for more information.
+Maestro is licensed according to the terms of the [http://opensource.org/licenses/BSD-2-Clause BSD 2-Clause License], which includes all files in the project repository (e.g. PHP, HTML, CSS, Javascript, CSV, spreadsheets, etc.). A copy of the license is included with Maestro. By submitting a new or modified file to the Maestro project, you are acknowledging you have the legal right to do so, and are providing it according to the terms of the [http://opensource.org/licenses/BSD-2-Clause BSD 2-Clause License].
+
+Work submitted to the Maestro project is copyright by its original author, as recorded in the repository commit log. Maestro does not use either a Contributor Licence Agreement (CLA) or Copyright Assignment Agreement (CAA).
 
 Getting Started
 ===============
@@ -87,14 +89,12 @@ For more information, see the [project wiki](https://github.com/dalers/maestro/w
 Project Documentation
 =====================
 Official project documentation is found in the [Maestro wiki](https://github.com/dalers/maestro/wiki/), in particular:
-* [Features](https://github.com/dalers/maestro/wiki/Features)
+* [Maestro Features](https://github.com/dalers/maestro/wiki/Maestro-Features)
 * [Guided tour](http://github.com/dalers/maestro/wiki/Guided-tour)
-* [Wiki style guide](https://github.com/dalers/maestro/wiki/Wiki-style-guide)
 * [General guidelines](https://github.com/dalers/maestro/wiki/General-guidelines)
 * [Trademark and logo policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy)
-* [Setting up a development environment](http://github.com/dalers/maestro/wiki/Setting-up-a-development-environment)
+* [Development environment](http://github.com/dalers/maestro/wiki/Development-environment)
 * [Developing maestro](http://github.com/dalers/maestro/wiki/Developing-maestro)
-* [Legal](https://github.com/dalers/maestro/wiki/Legal)
 
 Support
 =======
