@@ -1,14 +1,14 @@
 Maestro(TM) is a web application for design and manufacturing teams to manage their part and supplier (vendor) information. Maestro is compatible with Parts&Vendors(TM), "The Personal Parts List Manager and Vendor Database"(1). Maestro has a modular architecture, additional  modules are planned for material management and project planning.
 
-Maestro is in active development and may be suitable for production use. For more information on the current status of Maestro, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your own use cases.
-
 The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
-Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), which includes all files in the project repository (e.g. PHP, HTML, CSS, Javascript, CSV, spreadsheets...). A copy of the license is included with Maestro. By submitting your work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) it is licensed according to the terms of the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
+Maestrio is in active development and is likely not suitable at this time for production use. For more information, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your own use cases.
 
-The Maestro project is copyright by its original authors, as recorded in the repository commit log. Maestro does not use either a Contributor Licence Agreement (CLA) or Copyright Assignment Agreement (CAA).
+Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), a copy of which is provided with Maestro. By submitting work to the Maestro project, you are also acknowledging that a) you have the legal right to do so, and b) you are licensing it according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
-The Maestro name and image are unregistered trademarks of Dale Scott, and made available according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
+Maestro is copyright by its original authors, as recorded in the repository commit log. The Maestro project does not use either a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA).
+
+The Maestro name and image are unregistered trademarks of Dale Scott, who is making them available according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
 
 Getting Started
 ===============
