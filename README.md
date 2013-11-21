@@ -2,7 +2,7 @@ Maestro(TM) is a web application for design and manufacturing teams to manage th
 
 Maestro is in active development and may be suitable for production use. For more information on the current status of Maestro, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your own use cases.
 
-The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading environment for integrating SME business processs.
+The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
 Maestro is licensed under the terms of the BSD 2-clause license. See  [LEGAL](https://github.com/dalers/maestro/wiki/Legal) for more information.
 
@@ -59,28 +59,30 @@ chown -R www:www yii-1.1.14.f0fe99
 
 You can now access Maestro and login (e.g. [localhost/maestro](http://localhost/maestro)).
 
-Once you have logged in to Maestro, you are encouraged to review the Maestro [Guided Tour](http://github.com/dalers/maestro/wiki/Guided-tour), which will guide you step-by-step through configuring Maestro and using its basic features.
+Once you have logged in to Maestro, you are encouraged to review the Maestro [Guided Tour](http://github.com/dalers/maestro/wiki/Guided-tour), which guides you through configuring Maestro and using its basic features.
 
-Version Control and Issue Tracking
+Code Repository and Issue Tracking
 ==================================
 * [Maestro project repo](https://github.com/dalers/maestro)
-* [Maestro issue tracker](https://github.com/dalers/maestro/issues)
+* [Maestro issue tracker](https://github.com/dalers/maestro/issues) (also includes milestones)
 
 Communication Channels
 ======================
-At this time, the official communication channel is the [issue tracker](https://github.com/dalers/maestro/issues). Other options (e.g. mailing list, Google Group...) are being considered and will be announced when avaiable.
+At this time, the official communication channel is the [issue tracker](https://github.com/dalers/maestro/issues). Other options (e.g. mailing list, Google Group...) are being considered and will be announced when available.
 
 Developer Guidelines
 ====================
-The Maestro project follows the Gitflow workflow using the Gitflow Fork & Pull model:
-* Fork the GitHub atkphpframework/achievo repo
+The basic development procedure is:
+* Create a GitHub account and use GitHub to fork the Maestro project repo
 * Clone your fork locally
-* Checkout the develop branch to work in, or create a local topic branch from either the develop branch or a release branch.
-* Develop and test your work
+* Create a local topic branch off the master branch
+* Develop and test your work locally
 * Push your topic branch to your GitHub clone
-* Issue a pull request to the atkframework group to have your changes merged, typically into the develop branch for on-going development.
+* Issue a pull request with your changes to the Maestro project
 
-For more information, see [General Guidelines](https://github.com/dalers/maestro/wiki/General-guidelines).
+All development is currently done in the master branch, although the Maestro project will likely move to the [Gitflow model](http://nvie.com/posts/a-successful-git-branching-model/) once the codebase has matured further.
+
+For more information, see the [General Guidelines article in the project wiki](https://github.com/dalers/maestro/wiki/General-guidelines).
 
 Project Documentation
 =====================
