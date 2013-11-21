@@ -4,9 +4,11 @@ Maestro is in active development and may be suitable for production use. For mor
 
 The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
-Maestro is licensed according to the terms of the [http://opensource.org/licenses/BSD-2-Clause BSD 2-Clause License], which includes all files in the project repository (e.g. PHP, HTML, CSS, Javascript, CSV, spreadsheets, etc.). A copy of the license is included with Maestro. By submitting a new or modified file to the Maestro project, you are acknowledging you have the legal right to do so, and are providing it according to the terms of the [http://opensource.org/licenses/BSD-2-Clause BSD 2-Clause License].
+Maestro is licensed according to the [http://opensource.org/licenses/BSD-2-Clause BSD 2-Clause License], which includes all files in the project repository (e.g. PHP, HTML, CSS, Javascript, CSV, spreadsheets, etc.). A copy of the license is included with Maestro. By submitting your work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) it is licensed according to the terms of the [http://opensource.org/licenses/BSD-2-Clause BSD 2-Clause License].
 
-Work submitted to the Maestro project is copyright by its original author, as recorded in the repository commit log. Maestro does not use either a Contributor Licence Agreement (CLA) or Copyright Assignment Agreement (CAA).
+The Maestro project is copyright by its original authors, as recorded in the repository commit log. Maestro does not use either a Contributor Licence Agreement (CLA) or Copyright Assignment Agreement (CAA).
+
+The Maestro name and image are unregistered trademarks of Dale Scott, and made available according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
 
 Getting Started
 ===============
