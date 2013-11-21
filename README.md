@@ -82,7 +82,7 @@ The basic development procedure is:
 
 All development is currently done in the master branch, although the Maestro project will likely move to the [Gitflow model](http://nvie.com/posts/a-successful-git-branching-model/) once the codebase has matured further.
 
-For more information, see the [General Guidelines article in the project wiki](https://github.com/dalers/maestro/wiki/General-guidelines).
+For more information, see the [project wiki](https://github.com/dalers/maestro/wiki).
 
 Project Documentation
 =====================
