@@ -84,7 +84,7 @@ The basic development procedure is:
 * Push your topic branch to your GitHub clone
 * Issue a pull request with your changes to the Maestro project
 
-All development is currently done in the master branch, although the Maestro project will likely move to the [Gitflow model](http://nvie.com/posts/a-successful-git-branching-model/) once the codebase has matured further.
+All development is currently done in the master branch, the Maestro project will likely move to the [Gitflow model](http://nvie.com/posts/a-successful-git-branching-model/) once the codebase has matured further.
 
 For more information, see the [project wiki](https://github.com/dalers/maestro/wiki).
 
