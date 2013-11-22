@@ -4,9 +4,9 @@ The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is t
 
 Maestro is in active development, and is not likely suitable for production at this time. For more information, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your own use cases.
 
-Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), a copy of which is provided with Maestro. By submitting work to the Maestro project, you are also acknowledging that a) you have the legal right to do so, and b) you are licensing it according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
+Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), a copy of which [is provided with Maestro (LICENSE file)](https://github.com/dalers/maestro/blob/master/LICENSE). By submitting work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
-Maestro is copyright by its original authors, as recorded in the repository commit log. The Maestro project does not use either a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA).
+Maestro is copyright by its authors, as recorded in the repository commit log. The Maestro project does not use either a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). 
 
 The Maestro name and image are unregistered trademarks of Dale Scott, who is making them available according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
 
