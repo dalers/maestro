@@ -70,17 +70,16 @@ class PartNumberController extends Controller
 	}
 
 	/**
-	 * Converts HTML file (special view of Part Number) to PDF format and downloads it to user.
-     * wkhtmltopdf tool is used for convertations HTML->PDF
-     * wkhtmltopdf-i386 (static) you can download from https://code.google.com/p/wkhtmltopdf/ and store it in folder protected/bin
-     * make sure that this tool has permissions to be executed
+	 * Use wkhtmltopdf to convert HTML (special view of Part Number) to PDF and download to user
+     * https://code.google.com/p/wkhtmltopdf/
+	 * 
 	 * @param integer $id the ID of the model to be displayed
 	 */
     public function actionSaveAsPDF_wkhtmltopdf($id, $pdfname)
     {
-        // URL to HTML file (view) that will be converted to PDF
+        //URL to HTML file (view) that will be converted to PDF
         $url = "http://" . $_SERVER['HTTP_HOST'] . Yii::app()->request->baseUrl . "/index.php/pvPn/view4PDF/" . $id;
-        // Name with full path of PDF file that will be created
+        //Name with full path of PDF file that will be created
         $fname = Yii::getPathOfAlias('application.runtime') . '/' . $pdfname;
         // Path to wkhtmltopdf converter 
         //$path = Yii::getPathOfAlias('application.bin') . "/wkhtmltopdf-i386";
@@ -93,13 +92,13 @@ class PartNumberController extends Controller
         // and then dowload it to user
         $cmd = $path . ' -s ' . Yii::app()->params['PDFPageSize'] . ' "' . $url . '" "' . $fname . '"';
 
-        //echo $cmd;
+        echo $cmd;
 
         exec($cmd, $output, $error);
 
         if ($error == 0)
         {
-            // If there was no error then send converted PDF file to a user
+            //if no error send converted PDF file to user
             Yii::app()->request->sendFile($pdfname, file_get_contents($fname), null, true);
             // TODO: Remove local PDF file! When you remove the file right after calling sendFile then the file can not be downloaded somewhy
         }
