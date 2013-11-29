@@ -12,7 +12,7 @@ The Maestro name and image are unregistered trademarks of Dale Scott, who is mak
 
 Getting Started
 ===============
-Maestro is a PHP/MySQL application. You must have a standard AMP stack or equivalent on your system in order to configure and use Maestro. Maestro uses the Yii framework, and requires PHP 5.1 or greater. This procedure follows install on a typical FreeBSD unix system, with PHP5, MySQL, and Apache2.
+Maestro is a PHP/MySQL application. You must have a standard AMP stack or equivalent on your system in order to configure and use Maestro. Maestro uses the Yii framework, and requires PHP 5.1 or greater. This procedure follows install on a typical FreeBSD unix system, with PHP5, MySQL, and Apache2. It intentionally tries not to hide what's happening in master scripts.
 
 * Download the [latest Yii v1 release](http://www.yiiframework.com) to your system. E.g. download yii-1.1.14.f0fee9.tar.gz. Extract the Yii framework to your system and make it reasonable by Apache.
 
@@ -24,13 +24,19 @@ Maestro is a PHP/MySQL application. You must have a standard AMP stack or equiva
 
 * confirm your system meets Yii's basic requirements using the "requirements" app bundled in the framework download.
 
-* Install wkhtmltopdf
+WKHTMLTOPDF - NOT CURRENTLY USED
+--------------------------------
+
+* Install wkhtmltopdf in server
 
 ```
 # cd /usr/ports/converters/wkhtmltopdf
 # make config (leave defaults)
 # make install clean
 ```
+
+END OF WKHTMLTOPDF
+------------------
 
 * enable PHP PDF extensions
 
@@ -48,11 +54,18 @@ chown -R www:www maestro/assets
 chown -R www:www maestro/protected/runtime
 ```
 
-* Create a database for Maestro.
+* Create a MySQL database for Maestro.
 
 ```
 > cd maestro/protected/data
 > mysql -u root -p < ./create_db.sql
+```
+
+* Load any stored procedures into the Maestro MySQL database.
+
+```
+> cd maestro/protected/data
+> mysql -u root -p < ./load_suggest_location_proc.sql
 ```
 
 * Migrate the database to the current schema.
