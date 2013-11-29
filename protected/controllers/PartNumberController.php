@@ -71,14 +71,14 @@ class PartNumberController extends Controller
 
 	/**
 	 * Use wkhtmltopdf to convert HTML (special view of Part Number) to PDF and download to user
-     * https://code.google.com/p/wkhtmltopdf/
+	 * https://code.google.com/p/wkhtmltopdf/
 	 * 
 	 * @param integer $id the ID of the model to be displayed
 	 */
     public function actionSaveAsPDF_wkhtmltopdf($id, $pdfname)
     {
         //URL to HTML file (view) that will be converted to PDF
-        $url = "http://" . $_SERVER['HTTP_HOST'] . Yii::app()->request->baseUrl . "/index.php/pvPn/view4PDF/" . $id;
+        $url = "http://" . $_SERVER['HTTP_HOST'] . Yii::app()->request->baseUrl . "/index.php/partNumber/view4PDF/" . $id;
         //Name with full path of PDF file that will be created
         $fname = Yii::getPathOfAlias('application.runtime') . '/' . $pdfname;
         // Path to wkhtmltopdf converter 
@@ -92,7 +92,7 @@ class PartNumberController extends Controller
         // and then dowload it to user
         $cmd = $path . ' -s ' . Yii::app()->params['PDFPageSize'] . ' "' . $url . '" "' . $fname . '"';
 
-        echo $cmd;
+        //echo $cmd;
 
         exec($cmd, $output, $error);
 
@@ -263,6 +263,8 @@ class PartNumberController extends Controller
 
     public function actionSuggestLocation($id)
     {
+        $bins = array();
+
         $model = $this->loadModel($id);
         $location = StockLocation::findLocationByName($model->PNUser9);
         if ($location != null)

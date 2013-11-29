@@ -1,6 +1,6 @@
 <?php
 
-class PvPnController extends Controller
+class PartNumberController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,7 +28,7 @@ class PvPnController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'saveaspdf', 'view4pdf'),
+				'actions'=>array('index','view', 'saveaspdf', 'view4pdf', 'SuggestLocation'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -70,21 +70,26 @@ class PvPnController extends Controller
 	}
 
 	/**
-	 * Converts HTML file (special view of Part Number) to PDF format and downloads it to user.
-     * wkhtmltopdf tool is used for convertations HTML->PDF
-     * wkhtmltopdf-i386 (static) you can download from https://code.google.com/p/wkhtmltopdf/ and store it in folder protected/bin
-     * make sure that this tool has permissions to be executed
+	 * Use wkhtmltopdf to convert HTML (special view of Part Number) to PDF and download to user
+     * https://code.google.com/p/wkhtmltopdf/
+	 * 
 	 * @param integer $id the ID of the model to be displayed
 	 */
     public function actionSaveAsPDF_wkhtmltopdf($id, $pdfname)
     {
-        // URL to HTML file (view) that will be converted to PDF
+<<<<<<< HEAD
+        //URL to HTML file (view) that will be converted to PDF
         $url = "http://" . $_SERVER['HTTP_HOST'] . Yii::app()->request->baseUrl . "/index.php/pvPn/view4PDF/" . $id;
+        //Name with full path of PDF file that will be created
+=======
+        // URL to HTML file (view) that will be converted to PDF
+        $url = "http://" . $_SERVER['HTTP_HOST'] . Yii::app()->request->baseUrl . "/index.php/partNumber/view4PDF/" . $id;
         // Name with full path of PDF file that will be created
+>>>>>>> a46ee476a6aaaf96ac9f94364205caf78865edeb
         $fname = Yii::getPathOfAlias('application.runtime') . '/' . $pdfname;
         // Path to wkhtmltopdf converter 
         //$path = Yii::getPathOfAlias('application.bin') . "/wkhtmltopdf-i386";
-        $path = Yii::params('Path2Wkhtmltopdf');
+        $path = Yii::app()->params['Path2Wkhtmltopdf'];
 
         $output = array();
         $error = 0;
@@ -93,13 +98,13 @@ class PvPnController extends Controller
         // and then dowload it to user
         $cmd = $path . ' -s ' . Yii::app()->params['PDFPageSize'] . ' "' . $url . '" "' . $fname . '"';
 
-        //echo $cmd;
+        echo $cmd;
 
         exec($cmd, $output, $error);
 
         if ($error == 0)
         {
-            // If there was no error then send converted PDF file to a user
+            //if no error send converted PDF file to user
             Yii::app()->request->sendFile($pdfname, file_get_contents($fname), null, true);
             // TODO: Remove local PDF file! When you remove the file right after calling sendFile then the file can not be downloaded somewhy
         }
@@ -247,6 +252,8 @@ class PvPnController extends Controller
 	 */
 	public function actionIndex()
 	{
+        //print_r(StockLocation::getLocations()); die;
+
         $model = new PvPn('search');
 
         $model->unsetAttributes();
@@ -259,6 +266,22 @@ class PvPnController extends Controller
 			'model' => $model,
 		));
 	}
+
+    public function actionSuggestLocation($id)
+    {
+        $bins = array();
+
+        $model = $this->loadModel($id);
+        $location = StockLocation::findLocationByName($model->PNUser9);
+        if ($location != null)
+            $bins = StockLocation::suggestLocation($location->id);
+
+        $this->render('suggestLocation', array(
+            'location' => $location,
+            'bins' => $bins,
+			'model' => $model,
+		));
+    }
 
 	/**
 	 * Manages all models.
