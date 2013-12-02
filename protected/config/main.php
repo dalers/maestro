@@ -121,7 +121,7 @@ return array(
 		'adminEmail'=>'webmaster@example.com',
         'pagesize' => 30,
         'partListPageSize' => 20,
-        'PDFconverter' => 1, // 1 - wkhtmltopdf, 2 - mpdf, 3 - html2pdf
+        'PDFconverter' => 3, // 1 - wkhtmltopdf, 2 - mpdf, 3 - html2pdf
         'PDFPageSize' => 'A4', // allowed 'A4', 'Letter'
         'Path2Wkhtmltopdf' => "protected/bin/wkhtmltopdf-i386", // path and name of Path2Wkhtmltopdf binary that is used for PDF convertation
         //'Path2Wkhtmltopdf' => "/opt/wkhtmltopdf-i386",
