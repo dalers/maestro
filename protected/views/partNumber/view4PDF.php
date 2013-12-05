@@ -28,7 +28,7 @@ Updated on <?php echo strftime("%B %d, %Y", strtotime(CHtml::encode($model->upda
 	'data'=>$model,
 	'attributes'=>array(
         'PNPartNumber',
-        array('label' => $model->getAttributeLabel('PNTabParentID'), 'type' => 'raw', 'value' => CHtml::link(CHtml::encode($model->tabparent->PNPartNumber), array('view', 'id' => $model->tabparent->id))),
+        array('label' => $model->getAttributeLabel('PNTabParentID'), 'type' => 'raw', 'value' => (isset($model->tabparent) ? CHtml::link(CHtml::encode($model->tabparent->PNPartNumber), array('view', 'id' => $model->tabparent->id)) : '')),
         array('label' => $model->getAttributeLabel('PNDate'), 'type' => 'raw', 'value' => strftime("%B %d, %Y", strtotime(CHtml::encode($model->PNDate)))),
         'PNPrefix',
 		'PNSuffix',
