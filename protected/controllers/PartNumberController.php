@@ -1,5 +1,9 @@
 <?php
 
+// MGAJUDO Import ECSVExport
+Yii::import('ext.ECSVExport');
+require_once('protected/extensions/ECSVExport/ECSVExport.php');
+
 class PartNumberController extends Controller
 {
 	/**
@@ -28,7 +32,7 @@ class PartNumberController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'saveaspdf', 'view4pdf', 'SuggestLocation'),
+				'actions'=>array('index','view', 'saveaspdf', 'view4pdf', 'SuggestLocation', 'saveascsv'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -276,6 +280,38 @@ class PartNumberController extends Controller
 			'model' => $model,
 		));
     }
+
+	/**
+	* Display CSV
+	* @auth MGAJUDO
+	* Filters for the query will be required for this function
+	* Possibly the column names should be hidden/shown
+	* Possibly dynamically build the SELECT statement
+	* BEWARE: Potential bug with this CSV extension where it may be unable to handle any null value that is not the last right column
+	*/
+	public function actionSaveAsCSV()
+	{
+
+		$csvname = "parts.csv";
+		$path = Yii::app()->basePath;
+		$filename = $path."/".$csvname;
+		
+		$cmd = Yii::app()->db->createCommand("SELECT PNPartNumber, PNType, PNStatus, PNRevision, PNTitle, PNDetail FROM maestro.tbl_pv_pn");
+		
+		$csv = new ECSVExport($cmd);
+		
+		$csv->setHeader('PNPartNumber', 'Part Number');
+		$csv->setHeader('PNType', 'Type');
+		$csv->setHeader('PNStatus', 'Status');
+		$csv->setHeader('PNRevision', 'Revision');
+		$csv->setHeader('PNTitle', 'Title');
+		$csv->setHeader('PNDetail', 'Detail');
+
+		$csv->setOutputFile($filename);
+		$output = $csv->toCSV();
+		
+		Yii::app()->getRequest()->sendFile($csvname, file_get_contents($filename));
+	}
 
 	/**
 	 * Manages all models.
