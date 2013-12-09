@@ -20,8 +20,6 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
 <body>
 
 <div class="container" id="page" style="padding: 10px; width: 1000px">

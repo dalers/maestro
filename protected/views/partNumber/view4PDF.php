@@ -18,8 +18,19 @@ $this->menu=array(
 
 <h1>View Part '<?php echo CHtml::encode($model->PNPartNumber); ?>'</h1>
 
-<p>Created on <?php echo strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by user '<?php echo $model->create_user_id; ?>'<br/>
-Updated on <?php echo strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by user '<?php echo $model->update_user_id; ?>'</p>
+<p>Created on <?php echo empty($model->create_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "Unknown user" : $model->create_user_id; ?>
+
+<?php
+    // Show update information only if the Part Number was updated
+
+    if (!empty($model->update_time)) {
+?>
+, Updated on 
+<?php 
+        echo empty($model->update_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "Unknown user" : $model->update_user_id;
+    }
+?>
+</p>
 
 <div id="tabs-1">
 <h2>General properties</h2>
