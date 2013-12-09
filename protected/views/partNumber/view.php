@@ -13,7 +13,7 @@ $this->menu=array(
 	array('label'=>'Update', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Parts', 'url'=>array('admin')),
-	array('label'=>'Save As PDF', 'url'=> array('saveAsPDF', 'id' => $model->id)),
+	array('label'=>'Save As PDF', 'url'=> array('saveAsPDF', 'id' => $model->id), 'linkOptions' => array('target' => '_blank')),
     array('label'=>'Suggest Location', 'url'=> array('suggestLocation', 'id' => $model->id)),
 );
 ?>
@@ -41,7 +41,8 @@ $this->menu=array(
 <!-- Create jQuery's tabs using <li> tags -->
 <ul>
  <li><a href="#tabs-1">General</a></li>
- <li><a href="#tabs-2">Parts</a></li>
+ <li><a href="#tabs-2">Parts List</a></li>
+ <li><a href="#tabs-3">Used On</a></li>
 </ul>
 
 <div id="tabs-1">
@@ -200,7 +201,11 @@ $this->widget('zii.widgets.CDetailView', array(
 
 ?>
 
-<h2>Part of</h2>
+</div> <!-- <div id="tabs-1"> -->
+
+<div id="tabs-3">
+
+<h2>Used On</h2>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider' => $model->parents($model->id),
@@ -248,7 +253,7 @@ $this->widget('zii.widgets.CDetailView', array(
 ));
 ?>
 
-</div> <!-- <div id="tabs-2"> -->
+</div> <!-- <div id="tabs-3"> -->
 
 <!-- The folowing code initializes DIV's above as TAB control -->
 
