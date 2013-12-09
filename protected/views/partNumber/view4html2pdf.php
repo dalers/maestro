@@ -250,7 +250,7 @@
 
 $childs = $model->childs($model->id, -1)->getData();
 
-if (count($child) == 0)
+if (count($childs) == 0)
 {
 
 ?>
