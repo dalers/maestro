@@ -123,7 +123,7 @@ return array(
         'partListPageSize' => 20,
         'PDFconverter' => 3, // 1 - wkhtmltopdf, 2 - mpdf, 3 - html2pdf
         'PDFPageSize' => 'Letter', // allowed 'A4', 'Letter'
-        'Path2Wkhtmltopdf' => "protected/bin/wkhtmltopdf-i386", // path and name of Path2Wkhtmltopdf binary that is used for PDF convertation
+        'Path2Wkhtmltopdf' => "/usr/local/bin/wkhtmltopdf", // name with path for wkhtmltopdf converter
         //'Path2Wkhtmltopdf' => "/opt/wkhtmltopdf-i386",
 	),
 );

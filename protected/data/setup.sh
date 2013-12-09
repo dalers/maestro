@@ -38,7 +38,7 @@ chmod a+xrw /usr/home/samba/maestro/csv
 echo ""
 
 echo "Copy demo Parts&Vendors(TM) database to Windows share..."
-cp /usr/local/www/maestro/protected/data/mdb/*.mdb /usr/home/samba/maestro/
+cp /usr/local/www/maestro/protected/data/pv/pv.mdb /usr/home/samba/maestro/
 chmod a+rw /usr/home/samba/maestro/*.mdb
 echo ""
 
