@@ -1,14 +1,14 @@
 Maestro(TM) is a web application for design and manufacturing teams to manage business processes, including part and supplier (vendor) information. Maestro is compatible with Parts&Vendors(TM)(1).
 
-The purpose of the [Maestro project](https://www.github.com/dalers/maestro) is to create, as a community, the leading platform for integrating SME business processes.
+The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
-Maestro is in active development, and is not likely suitable for production at this time. For more information, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki) and experiment with your own use cases.
+Maestro is in active development, and is not likely suitable for production at this time. For more information, see the [Maestro project wiki](https://github.com/maestrobpm/maestro/wiki) and experiment with your own use cases.
 
-Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), a copy of which [is provided with Maestro (LICENSE file)](https://github.com/dalers/maestro/blob/master/LICENSE). By submitting work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
+Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), a copy of which [is provided with Maestro (LICENSE file)](https://github.com/maestrobpm/maestro/blob/master/LICENSE). By submitting work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
 Maestro is copyright by its authors, as recorded in the repository commit log. The Maestro project does not use either a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). 
 
-The Maestro name and image are unregistered trademarks of Dale Scott, who is making them available according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
+The Maestro name and image are unregistered trademarks of Dale Scott, who is making them available according to the [Maestro Trademark and Logo Policy](https://github.com/maestrobpm/maestro/wiki/Trademark-and-logo-policy).
 
 Getting Started
 ===============
@@ -24,10 +24,7 @@ Maestro is a PHP/MySQL application. You must have a standard AMP stack or equiva
 
 * confirm your system meets Yii's basic requirements using the "requirements" app bundled in the framework download.
 
-WKHTMLTOPDF - NOT CURRENTLY USED
---------------------------------
-
-* Install wkhtmltopdf in server
+* Install wkhtmltopdf in server (wkhtmltopdf is not currently required, PDF reports are generated using Yii-PDF/HTML2PDF).
 
 ```
 # cd /usr/ports/converters/wkhtmltopdf
@@ -35,16 +32,13 @@ WKHTMLTOPDF - NOT CURRENTLY USED
 # make install clean
 ```
 
-END OF WKHTMLTOPDF
-------------------
-
 * enable PHP PDF extensions
 
-* Clone the [Maestro project repo](https://github.com/dalers/maestro) to your system. The master branch contains the most recent release.
+* Clone the [Maestro project repo](https://github.com/maestrobpm/maestro) to your system. The master branch contains the most recent release.
 
 ```
 > cd /usr/local/www
-> git clone git://github.com/dalers/maestro.git maestro
+> git clone git://github.com/maestrobpm/maestro.git maestro
 ```
 
 * Make the assets and runtime directories in the maestro application writable by the web server.
@@ -84,16 +78,16 @@ chown -R www:www maestro/protected/runtime
 
 You can now access Maestro and login (e.g. [localhost/maestro](http://localhost/maestro)).
 
-Once you have logged in to Maestro, you are encouraged to review the Maestro [Guided Tour](http://github.com/dalers/maestro/wiki/Guided-tour), which guides you through configuring Maestro and using its basic features.
+Once you have logged in to Maestro, you are encouraged to review the Maestro [Guided Tour](http://github.com/maestrobpm/maestro/wiki/Guided-tour), which guides you through configuring Maestro and using its basic features.
 
 Code Repository and Issue Tracking
 ==================================
-* [Maestro project repo](https://github.com/dalers/maestro)
-* [Maestro issue tracker](https://github.com/dalers/maestro/issues) (also includes milestones)
+* [Maestro project repo](https://github.com/maestrobpm/maestro)
+* [Maestro issue tracker](https://github.com/maestrobpm/maestro/issues) (also includes milestones)
 
 Communication Channels
 ======================
-At this time, the official communication channel is the [issue tracker](https://github.com/dalers/maestro/issues). Other options (e.g. mailing list, Google Group...) are being considered and will be announced when available.
+At this time, the official communication channel is the [issue tracker](https://github.com/maestrobpm/maestro/issues). Other options (e.g. mailing list, Google Group...) are being considered and will be announced when available.
 
 Developer Guidelines
 ====================
@@ -107,25 +101,25 @@ The basic development procedure is:
 
 All development is currently done in the master branch, the Maestro project will likely move to the [Gitflow model](http://nvie.com/posts/a-successful-git-branching-model/) once the codebase has matured further.
 
-For more information, see the [project wiki](https://github.com/dalers/maestro/wiki).
+For more information, see the [project wiki](https://github.com/maestrobpm/maestro/wiki).
 
 Project Documentation
 =====================
-Official project documentation is found in the [Maestro wiki](https://github.com/dalers/maestro/wiki/), in particular:
-* [Maestro Features](https://github.com/dalers/maestro/wiki/Maestro-Features)
-* [Guided tour](http://github.com/dalers/maestro/wiki/Guided-tour)
-* [General guidelines](https://github.com/dalers/maestro/wiki/General-guidelines)
-* [Trademark and logo policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy)
-* [Development environment](http://github.com/dalers/maestro/wiki/Development-environment)
-* [Developing maestro](http://github.com/dalers/maestro/wiki/Developing-maestro)
+Official project documentation is found in the [Maestro wiki](https://github.com/maestrobpm/maestro/wiki/), in particular:
+* [Maestro Features](https://github.com/maestrobpm/maestro/wiki/Maestro-Features)
+* [Guided tour](http://github.com/maestrobpm/maestro/wiki/Guided-tour)
+* [General guidelines](https://github.com/maestrobpm/maestro/wiki/General-guidelines)
+* [Trademark and logo policy](https://github.com/maestrobpm/maestro/wiki/Trademark-and-logo-policy)
+* [Development environment](http://github.com/maestrobpm/maestro/wiki/Development-environment)
+* [Developing maestro](http://github.com/maestrobpm/maestro/wiki/Developing-maestro)
 
 Support
 =======
 In the event you have a problem:
 
-* Search the [Maestro wiki](https://github.com/dalers/maestro/wiki/).
-* Search the [Maestro issue tracker](https://github.com/dalers/maestro/issues).
-* Post an issue to [Maestro issue tracker](https://github.com/dalers/maestro/issues).
+* Search the [Maestro wiki](https://github.com/maestrobpm/maestro/wiki/).
+* Search the [Maestro issue tracker](https://github.com/maestrobpm/maestro/issues).
+* Post an issue to [Maestro issue tracker](https://github.com/maestrobpm/maestro/issues).
 
 For the best response when posting, try to include:
 
