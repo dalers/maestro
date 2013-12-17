@@ -1,3 +1,0 @@
-number,name,description,project,type,corrective_action,cost,status,create_time
-IR00001,Incorrect PCB layout,Connectivity of PCB-type inductor in layout is incorrect.,P09-001,PCB,YES,0,CLOSED,2005-01-10
-IR00002,Difficult assembly procedure,Difficult to assemble and test PCA due to copper-side-up orientation. Orienting PCA component-side up allows for full access to components for debugging after assembly.,P09-001,ASSY,YES,0,CLOSED,2005-02-24
