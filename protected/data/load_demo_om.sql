@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `tbl_om_size` (
 --
 
 INSERT INTO `tbl_om_size` (`id`, `name`) VALUES
-(1, '10in,'),
+(1, '10in.'),
 (2, '10NS'),
 (3, '12in.'),
 (4, '12inA'),
