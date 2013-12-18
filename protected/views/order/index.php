@@ -36,19 +36,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
         array(
 			'name'=>'client_id',
-			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->client_id)',
+			'value'=>'CHtml::encode($data->client->name)',
 		),
         array(
 			'name'=>'size_id',
-			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->size_id)',
+			'value'=>'CHtml::encode($data->size->name)',
 		),
         array(
 			'name'=>'shipment_dt',
-			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
 			'value'=>'CHtml::encode($data->shipment_dt)',
 		),
@@ -56,7 +53,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'=>'person_id',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->person_id)',
+			'value'=>'CHtml::encode($data->person->username)',
 		),
 	),
 ));

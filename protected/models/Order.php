@@ -22,15 +22,15 @@
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
- * @property OmClient $client
- * @property OmCountry $country
+ * @property lient $client
+ * @property Country $country
  * @property Person $createUser
- * @property OmLocation $location
+ * @property Location $location
  * @property Person $person
- * @property OmProduct $product
- * @property OmSize $size
- * @property OmStatus $status
- * @property OmToolType $toolType
+ * @property Product $product
+ * @property Size $size
+ * @property Status $status
+ * @property ToolType $toolType
  * @property Person $updateUser
  */
 class Order extends CActiveRecord
@@ -69,15 +69,15 @@ class Order extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'client' => array(self::BELONGS_TO, 'OmClient', 'client_id'),
-			'country' => array(self::BELONGS_TO, 'OmCountry', 'country_id'),
+			'client' => array(self::BELONGS_TO, 'Client', 'client_id'),
+			'country' => array(self::BELONGS_TO, 'Country', 'country_id'),
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
-			'location' => array(self::BELONGS_TO, 'OmLocation', 'location_id'),
+			'location' => array(self::BELONGS_TO, 'Location', 'location_id'),
 			'person' => array(self::BELONGS_TO, 'Person', 'person_id'),
-			'product' => array(self::BELONGS_TO, 'OmProduct', 'product_id'),
-			'size' => array(self::BELONGS_TO, 'OmSize', 'size_id'),
-			'status' => array(self::BELONGS_TO, 'OmStatus', 'status_id'),
-			'toolType' => array(self::BELONGS_TO, 'OmToolType', 'tool_type_id'),
+			'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
+			'size' => array(self::BELONGS_TO, 'Size', 'size_id'),
+			'status' => array(self::BELONGS_TO, 'Status', 'status_id'),
+			'toolType' => array(self::BELONGS_TO, 'ToolType', 'tool_type_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
 		);
 	}
@@ -93,11 +93,11 @@ class Order extends CActiveRecord
 			'reman_no' => 'Reman No',
 			'job_no' => 'Job No',
 			'size_id' => 'Size',
-			'shipment_dt' => 'Shipment Dt',
-			'person_id' => 'Person',
+			'shipment_dt' => 'Shipment Date',
+			'person_id' => 'Assigned To',
 			'tool_type_id' => 'Tool Type',
 			'product_id' => 'Product',
-			'location_id' => 'Location',
+			'location_id' => 'Locale',
 			'country_id' => 'Country',
 			'status_id' => 'Status',
 			'create_time' => 'Create Time',

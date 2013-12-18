@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('client_id')); ?>:</b>
-	<?php echo CHtml::encode($data->client_id); ?>
+	<?php echo CHtml::encode($data->client->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('reman_no')); ?>:</b>
@@ -22,7 +22,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('size_id')); ?>:</b>
-	<?php echo CHtml::encode($data->size_id); ?>
+	<?php echo CHtml::encode($data->size->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('shipment_dt')); ?>:</b>
@@ -30,7 +30,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('person_id')); ?>:</b>
-	<?php echo CHtml::encode($data->person_id); ?>
+	<?php echo CHtml::encode($data->person->username); ?>
 	<br />
 
 	<?php /*

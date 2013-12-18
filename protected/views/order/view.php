@@ -22,20 +22,50 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'client_id',
+		array(
+            'label'=>'Client',
+            'value'=>$model->client->name,
+        ),
 		'reman_no',
 		'job_no',
-		'size_id',
+		array(
+            'label'=>'Size',
+            'value'=>$model->size->name,
+        ),
 		'shipment_dt',
-		'person_id',
-		'tool_type_id',
-		'product_id',
-		'location_id',
-		'country_id',
-		'status_id',
+		array(
+            'label'=>'Assigned To',
+            'value'=>$model->person->username,
+        ),
+		array(
+            'label'=>'Tool Type',
+            'value'=>$model->toolType->name,
+        ),
+		array(
+            'label'=>'Product',
+            'value'=>$model->product->name,
+        ),
+		array(
+            'label'=>'Location',
+            'value'=>$model->location->name,
+        ),
+		array(
+            'label'=>'Country',
+            'value'=>$model->country->name,
+        ),
+		array(
+            'label'=>'Status',
+            'value'=>$model->status->name,
+        ),
 		'create_time',
-		'create_user_id',
+		array(
+            'label'=>'create_user_id',
+            'value'=>$model->createUser->username,
+        ),
 		'update_time',
-		'update_user_id',
+		array(
+            'label'=>'update_user_id',
+            'value'=>$model->updateUser->username,
+        ),
 	),
 )); ?>
