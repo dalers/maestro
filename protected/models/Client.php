@@ -7,7 +7,6 @@
  * @property integer $id
  * @property string $name
  * @property string $phone_no
- * @property integer $country_id
  * @property string $notes
  * @property string $create_time
  * @property integer $create_user_id
@@ -38,13 +37,13 @@ class Client extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('country_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('name, notes', 'length', 'max'=>255),
 			array('phone_no', 'length', 'max'=>25),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, phone_no, country_id, notes, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, name, phone_no, notes, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,7 +70,6 @@ class Client extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'phone_no' => 'Phone No',
-			'country_id' => 'Country',
 			'notes' => 'Notes',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
@@ -101,7 +99,6 @@ class Client extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('phone_no',$this->phone_no,true);
-		$criteria->compare('country_id',$this->country_id);
 		$criteria->compare('notes',$this->notes,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);

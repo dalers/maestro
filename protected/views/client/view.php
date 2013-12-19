@@ -24,7 +24,6 @@ $this->menu=array(
 		'id',
 		'name',
 		'phone_no',
-		'country_id',
 		'notes',
 		'create_time',
 		'create_user_id',

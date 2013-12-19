@@ -50,10 +50,6 @@ $this->menu=array(
             'value'=>$model->location->name,
         ),
 		array(
-            'label'=>'Country',
-            'value'=>$model->country->name,
-        ),
-		array(
             'label'=>'Status',
             'value'=>$model->status->name,
         ),

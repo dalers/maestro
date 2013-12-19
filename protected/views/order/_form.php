@@ -93,12 +93,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Country'); ?>
-		<?php echo $form->dropDownList($model,'country_id', CHtml::listData(Country::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'country_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'Status'); ?>
 		<?php echo $form->dropDownList($model,'status_id', CHtml::listData(Status::model()->findAll(array('order' => 'name')),'id','name'));?>
 		<?php echo $form->error($model,'status_id'); ?>

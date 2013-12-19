@@ -14,7 +14,6 @@
  * @property integer $tool_type_id
  * @property integer $product_id
  * @property integer $location_id
- * @property integer $country_id
  * @property integer $status_id
  * @property string $create_time
  * @property integer $create_user_id
@@ -23,7 +22,6 @@
  *
  * The followings are the available model relations:
  * @property lient $client
- * @property Country $country
  * @property Person $createUser
  * @property Location $location
  * @property Person $person
@@ -51,13 +49,13 @@ class Order extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('client_id, job_no, size_id, person_id, tool_type_id, product_id, location_id, country_id', 'required'),
-			array('client_id, size_id, person_id, tool_type_id, product_id, location_id, country_id, status_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('client_id, job_no, size_id, person_id, tool_type_id, product_id, location_id', 'required'),
+			array('client_id, size_id, person_id, tool_type_id, product_id, location_id, status_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('reman_no, job_no', 'length', 'max'=>255),
 			array('shipment_dt, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, client_id, reman_no, job_no, size_id, shipment_dt, person_id, tool_type_id, product_id, location_id, country_id, status_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, client_id, reman_no, job_no, size_id, shipment_dt, person_id, tool_type_id, product_id, location_id, status_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,7 +68,6 @@ class Order extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'client' => array(self::BELONGS_TO, 'Client', 'client_id'),
-			'country' => array(self::BELONGS_TO, 'Country', 'country_id'),
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
 			'location' => array(self::BELONGS_TO, 'Location', 'location_id'),
 			'person' => array(self::BELONGS_TO, 'Person', 'person_id'),
@@ -98,7 +95,6 @@ class Order extends CActiveRecord
 			'tool_type_id' => 'Tool Type',
 			'product_id' => 'Product',
 			'location_id' => 'Locale',
-			'country_id' => 'Country',
 			'status_id' => 'Status',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
@@ -135,7 +131,6 @@ class Order extends CActiveRecord
 		$criteria->compare('tool_type_id',$this->tool_type_id);
 		$criteria->compare('product_id',$this->product_id);
 		$criteria->compare('location_id',$this->location_id);
-		$criteria->compare('country_id',$this->country_id);
 		$criteria->compare('status_id',$this->status_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);

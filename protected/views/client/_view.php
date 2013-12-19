@@ -17,10 +17,6 @@
 	<?php echo CHtml::encode($data->phone_no); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('country_id')); ?>:</b>
-	<?php echo CHtml::encode($data->country_id); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('notes')); ?>:</b>
 	<?php echo CHtml::encode($data->notes); ?>
 	<br />

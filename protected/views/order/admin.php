@@ -56,7 +56,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'tool_type_id',
 		'product_id',
 		'location_id',
-		'country_id',
 		'status_id',
 		'create_time',
 		'create_user_id',

@@ -62,11 +62,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'country_id'); ?>
-		<?php echo $form->textField($model,'country_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'status_id'); ?>
 		<?php echo $form->textField($model,'status_id'); ?>
 	</div>

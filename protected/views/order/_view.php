@@ -46,10 +46,6 @@
 	<?php echo CHtml::encode($data->location_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('country_id')); ?>:</b>
-	<?php echo CHtml::encode($data->country_id); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status_id')); ?>:</b>
 	<?php echo CHtml::encode($data->status_id); ?>
 	<br />

@@ -27,11 +27,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'country_id'); ?>
-		<?php echo $form->textField($model,'country_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'notes'); ?>
 		<?php echo $form->textField($model,'notes',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
