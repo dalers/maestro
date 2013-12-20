@@ -29,8 +29,8 @@
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('client')); ?>:</b>
-	<?php echo CHtml::encode($data->client); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('client_id')); ?>:</b>
+	<?php echo CHtml::encode($data->client_id); ?>
 	<br />
 
 	<?php /*
@@ -42,8 +42,8 @@
 	<?php echo CHtml::encode($data->type); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status_id')); ?>:</b>
+	<?php echo CHtml::encode($data->status_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('milestone')); ?>:</b>
@@ -68,6 +68,18 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>
 	<?php echo CHtml::encode($data->update_user_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('size_id')); ?>:</b>
+	<?php echo CHtml::encode($data->size_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('location_id')); ?>:</b>
+	<?php echo CHtml::encode($data->location_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('tool_type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->tool_type_id); ?>
 	<br />
 
 	*/ ?>

@@ -10,21 +10,30 @@
  * @property string $acct3
  * @property string $acct4
  * @property string $name
- * @property string $client
+ * @property integer $client_id
  * @property string $description
  * @property string $type
- * @property string $status
+ * @property integer $status_id
  * @property string $milestone
  * @property string $milestone_date
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
  * @property integer $update_user_id
+ * @property integer $size_id
+ * @property integer $location_id
+ * @property integer $tool_type_id
  *
  * The followings are the available model relations:
  * @property Issue[] $issues
- * @property Person $updateUser
+ * @property OmProjectOrder[] $omProjectOrders
+ * @property Status $status
+ * @property Client $client
  * @property Person $createUser
+ * @property OmLocation $location
+ * @property OmSize $size
+ * @property OmToolType $toolType
+ * @property Person $updateUser
  */
 class Project extends CActiveRecord
 {
@@ -44,12 +53,12 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('acct1, acct2, acct3, acct4, name, client, type, status, milestone', 'length', 'max'=>255),
+			array('client_id, status_id, create_user_id, update_user_id, size_id, location_id, tool_type_id', 'numerical', 'integerOnly'=>true),
+			array('acct1, acct2, acct3, acct4, name, type, milestone', 'length', 'max'=>255),
 			array('description, milestone_date, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, acct1, acct2, acct3, acct4, name, client, description, type, status, milestone, milestone_date, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, acct1, acct2, acct3, acct4, name, client_id, description, type, status_id, milestone, milestone_date, create_time, create_user_id, update_time, update_user_id, size_id, location_id, tool_type_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,8 +71,14 @@ class Project extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
-			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
+			'omProjectOrders' => array(self::HAS_MANY, 'OmProjectOrder', 'project_id'),
+			'status' => array(self::BELONGS_TO, 'Status', 'status_id'),
+			'client' => array(self::BELONGS_TO, 'Client', 'client_id'),
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
+			'location' => array(self::BELONGS_TO, 'OmLocation', 'location_id'),
+			'size' => array(self::BELONGS_TO, 'OmSize', 'size_id'),
+			'toolType' => array(self::BELONGS_TO, 'OmToolType', 'tool_type_id'),
+			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
 		);
 	}
 
@@ -79,16 +94,19 @@ class Project extends CActiveRecord
 			'acct3' => 'Acct3',
 			'acct4' => 'Acct4',
 			'name' => 'Name',
-			'client' => 'Client',
+			'client_id' => 'Client',
 			'description' => 'Description',
 			'type' => 'Type',
-			'status' => 'Status',
+			'status_id' => 'Status',
 			'milestone' => 'Milestone',
 			'milestone_date' => 'Milestone Date',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
 			'update_user_id' => 'Update User',
+			'size_id' => 'Size',
+			'location_id' => 'Location',
+			'tool_type_id' => 'Tool Type',
 		);
 	}
 
@@ -116,16 +134,19 @@ class Project extends CActiveRecord
 		$criteria->compare('acct3',$this->acct3,true);
 		$criteria->compare('acct4',$this->acct4,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('client',$this->client,true);
+		$criteria->compare('client_id',$this->client_id);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('type',$this->type,true);
-		$criteria->compare('status',$this->status,true);
+		$criteria->compare('status_id',$this->status_id);
 		$criteria->compare('milestone',$this->milestone,true);
 		$criteria->compare('milestone_date',$this->milestone_date,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_time',$this->update_time,true);
 		$criteria->compare('update_user_id',$this->update_user_id);
+		$criteria->compare('size_id',$this->size_id);
+		$criteria->compare('location_id',$this->location_id);
+		$criteria->compare('tool_type_id',$this->tool_type_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

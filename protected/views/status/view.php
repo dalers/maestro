@@ -23,7 +23,5 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'name',
-		'prev_status_id',
-		'next_status_id',
 	),
 )); ?>

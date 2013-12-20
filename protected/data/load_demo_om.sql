@@ -22,6 +22,53 @@ SET time_zone = "+00:00";
 -- Database: `maestro`
 --
 
+--UPDATE `maestro`.`tbl_project` SET `client`=NULL, `status`=NULL;
+
+-- --------------------------------------------------------
+--
+-- Alter Table structure for table `tbl_project`
+--
+ALTER TABLE `tbl_project` 
+CHANGE COLUMN `client` `client_id` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `status` `status_id` INT(11) NULL DEFAULT NULL ,
+ADD COLUMN `size_id` INT(11) NULL DEFAULT NULL AFTER `update_user_id`,
+ADD COLUMN `location_id` INT(11) NULL DEFAULT NULL AFTER `size_id`,
+ADD COLUMN `tool_type_id` INT(11) NULL DEFAULT NULL AFTER `location_id`,
+ADD INDEX `fk_project_to_client_idx` (`client_id` ASC),
+ADD INDEX `fk_project_to_status_idx` (`status_id` ASC),
+ADD INDEX `fk_project_to_size_idx` (`size_id` ASC),
+ADD INDEX `fk_project_to_location_idx` (`location_id` ASC),
+ADD INDEX `fk_project_to_tool_type_idx` (`tool_type_id` ASC);
+ALTER TABLE `maestro`.`tbl_project` 
+ADD CONSTRAINT `fk_project_to_client`
+  FOREIGN KEY (`client_id`)
+  REFERENCES `maestro`.`tbl_client` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_project_to_status`
+  FOREIGN KEY (`status_id`)
+  REFERENCES `maestro`.`tbl_status` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_project_to_size`
+  FOREIGN KEY (`size_id`)
+  REFERENCES `maestro`.`tbl_om_size` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_project_to_location`
+  FOREIGN KEY (`location_id`)
+  REFERENCES `maestro`.`tbl_om_location` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_project_to_tool_type`
+  FOREIGN KEY (`tool_type_id`)
+  REFERENCES `maestro`.`tbl_om_tool_type` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+-- UPDATE `maestro`.`tbl_project` SET `client_id`='1', `status`='1' WHERE `id`='1';
+-- UPDATE `maestro`.`tbl_project` SET `client_id`='1', `status`='1' WHERE `id`='2';
+
 -- --------------------------------------------------------
 
 --
@@ -31,56 +78,82 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `tbl_om_order`;
 CREATE TABLE IF NOT EXISTS `tbl_om_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `client_id` int(11) NOT NULL,
-  `reman_no` varchar(255) DEFAULT NULL,
-  `job_no` varchar(255) NOT NULL,
   `size_id` int(11) NOT NULL,
-  `shipment_dt` datetime DEFAULT NULL,
-  `person_id` int(11) NOT NULL,
   `tool_type_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
   `location_id` int(11) NOT NULL,
-  `country_id` int(11) NOT NULL,
-  `status_id` int(11) DEFAULT NULL,  
   `create_time` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_order_to_client` (`client_id`),
   KEY `fk_order_to_size` (`size_id`),
-  KEY `fk_order_to_person` (`person_id`),
   KEY `fk_order_to_tool_type` (`tool_type_id`),
-  KEY `fk_order_to_product` (`product_id`),
   KEY `fk_order_to_location` (`location_id`),
-  KEY `fk_order_to_country` (`country_id`),
-  KEY `fk_order_to_status` (`status_id`),
   KEY `fk_order_to_create_user` (`create_user_id`),
   KEY `fk_order_to_update_user` (`update_user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONS FOR TABLE `tbl_om_order`:
---   `client_id`
---       `tbl_om_client` -> `id`
 --   `size_id`
 --       `tbl_om_size` -> `id`
---   `person_id`
---       `tbl_person` -> `id`
 --   `tool_type_id`
 --       `tbl_om_tool_type` -> `id`
---   `product_id`
---       `tbl_om_product` -> `id`
 --   `location_id`
 --       `tbl_om_location` -> `id`
---   `country_id`
---       `tbl_om_country` -> `id`
---   `status_id`
---       `tbl_om_status` -> `id`
 --   `update_user_id`
 --       `tbl_person` -> `id`
 --   `create_user_id`
 --       `tbl_person` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_om_order_item`
+--
+
+DROP TABLE IF EXISTS `tbl_om_order_item`;
+CREATE TABLE IF NOT EXISTS `tbl_om_order_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `part_id` int(11) NOT NULL,
+  `serial_no` varchar(255) DEFAULT NULL, 
+  PRIMARY KEY (`id`),
+  KEY `fk_order_item_to_order` (`order_id`),
+  KEY `fk_order_item_to_part` (`part_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- RELATIONS FOR TABLE `tbl_om_order_item`:
+--   `order_id`
+--       `tbl_om_order` -> `id`
+--   `part_id`
+--       `tbl_pv_pn` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_om_project_order`
+--
+
+DROP TABLE IF EXISTS `tbl_om_project_order`;
+CREATE TABLE IF NOT EXISTS `tbl_om_project_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_project_order_to_project` (`project_id`),
+  KEY `fk_project_order_to_order` (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- RELATIONS FOR TABLE `tbl_om_order_item`:
+--   `project_id`
+--       `tbl_project` -> `id`
+--   `order_id`
+--       `tbl_om_order` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -181,33 +254,11 @@ INSERT INTO `tbl_om_tool_type` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_om_product`
---
+-- Table structure for table `tbl_client`
+-- The tbl_project table will reference this table
 
-DROP TABLE IF EXISTS `tbl_om_product`;
-CREATE TABLE IF NOT EXISTS `tbl_om_product` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `tbl_om_product`
---
-
-INSERT INTO `tbl_om_product` (`id`, `name`) VALUES
-(1, 'Oil'),
-(2, 'Gas'),
-(3, 'Other');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_om_client`
---
-
-DROP TABLE IF EXISTS `tbl_om_client`;
-CREATE TABLE IF NOT EXISTS `tbl_om_client` (
+DROP TABLE IF EXISTS `tbl_client`;
+CREATE TABLE IF NOT EXISTS `tbl_client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `phone_no` varchar(25) DEFAULT NULL,
@@ -222,85 +273,36 @@ CREATE TABLE IF NOT EXISTS `tbl_om_client` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
--- Dumping data for table `tbl_om_client`
+-- Dumping data for table `tbl_client`
 --
 
-INSERT INTO `tbl_om_client` (`id`, `name`, `phone_no`, `notes`, `create_time`, `create_user_id`) VALUES
-(1, 'Alliance', NULL, NULL, NULL, NULL),
-(2, 'Alyeska', NULL, NULL, NULL, NULL),
-(3, 'Boardwalk', NULL, 'USA', NULL, NULL),
-(4, 'BP Alaska', NULL, NULL, NULL, NULL),
-(5, 'BP Canada', NULL, NULL, NULL, NULL),
-(6, 'Centerpoint', NULL, NULL, NULL, NULL),
-(7, 'Centerpoint Energy', NULL, NULL, NULL, NULL),
-(8, 'Colonial', NULL, 'USA', NULL, NULL),
-(9, 'Dakota Gas', NULL, NULL, NULL, NULL),
-(10, 'El Paso', NULL, NULL, NULL, NULL),
-(11, 'Enbridge', '403-8956554', 'local', NULL, NULL),
-(12, 'Energy Transfer', NULL, NULL, NULL, NULL),
-(13, 'ENI Petroleum', NULL, NULL, NULL, NULL),
-(14, 'Explorer', NULL, NULL, NULL, NULL),
-(15, 'Fortis', NULL, NULL, NULL, NULL),
-(16, 'Gas Unie', NULL, NULL, NULL, NULL),
-(17, 'InterPipe', '403-698956', 'Canada', NULL, NULL),
-(18, 'IOL', NULL, NULL, NULL, NULL),
-(19, 'Kern River', NULL, NULL, NULL, NULL),
-(20, 'Kinder Morgan', NULL, NULL, NULL, NULL),
-(21, 'Marathon', NULL, NULL, NULL, NULL),
-(22, 'Mirant', NULL, NULL, NULL, NULL),
-(23, 'National Grid', NULL, NULL, NULL, NULL),
-(24, 'Nippon Steel', NULL, NULL, NULL, NULL),
-(25, 'Northern Natural', NULL, NULL, NULL, NULL),
-(26, 'Nova Chemicals', NULL, NULL, NULL, NULL),
-(27, 'Ocensa', NULL, NULL, NULL, NULL),
-(28, 'Oneok', NULL, NULL, NULL, NULL),
-(29, 'Pan Handle', NULL, 'USA', NULL, NULL),
-(30, 'PB Energy', NULL, NULL, NULL, NULL),
-(31, 'Pembina', NULL, NULL, NULL, NULL),
-(32, 'Pemex', NULL, NULL, NULL, NULL),
-(33, 'Petroperu', NULL, NULL, NULL, NULL),
-(34, 'PG&E', NULL, NULL, NULL, NULL),
-(35, 'Phillips', NULL, NULL, NULL, NULL),
-(36, 'PPS', NULL, NULL, NULL, NULL),
-(37, 'Sempra Energy', NULL, NULL, NULL, NULL),
-(38, 'Shell', NULL, NULL, NULL, NULL),
-(39, 'SNAM', '403-2733655', 'Italy', NULL, NULL),
-(40, 'So Cal', NULL, 'USA', NULL, NULL),
-(41, 'Spectra', NULL, NULL, NULL, NULL),
-(42, 'Suncor', NULL, NULL, NULL, NULL),
-(43, 'Syncrude', NULL, NULL, NULL, NULL),
-(44, 'TCPL', '403-989-5236', 'Canada', NULL, NULL),
-(45, 'Terasen Gas', NULL, NULL, NULL, NULL),
-(46, 'TGN', NULL, NULL, NULL, NULL),
-(47, 'Thunder Creek', NULL, NULL, NULL, NULL),
-(48, 'TransGas', NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_client` (`id`, `name`, `phone_no`, `notes`, `create_time`, `create_user_id`) VALUES
+(1, 'Aircraft Wireless', NULL, NULL, NULL, NULL),
+(2, 'Fire-fighting Bombsight', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_om_status`
+-- Table structure for table `tbl_status`
 --
 
-DROP TABLE IF EXISTS `tbl_om_status`;
-CREATE TABLE IF NOT EXISTS `tbl_om_status` (
+DROP TABLE IF EXISTS `tbl_status`;
+CREATE TABLE IF NOT EXISTS `tbl_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `prev_status_id` int(11) DEFAULT NULL,
-  `next_status_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `tbl_om_country`
+-- Dumping data for table `tbl_status`
 --
 
-INSERT INTO `tbl_om_status` (`id`,`name`,`prev_status_id`,`next_status_id`) VALUES
-(1, 'Active', NULL, NULL),
-(2, 'In Field', NULL, NULL),
-(3, 'Delayed', NULL, NULL),
-(4, 'Completed', NULL, NULL), 
-(5, 'Cancelled', NULL, NULL);
-
+INSERT INTO `tbl_status` (`id`,`name`) VALUES
+(1, 'Active'),
+(2, 'In Field'),
+(3, 'Delayed'),
+(4, 'Completed'), 
+(5, 'Cancelled');
 
 --
 -- Constraints for dumped tables
@@ -313,18 +315,30 @@ INSERT INTO `tbl_om_status` (`id`,`name`,`prev_status_id`,`next_status_id`) VALU
 ALTER TABLE `tbl_om_order`
   ADD CONSTRAINT `fk_order_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_order_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_order_to_client` FOREIGN KEY (`client_id`) REFERENCES `tbl_om_client` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_order_to_size` FOREIGN KEY (`size_id`) REFERENCES `tbl_om_size` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_order_to_person` FOREIGN KEY (`person_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_order_to_tool_type` FOREIGN KEY (`tool_type_id`) REFERENCES `tbl_om_tool_type` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_order_to_product` FOREIGN KEY (`product_id`) REFERENCES `tbl_om_product` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_order_to_location` FOREIGN KEY (`location_id`) REFERENCES `tbl_om_location` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_order_to_country` FOREIGN KEY (`country_id`) REFERENCES `tbl_om_country` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_order_to_status` FOREIGN KEY (`status_id`) REFERENCES `tbl_om_status` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_order_to_location` FOREIGN KEY (`location_id`) REFERENCES `tbl_om_location` (`id`) ON DELETE CASCADE;
+
+  --
+-- Constraints for table `tbl_om_order_item`
+--
+  
+ALTER TABLE `tbl_om_order_item`
+  ADD CONSTRAINT `fk_order_item_to_order` FOREIGN KEY (`order_id`) REFERENCES `tbl_om_order` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_order_item_to_part` FOREIGN KEY (`part_id`) REFERENCES `tbl_pv_part` (`id`) ON DELETE CASCADE;
+  
+--
+-- Constraints for table `tbl_om_project_order`
+--
+  
+ALTER TABLE `tbl_om_project_order`
+  ADD CONSTRAINT `fk_project_order_to_project` FOREIGN KEY (`project_id`) REFERENCES `tbl_project` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_project_order_to_order` FOREIGN KEY (`order_id`) REFERENCES `tbl_om_order` (`id`) ON DELETE CASCADE;
+
 
 --
--- Constraints for table `tbl_om_client`
+-- Constraints for table `tbl_client`
 --
-ALTER TABLE `tbl_om_client`
+ALTER TABLE `tbl_client`
   ADD CONSTRAINT `fk_client_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_client_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE;

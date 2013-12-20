@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "tbl_om_client".
+ * This is the model class for table "tbl_client".
  *
- * The followings are the available columns in table 'tbl_om_client':
+ * The followings are the available columns in table 'tbl_client':
  * @property integer $id
  * @property string $name
  * @property string $phone_no
@@ -16,7 +16,7 @@
  * The followings are the available model relations:
  * @property Person $createUser
  * @property Person $updateUser
- * @property OmOrder[] $omOrders
+ * @property Project[] $projects
  */
 class Client extends CActiveRecord
 {
@@ -25,7 +25,7 @@ class Client extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_om_client';
+		return 'tbl_client';
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Client extends CActiveRecord
 		return array(
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
-			'omOrders' => array(self::HAS_MANY, 'OmOrder', 'client_id'),
+			'projects' => array(self::HAS_MANY, 'Project', 'client_id'),
 		);
 	}
 

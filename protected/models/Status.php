@@ -1,16 +1,14 @@
 <?php
 
 /**
- * This is the model class for table "tbl_om_status".
+ * This is the model class for table "tbl_status".
  *
- * The followings are the available columns in table 'tbl_om_status':
+ * The followings are the available columns in table 'tbl_status':
  * @property integer $id
  * @property string $name
- * @property integer $prev_status_id
- * @property integer $next_status_id
  *
  * The followings are the available model relations:
- * @property OmOrder[] $omOrders
+ * @property Project[] $projects
  */
 class Status extends CActiveRecord
 {
@@ -19,7 +17,7 @@ class Status extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_om_status';
+		return 'tbl_status';
 	}
 
 	/**
@@ -31,11 +29,10 @@ class Status extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('prev_status_id, next_status_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, prev_status_id, next_status_id', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,7 +44,7 @@ class Status extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'omOrders' => array(self::HAS_MANY, 'OmOrder', 'status_id'),
+			'projects' => array(self::HAS_MANY, 'Project', 'status_id'),
 		);
 	}
 
@@ -59,8 +56,6 @@ class Status extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'prev_status_id' => 'Prev Status',
-			'next_status_id' => 'Next Status',
 		);
 	}
 
@@ -84,8 +79,6 @@ class Status extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('prev_status_id',$this->prev_status_id);
-		$criteria->compare('next_status_id',$this->next_status_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

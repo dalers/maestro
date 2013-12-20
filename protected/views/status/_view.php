@@ -13,13 +13,5 @@
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('prev_status_id')); ?>:</b>
-	<?php echo CHtml::encode($data->prev_status_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('next_status_id')); ?>:</b>
-	<?php echo CHtml::encode($data->next_status_id); ?>
-	<br />
-
 
 </div>

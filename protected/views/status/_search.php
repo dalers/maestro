@@ -21,16 +21,6 @@
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'prev_status_id'); ?>
-		<?php echo $form->textField($model,'prev_status_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'next_status_id'); ?>
-		<?php echo $form->textField($model,'next_status_id'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
