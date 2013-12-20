@@ -3,16 +3,16 @@
 /* @var $model OmLocation */
 
 $this->breadcrumbs=array(
-	'Om Locations'=>array('index'),
+	'Locations'=>array('index'),
 	$model->name,
 );
 
 $this->menu=array(
-	array('label'=>'List OmLocation', 'url'=>array('index')),
-	array('label'=>'Create OmLocation', 'url'=>array('create')),
-	array('label'=>'Update OmLocation', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete OmLocation', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage OmLocation', 'url'=>array('admin')),
+	array('label'=>'List Location', 'url'=>array('index')),
+	array('label'=>'Create Location', 'url'=>array('create')),
+	array('label'=>'Update Location', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete Location', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Location', 'url'=>array('admin')),
 );
 ?>
 

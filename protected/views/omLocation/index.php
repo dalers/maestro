@@ -3,12 +3,12 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Om Locations',
+	'Locations',
 );
 
 $this->menu=array(
-	array('label'=>'Create OmLocation', 'url'=>array('create')),
-	array('label'=>'Manage OmLocation', 'url'=>array('admin')),
+	array('label'=>'Create Location', 'url'=>array('create')),
+	array('label'=>'Manage Location', 'url'=>array('admin')),
 );
 ?>
 

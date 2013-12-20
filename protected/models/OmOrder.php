@@ -81,6 +81,13 @@ class OmOrder extends CActiveRecord
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
 			'update_user_id' => 'Update User',
+			'ProjectName' => 'Project Name',
+			'Acct1' => 'Acct1',
+			'Acct2' => 'Acct2',
+			'Acct3' => 'Acct3',
+			'Acct4' => 'Acct4',
+			'Client' => 'Client',
+			'Type' => 'Type',
 		);
 	}
 
@@ -128,7 +135,7 @@ class OmOrder extends CActiveRecord
 	}
 	
     /**
-	 * Retrieves the list of parts that are childs of the specified part.
+	 * Retrieves the list of Order Items that are childs of the specified Order.
 	 * @return CActiveDataProvider the data provider that can return the needed details.
 	 */
 	public function childs($id, $pagesize = -1)
@@ -145,6 +152,28 @@ class OmOrder extends CActiveRecord
             ),
 			'sort'=>array(
 				'defaultOrder'=>'part_id ASC',
+			),
+		));
+	}
+	
+    /**
+	 * Retrieves the list of Projects that are tied to this Order.
+	 * @return CActiveDataProvider the data provider that can return the needed details.
+	 */
+	public function projects($id, $pagesize = -1)
+	{
+        $pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
+		$criteria = new CDbCriteria;
+
+		$criteria->compare('order_id', $id, false);
+
+		return new CActiveDataProvider('OmProjectOrder', array(
+			'criteria' => $criteria,
+            'pagination'=>array(
+                'pageSize'=>$pagesize,
+            ),
+			'sort'=>array(
+				'defaultOrder'=>'project_id ASC',
 			),
 		));
 	}

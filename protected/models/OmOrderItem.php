@@ -49,7 +49,7 @@ class OmOrderItem extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'order' => array(self::BELONGS_TO, 'OmOrder', 'order_id'),
-			'part' => array(self::BELONGS_TO, 'PvPart', 'part_id'),
+			'part' => array(self::BELONGS_TO, 'PvPn', 'part_id'),
 		);
 	}
 

@@ -3,13 +3,13 @@
 /* @var $model OmOrder */
 
 $this->breadcrumbs=array(
-	'Om Orders'=>array('index'),
+	'Orders'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List OmOrder', 'url'=>array('index')),
-	array('label'=>'Create OmOrder', 'url'=>array('create')),
+	array('label'=>'List Order', 'url'=>array('index')),
+	array('label'=>'Create Order', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Om Orders</h1>
+<h1>Manage Orders</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -49,9 +49,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'size_id',
 		'tool_type_id',
 		'location_id',
+		/*
 		'create_time',
 		'create_user_id',
-		/*
 		'update_time',
 		'update_user_id',
 		*/

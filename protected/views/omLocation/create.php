@@ -3,13 +3,13 @@
 /* @var $model OmLocation */
 
 $this->breadcrumbs=array(
-	'Om Locations'=>array('index'),
+	'Locations'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List OmLocation', 'url'=>array('index')),
-	array('label'=>'Manage OmLocation', 'url'=>array('admin')),
+	array('label'=>'List Location', 'url'=>array('index')),
+	array('label'=>'Manage Location', 'url'=>array('admin')),
 );
 ?>
 

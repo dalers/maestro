@@ -3,13 +3,13 @@
 /* @var $model OmLocation */
 
 $this->breadcrumbs=array(
-	'Om Locations'=>array('index'),
+	'Locations'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List OmLocation', 'url'=>array('index')),
-	array('label'=>'Create OmLocation', 'url'=>array('create')),
+	array('label'=>'List Location', 'url'=>array('index')),
+	array('label'=>'Create Location', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Om Locations</h1>
+<h1>Manage Locations</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
