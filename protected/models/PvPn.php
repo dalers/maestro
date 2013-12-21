@@ -37,7 +37,7 @@
  * @property integer $PNCostChanged
  * @property integer $PNParentCost
  * @property integer $PNExpandList
- * @property integer $PNAssyCostOption           // 3 - Add to total, 1 - Use as total, 2 - Ignore
+ * @property integer $PNAssyCostOption
  * @property integer $PNInclAssyOnPurchList
  * @property integer $PNMadeFrom
  * @property double $PNMinStockQty
@@ -45,8 +45,8 @@
  * @property integer $PNOnECO
  * @property integer $PNOverKit
  * @property double $PNOverKitQty
- * @property integer $PNOverKitBy               // =0 - Count, =-1 - Percent
- * @property integer $PNOverKitFor              // =0 - Entire Build, =-1 - Each Top Assy
+ * @property integer $PNOverKitBy
+ * @property integer $PNOverKitFor
  * @property double $PNCurrentCost
  * @property double $PNLastRollupCost
  * @property integer $PNUSRID
@@ -54,6 +54,8 @@
  * @property integer $type_id
  * @property integer $stock_location_id
  * @property integer $requester_id
+ * @property integer $iteration_number
+ * @property integer $is_current_iteration
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
@@ -134,7 +136,6 @@ class PvPn extends CActiveRecord
 
 			'unit' => array(self::BELONGS_TO, 'PvUn', 'PNUNID'),
 			'tabparent' => array(self::BELONGS_TO, 'PvPn', 'PNTabParentID'),
-
 		);
 	}
 
@@ -195,6 +196,8 @@ class PvPn extends CActiveRecord
 			'type_id' => 'Type',
 			'stock_location_id' => 'Stock Location',
 			'requester_id' => 'Requester',
+			'iteration_number' => 'Iteration Number',
+			'is_current_iteration' => 'Is Current Iteration',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
