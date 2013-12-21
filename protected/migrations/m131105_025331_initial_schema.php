@@ -410,7 +410,7 @@ class m131105_025331_initial_schema extends CDbMigration
 
 			//iteration tracking
 			'iteration_number' => 'integer',
-			'is_current_iteration' => 'integer',
+			'is_current_iteration' => 'boolean',
 
 			//record creation user/time and update user/time
 			'create_time' => 'datetime',
