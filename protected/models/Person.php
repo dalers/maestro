@@ -33,6 +33,10 @@
  */
 class Person extends CActiveRecord
 {
+	const ROLE_ADMIN=0;
+	const ROLE_SUPERVISOR=5;
+	const ROLE_STANDARD_USER=10;
+
 	/**
 	 * @return string the associated database table name
 	 */

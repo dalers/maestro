@@ -78,6 +78,8 @@ ADD CONSTRAINT `fk_project_to_tool_type`
 DROP TABLE IF EXISTS `tbl_om_order`;
 CREATE TABLE IF NOT EXISTS `tbl_om_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `order_type` varchar(255) NOT NULL,
   `size_id` int(11) NOT NULL,
   `tool_type_id` int(11) NOT NULL,
   `location_id` int(11) NOT NULL,
