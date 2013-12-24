@@ -8,10 +8,11 @@
  * @property integer $order_id
  * @property integer $part_id
  * @property string $serial_no
+ * @property string $action
  *
  * The followings are the available model relations:
+ * @property PvPn $part
  * @property OmOrder $order
- * @property PvPart $part
  */
 class OmOrderItem extends CActiveRecord
 {
@@ -34,9 +35,10 @@ class OmOrderItem extends CActiveRecord
 			array('order_id, part_id', 'required'),
 			array('order_id, part_id', 'numerical', 'integerOnly'=>true),
 			array('serial_no', 'length', 'max'=>255),
+			array('action', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, order_id, part_id, serial_no', 'safe', 'on'=>'search'),
+			array('id, order_id, part_id, serial_no, action', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,8 +50,8 @@ class OmOrderItem extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'order' => array(self::BELONGS_TO, 'OmOrder', 'order_id'),
 			'part' => array(self::BELONGS_TO, 'PvPn', 'part_id'),
+			'order' => array(self::BELONGS_TO, 'OmOrder', 'order_id'),
 		);
 	}
 
@@ -63,6 +65,7 @@ class OmOrderItem extends CActiveRecord
 			'order_id' => 'Order',
 			'part_id' => 'Part',
 			'serial_no' => 'Serial No',
+			'action' => 'Action',
 		);
 	}
 
@@ -88,6 +91,7 @@ class OmOrderItem extends CActiveRecord
 		$criteria->compare('order_id',$this->order_id);
 		$criteria->compare('part_id',$this->part_id);
 		$criteria->compare('serial_no',$this->serial_no,true);
+		$criteria->compare('action',$this->action,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

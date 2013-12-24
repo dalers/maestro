@@ -5,9 +5,12 @@
  *
  * The followings are the available columns in table 'tbl_om_order':
  * @property integer $id
- * @property integer $size_id
- * @property integer $tool_type_id
- * @property integer $location_id
+ * @property string $size
+ * @property string $tool_type
+ * @property string $locale
+ * @property string $order_type
+ * @property string $status
+ * @property integer $iteration
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
@@ -15,12 +18,8 @@
  *
  * The followings are the available model relations:
  * @property Person $createUser
- * @property OmLocation $location
- * @property OmSize $size
- * @property OmToolType $toolType
  * @property Person $updateUser
  * @property OmOrderItem[] $omOrderItems
- * @property OmProjectOrder[] $omProjectOrders
  */
 class OmOrder extends CActiveRecord
 {
@@ -40,12 +39,12 @@ class OmOrder extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('size_id, tool_type_id, location_id', 'required'),
-			array('size_id, tool_type_id, location_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('iteration, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('size, tool_type, locale, order_type, status', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, size_id, tool_type_id, location_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, size, tool_type, locale, order_type, status, iteration, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,12 +57,8 @@ class OmOrder extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
-			'location' => array(self::BELONGS_TO, 'OmLocation', 'location_id'),
-			'size' => array(self::BELONGS_TO, 'OmSize', 'size_id'),
-			'toolType' => array(self::BELONGS_TO, 'OmToolType', 'tool_type_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
 			'omOrderItems' => array(self::HAS_MANY, 'OmOrderItem', 'order_id'),
-			'omProjectOrders' => array(self::HAS_MANY, 'OmProjectOrder', 'order_id'),
 		);
 	}
 
@@ -74,20 +69,16 @@ class OmOrder extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'size_id' => 'Size',
-			'tool_type_id' => 'Tool Type',
-			'location_id' => 'Location',
+			'size' => 'Size',
+			'tool_type' => 'Tool Type',
+			'locale' => 'Locale',
+			'order_type' => 'Order Type',
+			'status' => 'Status',
+			'iteration' => 'Iteration',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
 			'update_user_id' => 'Update User',
-			'ProjectName' => 'Project Name',
-			'Acct1' => 'Acct1',
-			'Acct2' => 'Acct2',
-			'Acct3' => 'Acct3',
-			'Acct4' => 'Acct4',
-			'Client' => 'Client',
-			'Type' => 'Type',
 		);
 	}
 
@@ -110,9 +101,12 @@ class OmOrder extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('size_id',$this->size_id);
-		$criteria->compare('tool_type_id',$this->tool_type_id);
-		$criteria->compare('location_id',$this->location_id);
+		$criteria->compare('size',$this->size,true);
+		$criteria->compare('tool_type',$this->tool_type,true);
+		$criteria->compare('locale',$this->locale,true);
+		$criteria->compare('order_type',$this->order_type,true);
+		$criteria->compare('status',$this->status,true);
+		$criteria->compare('iteration',$this->iteration);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_time',$this->update_time,true);
@@ -132,49 +126,5 @@ class OmOrder extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-	
-    /**
-	 * Retrieves the list of Order Items that are childs of the specified Order.
-	 * @return CActiveDataProvider the data provider that can return the needed details.
-	 */
-	public function childs($id, $pagesize = -1)
-	{
-        $pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
-		$criteria = new CDbCriteria;
-
-		$criteria->compare('order_id', $id, false);
-
-		return new CActiveDataProvider('OmOrderItem', array(
-			'criteria' => $criteria,
-            'pagination'=>array(
-                'pageSize'=>$pagesize,
-            ),
-			'sort'=>array(
-				'defaultOrder'=>'part_id ASC',
-			),
-		));
-	}
-	
-    /**
-	 * Retrieves the list of Projects that are tied to this Order.
-	 * @return CActiveDataProvider the data provider that can return the needed details.
-	 */
-	public function projects($id, $pagesize = -1)
-	{
-        $pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
-		$criteria = new CDbCriteria;
-
-		$criteria->compare('order_id', $id, false);
-
-		return new CActiveDataProvider('OmProjectOrder', array(
-			'criteria' => $criteria,
-            'pagination'=>array(
-                'pageSize'=>$pagesize,
-            ),
-			'sort'=>array(
-				'defaultOrder'=>'project_id ASC',
-			),
-		));
 	}
 }
