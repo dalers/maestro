@@ -1,5 +1,4 @@
 <?php
-
 class OmOrderController extends Controller
 {
 	/**
@@ -17,6 +16,38 @@ class OmOrderController extends Controller
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 		);
+	}
+
+	/**
+	 * Lists all models (with the the highest iteration group by id)
+	 */
+	public function actionIndex()
+	{
+		$criteria = new CDbCriteria();
+		$criteria->select = 'id, size, tool_type, locale, order_type, status, create_time, create_user_id, update_time, MAX(iteration) iteration';
+		$criteria->group = 'id';
+		
+        $model = new OmOrder('search');
+
+        $model->unsetAttributes();
+		
+		if(isset($_GET['OmOrder']))
+		{
+			$criteria->addSearchCondition('tags',$_GET['OmOrder']);
+			$model->attributes = $_GET['OmOrder'];
+		}
+	 
+		$dataProvider=new CActiveDataProvider('OmOrder', array(
+			'pagination'=>array(
+				'pageSize'=>10,
+			),
+			'criteria'=>$criteria,
+		));
+	 
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+			'model' => $model,
+		));
 	}
 
 	/**
@@ -46,47 +77,67 @@ class OmOrderController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
-		$model=new OmOrder;
+	    $model=new OmOrder;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='client-account-create-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
 
-		if(isset($_POST['OmOrder']))
+	    if(isset($_POST['OmOrder']))
+	    {
+	        $model->attributes=$_POST['OmOrder'];
+	        if($model->validate())
+	        {
+				$this->saveModel($model);
+				$this->redirect(array('view','id'=>$model->id, 'iteration'=>$model->iteration));
+	        }
+	    }
+	    $this->render('create',array('model'=>$model));
+	} 
+	
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete($id, $iteration)
+	{
+		if(Yii::app()->request->isPostRequest)
 		{
-			$model->attributes=$_POST['OmOrder'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+			try
+			{
+				// we only allow deletion via POST request
+				$this->loadModel($id, $iteration)->delete();
+			}
+			catch(Exception $e) 
+			{
+				$this->showError($e);
+			}
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
+	 * @param integer $iteration the iteration of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id, $iteration)
 	{
-		$model=$this->loadModel($id);
+		$model=$this->loadModel($id, $iteration);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -94,37 +145,13 @@ class OmOrderController extends Controller
 		if(isset($_POST['OmOrder']))
 		{
 			$model->attributes=$_POST['OmOrder'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$this->saveModel($model);
+			$this->redirect(array('view',
+	                    'id'=>$model->id, 'iteration'=>$model->iteration));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('OmOrder');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -144,30 +171,49 @@ class OmOrderController extends Controller
 	}
 
 	/**
-	 * Returns the data model based on the primary key given in the GET variable.
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id, $iteration)
+	{		
+		$model=$this->loadModel($id, $iteration);
+		$this->render('view',array('model'=>$model));
+	}
+
+	/**
+	 * Returns the data model based on the primary keys given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
+	 * @param integer $iteration the iteration of the model to be loaded
 	 * @return OmOrder the loaded model
 	 * @throws CHttpException
 	 */
-	public function loadModel($id)
+	public function loadModel($id, $iteration)
 	{
-		$model=OmOrder::model()->findByPk($id);
-		if($model===null)
+		$model=OmOrder::model()->findByPk(array('id'=>$id, 'iteration'=>$iteration));
+		if($model==null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param OmOrder $model the model to be validated
-	 */
-	protected function performAjaxValidation($model)
+	public function saveModel($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='om-order-form')
+		try
 		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
+			$model->save();
 		}
+		catch(Exception $e)
+		{
+			$this->showError($e);
+		}		
 	}
+
+	function showError(Exception $e)
+	{
+		if($e->getCode()==23000)
+			$message = "This operation is not permitted due to an existing foreign key reference.";
+		else
+			$message = "Invalid operation.";
+		throw new CHttpException($e->getCode(), $message);
+	}		
 }

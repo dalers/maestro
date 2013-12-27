@@ -52,19 +52,16 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'acct4',
 		'name',
 		/*
-		'client_id',
+		'client',
 		'description',
 		'type',
-		'status_id',
+		'status',
 		'milestone',
 		'milestone_date',
 		'create_time',
 		'create_user_id',
 		'update_time',
 		'update_user_id',
-		'size_id',
-		'location_id',
-		'tool_type_id',
 		*/
 		array(
 			'class'=>'CButtonColumn',

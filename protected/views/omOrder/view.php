@@ -18,7 +18,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Order #<?php echo $model->id; ?></h1>
+<h1>View Order #<?php echo $model->id; ?> - Revision # <?php echo $model->iteration; ?></h1>
 
 <p>Created on <?php echo empty($model->create_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "Unknown user" : $model->createUser->username; ?>
 
@@ -38,17 +38,18 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+		'iteration',
 		array(
             'label'=>'Size',
-            'value'=>$model->size->name,
+            'value'=>$model->size,
         ),
 		array(
             'label'=>'Tool Type',
-            'value'=>$model->toolType->name,
+            'value'=>$model->tool_type,
         ),
 		array(
             'label'=>'Location',
-            'value'=>$model->location->name,
+            'value'=>$model->locale,
         ),
 		
 		/*
@@ -66,60 +67,6 @@ $this->menu=array(
 	),
 )); ?>
 
-<h2>Projects</h2>
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider' => $model->projects($model->id),
-    'id' => 'detail_childs_id',
-    'showTableOnEmpty' => false,
-    'emptyText' => 'This Order is not associated to any Projects.',
-	'columns' => array(
-        array(
-			'name'=> $model->getAttributeLabel('ProjectName'),
-			'htmlOptions'=>array('style'=>'width: 50px;'),
-			'type'=>'raw',
-			'value'=>'CHtml::encode($data->project->name)', // TODO: Should link back to Project view
-		),
-        array(
-			'name'=> $model->getAttributeLabel('Acct1'),
-			'htmlOptions'=>array('style'=>'width: 50px;'),
-			'type'=>'raw',
-			'value'=>'CHtml::encode($data->project->acct1)',
-		),
-        array(
-			'name'=> $model->getAttributeLabel('Acct2'),
-			'htmlOptions'=>array('style'=>'width: 50px;'),
-			'type'=>'raw',
-			'value'=>'CHtml::encode($data->project->acct2)',
-		),
-        array(
-			'name'=> $model->getAttributeLabel('Acct3'),
-			'htmlOptions'=>array('style'=>'width: 50px;'),
-			'type'=>'raw',
-			'value'=>'CHtml::encode($data->project->acct3)',
-		),
-		array(
-			'name'=> $model->getAttributeLabel('Acct4'),
-			'htmlOptions'=>array('style'=>'width: 50px;'),
-			'type'=>'raw',
-			'value'=>'CHtml::encode($data->project->acct4)',
-		),
-        array(
-			'name'=> $model->getAttributeLabel('Client'),
-			'htmlOptions'=>array('style'=>'width: 50px;'),
-			'type'=>'raw',
-			'value'=>'CHtml::encode($data->project->client->name)',
-		),
-        array(
-			'name'=> $model->getAttributeLabel('Type'),
-			'htmlOptions'=>array('style'=>'width: 50px;'),
-			'type'=>'raw',
-			'value'=>'CHtml::encode($data->project->type)',
-		),
-	),
-));
-?>
-
 <h2>Order Items</h2>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -132,12 +79,12 @@ $this->menu=array(
 			'name'=>'part_id',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->part_id)',
+			'value'=>'CHtml::encode($data->part->PNPartNumber)',
 		),
 		array(
 			'name'=>'serial_no',
 			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 250px; display: table-cell; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;'),
+            'htmlOptions'=>array('style'=>'width: 100px; display: table-cell; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;'),
 			'value'=>'CHtml::encode($data->serial_no)',
 		),
 	),

@@ -42,8 +42,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'client_id'); ?>
-		<?php echo $form->textField($model,'client_id'); ?>
+		<?php echo $form->label($model,'client'); ?>
+		<?php echo $form->textField($model,'client'); ?>
 	</div>
 
 	<div class="row">
@@ -57,8 +57,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'status_id'); ?>
-		<?php echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->label($model,'status'); ?>
+		<?php echo $form->textField($model,'status'); ?>
 	</div>
 
 	<div class="row">
@@ -89,21 +89,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'update_user_id'); ?>
 		<?php echo $form->textField($model,'update_user_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'size_id'); ?>
-		<?php echo $form->textField($model,'size_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'location_id'); ?>
-		<?php echo $form->textField($model,'location_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'tool_type_id'); ?>
-		<?php echo $form->textField($model,'tool_type_id'); ?>
 	</div>
 
 	<div class="row buttons">

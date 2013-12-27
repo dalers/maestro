@@ -20,21 +20,33 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'size_id'); ?>
-		<?php echo $form->dropDownList($model,'size_id', CHtml::listData(OmSize::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'size_id'); ?>
+		<?php echo $form->labelEx($model,'id'); ?>
+		<?php echo $form->textField($model,'id'); ?>
+		<?php echo $form->error($model,'id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'tool_type_id'); ?>
-		<?php echo $form->dropDownList($model,'tool_type_id', CHtml::listData(OmToolType::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'tool_type_id'); ?>
+		<?php echo $form->labelEx($model,'iteration'); ?>
+		<?php echo $form->textField($model,'iteration'); ?>
+		<?php echo $form->error($model,'iteration'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'size'); ?>
+		<?php echo $form->textField($model,'size'); ?>
+		<?php echo $form->error($model,'size'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'location_id'); ?>
-		<?php echo $form->dropDownList($model,'location_id', CHtml::listData(OmLocation::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'location_id'); ?>
+		<?php echo $form->labelEx($model,'tool_type'); ?>
+		<?php echo $form->textField($model,'tool_type'); ?>
+		<?php echo $form->error($model,'tool_type'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'locale'); ?>
+		<?php echo $form->textField($model,'locale'); ?>
+		<?php echo $form->error($model,'locale'); ?>
 	</div>
 
 	<div class="row">
@@ -64,7 +76,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'create_user_id'); ?>
-		<?php echo $form->textField($model,'create_user_id'); ?>
+		<?php echo $form->textField($model,'createUser->username'); ?>
 		<?php echo $form->error($model,'create_user_id'); ?>
 	</div>
 

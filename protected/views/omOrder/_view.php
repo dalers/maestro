@@ -6,19 +6,19 @@
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id, 'iteration'=>$data->iteration)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('size_id')); ?>:</b>
-	<?php echo CHtml::encode($data->size_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('size')); ?>:</b>
+	<?php echo CHtml::encode($data->size); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tool_type_id')); ?>:</b>
-	<?php echo CHtml::encode($data->tool_type_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('tool_type')); ?>:</b>
+	<?php echo CHtml::encode($data->tool_type); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('location_id')); ?>:</b>
-	<?php echo CHtml::encode($data->location_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('location')); ?>:</b>
+	<?php echo CHtml::encode($data->locale); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>

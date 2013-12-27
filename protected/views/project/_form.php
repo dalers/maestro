@@ -50,9 +50,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'client_id'); ?>
-		<?php echo $form->dropDownList($model,'client_id', CHtml::listData(Client::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'client_id'); ?>
+		<?php echo $form->labelEx($model,'client'); ?>
+		<?php echo $form->dropDownList($model,'client', CHtml::listData(Client::model()->findAll(array('order' => 'name')),'id','name'));?>
+		<?php echo $form->error($model,'client'); ?>
 	</div>
 
 	<div class="row">
@@ -68,9 +68,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'status_id'); ?>
-		<?php echo $form->dropDownList($model,'status_id', CHtml::listData(Status::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'status_id'); ?>
+		<?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->textField($model,'status',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'status'); ?>
 	</div>
 
 	<div class="row">
@@ -102,24 +102,6 @@
                 ),
         )); ?>
 		<?php echo $form->error($model,'milestone_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'size_id'); ?>
-		<?php echo $form->dropDownList($model,'size_id', CHtml::listData(OmSize::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'size_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'location_id'); ?>
-		<?php echo $form->dropDownList($model,'location_id', CHtml::listData(OmLocation::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'location_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'tool_type_id'); ?>
-		<?php echo $form->dropDownList($model,'tool_type_id', CHtml::listData(OmToolType::model()->findAll(array('order' => 'name')),'id','name'));?>
-		<?php echo $form->error($model,'tool_type_id'); ?>
 	</div>
 	
 	<div class="row">

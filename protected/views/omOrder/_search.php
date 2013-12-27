@@ -17,18 +17,23 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'size_id'); ?>
-		<?php echo $form->textField($model,'size_id'); ?>
+		<?php echo $form->label($model,'iteration'); ?>
+		<?php echo $form->textField($model,'iteration'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'size'); ?>
+		<?php echo $form->textField($model,'size'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'tool_type_id'); ?>
-		<?php echo $form->textField($model,'tool_type_id'); ?>
+		<?php echo $form->label($model,'tool_type'); ?>
+		<?php echo $form->textField($model,'tool_type'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'location_id'); ?>
-		<?php echo $form->textField($model,'location_id'); ?>
+		<?php echo $form->label($model,'locale'); ?>
+		<?php echo $form->textField($model,'locale'); ?>
 	</div>
 
 	<div class="row">

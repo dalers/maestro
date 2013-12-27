@@ -21,5 +21,9 @@
 	<?php echo CHtml::encode($data->serial_no); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('action')); ?>:</b>
+	<?php echo CHtml::encode($data->action); ?>
+	<br />
+
 
 </div>

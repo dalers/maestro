@@ -37,6 +37,12 @@
 		<?php echo $form->error($model,'serial_no'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'action'); ?>
+		<?php echo $form->textField($model,'action',array('size'=>3,'maxlength'=>3)); ?>
+		<?php echo $form->error($model,'action'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

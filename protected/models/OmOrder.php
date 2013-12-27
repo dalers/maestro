@@ -127,4 +127,26 @@ class OmOrder extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	 /**
+	 * Retrieves the list of parts that are childs of the specified part.
+	 * @return CActiveDataProvider the data provider that can return the needed details.
+	 */
+	public function childs($id, $pagesize = -1)
+	{
+        $pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
+		$criteria = new CDbCriteria;
+
+		$criteria->compare('order_id', $id, false);
+
+		return new CActiveDataProvider('OmOrderItem', array(
+			'criteria' => $criteria,
+            'pagination'=>array(
+                'pageSize'=>$pagesize,
+            ),
+			'sort'=>array(
+				'defaultOrder'=>'part_id ASC',
+			),
+		));
+	}
 }
