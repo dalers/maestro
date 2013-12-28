@@ -408,6 +408,10 @@ class m131105_025331_initial_schema extends CDbMigration
 			//validate pv_pn.PNReqBy
 			'requester_id' => 'integer', //fk -> person
 
+			//iteration tracking
+			'iteration_number' => 'integer',
+			'is_current_iteration' => 'boolean',
+
 			//record creation user/time and update user/time
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
