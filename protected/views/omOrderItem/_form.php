@@ -32,6 +32,18 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'desired_qty'); ?>
+		<?php echo $form->textField($model,'desired_qty'); ?>
+		<?php echo $form->error($model,'desired_qty'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'shipped_qty'); ?>
+		<?php echo $form->textField($model,'shipped_qty'); ?>
+		<?php echo $form->error($model,'shipped_qty'); ?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->labelEx($model,'serial_no'); ?>
 		<?php echo $form->textField($model,'serial_no',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'serial_no'); ?>

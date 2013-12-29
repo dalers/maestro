@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Order', 'url'=>array('create')),
-	array('label'=>'Manage Order', 'url'=>array('admin')),
+	array('label'=>'Create New Order', 'url'=>array('create')),
+	//array('label'=>'Manage Order', 'url'=>array('admin')),
 );
 ?>
 
@@ -33,24 +33,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'type'=>'raw',
 			'value'=>'CHtml::link(CHtml::encode($data->iteration), array(\'view\', \'id\' => $data->id, \'iteration\' => $data->iteration))',
 		),
-        array(
-			'name'=>'size',
-			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 25px; text-align: center;'),
-			'value'=>'CHtml::encode($data->size)',
-		),
-        array(
-			'name'=>'tool_type',
-			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->tool_type)',
-		),
-        array(
-			'name'=>'locale',
-			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->locale)',
-		),
 		array(
 			'name'=>'order_type',
 			'type'=>'raw',
@@ -62,6 +44,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 25px; text-align: center;'),
 			'value'=>'CHtml::encode($data->status)',
+		),
+		array(
+			'name'=>'project_id',
+			'type'=>'raw',
+            'htmlOptions'=>array('style'=>'width: 25px; text-align: center;'),
+			'value'=>'CHtml::encode($data->project_id)',
 		),
 	),
 ));

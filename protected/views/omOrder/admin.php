@@ -47,9 +47,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id',
 		'iteration',
-		'size',
-		'tool_type',
-		'location',
+		'order_type',
+		'status',
+		'project_id',
 		/*
 		'create_time',
 		'create_user_id',

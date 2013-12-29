@@ -33,8 +33,8 @@ class OmOrderItem extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('order_id, part_id', 'required'),
-			array('order_id, part_id', 'numerical', 'integerOnly'=>true),
-			array('serial_no', 'length', 'max'=>255),
+			array('order_id, part_id, desired_qty, shipped_qty', 'numerical', 'integerOnly'=>true),
+			array('serial_no', 'safe'),
 			array('action', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -64,6 +64,8 @@ class OmOrderItem extends CActiveRecord
 			'id' => 'ID',
 			'order_id' => 'Order',
 			'part_id' => 'Part',
+			'desired_qty' => 'Desired Qty',
+			'shipped_qty' => 'Shipped Qty',
 			'serial_no' => 'Serial No',
 			'action' => 'Action',
 		);
@@ -90,6 +92,8 @@ class OmOrderItem extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('order_id',$this->order_id);
 		$criteria->compare('part_id',$this->part_id);
+		$criteria->compare('desired_qty',$this->desired_qty);
+		$criteria->compare('shipped_qty',$this->shipped_qty);
 		$criteria->compare('serial_no',$this->serial_no,true);
 		$criteria->compare('action',$this->action,true);
 

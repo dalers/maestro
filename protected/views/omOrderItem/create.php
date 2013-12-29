@@ -3,13 +3,13 @@
 /* @var $model OmOrderItem */
 
 $this->breadcrumbs=array(
-	'Om Order Items'=>array('index'),
+	'Order Items'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List OmOrderItem', 'url'=>array('index')),
-	array('label'=>'Manage OmOrderItem', 'url'=>array('admin')),
+	array('label'=>'List Order Items', 'url'=>array('index')),
+	array('label'=>'Manage Order Item', 'url'=>array('admin')),
 );
 ?>
 

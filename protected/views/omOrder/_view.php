@@ -9,16 +9,20 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id, 'iteration'=>$data->iteration)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('size')); ?>:</b>
-	<?php echo CHtml::encode($data->size); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('iteration')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id, 'iteration'=>$data->iteration)); ?>
+	<br />
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('order_type')); ?>:</b>
+	<?php echo CHtml::encode($data->order_type); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tool_type')); ?>:</b>
-	<?php echo CHtml::encode($data->tool_type); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
+	<?php echo CHtml::encode($data->order_type); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('location')); ?>:</b>
-	<?php echo CHtml::encode($data->locale); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('project_id')); ?>:</b>
+	<?php echo CHtml::encode($data->project_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>

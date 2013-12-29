@@ -30,25 +30,25 @@
 		<?php echo $form->textField($model,'iteration'); ?>
 		<?php echo $form->error($model,'iteration'); ?>
 	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'order_type'); ?>
+		<?php echo $form->textField($model,'order_type'); ?>
+		<?php echo $form->error($model,'order_type'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->textField($model,'status'); ?>
+		<?php echo $form->error($model,'status'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'project_id'); ?>
+		<?php echo $form->textField($model,'project_id'); ?>
+		<?php echo $form->error($model,'project_id'); ?>
+	</div>
 	
-	<div class="row">
-		<?php echo $form->labelEx($model,'size'); ?>
-		<?php echo $form->textField($model,'size'); ?>
-		<?php echo $form->error($model,'size'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'tool_type'); ?>
-		<?php echo $form->textField($model,'tool_type'); ?>
-		<?php echo $form->error($model,'tool_type'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'locale'); ?>
-		<?php echo $form->textField($model,'locale'); ?>
-		<?php echo $form->error($model,'locale'); ?>
-	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'create_time'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(

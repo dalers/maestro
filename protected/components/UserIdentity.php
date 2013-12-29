@@ -27,17 +27,19 @@ class UserIdentity extends CUserIdentity
 	 }
 	public function authenticate()
 	{
-		$user=Person::model()->find('lower(email)=?', array(strtolower($this->username)));
+		$user=Person::model()->find('lower(username)=?', array(strtolower($this->username)));
 		if ($user === null)
 		{
 			$this->errorCode= self::ERROR_UNKNOWN_IDENTITY;
 		}
-		elseif($user->password !== $this->password)
+		elseif($user->password !== $this->password) //Plain-text password
 		{
 			$this->errorCode= self::ERROR_PASSWORD_INVALID;
 		}
 		else
 		{
+			$this->_id = $user->id;
+			$this->_username = $user->username;
 			$this->errorCode=self::ERROR_NONE;
 		}
 		return !$this->errorCode;

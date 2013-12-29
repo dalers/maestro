@@ -8,13 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Order', 'url'=>array('index')),
-	array('label'=>'Create Order', 'url'=>array('create')),
-	array('label'=>'Update Order', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Order', 'url'=>array('admin')),
-	array('label'=>'Assign Order to Project', 'url'=>'#'), // TODO
-	array('label'=>'Assign Order Items', 'url'=>'#'), // TODO
+	array('label'=>'List All Orders', 'url'=>array('index')),
+	array('label'=>'Create New Order', 'url'=>array('create')),
+	array('label'=>'Update This Order', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete This Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	//array('label'=>'Manage This Order', 'url'=>array('admin')),
 );
 ?>
 
@@ -39,31 +37,9 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'iteration',
-		array(
-            'label'=>'Size',
-            'value'=>$model->size,
-        ),
-		array(
-            'label'=>'Tool Type',
-            'value'=>$model->tool_type,
-        ),
-		array(
-            'label'=>'Location',
-            'value'=>$model->locale,
-        ),
-		
-		/*
-		'create_time',
-		array(
-            'label'=>'Create User',
-            'value'=>$model->createUser->username,
-        ),
-		'update_time',
-		array(
-            'label'=>'Update User',
-            'value'=>$model->updateUser->username,
-        ),
-		*/
+		'order_type',
+		'status',
+		'project_id',
 	),
 )); ?>
 

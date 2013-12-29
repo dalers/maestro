@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Order', 'url'=>array('index')),
-	array('label'=>'Create Order', 'url'=>array('create')),
-	array('label'=>'View Order', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Order', 'url'=>array('admin')),
+	array('label'=>'List All Orders', 'url'=>array('index')),
+	array('label'=>'Create New Order', 'url'=>array('create')),
+	array('label'=>'View This Order', 'url'=>array('view', 'id'=>$model->id)),
+	//array('label'=>'Manage Order', 'url'=>array('admin')),
 );
 ?>
 

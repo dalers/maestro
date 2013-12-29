@@ -17,6 +17,14 @@
 	<?php echo CHtml::encode($data->part_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('desired_qty')); ?>:</b>
+	<?php echo CHtml::encode($data->desired_qty); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('shipped_qty')); ?>:</b>
+	<?php echo CHtml::encode($data->shipped_qty); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('serial_no')); ?>:</b>
 	<?php echo CHtml::encode($data->serial_no); ?>
 	<br />

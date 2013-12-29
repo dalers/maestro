@@ -5,12 +5,10 @@
  *
  * The followings are the available columns in table 'tbl_om_order':
  * @property integer $id
- * @property string $size
- * @property string $tool_type
- * @property string $locale
  * @property string $order_type
  * @property string $status
  * @property integer $iteration
+ * @property integer $project_id
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
@@ -39,12 +37,12 @@ class OmOrder extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('iteration, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('size, tool_type, locale, order_type, status', 'length', 'max'=>255),
+			array('iteration, project_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('order_type, status', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, size, tool_type, locale, order_type, status, iteration, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, order_type, status, iteration, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +54,7 @@ class OmOrder extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'project_id' => array(self::BELONGS_TO, 'Project', 'project_id'),
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
 			'omOrderItems' => array(self::HAS_MANY, 'OmOrderItem', 'order_id'),
@@ -69,12 +68,10 @@ class OmOrder extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'size' => 'Size',
-			'tool_type' => 'Tool Type',
-			'locale' => 'Locale',
 			'order_type' => 'Order Type',
 			'status' => 'Status',
 			'iteration' => 'Iteration',
+			'project_id' => 'Project',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
@@ -101,12 +98,10 @@ class OmOrder extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('size',$this->size,true);
-		$criteria->compare('tool_type',$this->tool_type,true);
-		$criteria->compare('locale',$this->locale,true);
 		$criteria->compare('order_type',$this->order_type,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('iteration',$this->iteration);
+		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_time',$this->update_time,true);

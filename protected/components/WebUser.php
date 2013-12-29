@@ -6,25 +6,49 @@ class WebUser extends CWebUser {
 	
 	function getFirstName()
 	{
-		$user = $this->loadUser(Yii::app()->person->id);
-		return $user->fname;
+		$user = $this->loadUser(Yii::app()->user->id);
+		if ($user!==null)
+		{
+			return $user->getAttribute('fname');
+		}
+		else
+		{
+			return "Guest";
+		}		
 	}
 	
 	function getFullName()
 	{
-		$user = $this->loadUser(Yii::app()->person->id);
-		return $user->fullName();
+		$user = $this->loadUser(Yii::app()->user->id);
+		if ($user!==null)
+		{
+			return $user->getAttribute('fname') . " " . $user->getAttribute('lname');
+		}
+		else
+		{
+			return "Guest";
+		}
 	}
 	
 	function getProfile()
 	{
-		$user = $this->loadUser(Yii::app()->person->id);
-		return $user->profile;
+		$user = $this->loadUser(Yii::app()->user->id);
+		if ($user!==null)
+		{
+			return intval($user->profile);
+		}
+		else
+		{
+			return intval(-1);
+		}
 	}
 	
+	// This a function that checks the field 'profile'
+	// in the Person model to be equal to ROLE_ADMIN, that means it's admin
+	// access it by Yii::app()->user->isAdmin()
 	function isAdmin()
 	{
-		$user = $this->loadUser(Yii::app()->person->id);
+		$user = $this->loadUser(Yii::app()->user->id);
 		if ($user!==null)
 		{
 			return intval($user->profile) == Person::ROLE_ADMIN;

@@ -3,16 +3,16 @@
 /* @var $model OmOrderItem */
 
 $this->breadcrumbs=array(
-	'Om Order Items'=>array('index'),
+	'Order Items'=>array('index'),
 	$model->id,
 );
 
 $this->menu=array(
-	array('label'=>'List OmOrderItem', 'url'=>array('index')),
-	array('label'=>'Create OmOrderItem', 'url'=>array('create')),
-	array('label'=>'Update OmOrderItem', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete OmOrderItem', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage OmOrderItem', 'url'=>array('admin')),
+	array('label'=>'List Order Items', 'url'=>array('index')),
+	array('label'=>'Create Order Item', 'url'=>array('create')),
+	array('label'=>'Update Order Item', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete Order Item', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Order Item', 'url'=>array('admin')),
 );
 ?>
 
@@ -24,6 +24,8 @@ $this->menu=array(
 		'id',
 		'order_id',
 		'part_id',
+		'desired_qty',
+		'shipped_qty',
 		'serial_no',
 		'action',
 	),

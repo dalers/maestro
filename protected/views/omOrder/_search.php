@@ -20,22 +20,22 @@
 		<?php echo $form->label($model,'iteration'); ?>
 		<?php echo $form->textField($model,'iteration'); ?>
 	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'order_type'); ?>
+		<?php echo $form->textField($model,'order_type'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'status'); ?>
+		<?php echo $form->textField($model,'status'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'project_id'); ?>
+		<?php echo $form->textField($model,'project_id'); ?>
+	</div>
 	
-	<div class="row">
-		<?php echo $form->label($model,'size'); ?>
-		<?php echo $form->textField($model,'size'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'tool_type'); ?>
-		<?php echo $form->textField($model,'tool_type'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'locale'); ?>
-		<?php echo $form->textField($model,'locale'); ?>
-	</div>
-
 	<div class="row">
 		<?php echo $form->label($model,'create_time'); ?>
 		<?php echo $form->textField($model,'create_time'); ?>
