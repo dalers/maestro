@@ -68,7 +68,7 @@ INSERT INTO `tbl_om_order` (`id`, `name`, `type`, `status`, `iteration`, `projec
 --
 -- Table structure for table `tbl_om_order_item`
 --
-DROP TABLE IF EXISTS `tbl_om_order_item`
+DROP TABLE IF EXISTS `tbl_om_order_item`;
 CREATE TABLE `tbl_om_order_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
