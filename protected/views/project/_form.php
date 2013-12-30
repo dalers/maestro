@@ -81,10 +81,29 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'milestone_date'); ?>
-		<?php echo $form->textField($model,'milestone_date'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                'model'=>$model,
+                'attribute'=>'milestone_date',
+                'value'=>$model->milestone_date,
+
+                // additional javascript options for the date picker plugin
+                'options'=>array(
+                        'autoSize'=>true,
+                        'defaultDate'=>$model->milestone_date,
+                        'buttonImage'=>Yii::app()->baseUrl.'/images/cal_16x16.gif',
+                        'buttonImageOnly'=>true,
+                        'buttonText'=>'Select',
+						'dateFormat'=>'yy-mm-dd', 
+                        'selectOtherMonths'=>true,
+                        'showAnim'=>'fold',
+                        'showButtonPanel'=>true,
+                        'showOn'=>'button',
+                        'showOtherMonths'=>true,
+                ),
+        )); ?>
 		<?php echo $form->error($model,'milestone_date'); ?>
 	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'create_time'); ?>
 		<?php echo $form->textField($model,'create_time'); ?>

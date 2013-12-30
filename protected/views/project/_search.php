@@ -43,7 +43,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'client'); ?>
-		<?php echo $form->textField($model,'client',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'client'); ?>
 	</div>
 
 	<div class="row">
@@ -58,7 +58,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'status'); ?>
-		<?php echo $form->textField($model,'status',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'status'); ?>
 	</div>
 
 	<div class="row">

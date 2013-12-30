@@ -13,7 +13,7 @@
  * @property string $client
  * @property string $description
  * @property string $type
- * @property string $status
+ * @property integer $status
  * @property string $milestone
  * @property string $milestone_date
  * @property string $create_time
@@ -23,8 +23,8 @@
  *
  * The followings are the available model relations:
  * @property Issue[] $issues
- * @property Person $updateUser
  * @property Person $createUser
+ * @property Person $updateUser
  */
 class Project extends CActiveRecord
 {
@@ -45,7 +45,7 @@ class Project extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('acct1, acct2, acct3, acct4, name, client, type, status, milestone', 'length', 'max'=>255),
+			array('client, status, acct1, acct2, acct3, acct4, name, type, milestone', 'length', 'max'=>255),
 			array('description, milestone_date, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -62,8 +62,8 @@ class Project extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
-			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
+			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
 		);
 	}
 
