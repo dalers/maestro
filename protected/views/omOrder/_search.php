@@ -22,8 +22,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'order_type'); ?>
-		<?php echo $form->textField($model,'order_type'); ?>
+		<?php echo $form->label($model,'name'); ?>
+		<?php echo $form->textField($model,'name'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'type'); ?>
+		<?php echo $form->textField($model,'type'); ?>
 	</div>
 
 	<div class="row">

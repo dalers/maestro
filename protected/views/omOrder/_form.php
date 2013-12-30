@@ -32,9 +32,15 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'order_type'); ?>
-		<?php echo $form->textField($model,'order_type'); ?>
-		<?php echo $form->error($model,'order_type'); ?>
+		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->textField($model,'name'); ?>
+		<?php echo $form->error($model,'name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'type'); ?>
+		<?php echo $form->textField($model,'type'); ?>
+		<?php echo $form->error($model,'type'); ?>
 	</div>
 
 	<div class="row">
@@ -76,7 +82,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'create_user_id'); ?>
-		<?php echo $form->textField($model,'createUser->username'); ?>
+		<?php echo $form->textField($model,'create_user_id'); ?>
 		<?php echo $form->error($model,'create_user_id'); ?>
 	</div>
 

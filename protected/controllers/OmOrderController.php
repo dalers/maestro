@@ -24,7 +24,7 @@ class OmOrderController extends Controller
 	public function actionIndex()
 	{
 		$criteria = new CDbCriteria();
-		$criteria->select = 'id, order_type, status, project_id, create_time, create_user_id, update_time, MAX(iteration) iteration';
+		$criteria->select = 'id, name, type, status, project_id, create_time, create_user_id, update_time, MAX(iteration) iteration';
 		$criteria->group = 'id';
 		
         $model = new OmOrder('search');

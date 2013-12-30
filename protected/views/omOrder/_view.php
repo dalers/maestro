@@ -12,13 +12,17 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('iteration')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id, 'iteration'=>$data->iteration)); ?>
 	<br />
-	
-	<b><?php echo CHtml::encode($data->getAttributeLabel('order_type')); ?>:</b>
-	<?php echo CHtml::encode($data->order_type); ?>
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
+	<?php echo CHtml::encode($data->name); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
+	<?php echo CHtml::encode($data->type); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->order_type); ?>
+	<?php echo CHtml::encode($data->status); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('project_id')); ?>:</b>

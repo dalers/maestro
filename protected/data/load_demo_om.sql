@@ -30,7 +30,8 @@ ADD COLUMN `user10` VARCHAR(255) NULL DEFAULT NULL AFTER `user9`;
 
 CREATE TABLE `tbl_om_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_type` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `iteration` int(11) NOT NULL DEFAULT '0',
   `project_id` int(11) DEFAULT NULL,
@@ -42,18 +43,25 @@ CREATE TABLE `tbl_om_order` (
   KEY `fk_order_to_create_user` (`create_user_id`),
   KEY `fk_order_to_update_user` (`update_user_id`),
   KEY `fk_order_to_project_idx` (`project_id`),
-  CONSTRAINT `fk_order_to_project` FOREIGN KEY (`project_id`) REFERENCES `tbl_project` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_order_to_project` FOREIGN KEY (`project_id`) REFERENCES `tbl_project` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONS FOR TABLE `tbl_om_order`:
+--   `project_id`
+--       `tbl_project` -> `id`
 --   `update_user_id`
 --       `tbl_person` -> `id`
 --   `create_user_id`
 --       `tbl_person` -> `id`
 --
+
+INSERT INTO `tbl_om_order` (`id`, `name`, `type`, `status`, `iteration`, `project_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
+(1, 'First Partial', '10 pin', 'ACTIVE', 0, NULL, NULL, NULL, NULL, NULL),
+(1, 'First Partial', '10 pin', 'ACTIVE', 1, NULL, NULL, NULL, NULL, NULL),
+(2, 'First Partial', '10 pin', 'ACTIVE', 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -85,27 +93,12 @@ CREATE TABLE `tbl_om_order_item` (
 --       `tbl_pv_pn` -> `id`
 --
 
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tbl_om_order`
---
-  
-ALTER TABLE `tbl_om_order`
-  ADD CONSTRAINT `fk_order_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_order_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE;
-  --
--- Constraints for table `tbl_om_order_item`
---
-  
-ALTER TABLE `tbl_om_order_item`
-  ADD CONSTRAINT `fk_order_item_to_order` FOREIGN KEY (`order_id`) REFERENCES `tbl_om_order` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_order_item_to_part` FOREIGN KEY (`part_id`) REFERENCES `tbl_pv_part` (`id`) ON DELETE CASCADE;
+INSERT INTO `tbl_om_order_item` (`id`, `order_id`, `part_id`, `desired_qty`, `shipped_qty`, `serial_no`, `action`) VALUES
+(1, 1, 8, 0, 0, NULL, 'A'),
+(2, 1, 32, 0, 0, NULL, 'A');
   
 --
--- Dumping data for table `tbl_person`
+-- Add admin and demo user to `tbl_person`
 --
 
 INSERT INTO `tbl_person` (`username`, `status`, `password`, `email`, `nick`, `lname`, `fname`, `initial`, `profile`, `last_login_time`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES

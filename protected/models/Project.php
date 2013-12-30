@@ -10,7 +10,7 @@
  * @property string $acct3
  * @property string $acct4
  * @property string $name
- * @property integer $client
+ * @property string $client
  * @property string $description
  * @property string $type
  * @property integer $status

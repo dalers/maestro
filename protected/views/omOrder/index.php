@@ -34,10 +34,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=>'CHtml::link(CHtml::encode($data->iteration), array(\'view\', \'id\' => $data->id, \'iteration\' => $data->iteration))',
 		),
 		array(
-			'name'=>'order_type',
+			'name'=>'name',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 25px; text-align: center;'),
-			'value'=>'CHtml::encode($data->order_type)',
+			'value'=>'CHtml::encode($data->name)',
+		),
+		array(
+			'name'=>'type',
+			'type'=>'raw',
+            'htmlOptions'=>array('style'=>'width: 25px; text-align: center;'),
+			'value'=>'CHtml::encode($data->type)',
 		),
 		array(
 			'name'=>'status',

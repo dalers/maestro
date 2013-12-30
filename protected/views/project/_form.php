@@ -51,7 +51,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'client'); ?>
-		<?php echo $form->dropDownList($model,'client', CHtml::listData(Client::model()->findAll(array('order' => 'name')),'id','name'));?>
+		<?php echo $form->textField($model,'client',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'client'); ?>
 	</div>
 

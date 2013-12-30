@@ -5,7 +5,8 @@
  *
  * The followings are the available columns in table 'tbl_om_order':
  * @property integer $id
- * @property string $order_type
+ * @property string $type
+ * @property string $name
  * @property string $status
  * @property integer $iteration
  * @property integer $project_id
@@ -38,11 +39,11 @@ class OmOrder extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('iteration, project_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('order_type, status', 'length', 'max'=>255),
+			array('name, type, status', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, order_type, status, iteration, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, name, type, status, iteration, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,7 +69,8 @@ class OmOrder extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'order_type' => 'Order Type',
+			'name' => 'Name',
+			'type' => 'Type',
 			'status' => 'Status',
 			'iteration' => 'Iteration',
 			'project_id' => 'Project',
@@ -98,7 +100,8 @@ class OmOrder extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('order_type',$this->order_type,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('type',$this->type,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('iteration',$this->iteration);
 		$criteria->compare('project_id',$this->project_id);
