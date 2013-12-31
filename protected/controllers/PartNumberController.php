@@ -300,11 +300,9 @@ class PartNumberController extends Controller
 	*/
 	public function actionSaveAsCSV()
 	{
-
 		$csvname = "parts.csv";
 		$path = Yii::app()->basePath;
-		$filename = $path."/".$csvname;
-		
+		$filename = $path."/runtime/".$csvname;		
 		$cmd = Yii::app()->db->createCommand("SELECT PNPartNumber, PNType, PNStatus, PNRevision, PNTitle, PNDetail FROM maestro.tbl_pv_pn");
 		
 		$csv = new ECSVExport($cmd);
