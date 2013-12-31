@@ -192,10 +192,10 @@ class OmOrderController extends Controller
 	{
 		$model=OmOrder::model()->findByPk(array('id'=>$id, 'iteration'=>$iteration));
 		if($model==null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'The requested page does not exist.');			
 		return $model;
 	}
-
+	
 	public function saveModel($model)
 	{
 		try

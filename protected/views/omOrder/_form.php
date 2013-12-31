@@ -66,7 +66,7 @@
                 'options'=>array(
                         'autoSize'=>true,
                         'defaultDate'=>$model->create_time,
-                        'buttonImage'=>Yii::app()->baseUrl.'/images/cal_16x16.gif',
+                        'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
                         'buttonImageOnly'=>true,
                         'buttonText'=>'Select',
 						'dateFormat'=>'yy-mm-dd', 
@@ -97,7 +97,7 @@
                 'options'=>array(
                         'autoSize'=>true,
                         'defaultDate'=>$model->update_time,
-                        'buttonImage'=>Yii::app()->baseUrl.'/images/cal_16x16.gif',
+                        'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
                         'buttonImageOnly'=>true,
                         'buttonText'=>'Select',
 						'dateFormat'=>'yy-mm-dd', 

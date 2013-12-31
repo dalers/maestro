@@ -10,7 +10,7 @@ SET time_zone = "+00:00";
 -- Alter table structure for table `tbl_project`
 -- Add user defined fields
 
-ALTER TABLE `maestro`.`tbl_project` 
+ALTER TABLE `tbl_project` 
 ADD COLUMN `user1` VARCHAR(255) NULL DEFAULT NULL AFTER `milestone_date`,
 ADD COLUMN `user2` VARCHAR(255) NULL DEFAULT NULL AFTER `user1`,
 ADD COLUMN `user3` VARCHAR(255) NULL DEFAULT NULL AFTER `user2`,
