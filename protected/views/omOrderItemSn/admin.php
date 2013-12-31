@@ -1,15 +1,15 @@
 <?php
-/* @var $this OmOrderController */
-/* @var $model OmOrder */
+/* @var $this OmOrderItemSnController */
+/* @var $model OmOrderItemSn */
 
 $this->breadcrumbs=array(
-	'Orders'=>array('index'),
+	'Om Order Item Sns'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Order', 'url'=>array('index')),
-	array('label'=>'Create Order', 'url'=>array('create')),
+	array('label'=>'List OmOrderItemSn', 'url'=>array('index')),
+	array('label'=>'Create OmOrderItemSn', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +18,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#om-order-grid').yiiGridView('update', {
+	$('#om-order-item-sn-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Orders</h1>
+<h1>Manage Om Order Item Sns</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -41,21 +41,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'om-order-grid',
+	'id'=>'om-order-item-sn-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'name',
-		'type',
-		'status',
-		'project_id',
-		/*
-		'create_time',
-		'create_user_id',
-		'update_time',
-		'update_user_id',
-		*/
+		'order_item_id',
+		'stock_serial_id',
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -1,13 +1,13 @@
 <?php
-/* @var $this OmOrderItemController */
-/* @var $model OmOrderItem */
+/* @var $this OmOrderItemSnController */
+/* @var $model OmOrderItemSn */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'om-order-item-form',
+	'id'=>'om-order-item-sn-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
 	// There is a call to performAjaxValidation() commented in generated controller code.
@@ -20,27 +20,15 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'order_id'); ?>
-		<?php echo $form->textField($model,'order_id'); ?>
-		<?php echo $form->error($model,'order_id'); ?>
+		<?php echo $form->labelEx($model,'order_item_id'); ?>
+		<?php echo $form->textField($model,'order_item_id'); ?>
+		<?php echo $form->error($model,'order_item_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'part_id'); ?>
-		<?php echo $form->textField($model,'part_id'); ?>
-		<?php echo $form->error($model,'part_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'desired_qty'); ?>
-		<?php echo $form->textField($model,'desired_qty'); ?>
-		<?php echo $form->error($model,'desired_qty'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'shipped_qty'); ?>
-		<?php echo $form->textField($model,'shipped_qty'); ?>
-		<?php echo $form->error($model,'shipped_qty'); ?>
+		<?php echo $form->labelEx($model,'stock_serial_id'); ?>
+		<?php echo $form->textField($model,'stock_serial_id'); ?>
+		<?php echo $form->error($model,'stock_serial_id'); ?>
 	</div>
 
 	<div class="row buttons">

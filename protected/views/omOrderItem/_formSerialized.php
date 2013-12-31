@@ -42,18 +42,6 @@
 		<?php echo $form->textField($model,'shipped_qty', array('disabled' => true)); ?>
 		<?php echo $form->error($model,'shipped_qty'); ?>
 	</div>
-	
-	<div class="row">
-		<?php echo $form->labelEx($model,'serial_no'); ?>
-		<?php echo $form->textField($model,'serial_no',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'serial_no'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'action'); ?>
-		<?php echo $form->textField($model,'action',array('size'=>3,'maxlength'=>3)); ?>
-		<?php echo $form->error($model,'action'); ?>
-	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
