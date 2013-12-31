@@ -112,4 +112,43 @@ class OmOrderItem extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	public function validateSerialNumbers($array, $partNumber)
+	{
+		foreach($array as &$value)
+		{
+			$query="SELECT * FROM tbl_stock_serial WHERE serial_number=\':serial_number\' AND part_number=\'".$partNumber."\'";
+			$list = Yii::app()->db->createCommand($query)->bindValue('serial_number',$value)->queryAll();
+			if (count($list)==0)
+			{
+				unset($value);
+				return false;
+			}
+		}
+		unset($value);
+		return true;
+	}
+
+	public function beforeSave()
+	{
+		if(parent::beforeSave())
+		{
+			// Parse the Serial Number field using comma as the delimer
+			$array = explode(",", $this->serial_no);
+			$elementCount = count($array);
+			if ($elementCount > 0) {
+				//$validateSNPart = validateSerialNumbers($array, $this->part->PNPartNumber);
+				//if ($validateSNPart==false)
+				//	return false;
+			}
+
+			if (!empty($this->part->PNUser1))
+			{
+				$this->shipped_qty=$elementCount;
+			}
+
+			return true;
+		}
+		return false;
+	}
 }

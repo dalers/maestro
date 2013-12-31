@@ -32,7 +32,7 @@ class OmOrderItemController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'updateSerialized', 'createItemToOrder'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -80,6 +80,30 @@ class OmOrderItemController extends Controller
 	}
 
 	/**
+	 * Creates a new model associated with an Order.
+	 * If creation is successful, the browser will be redirected to the Order 'view' page.
+	 */
+	public function actionCreateItemToOrder($order_id)
+	{
+		$model=new OmOrderItem;
+		$model->order_id=$order_id;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['OmOrderItem']))
+		{
+			$model->attributes=$_POST['OmOrderItem'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('createItemToOrder',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
@@ -99,6 +123,30 @@ class OmOrderItemController extends Controller
 		}
 
 		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+		/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdateSerialized($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['OmOrderItem']))
+		{
+			$model->attributes=$_POST['OmOrderItem'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('updateSerialized',array(
 			'model'=>$model,
 		));
 	}

@@ -55,7 +55,7 @@ class OmOrder extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'project_id' => array(self::BELONGS_TO, 'Project', 'project_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
 			'omOrderItems' => array(self::HAS_MANY, 'OmOrderItem', 'order_id'),
@@ -146,5 +146,35 @@ class OmOrder extends CActiveRecord
 				'defaultOrder'=>'part_id ASC',
 			),
 		));
+	}
+	
+	public function project($id)
+	{
+		$pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
+		$criteria = new CDbCriteria;
+
+		$criteria->compare('id', $id, false);
+
+		return new CActiveDataProvider('Project', array(
+			'criteria' => $criteria,
+            'pagination'=>array(
+                'pageSize'=>$pagesize,
+            ),
+			'sort'=>array(
+				'defaultOrder'=>'project_id ASC',
+			),
+		));
+	}
+	
+	public function beforeSave()
+	{
+		if(parent::beforeSave())
+		{
+			// TODO
+			//$this->update_time=time(); //Format example: 2013-12-30 00:00:00
+			//$this->update_user
+			return true;
+		}
+		return false;
 	}
 }
