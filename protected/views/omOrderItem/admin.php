@@ -50,8 +50,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'part_id',
 		'desired_qty',
 		'shipped_qty',
-		'serial_no',
-		'action',
 		array(
 			'class'=>'CButtonColumn',
 		),

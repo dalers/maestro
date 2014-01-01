@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create OmOrderItem</h1>
+<h1>Create Order Item</h1>
 
 <?php $this->renderPartial('_formItemToOrder', array('model'=>$model)); ?>

@@ -36,16 +36,6 @@
 		<?php echo $form->textField($model,'shipped_qty'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'serial_no'); ?>
-		<?php echo $form->textField($model,'serial_no',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'action'); ?>
-		<?php echo $form->textField($model,'action',array('size'=>3,'maxlength'=>3)); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
