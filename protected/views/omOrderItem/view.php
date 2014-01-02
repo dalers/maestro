@@ -26,7 +26,5 @@ $this->menu=array(
 		'part_id',
 		'desired_qty',
 		'shipped_qty',
-		'serial_no',
-		'action',
 	),
 )); ?>

@@ -1,5 +1,6 @@
 <?php
-class OmOrderController extends Controller
+
+class OmOrderItemSnController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -16,24 +17,6 @@ class OmOrderController extends Controller
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 		);
-	}
-
-	/**
-	 * Lists all models
-	 */
-	public function actionIndex()
-	{
-        $model = new OmOrder('search');
-
-        $model->unsetAttributes();
-
-		if (isset($_GET['OmOrder']))
-			$model->attributes = $_GET['OmOrder'];
-
-        $this->render('index', array(
-            'dataProvider' => $model->search(),
-			'model' => $model,
-		));
 	}
 
 	/**
@@ -63,34 +46,63 @@ class OmOrderController extends Controller
 	}
 
 	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
-	    $model=new OmOrder;
+		$model=new OmOrderItemSn;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		
-	    if(isset($_POST['ajax']) && $_POST['ajax']==='client-account-create-form')
-	    {
-	        echo CActiveForm::validate($model);
-	        Yii::app()->end();
-	    }
 
-	    if(isset($_POST['OmOrder']))
-	    {
-	        $model->attributes=$_POST['OmOrder'];
+		if(isset($_POST['OmOrderItemSn']))
+		{
+			$model->attributes=$_POST['OmOrderItemSn'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
-	    }
-		
+		}
+
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	} 
-	
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['OmOrderItemSn']))
+		{
+			$model->attributes=$_POST['OmOrderItemSn'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -106,26 +118,13 @@ class OmOrderController extends Controller
 	}
 
 	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
+	 * Lists all models.
 	 */
-	public function actionUpdate($id)
+	public function actionIndex()
 	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['OmOrder']))
-		{
-			$model->attributes=$_POST['OmOrder'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
+		$dataProvider=new CActiveDataProvider('OmOrderItemSn');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -134,10 +133,10 @@ class OmOrderController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new OmOrder('search');
+		$model=new OmOrderItemSn('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['OmOrder']))
-			$model->attributes=$_GET['OmOrder'];
+		if(isset($_GET['OmOrderItemSn']))
+			$model->attributes=$_GET['OmOrderItemSn'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -145,49 +144,30 @@ class OmOrderController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{		
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
-	 * Returns the data model based on the primary keys given in the GET variable.
+	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return OmOrder the loaded model
+	 * @return OmOrderItemSn the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=OmOrder::model()->findByPk($id);
+		$model=OmOrderItemSn::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
-	
-	public function saveModel($model)
+
+	/**
+	 * Performs the AJAX validation.
+	 * @param OmOrderItemSn $model the model to be validated
+	 */
+	protected function performAjaxValidation($model)
 	{
-		try
+		if(isset($_POST['ajax']) && $_POST['ajax']==='om-order-item-sn-form')
 		{
-			$model->save();
-		}
-		catch(Exception $e)
-		{
-			$this->showError($e);
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
 		}
 	}
-
-	function showError(Exception $e)
-	{
-		if($e->getCode()==23000)
-			$message = "This operation is not permitted due to an existing foreign key reference.";
-		else
-			$message = "Invalid operation.";
-		throw new CHttpException($e->getCode(), $message);
-	}		
 }

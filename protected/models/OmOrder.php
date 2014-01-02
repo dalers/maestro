@@ -8,7 +8,6 @@
  * @property string $type
  * @property string $name
  * @property string $status
- * @property integer $iteration
  * @property integer $project_id
  * @property string $create_time
  * @property integer $create_user_id
@@ -38,12 +37,12 @@ class OmOrder extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('iteration, project_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('project_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('name, type, status', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, type, status, iteration, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, name, type, status, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,7 +71,6 @@ class OmOrder extends CActiveRecord
 			'name' => 'Name',
 			'type' => 'Type',
 			'status' => 'Status',
-			'iteration' => 'Iteration',
 			'project_id' => 'Project',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
@@ -103,7 +101,6 @@ class OmOrder extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('status',$this->status,true);
-		$criteria->compare('iteration',$this->iteration);
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);

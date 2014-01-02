@@ -10,14 +10,15 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'List All Orders', 'url'=>array('index')),
 	array('label'=>'Create New Order', 'url'=>array('create')),	
-	array('label'=>'Update This Order', 'url'=>array('update', 'id'=>$model->id, 'iteration'=>$model->iteration)),
+	array('label'=>'Update This Order', 'url'=>array('update', 'id'=>$model->id),
 	array('label'=>'Add An Order Item', 'url'=>Yii::app()->createUrl("OmOrderItem/createItemToOrder", array("order_id"=>$model->id))),
-	array('label'=>'Delete This Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id,'iteration'=>$model->iteration),'confirm'=>'Are you sure you want to delete this item?')),
-	//array('label'=>'Manage This Order', 'url'=>array('admin')),
+	array('label'=>'Delete This Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	//array('label'=>'Manage This Order', 'url'=>array('admin')
+	),
 );
 ?>
 
-<h1>View Order #<?php echo $model->id; ?> - Revision # <?php echo $model->iteration; ?></h1>
+<h1>View Order #<?php echo $model->id; ?></h1>
 
 <p>Created on <?php echo empty($model->create_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "Unknown user" : $model->createUser->username; ?>
 
@@ -37,7 +38,6 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'iteration',
 		'name',
 		'type',
 		'status',
@@ -111,12 +111,6 @@ $this->menu=array(
 			'value'=>'CHtml::encode($data->part->PNPartNumber)',
 		),
         array(
-			'name'=>'Action',
-			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 10px; text-align: center;'),
-			'value'=>'CHtml::encode($data->action)',
-		),
-        array(
 			'name'=>'Serialized',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 10px; text-align: center;'),
@@ -133,12 +127,6 @@ $this->menu=array(
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 10px; text-align: center;'),
 			'value'=>'CHtml::encode($data->shipped_qty)',
-		),
-		array(
-			'name'=>'Serial Number',
-			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 100px; display: table-cell; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;'),
-			'value'=>'CHtml::encode($data->serial_no)',
 		),
         array(
             'class'=>'CButtonColumn',

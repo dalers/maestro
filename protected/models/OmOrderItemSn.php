@@ -1,25 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "tbl_om_order_item".
+ * This is the model class for table "tbl_om_order_item_sn".
  *
- * The followings are the available columns in table 'tbl_om_order_item':
+ * The followings are the available columns in table 'tbl_om_order_item_sn':
  * @property integer $id
- * @property integer $order_id
- * @property integer $part_id
+ * @property integer $order_item_id
+ * @property integer $stock_serial_id
  *
  * The followings are the available model relations:
- * @property PvPn $part
- * @property OmOrder $order
+ * @property TblOmOrderItem $orderItem
+ * @property TblStockSerial $stockSerial
  */
-class OmOrderItem extends CActiveRecord
+class OmOrderItemSn extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tbl_om_order_item';
+		return 'tbl_om_order_item_sn';
 	}
 
 	/**
@@ -30,11 +30,11 @@ class OmOrderItem extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('order_id, part_id', 'required'),
-			array('order_id, part_id, desired_qty, shipped_qty', 'numerical', 'integerOnly'=>true),
+			array('order_item_id, stock_serial_id', 'required'),
+			array('order_item_id, stock_serial_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, order_id, part_id', 'safe', 'on'=>'search'),
+			array('id, order_item_id, stock_serial_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,8 +46,8 @@ class OmOrderItem extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'part' => array(self::BELONGS_TO, 'PvPn', 'part_id'),
-			'order' => array(self::BELONGS_TO, 'OmOrder', 'order_id'),
+			'orderItem' => array(self::BELONGS_TO, 'TblOmOrderItem', 'order_item_id'),
+			'stockSerial' => array(self::BELONGS_TO, 'TblStockSerial', 'stock_serial_id'),
 		);
 	}
 
@@ -58,10 +58,8 @@ class OmOrderItem extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'order_id' => 'Order',
-			'part_id' => 'Part',
-			'desired_qty' => 'Desired Qty',
-			'shipped_qty' => 'Shipped Qty',
+			'order_item_id' => 'Order Item',
+			'stock_serial_id' => 'Stock Serial',
 		);
 	}
 
@@ -84,10 +82,8 @@ class OmOrderItem extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('order_id',$this->order_id);
-		$criteria->compare('part_id',$this->part_id);
-		$criteria->compare('desired_qty',$this->desired_qty);
-		$criteria->compare('shipped_qty',$this->shipped_qty);
+		$criteria->compare('order_item_id',$this->order_item_id);
+		$criteria->compare('stock_serial_id',$this->stock_serial_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -98,7 +94,7 @@ class OmOrderItem extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return OmOrderItem the static model class
+	 * @return OmOrderItemSn the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

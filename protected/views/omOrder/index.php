@@ -25,13 +25,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'=> 'id',
             'htmlOptions'=>array('style'=>'width: 15px;'),
 			'type'=>'raw',
-			'value'=>'CHtml::link(CHtml::encode($data->id), array(\'view\', \'id\' => $data->id, \'iteration\' => $data->iteration))',
-		),
-		array(
-			'name'=> 'iteration',
-            'htmlOptions'=>array('style'=>'width: 15px;'),
-			'type'=>'raw',
-			'value'=>'CHtml::link(CHtml::encode($data->iteration), array(\'view\', \'id\' => $data->id, \'iteration\' => $data->iteration))',
+			'value'=>'CHtml::link(CHtml::encode($data->id), array(\'view\', \'id\' => $data->id))',
 		),
 		array(
 			'name'=>'name',

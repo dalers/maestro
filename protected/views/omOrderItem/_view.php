@@ -25,13 +25,4 @@
 	<?php echo CHtml::encode($data->shipped_qty); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('serial_no')); ?>:</b>
-	<?php echo CHtml::encode($data->serial_no); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('action')); ?>:</b>
-	<?php echo CHtml::encode($data->action); ?>
-	<br />
-
-
 </div>
