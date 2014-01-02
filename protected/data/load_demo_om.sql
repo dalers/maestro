@@ -1,3 +1,8 @@
+-- DEV ONLY - modify migrated schema for order management and load demo data
+--
+-- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo_om.sql
+--
+
 use maestro;
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,6 +33,7 @@ ADD COLUMN `user10` VARCHAR(255) NULL DEFAULT NULL;
 -- Table structure for table `tbl_om_order`
 --
 
+DROP TABLE IF EXISTS `tbl_om_order`;
 CREATE TABLE `tbl_om_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -45,7 +51,7 @@ CREATE TABLE `tbl_om_order` (
   CONSTRAINT `fk_order_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_order_to_project` FOREIGN KEY (`project_id`) REFERENCES `tbl_project` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- RELATIONS FOR TABLE `tbl_om_order`:
@@ -80,7 +86,6 @@ CREATE TABLE `tbl_om_order_item` (
   CONSTRAINT `fk_order_item_to_part` FOREIGN KEY (`part_id`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-
 --
 -- RELATIONS FOR TABLE `tbl_om_order_item`:
 --   `order_id`
@@ -98,7 +103,7 @@ INSERT INTO `tbl_om_order_item` (`id`, `order_id`, `part_id`, `desired_qty`, `sh
 --
 -- Table structure for table `tbl_om_order_item_sn`
 --
-DROP TABLE IF EXISTS `tbl_om_order_item_sn`
+DROP TABLE IF EXISTS `tbl_om_order_item_sn`;
 CREATE TABLE `tbl_om_order_item_sn` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_item_id` int(11) NOT NULL,
@@ -109,7 +114,6 @@ CREATE TABLE `tbl_om_order_item_sn` (
   CONSTRAINT `fk_order_item_sn_to_order_item` FOREIGN KEY (`order_item_id`) REFERENCES `tbl_om_order_item` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_order_item_sn_to_stock_serial` FOREIGN KEY (`stock_serial_id`) REFERENCES `tbl_stock_serial` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
 
 --
 -- RELATIONS FOR TABLE `tbl_om_order_item`:
@@ -132,3 +136,7 @@ INSERT INTO `tbl_om_order_item_sn` (`id`, `order_item_id`, `stock_serial_id`) VA
 INSERT INTO `tbl_person` (`username`, `status`, `password`, `email`, `nick`, `lname`, `fname`, `initial`, `profile`, `last_login_time`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
 ('admin', 1, 'admin', 'admin@firefly.scc.loc', 'AA', 'Admin', 'Admin', 'AA', 0, NULL, NULL, NULL, NULL, NULL),
 ('demo', 1, 'demo', 'demo@firefly.scc.loc', 'DD', 'Demo', 'Demo', 'DD', 1, NULL, NULL, NULL, NULL, NULL);
+
+--
+-- Done!
+--
