@@ -46,8 +46,8 @@ class OmOrderItemSn extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'orderItem' => array(self::BELONGS_TO, 'TblOmOrderItem', 'order_item_id'),
-			'stockSerial' => array(self::BELONGS_TO, 'TblStockSerial', 'stock_serial_id'),
+			'orderItem' => array(self::BELONGS_TO, 'OmOrderItem', 'order_item_id'),
+			'stockSerial' => array(self::BELONGS_TO, 'StockSerial', 'stock_serial_id'),
 		);
 	}
 

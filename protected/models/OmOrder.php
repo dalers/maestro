@@ -21,6 +21,8 @@
  */
 class OmOrder extends CActiveRecord
 {
+	public $partslist = 0;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,7 +39,7 @@ class OmOrder extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('project_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('project_id, parts_list_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('name, type, status', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
@@ -58,6 +60,7 @@ class OmOrder extends CActiveRecord
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
 			'omOrderItems' => array(self::HAS_MANY, 'OmOrderItem', 'order_id'),
+			'partslist' => array(self::BELONGS_TO, 'PvPn', 'parts_list_id'),
 		);
 	}
 
@@ -72,6 +75,7 @@ class OmOrder extends CActiveRecord
 			'type' => 'Type',
 			'status' => 'Status',
 			'project_id' => 'Project',
+			'parts_list_id' => 'Parts List',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
@@ -163,15 +167,83 @@ class OmOrder extends CActiveRecord
 		));
 	}
 	
+	public function partslists($id)
+	{
+		$pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
+		$criteria = new CDbCriteria;
+
+		$criteria->compare('id', $id, false);
+
+		return new CActiveDataProvider('PvPn', array(
+			'criteria' => $criteria,
+            'pagination'=>array(
+                'pageSize'=>$pagesize,
+            ),
+		));
+	}
+
 	public function beforeSave()
 	{
 		if(parent::beforeSave())
 		{
-			// TODO
-			//$this->update_time=time(); //Format example: 2013-12-30 00:00:00
-			//$this->update_user
+			if ($this->isNewRecord)
+			{
+				$this->setAttribute('create_user_id', Yii::app()->user->id);
+				$this->create_time = new CDbExpression('NOW()');
+				$this->setAttribute('update_user_id', Yii::app()->user->id);
+				$this->update_time = new CDbExpression('NOW()');
+			}
+			else
+			{
+				$this->setAttribute('update_user_id', Yii::app()->user->id);
+				$this->update_time = new CDbExpression('NOW()');
+			}
 			return true;
 		}
 		return false;
+	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+		if ($this->isNewRecord)
+		{
+			$rows = $this->fetchPartsFromPartsList($this->parts_list_id);
+			foreach ($rows as $partid)
+			{
+				$this->createOrderItems($this->id, $partid, 0);
+			}
+		}
+	}
+
+	private function fetchPartsFromPartsList($id)
+	{
+		$list= Yii::app()->db->createCommand('SELECT PLPartID FROM tbl_pv_pl WHERE PLListID=:plid')->bindValue('plid',$id)->queryAll();
+	
+		$rs=array();
+	
+		foreach($list as $item){
+			$rs[]=$item['PLPartID'];
+		}
+	
+		return $rs;
+	}
+	
+	private function createOrderItems($id, $pn, $desired_qty)
+	{
+		$sql = "INSERT INTO tbl_om_order_item (order_id, part_id, desired_qty, shipped_qty) values (:order_id, :part_id, :desired_qty, :shipped_qty)";
+
+		$parameters = array(":order_id"=>$id, ":part_id"=>$pn, ":desired_qty"=>$desired_qty, ":shipped_qty"=>0 );
+
+		Yii::app()->db->createCommand($sql)->execute($parameters);
+	}
+
+	public function getPartsList()
+	{
+		$partslist= Yii::app()->db->createCommand('SELECT id, PNTitle FROM tbl_pv_pn WHERE PNType = \'PL\'')->queryAll();
+
+		$list = CHtml::listData($partslist,'id','PNTitle');
+
+		return $list;
 	}
 }

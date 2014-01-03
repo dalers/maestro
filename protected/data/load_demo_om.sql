@@ -27,13 +27,14 @@ ADD COLUMN `user10` VARCHAR(255) NULL DEFAULT NULL;
 --
 -- Table structure for table `tbl_om_order`
 --
-
+DROP TABLE IF EXISTS `tbl_om_order`;
 CREATE TABLE `tbl_om_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
+  `parts_list_id` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
@@ -66,7 +67,7 @@ INSERT INTO `tbl_om_order` (`id`, `name`, `type`, `status`, `project_id`, `creat
 --
 -- Table structure for table `tbl_om_order_item`
 --
-DROP TABLE IF EXISTS `tbl_om_order_item`
+DROP TABLE IF EXISTS `tbl_om_order_item`;
 CREATE TABLE `tbl_om_order_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
@@ -98,7 +99,7 @@ INSERT INTO `tbl_om_order_item` (`id`, `order_id`, `part_id`, `desired_qty`, `sh
 --
 -- Table structure for table `tbl_om_order_item_sn`
 --
-DROP TABLE IF EXISTS `tbl_om_order_item_sn`
+DROP TABLE IF EXISTS `tbl_om_order_item_sn`;
 CREATE TABLE `tbl_om_order_item_sn` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_item_id` int(11) NOT NULL,

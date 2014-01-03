@@ -13,6 +13,7 @@ $this->menu=array(
 	array('label'=>'Create Order Item', 'url'=>array('create')),
 	array('label'=>'View Order Item', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage Order Item', 'url'=>array('admin')),
+	array('label'=>'Add Serial Number', 'url'=>Yii::app()->createUrl("OmOrderItemSn/createOrderItemChild", array("id"=>$model->id))),
 );
 ?>
 

@@ -18,7 +18,7 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'order_item_id'); ?>
 		<?php echo $form->textField($model,'order_item_id'); ?>
@@ -27,7 +27,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'stock_serial_id'); ?>
-		<?php echo $form->textField($model,'stock_serial_id'); ?>
+		<?php echo $form->dropDownList($model,'stock_serial_id', CHtml::listData(StockSerial::model()->findAll(array('order' => 'serial_number')),'id','serial_number'));?>
 		<?php echo $form->error($model,'stock_serial_id'); ?>
 	</div>
 
