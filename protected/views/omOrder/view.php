@@ -11,7 +11,7 @@ $this->menu=array(
 	array('label'=>'List All Orders', 'url'=>array('index')),
 	array('label'=>'Create New Order', 'url'=>array('create')),	
 	array('label'=>'Update This Order', 'url'=>array('update', 'id'=>$model->id),
-	array('label'=>'Add An Order Item', 'url'=>Yii::app()->createUrl("OmOrderItem/createItemToOrder", array("order_id"=>$model->id))),
+	//array('label'=>'Add An Order Item', 'url'=>Yii::app()->createUrl("OmOrderItem/createItemToOrder", array("order_id"=>$model->id))),
 	array('label'=>'Delete This Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage This Order', 'url'=>array('admin')
 	),

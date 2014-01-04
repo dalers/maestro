@@ -32,7 +32,7 @@ class OmOrderItemSnController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','createOrderItemChild'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -79,6 +79,26 @@ class OmOrderItemSnController extends Controller
 		));
 	}
 
+	public function actionCreateOrderItemChild($id)
+	{
+		$model=new OmOrderItemSn;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['OmOrderItemSn']))
+		{
+			$model->attributes=$_POST['OmOrderItemSn'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$model->order_item_id = $id;
+		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.

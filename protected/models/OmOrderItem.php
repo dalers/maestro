@@ -59,7 +59,7 @@ class OmOrderItem extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'order_id' => 'Order',
-			'part_id' => 'Part',
+			'part_id' => 'Part Number',
 			'desired_qty' => 'Desired Qty',
 			'shipped_qty' => 'Shipped Qty',
 		);
@@ -103,5 +103,23 @@ class OmOrderItem extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	
+	public function childs($id, $pagesize = -1)
+	{
+        $pagesize = ($pagesize == -1) ? Yii::app()->params['partListPageSize'] : 0;
+		$criteria = new CDbCriteria;
+
+		$criteria->compare('order_item_id', $id, false);
+
+		return new CActiveDataProvider('OmOrderItemSn', array(
+			'criteria' => $criteria,
+            'pagination'=>array(
+                'pageSize'=>$pagesize,
+            ),
+			'sort'=>array(
+				'defaultOrder'=>'stock_serial_id ASC',
+			),
+		));
 	}
 }
