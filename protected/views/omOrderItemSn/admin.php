@@ -3,13 +3,13 @@
 /* @var $model OmOrderItemSn */
 
 $this->breadcrumbs=array(
-	'Om Order Item Sns'=>array('index'),
+	'Serial Number'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List OmOrderItemSn', 'url'=>array('index')),
-	array('label'=>'Create OmOrderItemSn', 'url'=>array('create')),
+	array('label'=>'List Serial Numbers', 'url'=>array('index')),
+	array('label'=>'Create Serial Number', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Om Order Item Sns</h1>
+<h1>Manage Serial Numbers</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

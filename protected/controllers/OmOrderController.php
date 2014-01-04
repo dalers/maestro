@@ -85,7 +85,7 @@ class OmOrderController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 	    }
-		
+
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -169,18 +169,7 @@ class OmOrderController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
-	
-	public function saveModel($model)
-	{
-		try
-		{
-			$model->save();
-		}
-		catch(Exception $e)
-		{
-			$this->showError($e);
-		}
-	}
+
 
 	function showError(Exception $e)
 	{

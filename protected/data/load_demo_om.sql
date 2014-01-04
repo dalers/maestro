@@ -32,7 +32,7 @@ ADD COLUMN `user10` VARCHAR(255) NULL DEFAULT NULL;
 --
 -- Table structure for table `tbl_om_order`
 --
-
+DROP TABLE IF EXISTS `tbl_om_order`;
 DROP TABLE IF EXISTS `tbl_om_order`;
 CREATE TABLE `tbl_om_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -40,6 +40,7 @@ CREATE TABLE `tbl_om_order` (
   `type` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
+  `parts_list_id` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
