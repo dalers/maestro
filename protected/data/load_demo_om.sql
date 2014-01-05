@@ -51,6 +51,7 @@ CREATE TABLE `tbl_om_order` (
   KEY `fk_order_to_project_idx` (`project_id`),
   CONSTRAINT `fk_order_to_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_order_to_project` FOREIGN KEY (`project_id`) REFERENCES `tbl_project` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_to_pv_pn` FOREIGN KEY (`id`) REFERENCES `tbl_pv_pn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_to_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `tbl_person` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -63,10 +64,6 @@ CREATE TABLE `tbl_om_order` (
 --   `create_user_id`
 --       `tbl_person` -> `id`
 --
-
-INSERT INTO `tbl_om_order` (`id`, `name`, `type`, `status`, `project_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1, 'First Partial', '10 pin', 'ACTIVE', NULL, NULL, NULL, NULL, NULL),
-(2, 'First Partial', '10 pin', 'ACTIVE', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -95,10 +92,6 @@ CREATE TABLE `tbl_om_order_item` (
 --       `tbl_pv_pn` -> `id`
 --
 
-INSERT INTO `tbl_om_order_item` (`id`, `order_id`, `part_id`, `desired_qty`, `shipped_qty`) VALUES
-(1, 1, 19, 12, 0),
-(2, 1, 32, 24, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -124,12 +117,8 @@ CREATE TABLE `tbl_om_order_item_sn` (
 --       `tbl_pv_pn` -> `id`
 --
 
-INSERT INTO `tbl_om_order_item_sn` (`id`, `order_item_id`, `stock_serial_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4);
-  
+-- --------------------------------------------------------
+ 
 --
 -- Add admin and demo user to `tbl_person`
 --
