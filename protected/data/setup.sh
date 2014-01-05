@@ -4,7 +4,8 @@
 # - sets up initial maestro environment (also see update.sh)
 # - MUST be executed from maestro/protected/data/
 # - ASSUMES /usr/home/samba/maestro/ exists and is empty!!
-# - file paths hard-coded for server
+# - HARCODED maestro-scc-files-x.x.x.tar.gz filename (version)
+# - HARDCODED file paths for reference server
 #
 # History
 # ------------------------------
@@ -40,7 +41,7 @@ echo
 echo "Extract maestro-scc-files-xxx.tar.gz temporarily to local directory"
 # will create ./maestro-scc-files/*
 # all copying of extracted files must use -a option to preserve file timestamps
-tar -xzf ./maestro-scc-files-1.0.1.tar.gz 
+tar -xzf ./maestro-scc-files-1.1.0.tar.gz 
 echo
 
 echo "Copy SCC Parts&Vendors(TM) database to smb share"
@@ -62,8 +63,8 @@ chown nobody:wheel /usr/home/samba/maestro/*.xlsx
 chmod a+rw /usr/home/samba/maestro/*.xlsx
 echo
 
-echo "Copy README file to smb share"
-cp /usr/local/www/maestro/protected/data/README-winshare.txt /usr/home/samba/maestro/README.txt
+echo "Copy README.txt file to smb share"
+cp -a ./maestro-scc-files/README.txt /usr/home/samba/maestro/
 # ensure file has Windows EOL
 flip -u /usr/home/samba/maestro/README.txt
 # do not give write permission to Windows clients (as-is, without using chown/chmod to grant permission)
