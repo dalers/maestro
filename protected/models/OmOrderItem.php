@@ -14,6 +14,11 @@
  */
 class OmOrderItem extends CActiveRecord
 {
+	public $serial_numbers = "";
+	public $tokens = array();
+	public $valid = array();
+	public $invalid = array();
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -62,6 +67,7 @@ class OmOrderItem extends CActiveRecord
 			'part_id' => 'Part Number',
 			'desired_qty' => 'Desired Qty',
 			'shipped_qty' => 'Shipped Qty',
+			'serial_numbers' => 'Serial Numbers',
 		);
 	}
 
@@ -121,5 +127,82 @@ class OmOrderItem extends CActiveRecord
 				'defaultOrder'=>'stock_serial_id ASC',
 			),
 		));
+	}
+	
+	public function beforeSave()
+	{
+		if(parent::beforeSave())
+		{
+			if (isset($this->serial_numbers))
+			{
+				$tokens = explode(",", $this->serial_numbers);
+				foreach ($tokens as $sn)
+				{
+					// Lookup SN
+					$sn_id = $this->isValidSN($sn,$this->part_id);
+					if ($sn_id!==0)
+					{
+						$valid[] = $sn;
+					}
+					else
+					{
+						$invalid[] = $sn;
+					}
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+
+		foreach ($this->valid as $sn)
+		{
+			$this->createOrderItemSN($sn_id);
+			// TODO Build success message for valid SNs.
+		}
+		foreach ($this->invalid as $sn)
+		{
+			// TODO Build error message for invlaid SNs.
+		}
+		
+		$this->serial_numbers = "";
+		$this->tokens = array();
+		$this->valid = array();
+		$this->invalid = array();
+
+		return true;
+	}
+
+	private function isValidSN($sn, $partId)
+	{
+		$command= Yii::app()->db->createCommand(
+			"SELECT ss.id AS id FROM maestro.tbl_stock_serial ss, maestro.tbl_pv_pn pn WHERE ss.part_number = pn.PNPartNumber AND ss.serial_number=:sn AND pn.id=:part_id ORDER BY id"
+		);
+		$command->bindValue(":sn", $sn, PDO::PARAM_STR);
+		$command->bindValue(":part_id", $partId, PDO::PARAM_INT);
+		$list = $command->queryAll();
+	
+		$ssid=0;
+
+		// Unique result is not ensured.  Return the last result.
+		foreach($list as $ss)
+		{
+			$ssid=$item['id'];
+		}
+	
+		return $ssid;
+	}
+	
+	private function createOrderItemSN($sn_id)
+	{
+		$sql = "INSERT INTO tbl_om_order_item_sn (order_item_id, stock_serial_id) values (:order_item_id, :stock_serial_id)";
+
+		$parameters = array(":order_item_id"=>$this->id, ":stock_serial_id"=>$sn_id );
+
+		Yii::app()->db->createCommand($sql)->execute($parameters);
 	}
 }

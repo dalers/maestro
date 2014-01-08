@@ -43,6 +43,12 @@
 		<?php echo $form->error($model,'shipped_qty'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'serial_numbers'); ?>
+		<?php echo $form->textArea($model,'serial_numbers', array('rows'=>5,'cols'=>20,'id'=>'serial_number')); ?>
+		<?php echo $form->error($model,'serial_numbers'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
