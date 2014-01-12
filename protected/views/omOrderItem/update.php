@@ -4,8 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Order Items'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Update Order Item',
 );
 
 $this->menu=array(
@@ -13,10 +12,14 @@ $this->menu=array(
 	array('label'=>'Create Order Item', 'url'=>array('create')),
 	array('label'=>'View Order Item', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage Order Item', 'url'=>array('admin')),
-	array('label'=>'Add Serial Number', 'url'=>Yii::app()->createUrl("OmOrderItemSn/createOrderItemChild", array("id"=>$model->id))),
 );
 ?>
 
 <h1>Update Order Item <?php echo $model->id; ?></h1>
+
+<?php foreach(Yii::app()->user->getFlashes() as $key => $message) {
+    if ($key=='counters') {continue;} //no need next line since 1.1.7
+    echo "<div class='flash-{$key}'>{$message}</div>";
+} ?>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -6,6 +6,11 @@
 
 <div class="form">
 
+<?php foreach(Yii::app()->user->getFlashes() as $key => $message) {
+    if ($key=='counters') {continue;} //no need next line since 1.1.7
+    echo "<div class='flash-{$key}'>{$message}</div>";
+} ?>
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'om-order-item-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -45,7 +50,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'serial_numbers'); ?>
-		<?php echo $form->textArea($model,'serial_numbers', array('rows'=>5,'cols'=>20,'id'=>'serial_number')); ?>
+		<?php echo $form->textArea($model,'serial_numbers', array('rows'=>5,'cols'=>50,'id'=>'serial_numbers')); ?>
 		<?php echo $form->error($model,'serial_numbers'); ?>
 	</div>
 
@@ -55,7 +60,12 @@
 
 <?php $this->endWidget(); ?>
 
-<h2>Serial Numbers</h2>
+<hr>
+<h2>Serial Numbers</h2>	
+
+<div class="row buttons">
+	<?php echo CHtml::button("Add", array('submit'=>Yii::app()->createUrl("OmOrderItemSn/createOrderItemChild", array("id"=>$model->id)))); ?>
+</div>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider' => $model->childs($model->id),

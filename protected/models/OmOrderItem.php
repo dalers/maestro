@@ -15,9 +15,8 @@
 class OmOrderItem extends CActiveRecord
 {
 	public $serial_numbers = "";
-	public $tokens = array();
-	public $valid = array();
-	public $invalid = array();
+	public $validSN  = array();
+	public $validSNID = array();
 
 	/**
 	 * @return string the associated database table name
@@ -37,6 +36,7 @@ class OmOrderItem extends CActiveRecord
 		return array(
 			array('order_id, part_id', 'required'),
 			array('order_id, part_id, desired_qty, shipped_qty', 'numerical', 'integerOnly'=>true),
+			array('serial_numbers', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, order_id, part_id', 'safe', 'on'=>'search'),
@@ -67,7 +67,7 @@ class OmOrderItem extends CActiveRecord
 			'part_id' => 'Part Number',
 			'desired_qty' => 'Desired Qty',
 			'shipped_qty' => 'Shipped Qty',
-			'serial_numbers' => 'Serial Numbers',
+			'serial_numbers' => 'Enter Serial Numbers (Comma Separated)',
 		);
 	}
 
@@ -131,6 +131,7 @@ class OmOrderItem extends CActiveRecord
 	
 	public function beforeSave()
 	{
+		$invalidSN  = array();
 		if(parent::beforeSave())
 		{
 			if (isset($this->serial_numbers))
@@ -139,15 +140,48 @@ class OmOrderItem extends CActiveRecord
 				foreach ($tokens as $sn)
 				{
 					// Lookup SN
+					$sn = trim($sn);
 					$sn_id = $this->isValidSN($sn,$this->part_id);
 					if ($sn_id!==0)
 					{
-						$valid[] = $sn;
+						$this->validSN[] = $sn;
+						$this->validSNID[] = $sn_id;
 					}
 					else
 					{
-						$invalid[] = $sn;
+						$invalidSN[] = $sn;
 					}
+				}
+				
+				if ( count($this->validSN) > 0 )
+				{
+					$successStr = "";
+					$i = 0;
+					foreach($this->validSN as $v)
+					{
+						$successStr .= $v;
+						if(++$i !== count($this->validSN))
+						{
+							$successStr .= ",";
+						}
+					}
+					Yii::app()->user->setFlash('success', "Successfully saved: " . $successStr);
+				}
+
+				if ( count($invalidSN) > 0 )
+				{
+					$failStr = "";
+					$i = 0;
+					foreach($invalidSN as $iv)
+					{
+						$failStr .= $iv;
+						if(++$i !== count($invalidSN))
+						{
+							$failStr .= ",";
+						}
+					}
+					Yii::app()->user->setFlash('notice', "The following Serial Numbers were not valid: " . $failStr);
+					$invalidSN  = array();
 				}
 			}
 			return true;
@@ -159,21 +193,11 @@ class OmOrderItem extends CActiveRecord
 	{
 		parent::afterSave();
 
-		foreach ($this->valid as $sn)
+		foreach ($this->validSNID as $snid)
 		{
-			$this->createOrderItemSN($sn_id);
-			// TODO Build success message for valid SNs.
+			$this->createOrderItemSN($snid);
 		}
-		foreach ($this->invalid as $sn)
-		{
-			// TODO Build error message for invlaid SNs.
-		}
-		
-		$this->serial_numbers = "";
-		$this->tokens = array();
-		$this->valid = array();
-		$this->invalid = array();
-
+		$validSN  = array();
 		return true;
 	}
 
@@ -191,7 +215,7 @@ class OmOrderItem extends CActiveRecord
 		// Unique result is not ensured.  Return the last result.
 		foreach($list as $ss)
 		{
-			$ssid=$item['id'];
+			$ssid=$ss['id'];
 		}
 	
 		return $ssid;

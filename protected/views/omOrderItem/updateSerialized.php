@@ -4,8 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Order Items'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Update Order Item',
 );
 
 $this->menu=array(
@@ -17,5 +16,10 @@ $this->menu=array(
 ?>
 
 <h1>Update Serialized Order Item <?php echo $model->id; ?></h1>
+
+<?php foreach(Yii::app()->user->getFlashes() as $key => $message) {
+    if ($key=='counters') {continue;} //no need next line since 1.1.7
+    echo "<div class='flash-{$key}'>{$message}</div>";
+} ?>
 
 <?php $this->renderPartial('_formSerialized', array('model'=>$model)); ?>
