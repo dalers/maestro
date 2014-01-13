@@ -100,4 +100,44 @@ class OmOrderItemSn extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+		
+		// Update associated Order Item Shipped Qty if associated Part is serialized
+		if (!empty($this->orderItem->part->PNUser1))
+		{
+			$criteria=new CDbCriteria;
+			$criteria->compare('order_item_id',$this->order_item_id);
+			$models = $this->findAll($criteria);
+
+			$sns = count($models);
+			
+			$this->orderItem->shipped_qty = $sns;
+			$this->orderItem->save();
+		}
+
+		return true;
+	}
+	
+	public function afterDelete()
+	{
+		parent::afterDelete();
+
+		// Update associated Order Item Shipped Qty if associated Part is serialized
+		if (!empty($this->orderItem->part->PNUser1))
+		{
+			$criteria=new CDbCriteria;
+			$criteria->compare('order_item_id',$this->order_item_id);
+			$models = $this->findAll($criteria);
+
+			$sns = count($models);
+			
+			$this->orderItem->shipped_qty = $sns;
+			$this->orderItem->save();
+		}
+
+		return true;
+	}
 }

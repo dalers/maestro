@@ -21,7 +21,6 @@
  */
 class OmOrder extends CActiveRecord
 {
-	public $partslist = 0;
 
 	/**
 	 * @return string the associated database table name
@@ -209,21 +208,21 @@ class OmOrder extends CActiveRecord
 		if ($this->isNewRecord)
 		{
 			$rows = $this->fetchPartsFromPartsList($this->parts_list_id);
-			foreach ($rows as $partid)
+			foreach ($rows as $row)
 			{
-				$this->createOrderItems($this->id, $partid, 0);
+				$this->createOrderItems($this->id, $row[0], $row[1]);
 			}
 		}
 	}
 
 	private function fetchPartsFromPartsList($id)
 	{
-		$list= Yii::app()->db->createCommand('SELECT PLPartID FROM tbl_pv_pl WHERE PLListID=:plid')->bindValue('plid',$id)->queryAll();
+		$list= Yii::app()->db->createCommand('SELECT pl.PLPartID AS PLPartID, pn.PNQty AS PNQty FROM tbl_pv_pl pl, tbl_pv_pn pn WHERE pl.PLPartID = pn.id AND PLListID=:plid')->bindValue('plid',$id)->queryAll();
 	
 		$rs=array();
 	
 		foreach($list as $item){
-			$rs[]=$item['PLPartID'];
+			$rs[]=array($item['PLPartID'],$item['PNQty']);
 		}
 	
 		return $rs;

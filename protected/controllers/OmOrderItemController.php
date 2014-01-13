@@ -109,7 +109,7 @@ class OmOrderItemController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
-	{
+	{		
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -121,13 +121,13 @@ class OmOrderItemController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
+		
 		$this->render('update',array(
 			'model'=>$model,
 		));
 	}
 
-		/**
+	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated

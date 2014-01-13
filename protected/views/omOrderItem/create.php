@@ -13,6 +13,11 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create OmOrderItem</h1>
+<h1>Create Order Item</h1>
+
+<?php foreach(Yii::app()->user->getFlashes() as $key => $message) {
+    if ($key=='counters') {continue;} //no need next line since 1.1.7
+    echo "<div class='flash-{$key}'>{$message}</div>";
+} ?>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
