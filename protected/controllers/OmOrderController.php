@@ -112,6 +112,13 @@ class OmOrderController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$oimodel = new OmOrderItem('search');
+
+        $oimodel->unsetAttributes();
+
+		if (isset($_GET['OmOrderItem']))
+			$oimodel->attributes = $_GET['OmOrderItem'];		
+		
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -125,6 +132,8 @@ class OmOrderController extends Controller
 		}
 
 		$this->render('update',array(
+		    'dataProvider' => $oimodel->searchWithOrderId($id),
+			'oimodel' => $oimodel,
 			'model'=>$model,
 		));
 	}
@@ -149,9 +158,18 @@ class OmOrderController extends Controller
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView($id)
-	{		
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+	{
+		$oimodel = new OmOrderItem('search');
+
+        $oimodel->unsetAttributes();
+
+		if (isset($_GET['OmOrderItem']))
+			$oimodel->attributes = $_GET['OmOrderItem'];
+
+        $this->render('view', array(
+            'dataProvider' => $oimodel->searchWithOrderId($id),
+			'oimodel' => $oimodel,
+			'model' => $this->loadModel($id),
 		));
 	}
 

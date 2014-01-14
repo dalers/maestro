@@ -90,6 +90,21 @@ class OmOrderItemSn extends CActiveRecord
 		));
 	}
 
+	public function searchWithOrderItemId($order_item_id)
+	{
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('order_item_id',$order_item_id);
+		$criteria->compare('stock_serial_id',$this->stock_serial_id);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
