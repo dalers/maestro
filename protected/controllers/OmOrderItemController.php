@@ -32,7 +32,7 @@ class OmOrderItemController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'updateSerialized', 'createItemToOrder'),
+				'actions'=>array('create','update', 'updateSerialized', 'createItemToOrder', 'createOrderChild'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -51,8 +51,17 @@ class OmOrderItemController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+		$oisnmodel = new OmOrderItemSn('search');
+
+        $oisnmodel->unsetAttributes();
+
+		if (isset($_GET['OmOrderItemSn']))
+			$oisnmodel->attributes = $_GET['OmOrderItemSn'];
+
+        $this->render('view', array(
+            'dataProvider' => $oisnmodel->searchWithOrderItemId($id),
+			'oisnmodel' => $oisnmodel,
+			'model' => $this->loadModel($id),
 		));
 	}
 
@@ -73,6 +82,28 @@ class OmOrderItemController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
+
+		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionCreateOrderChild($id)
+	{
+		$model=new OmOrderItem;
+		$model->setAttribute('order_id',$id);
+		
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['OmOrderItem']))
+		{
+			$model->attributes=$_POST['OmOrderItem'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -109,7 +140,14 @@ class OmOrderItemController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
-	{		
+	{
+		$oisnmodel = new OmOrderItemSn('search');
+
+        $oisnmodel->unsetAttributes();
+
+		if (isset($_GET['OmOrderItemSn']))
+			$oisnmodel->attributes = $_GET['OmOrderItemSn'];
+
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -123,6 +161,8 @@ class OmOrderItemController extends Controller
 		}
 		
 		$this->render('update',array(
+		    'dataProvider' => $oisnmodel->searchWithOrderItemId($id),
+			'oisnmodel' => $oisnmodel,
 			'model'=>$model,
 		));
 	}

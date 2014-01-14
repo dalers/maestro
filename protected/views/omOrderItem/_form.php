@@ -26,13 +26,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'order_id'); ?>
-		<?php echo CHtml::textField("order_id",$model->order->name,array('readonly'=>true)); ?>
+		<?php echo CHtml::textField('order_id',$model->order->name,array('readonly'=>true)); ?>
 		<?php echo $form->error($model,'order_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'part_id'); ?>
-		<?php echo CHtml::textField("part_id",$model->part->PNPartNumber,array('readonly'=>true, 'style'=>'width: 250px')); ?>
+		<?php echo CHtml::textField('part_id',$model->part->PNPartNumber,array('readonly'=>true, 'style'=>'width: 250px')); ?>
 		<?php echo $form->error($model,'part_id'); ?>
 	</div>
 

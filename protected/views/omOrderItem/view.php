@@ -3,7 +3,7 @@
 /* @var $model OmOrderItem */
 
 $this->breadcrumbs=array(
-	'Order Items'=>array('index'),
+	'Order'=>array('OmOrder/view', 'id'=>$model->order_id),
 	$model->id,
 );
 
@@ -43,19 +43,14 @@ $this->menu=array(
 <h2>Serial Numbers</h2>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider' => $model->childs($model->id),
+	'dataProvider' => $dataProvider,
+	'filter' => $oisnmodel,
     'id' => 'detail_childs_id',
-    'showTableOnEmpty' => false,
+    //'showTableOnEmpty' => false,
     'emptyText' => 'This Order Item has no Serial Numbers.',
 	'columns' => array(
         array(
-			'name'=>'ID',
-			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->id)',
-		),
-        array(
-			'name'=>'Serial Number',
+			'name'=>'stock_serial_id',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 10px; text-align: center;'),
 			'value'=>'CHtml::encode($data->stockSerial->serial_number)',
