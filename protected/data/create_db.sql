@@ -3,22 +3,25 @@
 -- > mysql -uroot -p --show-warnings --verbose < ./create_db.sql
 --
 
--- create user
--- cannot drop user in script due to error if user exists (and script is aborted)
+-- create user if necessary
+-- drop user manually (cannot drop user in script, causes error and script is aborted)
 -- DROP USER 'maestro'@'localhost' ;
-CREATE USER 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer';
+-- CREATE USER 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer';
+-- GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
 
-GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+--
+-- create database (drop existing first)
+--
 
--- create database
-DROP DATABASE maestro ;
-CREATE DATABASE IF NOT EXISTS `maestro` ;
+DROP SCHEMA IF EXISTS `maestro` ;
+CREATE SCHEMA IF NOT EXISTS `maestro` DEFAULT CHARACTER SET latin1 ;
 GRANT ALL PRIVILEGES ON `maestro` . * TO 'maestro'@'localhost';
+USE `maestro` ;
 
--- load any stored procedures
-use maestro;
+--
+-- load suggest_location stored procedure (find unused sub-locations for a given location)
+--
 
--- suggest_location procedure (used to find unused sub-locations for a given location)
 DROP PROCEDURE IF EXISTS suggest_location ;
 
 DELIMITER $$
