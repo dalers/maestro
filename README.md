@@ -1,4 +1,4 @@
-Maestro(TM) is a web application for design and manufacturing teams to manage business processes involving parts, suppliers and material. Maestro supports using Parts&Vendors(TM)(1) to enter and view part and supplier information.
+Maestro(TM) is a web application for design and manufacturing teams to manage business processes involving parts, suppliers and material. Maestro supports Parts&Vendors(TM)(1) for entering new part and supplier information.
 
 The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
