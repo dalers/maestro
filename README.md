@@ -8,7 +8,7 @@ Maestro is licensed according to the [BSD 2-Clause License](http://opensource.or
 
 Maestro is copyright by its authors, as recorded in the repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). 
 
-The Maestro name and image are unregistered trademarks of Dale Scott, who is providing them for use according to the [Maestro Trademark and Logo Policy](https://github.com/maestrobpm/maestro/wiki/Trademark-and-logo-policy).
+The Maestro name and image are unregistered trademarks of Dale Scott, provided for use according to the [Maestro Trademark and Logo Policy](https://github.com/maestrobpm/maestro/wiki/Trademark-and-logo-policy).
 
 Getting Started
 ===============
