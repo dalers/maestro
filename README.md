@@ -22,15 +22,7 @@ Maestro is a PHP/MySQL application. You must have a standard AMP stack or equiva
 # chown -R www:www yii-1.1.14.f0fe99
 ```
 
-* confirm your system meets Yii's basic requirements using the "requirements" app bundled in the framework download.
-
-* Install wkhtmltopdf in server (wkhtmltopdf is not currently required, PDF reports are generated using Yii-PDF/HTML2PDF).
-
-```
-# cd /usr/ports/converters/wkhtmltopdf
-# make config (leave defaults)
-# make install clean
-```
+* confirm your system meets Yii's basic requirements using the "requirements" app included in the Yii framework download.
 
 * enable PHP PDF extensions
 
