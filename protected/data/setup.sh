@@ -1,12 +1,14 @@
 #!/bin/sh
 #
 # Setup Maestro reference server environment
-# - CREATES smb file share directories and copy of most recent data
-# - DELETES /usr/home/samab/maestro/*
+# - MANUALLY CREATE /usr/home/samba/maestro first!
+#
+# - Creates smb file share directories and copy of most recent data
+# - Deletes /usr/home/samab/maestro/*
 # - MUST be executed from /usr/local/www/maestro/protected/data/
 # - HARDCODED current-data file (maestro-scc-files-x.y.z.tar.gz)
 # - HARDCODED file paths (assumes Maestro reference server)
-# - PUBLIC READ/WRITE smb file share permissions
+# - Assumes smb file share has public read/write permissions
 #
 
 echo
