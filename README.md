@@ -1,4 +1,4 @@
-Maestro(TM) is a web application for design and manufacturing teams to manage business processes, including part and supplier (vendor) information. Maestro is compatible with Parts&Vendors(TM)(1).
+Maestro(TM) is a web application for design and manufacturing teams to manage business processes involving parts, suppliers and material. Maestro supports Parts&Vendors(TM)(1) for entering new part and supplier information.
 
 The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, the leading platform for integrating SME business processes.
 
@@ -6,9 +6,9 @@ Maestro is in active development, and is not likely suitable for production at t
 
 Maestro is licensed according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), a copy of which [is provided with Maestro (LICENSE file)](https://github.com/maestrobpm/maestro/blob/master/LICENSE). By submitting work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
-Maestro is copyright by its authors, as recorded in the repository commit log. The Maestro project does not use either a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). 
+Maestro is copyright by its authors, as recorded in the repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). 
 
-The Maestro name and image are unregistered trademarks of Dale Scott, who is making them available according to the [Maestro Trademark and Logo Policy](https://github.com/maestrobpm/maestro/wiki/Trademark-and-logo-policy).
+The Maestro name and image are unregistered trademarks of Dale Scott, provided for use according to the [Maestro Trademark and Logo Policy](https://github.com/maestrobpm/maestro/wiki/Trademark-and-logo-policy).
 
 Getting Started
 ===============
@@ -22,15 +22,7 @@ Maestro is a PHP/MySQL application. You must have a standard AMP stack or equiva
 # chown -R www:www yii-1.1.14.f0fe99
 ```
 
-* confirm your system meets Yii's basic requirements using the "requirements" app bundled in the framework download.
-
-* Install wkhtmltopdf in server (wkhtmltopdf is not currently required, PDF reports are generated using Yii-PDF/HTML2PDF).
-
-```
-# cd /usr/ports/converters/wkhtmltopdf
-# make config (leave defaults)
-# make install clean
-```
+* confirm your system meets Yii's basic requirements using the "requirements" app included in the Yii framework download.
 
 * enable PHP PDF extensions
 
