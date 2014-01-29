@@ -1,48 +1,45 @@
--- clear tables
--- delete ALL tables for fresh migration (including migration table)
+-- delete ALL data from Maestro database
+-- (leave Yii migration table as-is)
 --
 -- > mysql -uroot -p --show-warnings --verbose --force < ./clear_tables.sql
 --
 
-SET foreign_key_checks = 0;
+use maestro;
 
-USE maestro;
+SET FOREIGN_KEY_CHECKS=0;
 
-DROP TABLE `tbl_migration`;
+TRUNCATE TABLE `tbl_issue`;
+TRUNCATE TABLE `tbl_person`;
+TRUNCATE TABLE `tbl_project`;
+TRUNCATE TABLE `tbl_stock_location`;
+TRUNCATE TABLE `tbl_stock_serial`;
 
-DROP TABLE `tbl_stock_serial`;
-DROP TABLE `tbl_issue`;
-DROP TABLE `tbl_project`;
+TRUNCATE TABLE `tbl_pv_al`;
+TRUNCATE TABLE `tbl_pv_cnv`;
+TRUNCATE TABLE `tbl_pv_cost`;
+TRUNCATE TABLE `tbl_pv_cu`;
+TRUNCATE TABLE `tbl_pv_cur`;
+TRUNCATE TABLE `tbl_pv_fil`;
+TRUNCATE TABLE `tbl_pv_hist`;
+TRUNCATE TABLE `tbl_pv_hpref`;
+TRUNCATE TABLE `tbl_pv_job`;
+TRUNCATE TABLE `tbl_pv_lin`;
+TRUNCATE TABLE `tbl_pv_lnk`;
+TRUNCATE TABLE `tbl_pv_mf`;
+TRUNCATE TABLE `tbl_pv_mfr`;
+TRUNCATE TABLE `tbl_pv_mfrpn`;
+TRUNCATE TABLE `tbl_pv_org`;
+TRUNCATE TABLE `tbl_pv_pl`;
+TRUNCATE TABLE `tbl_pv_pll`;
+TRUNCATE TABLE `tbl_pv_pn`;
+TRUNCATE TABLE `tbl_pv_po`;
+TRUNCATE TABLE `tbl_pv_pod`;
+TRUNCATE TABLE `tbl_pv_pom`;
+TRUNCATE TABLE `tbl_pv_rpx`;
+TRUNCATE TABLE `tbl_pv_ship`;
+TRUNCATE TABLE `tbl_pv_su`;
+TRUNCATE TABLE `tbl_pv_task`;
+TRUNCATE TABLE `tbl_pv_type`;
+TRUNCATE TABLE `tbl_pv_un`;
 
-DROP TABLE `tbl_pv_al`;
-DROP TABLE `tbl_pv_cnv`;
-DROP TABLE `tbl_pv_cost`;
-DROP TABLE `tbl_pv_cu`;
-DROP TABLE `tbl_pv_cur`;
-DROP TABLE `tbl_pv_fil`;
-DROP TABLE `tbl_pv_hist`;
-DROP TABLE `tbl_pv_hpref`;
-DROP TABLE `tbl_pv_job`;
-DROP TABLE `tbl_pv_lin`;
-DROP TABLE `tbl_pv_lnk`;
-DROP TABLE `tbl_pv_mf`;
-DROP TABLE `tbl_pv_mfr`;
-DROP TABLE `tbl_pv_mfrpn`;
-DROP TABLE `tbl_pv_org`;
-DROP TABLE `tbl_pv_pl`;
-DROP TABLE `tbl_pv_pll`;
-DROP TABLE `tbl_pv_pn`;
-DROP TABLE `tbl_pv_po`;
-DROP TABLE `tbl_pv_pod`;
-DROP TABLE `tbl_pv_pom`;
-DROP TABLE `tbl_pv_rpx`;
-DROP TABLE `tbl_pv_ship`;
-DROP TABLE `tbl_pv_su`;
-DROP TABLE `tbl_pv_task`;
-DROP TABLE `tbl_pv_type`;
-DROP TABLE `tbl_pv_un`;
-
-DROP TABLE `tbl_stock_location`;
-DROP TABLE `tbl_person`;
-
-SET foreign_key_checks = 1;
+SET FOREIGN_KEY_CHECKS=1;
