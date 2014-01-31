@@ -5,17 +5,17 @@
 --
 
 use maestro;
+SET FOREIGN_KEY_CHECKS=0;
 
 -- phpMyAdmin SQL Dump
--- version 4.1.5
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jan 24, 2014 at 09:04 PM
--- Server version: 5.5.35-log
--- PHP Version: 5.5.7
+-- Host: 127.0.0.1
+-- Generation Time: Jan 31, 2014 at 07:29 AM
+-- Server version: 5.6.14
+-- PHP Version: 5.5.6
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -43,6 +43,21 @@ INSERT INTO `tbl_issue` (`id`, `number`, `name`, `description`, `project`, `type
 (2, 'IR00002', 'Difficult assembly procedure', 'Difficult to assemble and test PCA due to copper-side-up orientation. Orienting PCA component-side up allows for full access to components for debugging after assembly.', 'P09-001', 'ASSY', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-24 00:00:00', NULL, NULL, NULL);
 
 --
+-- Truncate table before insert `tbl_om_order`
+--
+
+TRUNCATE TABLE `tbl_om_order`;
+--
+-- Truncate table before insert `tbl_om_order_item`
+--
+
+TRUNCATE TABLE `tbl_om_order_item`;
+--
+-- Truncate table before insert `tbl_om_order_item_sn`
+--
+
+TRUNCATE TABLE `tbl_om_order_item_sn`;
+--
 -- Truncate table before insert `tbl_person`
 --
 
@@ -52,28 +67,30 @@ TRUNCATE TABLE `tbl_person`;
 --
 
 INSERT INTO `tbl_person` (`id`, `username`, `status`, `password`, `email`, `nick`, `lname`, `fname`, `initial`, `profile`, `last_login_time`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1, 'bjenks', 1, 'appleton', 'bjenks@firefly.scc.loc', 'BJ', 'Jenks', 'Barcoe', 'BJ', 2, NULL, NULL, NULL, NULL, NULL),
-(2, 'bswift', 1, 'appleton', 'bswift@firefly.scc.loc', 'BS', 'Swift', 'Barton', 'BS', 1, NULL, NULL, NULL, NULL, NULL),
-(3, 'barmstrong', 1, 'appleton', 'barmstrong@firefly.scc.loc', 'BA', 'Armstrong', 'Bub', 'BA', 2, NULL, NULL, NULL, NULL, NULL),
-(4, 'fmason', 1, 'appleton', 'fmason@firefly.scc.loc', 'FM', 'Mason', 'Frank', 'FM', 2, NULL, NULL, NULL, NULL, NULL),
-(5, 'gjackson', 1, 'appleton', 'gjackson@firefly.scc.loc', 'GJ', 'Jackson', 'Garret', 'GJ', 3, NULL, NULL, NULL, NULL, NULL),
-(6, 'hbaldwin', 1, 'appleton', 'hbaldwin@firefly.scc.loc', 'HB', 'Baldwin', 'Hank', 'HB', 1, NULL, NULL, NULL, NULL, NULL),
-(7, 'hrandall', 1, 'appleton', 'hrandall@firefly.scc.loc', 'HR', 'Randall', 'Helen', 'HR', 4, NULL, NULL, NULL, NULL, NULL),
-(8, 'jwood', 1, 'appleton', 'jwood@firefly.scc.loc', 'JW', 'Wood', 'Jacab', 'JW', 5, NULL, NULL, NULL, NULL, NULL),
-(9, 'jperiod', 1, 'appleton', 'jperiod@firefly.scc.loc', 'JP', 'Period', 'James', 'JP', 1, NULL, NULL, NULL, NULL, NULL),
-(10, 'jhaddon', 1, 'appleton', 'jhaddon@firefly.scc.loc', 'JH', 'Haddon', 'Jennie', 'JH', 6, NULL, NULL, NULL, NULL, NULL),
-(11, 'jmorse', 1, 'appleton', 'jmorse@firefly.scc.loc', 'JM', 'Morse', 'Jennie', 'JM', 4, NULL, NULL, NULL, NULL, NULL),
-(12, 'jsharp', 1, 'appleton', 'jsharp@firefly.scc.loc', 'JS', 'Sharp', 'John', 'JS', 1, NULL, NULL, NULL, NULL, NULL),
-(13, 'mbaggert', 1, 'appleton', 'mbaggert@firefly.scc.loc', 'MB', 'Baggert', 'Martha', 'MB', 1, NULL, NULL, NULL, NULL, NULL),
-(14, 'mnestor', 1, 'appleton', 'mnestor@firefly.scc.loc', 'MN', 'Nestor', 'Mary', 'MN', 0, NULL, NULL, NULL, NULL, NULL),
-(15, 'mblair', 1, 'appleton', 'mblair@firefly.scc.loc', 'MB', 'Blair', 'Minnie', 'MB', 2, NULL, NULL, NULL, NULL, NULL),
-(16, 'mdelazes', 1, 'appleton', 'mdelazes@firefly.scc.loc', 'MD', 'DeLazes', 'Miquel', 'MD', 7, NULL, NULL, NULL, NULL, NULL),
-(17, 'nnewton', 1, 'appleton', 'nnewton@firefly.scc.loc', 'NN', 'Newton', 'Ned', 'NN', 1, NULL, NULL, NULL, NULL, NULL),
-(18, 'rsampson', 1, 'appleton', 'rsampson@firefly.scc.loc', 'RS', 'Sampson', 'Rad', 'RS', 1, NULL, NULL, NULL, NULL, NULL),
-(19, 'smalloy', 1, 'appleton', 'smalloy@firefly.scc.loc', 'SM', 'Malloy', 'Sarah', 'SM', 6, NULL, NULL, NULL, NULL, NULL),
-(20, 'tswift', 1, 'appleton', 'tswift@firefly.scc.loc', 'TS', 'Swift', 'Tom', 'TS', 1, NULL, NULL, NULL, NULL, NULL),
-(21, 'wdamon', 1, 'appleton', 'wdamon@firefly.scc.loc', 'WD', 'Damon', 'Wakefield', 'WD', 1, NULL, NULL, NULL, NULL, NULL),
-(22, 'wcrawford', 1, 'appleton', 'wcrawford@firefly.scc.loc', 'WC', 'Crawford', 'William', 'WC', 1, NULL, NULL, NULL, NULL, NULL);
+(1, 'admin', 1, 'admin', 'admin@firefly.scc.loc', 'AA', 'Admin', 'Admin', 'AA', 0, NULL, NULL, NULL, NULL, NULL),
+(2, 'demo', 1, 'demo', 'demo@firefly.scc.loc', 'DD', 'Demo', 'Demo', 'DD', 1, NULL, NULL, NULL, NULL, NULL),
+(3, 'bjenks', 1, 'appleton', 'bjenks@firefly.scc.loc', 'BJ', 'Jenks', 'Barcoe', 'BJ', 2, NULL, NULL, NULL, NULL, NULL),
+(4, 'bswift', 1, 'appleton', 'bswift@firefly.scc.loc', 'BS', 'Swift', 'Barton', 'BS', 1, NULL, NULL, NULL, NULL, NULL),
+(5, 'barmstrong', 1, 'appleton', 'barmstrong@firefly.scc.loc', 'BA', 'Armstrong', 'Bub', 'BA', 2, NULL, NULL, NULL, NULL, NULL),
+(6, 'fmason', 1, 'appleton', 'fmason@firefly.scc.loc', 'FM', 'Mason', 'Frank', 'FM', 2, NULL, NULL, NULL, NULL, NULL),
+(7, 'gjackson', 1, 'appleton', 'gjackson@firefly.scc.loc', 'GJ', 'Jackson', 'Garret', 'GJ', 3, NULL, NULL, NULL, NULL, NULL),
+(8, 'hbaldwin', 1, 'appleton', 'hbaldwin@firefly.scc.loc', 'HB', 'Baldwin', 'Hank', 'HB', 1, NULL, NULL, NULL, NULL, NULL),
+(9, 'hrandall', 1, 'appleton', 'hrandall@firefly.scc.loc', 'HR', 'Randall', 'Helen', 'HR', 4, NULL, NULL, NULL, NULL, NULL),
+(10, 'jwood', 1, 'appleton', 'jwood@firefly.scc.loc', 'JW', 'Wood', 'Jacab', 'JW', 5, NULL, NULL, NULL, NULL, NULL),
+(11, 'jperiod', 1, 'appleton', 'jperiod@firefly.scc.loc', 'JP', 'Period', 'James', 'JP', 1, NULL, NULL, NULL, NULL, NULL),
+(12, 'jhaddon', 1, 'appleton', 'jhaddon@firefly.scc.loc', 'JH', 'Haddon', 'Jennie', 'JH', 6, NULL, NULL, NULL, NULL, NULL),
+(13, 'jmorse', 1, 'appleton', 'jmorse@firefly.scc.loc', 'JM', 'Morse', 'Jennie', 'JM', 4, NULL, NULL, NULL, NULL, NULL),
+(14, 'jsharp', 1, 'appleton', 'jsharp@firefly.scc.loc', 'JS', 'Sharp', 'John', 'JS', 1, NULL, NULL, NULL, NULL, NULL),
+(15, 'mbaggert', 1, 'appleton', 'mbaggert@firefly.scc.loc', 'MB', 'Baggert', 'Martha', 'MB', 1, NULL, NULL, NULL, NULL, NULL),
+(16, 'mnestor', 1, 'appleton', 'mnestor@firefly.scc.loc', 'MN', 'Nestor', 'Mary', 'MN', 0, NULL, NULL, NULL, NULL, NULL),
+(17, 'mblair', 1, 'appleton', 'mblair@firefly.scc.loc', 'MB', 'Blair', 'Minnie', 'MB', 2, NULL, NULL, NULL, NULL, NULL),
+(18, 'mdelazes', 1, 'appleton', 'mdelazes@firefly.scc.loc', 'MD', 'DeLazes', 'Miquel', 'MD', 7, NULL, NULL, NULL, NULL, NULL),
+(19, 'nnewton', 1, 'appleton', 'nnewton@firefly.scc.loc', 'NN', 'Newton', 'Ned', 'NN', 1, NULL, NULL, NULL, NULL, NULL),
+(20, 'rsampson', 1, 'appleton', 'rsampson@firefly.scc.loc', 'RS', 'Sampson', 'Rad', 'RS', 1, NULL, NULL, NULL, NULL, NULL),
+(21, 'smalloy', 1, 'appleton', 'smalloy@firefly.scc.loc', 'SM', 'Malloy', 'Sarah', 'SM', 6, NULL, NULL, NULL, NULL, NULL),
+(22, 'tswift', 1, 'appleton', 'tswift@firefly.scc.loc', 'TS', 'Swift', 'Tom', 'TS', 1, NULL, NULL, NULL, NULL, NULL),
+(23, 'wdamon', 1, 'appleton', 'wdamon@firefly.scc.loc', 'WD', 'Damon', 'Wakefield', 'WD', 1, NULL, NULL, NULL, NULL, NULL),
+(24, 'wcrawford', 1, 'appleton', 'wcrawford@firefly.scc.loc', 'WC', 'Crawford', 'William', 'WC', 1, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Truncate table before insert `tbl_project`
@@ -84,9 +101,9 @@ TRUNCATE TABLE `tbl_project`;
 -- Dumping data for table `tbl_project`
 --
 
-INSERT INTO `tbl_project` (`id`, `acct1`, `acct2`, `acct3`, `acct4`, `name`, `client`, `description`, `type`, `status`, `milestone`, `milestone_date`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1, '12345678', '12345679', '12345680', '12345681', 'P09-001', 'Aircraft Wireless', 'Development and air trials', 'R&D', 'ACTIVE', 'PILOT', '2013-02-14 00:00:00', NULL, NULL, NULL, NULL),
-(2, '23456789', '23456790', '23456791', '23456792', 'P09-002', 'Fire-fighting Bombsight', 'Development and air trials', 'R&D', 'HOLD', 'DEFINITION', '2013-03-16 00:00:00', NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_project` (`id`, `acct1`, `acct2`, `acct3`, `acct4`, `name`, `client`, `description`, `type`, `status`, `milestone`, `milestone_date`, `user1`, `user2`, `user3`, `user4`, `user5`, `user6`, `user7`, `user8`, `user9`, `user10`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
+(1, '12345678', '12345679', '12345680', '12345681', 'P09-001', 'Aircraft Wireless', 'Development and air trials', 'R&D', 'ACTIVE', 'PILOT', '2013-02-14 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, '23456789', '23456790', '23456791', '23456792', 'P09-002', 'Fire-fighting Bombsight', 'Development and air trials', 'R&D', 'HOLD', 'DEFINITION', '2013-03-16 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Truncate table before insert `tbl_pv_al`
@@ -478,39 +495,39 @@ TRUNCATE TABLE `tbl_pv_pn`;
 -- Dumping data for table `tbl_pv_pn`
 --
 
-INSERT INTO `tbl_pv_pn` (`id`, `PNIDToLNK`, `PNUNID`, `PNTabParentID`, `PNPrefix`, `PNPartNumber`, `PNSuffix`, `PNType`, `PNRevision`, `PNTitle`, `PNDetail`, `PNStatus`, `PNReqBy`, `PNNotes`, `PNUser1`, `PNUser2`, `PNUser3`, `PNUser4`, `PNUser5`, `PNUser6`, `PNUser7`, `PNUser8`, `PNUser9`, `PNUser10`, `PNDate`, `PNTab`, `PNControlled`, `PNAux1`, `PNQty`, `PNQty2`, `PNCostChanged`, `PNParentCost`, `PNExpandList`, `PNAssyCostOption`, `PNInclAssyOnPurchList`, `PNMadeFrom`, `PNMinStockQty`, `PNOrderToMaintain`, `PNOnECO`, `PNOverKit`, `PNOverKitQty`, `PNOverKitBy`, `PNOverKitFor`, `PNCurrentCost`, `PNLastRollupCost`, `PNUSRID`, `PNUserLock`, `type_id`, `stock_location_id`, `requester_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1, 0, 1, 0, '', '20000004', '', 'PL', '3', 'ASSY,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'FIN', '', '', 'FINGOODS', '0002', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 0, 1, 0, '', '20000003', '', 'PL', '2', 'PCA,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'ASSY', '', '', 'ELEC-PCB', '0001', '2005-03-15 00:00:00', 0, 0, '', 4, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 0, 1, 0, '', '20000001', '', 'PL', '0', 'IND,830UH,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'ASSY', '', '', 'ELEC-COMPS', '0010', '2004-12-23 00:00:00', 0, 0, '', 4, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 7.5, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 0, 23, 0, '', '90000013', '', 'PS', '0', 'WIRE,SOLID,18AWG,WHITE,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0001', '2004-12-23 00:00:00', 0, 0, '', 420, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.007684, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 0, 1, 0, '', '90000012', '', 'PS', '0', 'EARPH,MONO,HI-Z,3.5MM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0001', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3.3432, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 0, 1, 0, '', '50000001', '', 'DWG', '1', 'DOC,USER,AIRCRAFT WIRELESS', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'FIN', '', '', 'DOCS', '0001', '2005-02-24 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 0, 1, 0, '', '90000011', '', 'PS', '0', 'RES,AXIAL,5.6M,0.4W,1%,MF,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0002', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.075, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 0, 1, 0, '', '90000010', '', 'PS', '0', 'RES,AXIAL,2.0M,0.4W,1%,MF,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0003', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.06188, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 0, 1, 0, '', '90000009', '', 'PS', '0', 'CAP,CER,3300PF,100V,10%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0004', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.05148, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 0, 1, 0, '', '90000008', '', 'PS', '0', 'CAP,CER,33PF,100V,10%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0005', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.11375, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 0, 1, 0, '', '90000007', '', 'PS', '0', 'CAP,ELEC,10UF,16V,20%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0006', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.059, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 0, 1, 0, '', '90000006', '', 'PS', '0', 'DIO,SIG,GERM,0A95,AXIAL,D0-7,GLASS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0007', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.567, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 0, 1, 0, '', '90000005', '', 'PS', '0', 'CAPV,150-230PF,TOP ADJUST,PCB', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0008', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 11.74, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 0, 1, 0, '', '90000004', '', 'PS', '0', 'CONN,PHONE,F,MONO,PCB,3.5MM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0009', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.2324, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 0, 1, 0, '', '20000002', '', 'DWG', '1', 'PCB,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-PCB', '0002', '2005-10-01 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 354.1, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 0, 23, 0, '', '90000001', '', 'PS', '0', 'WIRE,MAGNET,38AWG,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0004', '2004-12-23 00:00:00', 0, 0, '', 2000, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 154.83, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, 0, 1, 0, '', '90000002', '', 'PS', '0', 'MAG,FERRITE ROD,1/4IN X 4IN,MATL=61', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'DETAIL', '', '', 'ELEC-COMPS', '0011', '2004-12-23 00:00:00', 0, 0, '', 6, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(18, 0, 22, 0, '', '90000003', '', 'PS', '0', 'TAPE,ELECTRICAL,3/4",BLUE,VINYL', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'SHOPSUP', '0001', '2004-12-23 00:00:00', 0, 1, '', 24, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5.62, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(19, 0, 1, 0, '', '10000002', '', 'CAT', '1', 'ASSY,MKTG,AIRCRAFT WIRELESS', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'FIN', '', '', 'FINGOODS', '0001', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.34, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 0, 1, 0, '', '10000001', '', 'PL', '1', 'ENCL,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'DETAIL', '', '', 'MECH', '0001', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(21, 0, 1, 0, '', '80000005', '', 'PS', '0', 'BOX,SHIPPING,5X4X2,CARDBOARD,WHITE', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'BOF', '', '', 'SHIPPING', '0001', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, 0, 1, 0, '', '80000001', '', 'PS', '0', 'BOX,IP54,4.74X3.13X2.17",ALUM,BLK,SCREWS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'MECH', '0002', '2005-02-24 00:00:00', 0, 0, '', 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 14.9, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(23, 0, 1, 0, '', '90000016', '', 'PS', '0', 'CONN,RING,16-22AWG,#4,RED', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0001', '2005-02-24 00:00:00', 0, 0, '', 48, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 6.21, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(24, 0, 1, 0, '', '90000017', '', 'PS', '0', 'WIRE,STRANDED,16AWG,GREEN,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0002', '2005-02-24 00:00:00', 0, 0, '', 400, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 35.5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, 0, 1, 0, '', '90000018', '', 'PS', '0', 'WIRE,STRANDED,16AWG,YELLOW,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0003', '2005-02-24 00:00:00', 0, 0, '', 475, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 35.5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(26, 0, 1, 0, '', '80000007', '', 'PS', '0', 'WASHER,LOCK,#4,INTERNAL TOOTH', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0001', '2005-02-24 00:00:00', 0, 0, '', 420, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.97, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 0, 1, 0, '', '80000002', '', 'PS', '0', 'STANDOFF,HEX,4-40,0.75"L,NYLON', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0002', '2005-02-24 00:00:00', 0, 0, '', 83, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1.016, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 0, 1, 0, '', '80000003', '', 'PS', '0', 'SCREW,MACHINE,PHIL,4-40X1/4,SS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0004', '2005-02-24 00:00:00', 0, 0, '', 300, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4.13, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, 0, 1, 0, '', '80000004', '', 'PS', '0', 'WASHER,FLAT,4-40', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0005', '2005-02-24 00:00:00', 0, 0, '', 300, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.0125, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(30, 0, 1, 0, '', '90000014', '', 'PS', '0', 'CONN,BINDING POST BANANA,INSUL,GRN', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0002', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2.59, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, 0, 1, 0, '', '90000015', '', 'PS', '0', 'CONN,BINDING POST BANANA,INSUL,YEL', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0003', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2.4, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(32, 0, 1, 0, '', '80000006', '', 'PS', '0', 'STANDOFF,HEX,4-40,0.5"L,ALUM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0003', '2005-03-15 00:00:00', 0, 0, '', 79, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.419, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_pv_pn` (`id`, `PNIDToLNK`, `PNUNID`, `PNTabParentID`, `PNPrefix`, `PNPartNumber`, `PNSuffix`, `PNType`, `PNRevision`, `PNTitle`, `PNDetail`, `PNStatus`, `PNReqBy`, `PNNotes`, `PNUser1`, `PNUser2`, `PNUser3`, `PNUser4`, `PNUser5`, `PNUser6`, `PNUser7`, `PNUser8`, `PNUser9`, `PNUser10`, `PNDate`, `PNTab`, `PNControlled`, `PNAux1`, `PNQty`, `PNQty2`, `PNCostChanged`, `PNParentCost`, `PNExpandList`, `PNAssyCostOption`, `PNInclAssyOnPurchList`, `PNMadeFrom`, `PNMinStockQty`, `PNOrderToMaintain`, `PNOnECO`, `PNOverKit`, `PNOverKitQty`, `PNOverKitBy`, `PNOverKitFor`, `PNCurrentCost`, `PNLastRollupCost`, `PNUSRID`, `PNUserLock`, `type_id`, `stock_location_id`, `requester_id`, `iteration_number`, `is_current_iteration`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
+(1, 0, 1, 0, '', '20000004', '', 'PL', '3', 'ASSY,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'FIN', '', '', 'FINGOODS', '0002', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 0, 1, 0, '', '20000003', '', 'PL', '2', 'PCA,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'ASSY', '', '', 'ELEC-PCB', '0001', '2005-03-15 00:00:00', 0, 0, '', 4, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 0, 1, 0, '', '20000001', '', 'PL', '0', 'IND,830UH,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'ASSY', '', '', 'ELEC-COMPS', '0010', '2004-12-23 00:00:00', 0, 0, '', 4, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 7.5, 7.5, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 0, 23, 0, '', '90000013', '', 'PS', '0', 'WIRE,SOLID,18AWG,WHITE,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0001', '2004-12-23 00:00:00', 0, 0, '', 420, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.007684, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 0, 1, 0, '', '90000012', '', 'PS', '0', 'EARPH,MONO,HI-Z,3.5MM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0001', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3.3432, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 0, 1, 0, '', '50000001', '', 'DWG', '1', 'DOC,USER,AIRCRAFT WIRELESS', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'FIN', '', '', 'DOCS', '0001', '2005-02-24 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 0, 1, 0, '', '90000011', '', 'PS', '0', 'RES,AXIAL,5.6M,0.4W,1%,MF,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0002', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.075, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 0, 1, 0, '', '90000010', '', 'PS', '0', 'RES,AXIAL,2.0M,0.4W,1%,MF,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0003', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.06188, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 0, 1, 0, '', '90000009', '', 'PS', '0', 'CAP,CER,3300PF,100V,10%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0004', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.05148, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 0, 1, 0, '', '90000008', '', 'PS', '0', 'CAP,CER,33PF,100V,10%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0005', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.11375, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 0, 1, 0, '', '90000007', '', 'PS', '0', 'CAP,ELEC,10UF,16V,20%,RADIAL,ROHS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0006', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.059, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 0, 1, 0, '', '90000006', '', 'PS', '0', 'DIO,SIG,GERM,0A95,AXIAL,D0-7,GLASS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0007', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.567, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 0, 1, 0, '', '90000005', '', 'PS', '0', 'CAPV,150-230PF,TOP ADJUST,PCB', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0008', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 11.74, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 0, 1, 0, '', '90000004', '', 'PS', '0', 'CONN,PHONE,F,MONO,PCB,3.5MM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-COMPS', '0009', '2004-12-23 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.2324, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 0, 1, 0, '', '20000002', '', 'DWG', '1', 'PCB,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-PCB', '0002', '2005-10-01 00:00:00', 0, 0, '', 12, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 354.1, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 0, 23, 0, '', '90000001', '', 'PS', '0', 'WIRE,MAGNET,38AWG,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0004', '2004-12-23 00:00:00', 0, 0, '', 2000, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 154.83, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 0, 1, 0, '', '90000002', '', 'PS', '0', 'MAG,FERRITE ROD,1/4IN X 4IN,MATL=61', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'DETAIL', '', '', 'ELEC-COMPS', '0011', '2004-12-23 00:00:00', 0, 0, '', 6, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 0, 22, 0, '', '90000003', '', 'PS', '0', 'TAPE,ELECTRICAL,3/4",BLUE,VINYL', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'SHOPSUP', '0001', '2004-12-23 00:00:00', 0, 1, '', 24, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5.62, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 0, 1, 0, '', '10000002', '', 'CAT', '1', 'ASSY,MKTG,AIRCRAFT WIRELESS', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'FIN', '', '', 'FINGOODS', '0001', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.34, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 0, 1, 0, '', '10000001', '', 'PL', '1', 'ENCL,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'DETAIL', '', '', 'MECH', '0001', '2005-03-15 00:00:00', 0, 0, '', 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 0, 1, 0, '', '80000005', '', 'PS', '0', 'BOX,SHIPPING,5X4X2,CARDBOARD,WHITE', '', 'R', 'J. Sharp', '', '', '', '', '', '', 'BOF', '', '', 'SHIPPING', '0001', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 0, 1, 0, '', '80000001', '', 'PS', '0', 'BOX,IP54,4.74X3.13X2.17",ALUM,BLK,SCREWS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'MECH', '0002', '2005-02-24 00:00:00', 0, 0, '', 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 14.9, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 0, 1, 0, '', '90000016', '', 'PS', '0', 'CONN,RING,16-22AWG,#4,RED', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0001', '2005-02-24 00:00:00', 0, 0, '', 48, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 6.21, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 0, 1, 0, '', '90000017', '', 'PS', '0', 'WIRE,STRANDED,16AWG,GREEN,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0002', '2005-02-24 00:00:00', 0, 0, '', 400, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 35.5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 0, 1, 0, '', '90000018', '', 'PS', '0', 'WIRE,STRANDED,16AWG,YELLOW,POLY', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'RAW', '', '', 'ELEC-WIRE', '0003', '2005-02-24 00:00:00', 0, 0, '', 475, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 35.5, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 0, 1, 0, '', '80000007', '', 'PS', '0', 'WASHER,LOCK,#4,INTERNAL TOOTH', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0001', '2005-02-24 00:00:00', 0, 0, '', 420, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.97, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 0, 1, 0, '', '80000002', '', 'PS', '0', 'STANDOFF,HEX,4-40,0.75"L,NYLON', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0002', '2005-02-24 00:00:00', 0, 0, '', 83, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1.016, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 0, 1, 0, '', '80000003', '', 'PS', '0', 'SCREW,MACHINE,PHIL,4-40X1/4,SS', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0004', '2005-02-24 00:00:00', 0, 0, '', 300, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4.13, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 0, 1, 0, '', '80000004', '', 'PS', '0', 'WASHER,FLAT,4-40', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0005', '2005-02-24 00:00:00', 0, 0, '', 300, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.0125, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 0, 1, 0, '', '90000014', '', 'PS', '0', 'CONN,BINDING POST BANANA,INSUL,GRN', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0002', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2.59, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 0, 1, 0, '', '90000015', '', 'PS', '0', 'CONN,BINDING POST BANANA,INSUL,YEL', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'ELEC-CONNS', '0003', '2005-02-24 00:00:00', 0, 0, '', 25, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2.4, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 0, 1, 0, '', '80000006', '', 'PS', '0', 'STANDOFF,HEX,4-40,0.5"L,ALUM', '', 'R', 'B. Jenks', '', '', '', '', '', '', 'BOF', '', '', 'MECH-HW', '0003', '2005-03-15 00:00:00', 0, 0, '', 79, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.419, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Truncate table before insert `tbl_pv_po`
@@ -689,8 +706,9 @@ INSERT INTO `tbl_stock_serial` (`id`, `serial_number`, `part_number`, `descripti
 (17, 'AW123469', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
 (18, 'AW123470', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL),
 (19, 'AW123471', '10000002', 'ASSY,MKTG,AIRCRAFT WIRELESS', '1', 'ACTIVE', NULL);
-SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+SET FOREIGN_KEY_CHECKS=1;
