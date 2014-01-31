@@ -4,21 +4,27 @@
 --
 
 -- create user
--- cannot drop user in script due to error if user exists (and script is aborted)
--- DROP USER 'maestro'@'localhost' ;
+-- if executing again, uncomment DROP USER and CREATE USER
+--   if user does not exist, DROP USER will fail and script will be aborted. If
+--   user does exist, CREATE USER will fail and script will be aborted (MySQL
+--   5.6.5+ supports "DROP USER IF EXISTS..."). To drop user:
+--   DROP USER 'maestro'@'localhost' ;
 CREATE USER 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer';
-
 GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
 
--- create database
-DROP DATABASE maestro ;
-CREATE DATABASE IF NOT EXISTS `maestro` ;
+--
+-- create database (drop existing first)
+--
+
+DROP SCHEMA IF EXISTS `maestro` ;
+CREATE SCHEMA IF NOT EXISTS `maestro` DEFAULT CHARACTER SET latin1 ;
 GRANT ALL PRIVILEGES ON `maestro` . * TO 'maestro'@'localhost';
+USE `maestro` ;
 
--- load any stored procedures
-use maestro;
+--
+-- load suggest_location stored procedure (find unused sub-locations for a given location)
+--
 
--- suggest_location procedure (used to find unused sub-locations for a given location)
 DROP PROCEDURE IF EXISTS suggest_location ;
 
 DELIMITER $$
