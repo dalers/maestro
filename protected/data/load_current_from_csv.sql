@@ -1,9 +1,8 @@
 -- load current data from csv
 --
--- DATABASE USER PASSWORD IN PLAIN TEXT
 -- HARDCODED file paths (assumes Maestro reference server)
--- file EOL must be correct (csv from xls have Win EOL, csv from mdbtools have unix EOL)
--- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < /path/to/load_epd2_win.sql
+-- csv files from xls have Win EOL, from mdbtools have unix EOL
+-- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < /path/to/load_current_from_csv.sql
 --
 
 use maestro;
@@ -31,7 +30,7 @@ SET id = NULL;
 -- person spreadsheet
 -- use Windows EOL (CSV created by Excel)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/person.csv'
-INTO TABLE epd2.tbl_person
+INTO TABLE maestro.tbl_person
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -76,7 +75,7 @@ SET id = NULL;
 -- stock_location spreadsheet
 -- use Windows EOL (CSV created by Excel)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/partloc_location.csv'
-INTO TABLE epd2.tbl_partloc_location
+INTO TABLE maestro.tbl_stock_location
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -94,7 +93,7 @@ SET id = NULL;
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_al.csv'
-INTO TABLE epd2.tbl_pig_al
+INTO TABLE maestro.tbl_pig_al
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -109,7 +108,7 @@ IGNORE 1 LINES
 -- typically no data
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_cnv.csv'
-INTO TABLE epd2.tbl_pig_cnv
+INTO TABLE maestro.tbl_pig_cnv
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -123,7 +122,7 @@ IGNORE 1 LINES
 -- pig_cost
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_cost.csv'
-INTO TABLE epd2.tbl_pig_cost
+INTO TABLE maestro.tbl_pig_cost
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -138,7 +137,7 @@ IGNORE 1 LINES
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_cu.csv'
-INTO TABLE epd2.tbl_pig_cu
+INTO TABLE maestro.tbl_pig_cu
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -152,7 +151,7 @@ IGNORE 1 LINES
 -- pig_cur
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_cur.csv'
-INTO TABLE epd2.tbl_pig_cur
+INTO TABLE maestro.tbl_pig_cur
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -166,7 +165,7 @@ IGNORE 1 LINES
 -- pig_fil
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_fil.csv'
-INTO TABLE epd2.tbl_pig_fil
+INTO TABLE maestro.tbl_pig_fil
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -181,7 +180,7 @@ IGNORE 1 LINES
 -- no data expected if part quantities are not managed
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_hist.csv'
-INTO TABLE epd2.tbl_pig_hist
+INTO TABLE maestro.tbl_pig_hist
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -195,7 +194,7 @@ IGNORE 1 LINES
 -- pig_hpref
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_hpref.csv'
-INTO TABLE epd2.tbl_pig_hpref
+INTO TABLE maestro.tbl_pig_hpref
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -210,7 +209,7 @@ IGNORE 1 LINES
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_job.csv'
-INTO TABLE epd2.tbl_pig_job
+INTO TABLE maestro.tbl_pig_job
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -224,7 +223,7 @@ IGNORE 1 LINES
 -- pig_lin
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_lin.csv'
-INTO TABLE epd2.tbl_pig_lin
+INTO TABLE maestro.tbl_pig_lin
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -238,7 +237,7 @@ IGNORE 1 LINES
 -- pig_lnk
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_lnk.csv'
-INTO TABLE epd2.tbl_pig_lnk
+INTO TABLE maestro.tbl_pig_lnk
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -254,7 +253,7 @@ LNKRoHSNote);
 -- no data expected when importing from PV6SE (or if PVEX/ECO and no made-from parts)
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_mf.csv'
-INTO TABLE epd2.tbl_pig_mf
+INTO TABLE maestro.tbl_pig_mf
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -268,7 +267,7 @@ IGNORE 1 LINES
 -- pig_mfr
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_mfr.csv'
-INTO TABLE epd2.tbl_pig_mfr
+INTO TABLE maestro.tbl_pig_mfr
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -282,7 +281,7 @@ IGNORE 1 LINES
 -- pig_mfrpn
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_mfrpn.csv'
-INTO TABLE epd2.tbl_pig_mfrpn
+INTO TABLE maestro.tbl_pig_mfrpn
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -296,7 +295,7 @@ IGNORE 1 LINES
 -- pig_org
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_org.csv'
-INTO TABLE epd2.tbl_pig_org
+INTO TABLE maestro.tbl_pig_org
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -310,7 +309,7 @@ IGNORE 1 LINES
 -- pig_pl
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_pl.csv'
-INTO TABLE epd2.tbl_pig_pl
+INTO TABLE maestro.tbl_pig_pl
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -324,7 +323,7 @@ IGNORE 1 LINES
 -- pig_pll
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_pll.csv'
-INTO TABLE epd2.tbl_pig_pll
+INTO TABLE maestro.tbl_pig_pll
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -338,7 +337,7 @@ IGNORE 1 LINES
 -- pig_pn
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_pn.csv'
-INTO TABLE epd2.tbl_pig_pn
+INTO TABLE maestro.tbl_pig_pn
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -353,7 +352,7 @@ IGNORE 1 LINES
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_po.csv'
-INTO TABLE epd2.tbl_pig_po
+INTO TABLE maestro.tbl_pig_po
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -367,7 +366,7 @@ IGNORE 1 LINES
 -- pig_pod
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_pod.csv'
-INTO TABLE epd2.tbl_pig_pod
+INTO TABLE maestro.tbl_pig_pod
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -382,7 +381,7 @@ IGNORE 1 LINES
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_pom.csv'
-INTO TABLE epd2.tbl_pig_pom
+INTO TABLE maestro.tbl_pig_pom
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -397,7 +396,7 @@ IGNORE 1 LINES
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_rpx.csv'
-INTO TABLE epd2.tbl_pig_rpx
+INTO TABLE maestro.tbl_pig_rpx
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -411,7 +410,7 @@ IGNORE 1 LINES
 -- pig_ship
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_ship.csv'
-INTO TABLE epd2.tbl_pig_ship
+INTO TABLE maestro.tbl_pig_ship
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -425,7 +424,7 @@ IGNORE 1 LINES
 -- pig_su
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_su.csv'
-INTO TABLE epd2.tbl_pig_su
+INTO TABLE maestro.tbl_pig_su
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -440,7 +439,7 @@ IGNORE 1 LINES
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_task.csv'
-INTO TABLE epd2.tbl_pig_task
+INTO TABLE maestro.tbl_pig_task
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -454,7 +453,7 @@ IGNORE 1 LINES
 -- pig_type
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_type.csv'
-INTO TABLE epd2.tbl_pig_type
+INTO TABLE maestro.tbl_pig_type
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
@@ -468,7 +467,7 @@ IGNORE 1 LINES
 -- pig_un
 -- use Unix EOL (created by mdbtools)
 LOAD DATA INFILE '/usr/home/samba/maestro/csv/pig_un.csv'
-INTO TABLE epd2.tbl_pig_un
+INTO TABLE maestro.tbl_pig_un
 CHARACTER SET ascii
 FIELDS
 	TERMINATED BY ','
