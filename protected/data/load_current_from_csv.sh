@@ -45,10 +45,9 @@
 #/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_un.csv
 #echo
 
-# drop and re-create database tables (except for migration)
-# NOW ASSUMING db ready, just load
-#echo "Creating clean database tables..."
-#/usr/local/bin/mysql -uroot -pappleton --local-infile=1 --show-warnings --verbose < /usr/local/www/maestro/protected/data/drop_and_create_tables.sql
+# NOW ASSUMING db ready, just load csv data
+#echo " clearing database..."
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
 #echo
 
 # load csv data files

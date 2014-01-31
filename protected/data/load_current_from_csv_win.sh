@@ -5,10 +5,6 @@
 # - first confirms csv files have correct EOL marker for import on
 #   windows system
 #
-# History
-# ------------------------------
-# 2012-11-02	dale scott	creation
-#
 
 echo
 echo "Importing legacy data from CSV data files..."
@@ -47,17 +43,17 @@ dos2unix ./csv/pv_su.csv
 dos2unix ./csv/pv_task.csv
 dos2unix ./csv/pv_type.csv
 dos2unix ./csv/pv_un.csv
-echo ""
+echo
 
-# drop and re-create database tables (except for migration)
-echo "Creating clean database tables..."
-mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./drop_and_create_tables.sql
-echo ""
+echo " clearing database..."
+# assuming clean database desired on windows as using script stand-alone
+/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo
 
 echo "Loading CSV files..."
 mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_current_win.sql
-echo ""
+echo
 
 echo "Done!"
-echo ""
+echo
 exit 0

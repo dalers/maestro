@@ -33,8 +33,9 @@ mkdir /home/samba/maestro/vault/parts/
 mkdir /home/samba/maestro/vault/material/
 # simulated remote network share
 mkdir /home/samba/maestro/remotefs/
-mkdir /home/samba/maestro/remotefs/parts/
-mkdir /home/samba/maestro/remotefs/material/
+mkdir /home/samba/maestro/remotefs/vault
+mkdir /home/samba/maestro/remotefs/vault/parts/
+mkdir /home/samba/maestro/remotefs/vault/material/
 # intermediary data files
 mkdir /home/samba/maestro/csv/
 mkdir /home/samba/maestro/csv.old/
@@ -66,14 +67,14 @@ cp -a ./maestro-scc-files/vault-5/* /home/samba/maestro/remotefs/vault/
 echo
 
 echo "Copying README.txt file to remotefs smb share..."
-cp -a ./maestro-scc-files/README.txt /usr/home/samba/maestro/remotefs/
+cp -a ./maestro-scc-files/README.txt /usr/home/samba/maestro/
 # ensure README.txt uses Windows-type EOL
-flip -m /usr/home/samba/maestro/remotefs/README.txt
+#flip -m /usr/home/samba/maestro/remotefs/README.txt
 echo
 
 echo "Setting permissions on smb file share..."
-chown -R www:www /usr/home/samba/maestro/remotefs
-chmod -R a+rw /usr/home/samba/maestro/remotefs
+chown -R www:www /usr/home/samba/maestro/
+chmod -R a+rw /usr/home/samba/maestro/
 echo
 
 echo "Cleaning up..."

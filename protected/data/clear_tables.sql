@@ -14,6 +14,10 @@ TRUNCATE TABLE `tbl_project`;
 TRUNCATE TABLE `tbl_stock_location`;
 TRUNCATE TABLE `tbl_stock_serial`;
 
+TRUNCATE TABLE `tbl_om_order`;
+TRUNCATE TABLE `tbl_om_order_item`;
+TRUNCATE TABLE `tbl_om_order_item_sn`;
+
 TRUNCATE TABLE `tbl_pv_al`;
 TRUNCATE TABLE `tbl_pv_cnv`;
 TRUNCATE TABLE `tbl_pv_cost`;
