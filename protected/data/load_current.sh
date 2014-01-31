@@ -1,21 +1,22 @@
 #!/bin/sh
 #
 # Load current data into Maestro
-# - MUST be executed from /usr/local/www/maestro/protected/data/
-# - CANNOT SCHEDULE USING CRON AT THIS TIME - SEE TODO
+# - EXECUTE IN SAME DIR AS ./maestro-scc-files-1.2.0.tar.gz
+# - NO ITERATION DETECTION, CURRENT DATA OVERWRITES OLD DATA EACH ITERATION
+# - EDIT TO SUITE NEEDS 
 #
 # SCC demo/test data
 # - runs all iterations sequentially
-# - DELETES all files in vault
+# - ASSUMES dir structure, DELETES all files in place
 #     .../vault/material/*
 #     .../vault/parts/*
 #     .../remotefs/*
 # - HARDCODED current-data file (maestro-scc-files-x.y.z.tar.gz)
 # - HARDCODED file paths (assumes Maestro reference server)
 # - CURRENT DATA REPLACES OLD DATA EACH ITERATION
-#   TODO determine if iteration occurs based on rules
-#     e.g. identify iteration if change to parts list or part file
-#          list, otherwise current data overwrites existing data
+#   TODO decide rules for iterations, modify schem and code
+#     smart loading of csv data according to the rules, could be
+#     done in shell (like reporting scripts) or SQL.
 #
 # Production deployment
 # - edit as needed to rsync from current files in existing smb file
@@ -26,18 +27,14 @@
 # File structure
 # --------------
 #    maestro-scc-files/
-#    +-- pv-1.mdb                   Parts&Vendors(TM) iteration database
+#    +-- pv-1.mdb                   Per-iteration Parts&Vendors(TM) databases
 #    +-- pv-2.mdb
 #    +-- pv-3.mdb
 #    *-- pv-n.mdb
-#    +---csv-1/						mdb-export from pv-1.mdb
-#    +---csv-2/
-#    +---csv-3/
-#    +---csv-n/
 #    +---excel/
 #    +---vault-1/
 #    |   \---parts/
-#    |       +---10000001/			related files
+#    |       +---10000001/         files related to parts
 #    |       +---20000001/
 #    |       +---20000002/
 #    |       ...
@@ -68,6 +65,8 @@ echo "Extracting ./maestro-scc-files/..."
 # use -a when copying files to preserve file timestamps
 # TODO untar to fully qualified directory (e.g. give fully qualified directory as parameter to script)
 tar -xzf ./maestro-scc-files-1.2.0.tar.gz 
+cd ./maestro-scc-files
+ls
 echo
 
 # -----------------
@@ -84,7 +83,7 @@ echo " restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
 cp -a ./pv-1.mdb /home/samba/maestro/pv.mdb
 
-echo " restoring vault contents..."
+echo " restoring vault contents to (simulated) remote fs..."
 cp -a ./vault-1/* /home/samba/maestro/remotefs
 
 echo " running export_current_to_csv.sh..."
@@ -93,8 +92,9 @@ echo " running export_current_to_csv.sh..."
 echo " rsyncing from (simulated) remotefs..."
 rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-1.log" /usr/home/samba/maestro/remotefs/ /usr/home/samba/maestro/vault >> /tmp/maestro_run_iteration.log
 
-echo " running clear_tables.sql (deleting existing data from database)..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo " clearing database..."
+/usr/local/www/maestro/protected/yiic migrate to m000000_000000_base
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
 
 echo " running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
@@ -113,7 +113,7 @@ echo " restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
 cp -a ./pv-2.mdb /home/samba/maestro/pv.mdb
 
-echo " restoring vault contents..."
+echo " restoring vault contents to (simulated) remote fs..."
 cp -a ./vault-2/* /home/samba/maestro/remotefs
 
 echo " running export_current_to_csv.sh..."
@@ -122,8 +122,9 @@ echo " running export_current_to_csv.sh..."
 echo " rsyncing from (simulated) remotefs..."
 rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-2.log" /usr/home/samba/maestro/remotefs/ /usr/home/samba/maestro/vault >> /tmp/maestro_run_iteration.log
 
-echo " running clear_tables.sql (deleting existing data from database)..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo " clearing database..."
+/usr/local/www/maestro/protected/yiic migrate to m000000_000000_base
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
 
 echo " running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
@@ -142,7 +143,7 @@ echo " restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
 cp -a ./pv-3.mdb /home/samba/maestro/pv.mdb
 
-echo " restoring vault contents..."
+echo " restoring vault contents to (simulated) remote fs..."
 cp -a ./vault-3/* /home/samba/maestro/remotefs
 
 echo " running export_current_to_csv.sh..."
@@ -151,8 +152,9 @@ echo " running export_current_to_csv.sh..."
 echo " rsyncing from (simulated) remotefs..."
 rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-3.log" /usr/home/samba/maestro/remotefs/ /usr/home/samba/maestro/vault >> /tmp/maestro_run_iteration.log
 
-echo " running clear_tables.sql (deleting existing data from database)..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo " clearing database..."
+/usr/local/www/maestro/protected/yiic migrate to m000000_000000_base
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
 
 echo " running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
@@ -171,7 +173,7 @@ echo " restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
 cp -a ./pv-4.mdb /home/samba/maestro/pv.mdb
 
-echo " restoring vault contents..."
+echo " restoring vault contents to (simulated) remote fs..."
 cp -a ./vault-4/* /home/samba/maestro/remotefs
 
 echo " running export_current_to_csv.sh..."
@@ -180,8 +182,9 @@ echo " running export_current_to_csv.sh..."
 echo " rsyncing from (simulated) remotefs..."
 rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-4.log" /usr/home/samba/maestro/remotefs/ /usr/home/samba/maestro/vault >> /tmp/maestro_run_iteration.log
 
-echo " running clear_tables.sql (deleting existing data from database)..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo " clearing database..."
+/usr/local/www/maestro/protected/yiic migrate to m000000_000000_base
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
 
 echo " running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
@@ -200,17 +203,18 @@ echo " restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
 cp -a ./pv-5.mdb /home/samba/maestro/pv.mdb
 
-echo " restoring vault contents..."
+echo " restoring vault contents to (simulated) remote fs..."
 cp -a ./vault-5/* /home/samba/maestro/remotefs
 
 echo " running export_current_to_csv.sh..."
 /usr/local/www/maestro/protected/data/export_current_to_csv.sh
 
 echo " rsyncing from (simulated) remotefs..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-5.log" /usr/home/samba/maestro/remotefs/ /usr/home/samba/maestro/vault >> /tmp/maestro_run_iteration.log
+rsync -a --itemize-changes --backup --Suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-5.log" /usr/home/samba/maestro/remotefs/ /usr/home/samba/maestro/vault >> /tmp/maestro_run_iteration.log
 
-echo " running clear_tables.sql (deleting existing data from database)..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo " clearing database..."
+/usr/local/www/maestro/protected/yiic migrate to m000000_000000_base
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
 
 echo " running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh

@@ -1,11 +1,12 @@
--- load csv legacy data
+-- load current data from csv
 --
--- for Hotstuff production environment (hard-coded file paths)
--- correct csv file EOL marker first if necessary (see load_epd2_win.sh)
--- > mysql -uroot -pHarvey57 --local-infile=1 --show-warnings --verbose < /path/to/load_epd2_win.sql
+-- DATABASE USER PASSWORD IN PLAIN TEXT
+-- HARDCODED file paths (assumes Maestro reference server)
+-- file EOL must be correct (csv from xls have Win EOL, csv from mdbtools have unix EOL)
+-- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < /path/to/load_epd2_win.sql
 --
 
-use epd2;
+use maestro;
 
 -- disable foreign key constraint check during data import
 SET foreign_key_checks = 0;
