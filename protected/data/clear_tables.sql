@@ -3,6 +3,8 @@
 --
 -- > mysql -uroot -p --show-warnings --verbose --force < ./clear_tables.sql
 --
+-- MUST match current migration schema
+--
 
 use maestro;
 

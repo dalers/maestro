@@ -34,17 +34,22 @@
 #    *-- pv-n.mdb
 #    +---excel/
 #    +---vault-1/
-#    |   \---parts/
+#    |   +---parts/
 #    |       +---10000001/         files related to parts
 #    |       +---20000001/
 #    |       +---20000002/
 #    |       ...
+#    |   \---material/
+#    |       +...
 #    +---vault-2/
-#    |   \---parts/
+#    |   +---parts/
+#    |   \---material/
 #    +---vault-3/
-#    |   \---parts/
+#    |   +---parts/
+#    |   \---material/
 #    \---vault-n/
-#        \---parts/
+#        +---parts/
+#        \---material/
 #
 
 # -----------------
@@ -52,189 +57,268 @@
 # -----------------
 
 echo
+echo "======================================="
 echo "Removing old log files..."
+echo "======================================="
 rm /tmp/maestro*
 echo
 
-echo "Removing files from smb file share vault and simulated remote file system..."
+echo "======================================="
+echo "Cleaning maestro vault..."
+echo "======================================="
+rm /home/samba/maestro/*
+rm -r /home/samba/maestro/csv/*
+rm -r /home/samba/maestro/csv.old/*
 rm -r /home/samba/maestro/vault/material/*
 rm -r /home/samba/maestro/vault/parts/*
+echo
+
+echo "======================================="
+echo "Cleaning simulated remote file system..."
+echo "======================================="
+rm  /home/samba/maestro/remotefs/*
 rm -r /home/samba/maestro/remotefs/vault/material/*
 rm -r /home/samba/maestro/remotefs/vault/parts/*
 echo
 
 echo "Extracting ./maestro-scc-files/..."
 # use -a when copying files to preserve file timestamps
-# TODO untar to fully qualified directory (e.g. give fully qualified directory as parameter to script)
 tar -xzf ./maestro-scc-files-1.2.0.tar.gz 
-
-# execute rest of procedure from inside maestro-scc-files dir
-cd ./maestro-scc-files
-echo "maestro-scc-files/"
-ls -l
+ls -l maestro-scc-files/
 echo
 
-# -----------------
-# iteration 1
-# -----------------
-
+echo "======================================="
 echo "Iteration 1..."
+echo "======================================="
+echo
 
-# don't copy - no csv created yet!
-#echo " Copying csv/* to csv.old/* ..."
+# don't copy csv/ to csv.old/ on first iteration (nothing to copy yet!)
+#echo "Copying csv/* to csv.old/* ..."
 #cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
+#echo
 
-echo " restoring Parts&Vendors(TM) database..."
+echo "Restoring master data spreadsheets..."
 # -a archive mode preserves file times
-cp -a ./pv-1.mdb /home/samba/maestro/remotefs/pv.mdb
+cp -a ./maestro-scc-files/excel/* /home/samba/maestro/remotefs/
+echo
 
-echo " restoring vault contents to (simulated) remote fs..."
-cp -a ./vault-1/* /home/samba/maestro/remotefs/vault/
+echo "Restoring Parts&Vendors(TM) database..."
+# -a archive mode preserves file times
+cp -a ./maestro-scc-files/pv-1.mdb /home/samba/maestro/remotefs/pv.mdb
+echo
 
-echo " running export_current_to_csv.sh..."
+echo "Restoring vault contents to (simulated) remote fs..."
+cp -a ./maestro-scc-files/vault-1/* /home/samba/maestro/remotefs/vault/
+echo
+
+echo "Running export_current_to_csv.sh..."
 /usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo
 
-echo " rsyncing from (simulated) remotefs..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-1.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault
+echo "Hacking required files to bootstrap initial iteration..."
+# -a archive mode preserves file times
+head -n 1 /home/samba/maestro/csv/pv_pn.csv > /home/samba/maestro/csv.old/pv_pn.csv
+echo
 
-echo " clearing database..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo "Rsyncing from (simulated) remotefs..."
+rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault > null
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync.log
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync-1.log
+rm /tmp/maestro-rsync.log
+echo
 
-echo " running load_current_from_csv.sh"
+echo "reporting changes from current to previous..."
+/usr/local/www/maestro/protected/data/send_plm_change_report.sh
+echo
+
+echo "clearing database tables..."
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo
+
+echo "running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
 echo
  
-# -----------------
-# iteration 2
-# -----------------
-
+echo "======================================="
 echo "Iteration 2..."
+echo "======================================="
+echo
 
-echo " Copying csv/* to csv.old/* ..."
+echo "Copying csv/* to csv.old/* ..."
 cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
+echo
 
-echo " restoring Parts&Vendors(TM) database..."
+echo "Restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
-cp -a ./pv-2.mdb /home/samba/maestro/remotefs/pv.mdb
+cp -a ./maestro-scc-files/pv-2.mdb /home/samba/maestro/remotefs/pv.mdb
+echo
 
-echo " restoring vault contents to (simulated) remote fs..."
-cp -a ./vault-2/* /home/samba/maestro/remotefs/vault/
+echo "Restoring vault contents to (simulated) remote fs..."
+cp -a ./maestro-scc-files/vault-2/* /home/samba/maestro/remotefs/vault/
+echo
 
-echo " running export_current_to_csv.sh..."
+echo "Running export_current_to_csv.sh..."
 /usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo
 
-echo " rsyncing from (simulated) remotefs..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-2.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault
+echo "Rsyncing from (simulated) remotefs..."
+rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault  > null
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync.log
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync-2.log
+rm /tmp/maestro-rsync.log
+echo
 
-echo " clearing database..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo "Reporting changes from current to previous..."
+/usr/local/www/maestro/protected/data/send_plm_change_report.sh
+echo
 
-echo " running load_current_from_csv.sh"
+echo "Clearing database..."
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo
+
+echo "Running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
 echo
  
-# -----------------
-# iteration 3
-# -----------------
-
+echo "======================================="
 echo "Iteration 3..."
+echo "======================================="
+echo
 
-echo " Copying csv/* to csv.old/* ..."
+echo "Copying csv/* to csv.old/* ..."
 cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
+echo
 
-echo " restoring Parts&Vendors(TM) database..."
+echo "Restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
-cp -a ./pv-3.mdb /home/samba/maestro/remotefs/pv.mdb
+cp -a ./maestro-scc-files/pv-3.mdb /home/samba/maestro/remotefs/pv.mdb
+echo
 
-echo " restoring vault contents to (simulated) remote fs..."
-cp -a ./vault-3/* /home/samba/maestro/remotefs/vault/
+echo "Restoring vault contents to (simulated) remote fs..."
+cp -a ./maestro-scc-files/vault-3/* /home/samba/maestro/remotefs/vault/
+echo
 
-echo " running export_current_to_csv.sh..."
+echo "Running export_current_to_csv.sh..."
 /usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo
 
-echo " rsyncing from (simulated) remotefs..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-3.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault
+echo "Rsyncing from (simulated) remotefs..."
+rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault  > null
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync.log
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync-3.log
+rm /tmp/maestro-rsync.log
+echo
 
-echo " clearing database..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo "Reporting changes from current to previous..."
+/usr/local/www/maestro/protected/data/send_plm_change_report.sh
+echo
 
-echo " running load_current_from_csv.sh"
+echo "Clearing database..."
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo
+
+echo "Running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
 echo
  
-# -----------------
-# iteration 4
-# -----------------
-
+echo "======================================="
 echo "Iteration 4..."
+echo "======================================="
+echo
 
-echo " Copying csv/* to csv.old/* ..."
+echo "Copying csv/* to csv.old/* ..."
 cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
+echo
 
-echo " restoring Parts&Vendors(TM) database..."
+echo "Restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
-cp -a ./pv-4.mdb /home/samba/maestro/remotefs/pv.mdb
+cp -a ./maestro-scc-files/pv-4.mdb /home/samba/maestro/remotefs/pv.mdb
+echo
 
-echo " restoring vault contents to (simulated) remote fs..."
-cp -a ./vault-4/* /home/samba/maestro/remotefs/vault/
+echo "Restoring vault contents to (simulated) remote fs..."
+cp -a ./maestro-scc-files/vault-4/* /home/samba/maestro/remotefs/vault/
+echo
 
-echo " running export_current_to_csv.sh..."
+echo "Running export_current_to_csv.sh..."
 /usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo
 
-echo " rsyncing from (simulated) remotefs..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-4.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault
+echo "Rsyncing from (simulated) remotefs..."
+rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault  > null
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync.log
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync-4.log
+rm /tmp/maestro-rsync.log
+echo
 
-echo " clearing database..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo "Reporting changes from current to previous..."
+/usr/local/www/maestro/protected/data/send_plm_change_report.sh
+echo
 
-echo " running load_current_from_csv.sh"
+echo "Clearing database..."
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo
+
+echo "Running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
 echo
  
-# -----------------
-# iteration 5
-# -----------------
-
+echo "======================================="
 echo "Iteration 5..."
+echo "======================================="
+echo
 
-echo " Copying csv/* to csv.old/* ..."
+echo "Copying csv/* to csv.old/* ..."
 cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
+echo
 
-echo " restoring Parts&Vendors(TM) database..."
+echo "Restoring Parts&Vendors(TM) database..."
 # -a archive mode preserves file times
-cp -a ./pv-5.mdb /home/samba/maestro/remotefs/pv.mdb
+cp -a ./maestro-scc-files/pv-5.mdb /home/samba/maestro/remotefs/pv.mdb
+echo
 
-echo " restoring vault contents to (simulated) remote fs..."
-cp -a ./vault-5/* /home/samba/maestro/remotefs/vault/
+echo "Restoring vault contents to (simulated) remote fs..."
+cp -a ./maestro-scc-files/vault-5/* /home/samba/maestro/remotefs/vault/
+echo
 
-echo " running export_current_to_csv.sh..."
+echo "Running export_current_to_csv.sh..."
 /usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo
 
-echo " rsyncing from (simulated) remotefs..."
-rsync -a --itemize-changes --backup --Suffix=-`date +%FT%T` --log-file="/tmp/maestro_run_iteration_rsync-5.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault
+echo "Rsyncing from (simulated) remotefs..."
+rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault  > null
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync.log
+cp /tmp/maestro-rsync.log /home/samba/maestro/rsync-5.log
+rm /tmp/maestro-rsync.log
+echo
 
-echo " clearing database..."
-/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo "Reporting changes from current to previous..."
+/usr/local/www/maestro/protected/data/send_plm_change_report.sh
+echo
 
-echo " running load_current_from_csv.sh"
+echo "Clearing database..."
+#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
+echo
+
+echo "Running load_current_from_csv.sh"
 /usr/local/www/maestro/protected/data/load_current_from_csv.sh
 echo
  
-# -----------------
-# cleanup
-# -----------------
+echo "======================================="
+echo "Cleanup..."
+echo "======================================="
+echo
 
-echo "Cleanup"
-
-echo " removing maestro-scc-files/"
-cd ..
+echo "Removing maestro-scc-files/"
 rm -r ./maestro-scc-files
 echo
 
-echo " log files:"
-echo
+echo "Rsync iteration log files:"
 ls -l /tmp/maestro*
 echo
 
-echo "Done!"
-echo
+exit 0
