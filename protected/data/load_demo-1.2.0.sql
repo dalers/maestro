@@ -1,6 +1,6 @@
--- load csv legacy data
+-- load current database
+-- corresponds to maestro-scc-files-1.2.0.tar.gz
 --
--- load demo data into Maestro (equivalent to most recent iteration)
 -- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo.sql
 --
 

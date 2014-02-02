@@ -1,14 +1,12 @@
 #!/bin/sh
 #
 # Create CSV-format demo data from source files (mdb, xlsx...)
-# - gets files from maestro/remotesfs, writes csv to maestrp/csv
+# - gets files from maestro/remotesfs, writes csv to maestro/csv
 # - file paths HARCODED
 # - REQUIRES /home/samba/maestro/remotefs, maestro/csv/, and maestro/csv.old/
 #
 
-echo "======================================="
 echo "Exporting current data to CSV..."
-echo "======================================="
 echo
 
 # Person spreadsheet
