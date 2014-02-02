@@ -45,16 +45,9 @@
 #/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_un.csv
 #echo
 
-# NOW ASSUMING db ready, just load csv data
-#echo " clearing database..."
-#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-#echo
-
-# load csv data files
 echo "Loading CSV files..."
-/usr/local/bin/mysql -uroot -pappleton --local-infile=1 --show-warnings --verbose < /usr/local/www/maestro/protected/data/load_current_from_csv.sql
+#/usr/local/bin/mysql -uroot -pappleton --local-infile=1 --show-warnings --verbose < /usr/local/www/maestro/protected/data/load_current_from_csv.sql
+/usr/local/bin/mysql -uroot -pappleton --local-infile=1 < /usr/local/www/maestro/protected/data/load_current_from_csv.sql
 echo
 
-echo "Done!"
-echo ""
 exit 0
