@@ -1,14 +1,16 @@
 -- create maestro user and db, and load stored procedures
--- usage:
+--
 -- > mysql -uroot -p --show-warnings --verbose < ./create_db.sql
+--
+-- MAESTRO USER and DATABASE PASSWORDS IN PLAIN TEXT
 --
 
 -- create user
--- if executing again, uncomment DROP USER and CREATE USER
+-- if executing again, uncomment DROP USER and comment CREATE USER
 --   if user does not exist, DROP USER will fail and script will be aborted. If
 --   user does exist, CREATE USER will fail and script will be aborted (MySQL
---   5.6.5+ supports "DROP USER IF EXISTS..."). To drop user:
---   DROP USER 'maestro'@'localhost' ;
+--   5.6.5+ supports "DROP USER IF EXISTS...").
+-- DROP USER 'maestro'@'localhost' ;
 CREATE USER 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer';
 GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
 
@@ -22,7 +24,7 @@ GRANT ALL PRIVILEGES ON `maestro` . * TO 'maestro'@'localhost';
 USE `maestro` ;
 
 --
--- load suggest_location stored procedure (find unused sub-locations for a given location)
+-- load suggest_location stored procedure (used to find unassigned sub-locations for a given location)
 --
 
 DROP PROCEDURE IF EXISTS suggest_location ;
