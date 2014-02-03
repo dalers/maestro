@@ -1,8 +1,6 @@
 Maestro(TM) is a web application for design and manufacturing teams to manage business processes involving parts, suppliers and material. Maestro can load part and supplier data from Parts&Vendors(TM)*, enabling existing data to be easily migrated to Maestro or even to continue using Parts&Vendors as part of your workflow and avoid retraining staff (although data transfer to Maestro is one-way only).
 
-The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, the leading platform for integrating SME business processes.
-
-Maestro is in active development, and may not be suitable for production use at this time. For more information, see the [Maestro project wiki](https://github.com/maestrobpm/maestro/wiki) and experiment with your own use cases.
+The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, the leading platform for integrating SME business processes. Maestro is in active development, and may not be suitable for production use at this time. For more information, see the [Maestro project wiki](https://github.com/maestrobpm/maestro/wiki) and experiment with your own use cases.
 
 Maestro is licensed according to the business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause), a copy of which [is provided with Maestro (the LICENSE file)](https://github.com/maestrobpm/maestro/blob/master/LICENSE). By submitting work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
@@ -14,13 +12,13 @@ Getting Started
 ===============
 Maestro is a PHP/MySQL application. You must have a standard AMP stack or equivalent on your system in order to configure and use Maestro. Maestro uses the Yii framework (v1), and requires PHP 5.1 or greater. The following procedure installs Maestro on a FreeBSD unix system previously configured with Apache, MySQL and PHP.
 
-Several parts of the process are scripted for convenience, but you are strongly urged to read the scripts first to understand their actions and help resolve any issues that may arise. The scripts currently only support a vanilla FreeBSD server.
+Several parts of the process are scripted for convenience, but you are strongly urged to read the scripts first to understand their actions and help resolve any issues that may arise. The scripts support ONLY a vanilla FreeBSD system.
 
-* Load additional required server software using pkg-install or the ports tree.
-** mdbtools - used to extract data from a Parts&Vendors (Microsoft Jet) database.
-** rsync - used to synchronize the Maestro file vault with a remote file share. rsync is also used to load the full SCC data set (the process simulates the normal production flow including remote file share).  
-** sSMTP - used to deliver mail from Maestro to a mail hub (SMTP server).
-** Samba - used to provide a Windows-compatible file share for accessing the Maestro file vault (Samba is not required for loading SCC demo data)
+Before starting, load additional software required by Maestro.
+* mdbtools - used to extract data from a Parts&Vendors (Microsoft Jet) database.
+* rsync - used to synchronize the Maestro file vault with a remote file share. Loading the full SCC data set also requires rsync, as the process simulates the normal production flow with a simulated remote file share.  
+* sSMTP - used to deliver mail from Maestro to a mail hub (SMTP server).
+* Samba - used to provide a Windows-compatible file share for accessing the Maestro file vault (Samba is not required for loading SCC demo data)
 
 * Download the [latest Yii v1 release](http://www.yiiframework.com) to your system (e.g. yii-1.1.14.f0fee9.tar.gz). Extract the contents to your system and make it readable by Apache.
 
