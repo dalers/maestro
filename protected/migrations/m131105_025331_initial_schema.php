@@ -7,7 +7,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		//issue table
 		//based on Trackstar (Web Application Development with Yii and PHP 2nd ed, by Jeffrey Winesett)
 		$this->createTable('tbl_issue', array(
-			'id' => 'pk', //not included in source csv
+			'id' => 'pk',
 			'number' => 'string',
 			'name' => 'string NOT NULL',
 			'description' => 'text',
@@ -18,13 +18,13 @@ class m131105_025331_initial_schema extends CDbMigration
 			'status' => 'string',
 			
 			//validated fk reference
-			'project_id' => 'integer', //project -> issue.project
-			'type_id' => 'integer', //type -> issue.type
-			'status_id' => 'integer', //status -> issue.status
+			'project_id' => 'integer', //fk->tbl_project.id
+			'type_id' => 'integer', //fk->tbl_issue_type.id (not implemented)
+			'status_id' => 'integer', //fk->tbl_issue_status.id (not implemented)
 
 			//aditional fk reference
-			'part_id' => 'integer',
-			'stock_serial_id' => 'integer', //
+			'part_id' => 'integer', //fk->tbl_pv_pn.id
+			'stock_serial_id' => 'integer', //fk->tbl_stock_serial.id
 
 			//audit field
 			'owner_id' => 'integer',
@@ -37,7 +37,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		
 		//om_order table
 		$this->createTable('tbl_om_order', array(
-			'id' => 'pk',  //not imported
+			'id' => 'pk',
 			'name' => 'string',
 			'type' => 'string',
 			'status' => 'string',
@@ -46,14 +46,14 @@ class m131105_025331_initial_schema extends CDbMigration
 			
 			//audit field
 			'create_time' => 'datetime DEFAULT NULL',
-			'create_user_id' => 'int(11) DEFAULT NULL',
+			'create_user_id' => 'integer DEFAULT NULL',
 			'update_time' => 'datetime DEFAULT NULL',
-			'update_user_id' => 'int(11) DEFAULT NULL',
+			'update_user_id' => 'integer DEFAULT NULL',
 		), 'ENGINE=InnoDB');
 		
 		//om_order_item table
 		$this->createTable('tbl_om_order_item', array(
-			'id' => 'pk',  //not imported
+			'id' => 'pk',
 			'order_id' => 'integer',
 			'part_id' => 'integer',
 			'desired_qty' => 'integer default 0',
@@ -68,7 +68,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		
 		//om_order_item_sn table
 		$this->createTable('tbl_om_order_item_sn', array(
-			'id' => 'pk',  //not imported
+			'id' => 'pk',
 			'order_item_id' => 'integer',
 			'stock_serial_id' => 'integer',
 			
