@@ -1,63 +1,53 @@
 #!/bin/sh
 #
-# Load current data from csv on Windows system
-# - use on Windows dev system, execute from maestro/protected/data/
-# - first confirms csv files have correct EOL marker for import on
-#   windows system
-#
-# History
-# ------------------------------
-# 2012-11-02	dale scott	creation
+# Load current data into Maestro from CSV
+# - DATABASE USER PASSWORD IN PLAIN TEXT
+# - HARDCODED file paths (assumes Maestro reference server)
 #
 
-echo
-echo "Importing legacy data from CSV data files..."
-echo
-echo "Ensure expected EOL in CSV files..."
-unix2dos ./csv/issue.csv
-unix2dos ./csv/person.csv
-unix2dos ./csv/project.csv
-unix2dos ./csv/stock_serial.csv
-unix2dos ./csv/stock_location.csv
+#echo "Confirming required EOL in CSV files..."
+# force when flip found to misinterpret file type
+# TODO - this should not be required normal operation but may
+# avoid errors in development if files are copied to/from
+# unix/win systems with auto-conversion (e.g. using WinSCP)
+#/usr/local/bin/flip -mvb /usr/home/samba/maestro/csv/issue.csv
+#/usr/local/bin/flip -mv  /usr/home/samba/maestro/csv/person.csv
+#/usr/local/bin/flip -uvb /usr/home/samba/maestro/csv/project.csv
+#/usr/local/bin/flip -mv  /usr/home/samba/maestro/csv/stock_serial.csv
+#/usr/local/bin/flip -mv  /usr/home/samba/maestro/csv/stock_location.csv
 
-dos2unix ./csv/pv_al.csv
-dos2unix ./csv/pv_cnv.csv
-dos2unix ./csv/pv_cost.csv
-dos2unix ./csv/pv_cu.csv
-dos2unix ./csv/pv_cur.csv
-dos2unix ./csv/pv_fil.csv
-dos2unix ./csv/pv_hist.csv
-dos2unix ./csv/pv_hpref.csv
-dos2unix ./csv/pv_job.csv
-dos2unix ./csv/pv_lin.csv
-dos2unix ./csv/pv_lnk.csv
-dos2unix ./csv/pv_mf.csv
-dos2unix ./csv/pv_mfr.csv
-dos2unix ./csv/pv_mfrpn.csv
-dos2unix ./csv/pv_org.csv
-dos2unix ./csv/pv_pl.csv
-dos2unix ./csv/pv_pll.csv
-dos2unix ./csv/pv_pn.csv
-dos2unix ./csv/pv_po.csv
-dos2unix ./csv/pv_pod.csv
-dos2unix ./csv/pv_pom.csv
-dos2unix ./csv/pv_rpx.csv
-dos2unix ./csv/pv_ship.csv
-dos2unix ./csv/pv_su.csv
-dos2unix ./csv/pv_task.csv
-dos2unix ./csv/pv_type.csv
-dos2unix ./csv/pv_un.csv
-echo ""
-
-# drop and re-create database tables (except for migration)
-echo "Creating clean database tables..."
-mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./drop_and_create_tables.sql
-echo ""
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_al.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_cnv.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_cost.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_cu.csv
+#/usr/local/bin/flip -uvb /usr/home/samba/maestro/csv/pig_cur.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_fil.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_hist.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_hpref.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_job.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_lin.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_lnk.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_mf.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_mfr.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_mfrpn.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_org.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_pl.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_pll.csv
+#/usr/local/bin/flip -uvb /usr/home/samba/maestro/csv/pig_pn.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_po.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_pod.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_pom.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_rpx.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_ship.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_su.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_task.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_type.csv
+#/usr/local/bin/flip -uv  /usr/home/samba/maestro/csv/pig_un.csv
+#echo
 
 echo "Loading CSV files..."
-mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_current_win.sql
-echo ""
+#/usr/local/bin/mysql -uroot -pappleton --local-infile=1 --show-warnings --verbose < /usr/local/www/maestro/protected/data/load_current_from_csv.sql
+/usr/local/bin/mysql -uroot -pappleton --local-infile=1 < /usr/local/www/maestro/protected/data/load_current_from_csv.sql
+echo
 
-echo "Done!"
-echo ""
 exit 0

@@ -2,7 +2,7 @@
 -- normally executed from load_current_win.sh
 -- file paths hard-coded for XAMPP
 --
--- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_current_win.sql
+-- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_current_from_csv_win.sql
 --
 
 use maestro;

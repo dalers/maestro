@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 #
-# Extract Part Number, Title and Detail from PV PN table CSV file
+# Extract Part Number, Title and Detail from input file
+#   Write to output file
+#   Assumes input file has same structure pv_pn.csv
 #
-# History
-# ------------------------------
-# 2013-11-03	dale scott	creation
-#
-
 # Note on Python shebang:
 #   !/usr/bin/env python - execute using first python in user path - most portable
 #   #!/usr/bin/python - execute assuming common Linux install (not FreeBSD! /usr/local/bin/python)
 #   #!/usr/bin/python2.5 - execute using specific Python version (but for Linux install)
+#
 
 import csv
 import sys

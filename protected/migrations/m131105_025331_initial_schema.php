@@ -7,7 +7,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		//issue table
 		//based on Trackstar (Web Application Development with Yii and PHP 2nd ed, by Jeffrey Winesett)
 		$this->createTable('tbl_issue', array(
-			'id' => 'pk', //not included in source csv
+			'id' => 'pk',
 			'number' => 'string',
 			'name' => 'string NOT NULL',
 			'description' => 'text',
@@ -17,18 +17,16 @@ class m131105_025331_initial_schema extends CDbMigration
 			'cost' => 'string',
 			'status' => 'string',
 			
-			//additions to basic schema
-			//validate issue.project
-			'project_id' => 'integer',
-			//validate issue.type
-			'type_id' => 'integer',
-			//validate issue.status
-			'status_id' => 'integer',
-			//reference related part number and/or serial number (if applicable)
-			'part_id' => 'integer',
-			'stock_serial_id' => 'integer',
+			//validated fk reference
+			'project_id' => 'integer', //fk->tbl_project.id
+			'type_id' => 'integer', //fk->tbl_issue_type.id (not implemented)
+			'status_id' => 'integer', //fk->tbl_issue_status.id (not implemented)
 
-			//record creation user/time, update user/time and current owner
+			//aditional fk reference
+			'part_id' => 'integer', //fk->tbl_pv_pn.id
+			'stock_serial_id' => 'integer', //fk->tbl_stock_serial.id
+
+			//audit field
 			'owner_id' => 'integer',
 			'requester_id' => 'integer',
 			'create_time' => 'datetime',
@@ -36,7 +34,51 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_time' => 'datetime',
 			'update_user_id' => 'integer',
 		), 'ENGINE=InnoDB');
-
+		
+		//om_order table
+		$this->createTable('tbl_om_order', array(
+			'id' => 'pk',
+			'name' => 'string',
+			'type' => 'string',
+			'status' => 'string',
+			'project_id' => 'integer',
+			'parts_list_id' => 'integer',
+			
+			//audit field
+			'create_time' => 'datetime DEFAULT NULL',
+			'create_user_id' => 'integer DEFAULT NULL',
+			'update_time' => 'datetime DEFAULT NULL',
+			'update_user_id' => 'integer DEFAULT NULL',
+		), 'ENGINE=InnoDB');
+		
+		//om_order_item table
+		$this->createTable('tbl_om_order_item', array(
+			'id' => 'pk',
+			'order_id' => 'integer',
+			'part_id' => 'integer',
+			'desired_qty' => 'integer default 0',
+			'shipped_qty' => 'integer default 0',
+			
+			//audit field
+			//'create_time' => 'datetime DEFAULT NULL',
+			//'create_user_id' => 'int(11) DEFAULT NULL',
+			//'update_time' => 'datetime DEFAULT NULL',
+			//'update_user_id' => 'int(11) DEFAULT NULL',
+		), 'ENGINE=InnoDB');
+		
+		//om_order_item_sn table
+		$this->createTable('tbl_om_order_item_sn', array(
+			'id' => 'pk',
+			'order_item_id' => 'integer',
+			'stock_serial_id' => 'integer',
+			
+			//audit field
+			//'create_time' => 'datetime DEFAULT NULL',
+			//'create_user_id' => 'int(11) DEFAULT NULL',
+			//'update_time' => 'datetime DEFAULT NULL',
+			//'update_user_id' => 'int(11) DEFAULT NULL',
+		), 'ENGINE=InnoDB');
+		
 		//person table
 		//based on Trackstar (Web Application Development with Yii and PHP 2nd ed, by Jeffrey Winesett)
 		$this->createTable('tbl_person', array(
@@ -50,11 +92,11 @@ class m131105_025331_initial_schema extends CDbMigration
 			'fname' => 'string', //e.g. "Swift"
 			'initial' => 'string', //e.g. "TS"
 
-			//additions to basic schema
-			//reference security profile
+			//security profile
+			//TODO refactor to profile_id with fk -> new tbl_profile.id
 			'profile' => 'integer', //security profile
 			
-			//record creation user/time, update user/time and last login time
+			//audit field
 			'last_login_time' => 'datetime DEFAULT NULL',
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
@@ -66,10 +108,6 @@ class m131105_025331_initial_schema extends CDbMigration
 		//based on Trackstar (Web Application Development with Yii and PHP 2nd ed, by Jeffrey Winesett)
 		$this->createTable('tbl_project', array(
 			'id' => 'pk', //not included in source csv
-			'acct1' => 'string', //account number in chart of accounts e.g. 12345678
-			'acct2' => 'string', //account number in chart of accounts e.g. 12345678			
-			'acct3' => 'string', //account number in chart of accounts e.g. 12345678
-			'acct4' => 'string', //account number in chart of accounts e.g. 12345678			'number' => 'integer', //e.g. 1234			
 			'name' => 'string', //e.g. "Aircraft Wireless"
 			'client' => 'string', //e.g. "B&E Submarines"
 			'description' => 'text', //e.g. "Preliminary evaluation and sea trial"
@@ -78,7 +116,25 @@ class m131105_025331_initial_schema extends CDbMigration
 			'milestone' => 'string', //e.g. "Sanction", "Definition", "Design", "Validation", "Pilot", "Production", "Termination"
 			'milestone_date' => 'datetime', //forecast date for completion of milestone
 			
-			//additions to basic schema
+			//TODO consolidate and generalize project master fields
+			//accounts
+			'acct1' => 'string', //account number in chart of accounts e.g. 12345678
+			'acct2' => 'string', //account number in chart of accounts e.g. 12345678			
+			'acct3' => 'string', //account number in chart of accounts e.g. 12345678
+			'acct4' => 'string', //account number in chart of accounts e.g. 12345678			'number' => 'integer', //e.g. 1234			
+			//ad hoc
+			'user1' => 'string',
+			'user2' => 'string',
+			'user3' => 'string',
+			'user4' => 'string',
+			'user5' => 'string',
+			'user6' => 'string',
+			'user7' => 'string',
+			'user8' => 'string',
+			'user9' => 'string',
+			'user10' => 'string',
+
+			//audit field
 			//record creation user/time and update user/time
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
@@ -104,9 +160,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'version' => 'string', //e.g. 0, 1, 1A...
 			'status' => 'string', //e.g. ACTIVE, DESTROYED...
 
-			//additions to basic schema
-			//validate stock_serial.part_number
-			'part_id' => 'integer',
+			//validated fk reference
+			'part_id' => 'integer', // part_number -> part.id
 			), 'ENGINE=InnoDB');
 		
 		//part and vendor tables
@@ -398,21 +453,21 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PNUSRID' => 'INTEGER DEFAULT 0', 
 			'PNUserLock' => 'TINYINT(1) DEFAULT 0', 
 			
-			//additions to basic schema
-			//validate pv_pn.PNType
-			'type_id' => 'integer', //fk -> pv_type
+			// TODO add part is serialized flag (om currently using PNUser?)
+			//'is_serialized' => 'boolean',
 
-			//validate pv_pn.PNUser9
-			'stock_location_id' => 'integer', //fk -> stock_location
+			//validated fk reference
+			'type_id' => 'integer', //PNType -> pv_type
+			'stock_location_id' => 'integer', //PNUser9 -> stock_location
+			
+			//additional fk reference
+			'requester_id' => 'integer', //PNReqBy -> person
 
-			//validate pv_pn.PNReqBy
-			'requester_id' => 'integer', //fk -> person
-
-			//iteration tracking
+			//iteration
 			'iteration_number' => 'integer',
 			'is_current_iteration' => 'boolean',
 
-			//record creation user/time and update user/time
+			//audit field
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
 			'update_time' => 'datetime',
@@ -596,6 +651,22 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
+		//om_order
+		$this->addForeignKey("fk_order_to_create_user", "tbl_om_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_to_project", "tbl_om_order", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		//TODO add new part_id column for fk to part (pv_pn.id) ???
+		//     how does this work ?!? order.id is fk to part.id ???
+		$this->addForeignKey("fk_order_to_pv_pn", "tbl_om_order", "id", "tbl_pv_pn", "id", "NO ACTION", "NO ACTION");
+		$this->addForeignKey("fk_order_to_update_user", "tbl_om_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		
+		//om_order_item
+		$this->addForeignKey("fk_order_item_to_order", "tbl_om_order_item", "order_id", "tbl_om_order", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_item_to_part", "tbl_om_order_item", "part_id", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+
+		//om_order_item_sn
+		$this->addForeignKey("fk_order_item_sn_to_order_item", "tbl_om_order_item_sn", "order_item_id", "tbl_om_order_item", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_item_sn_to_stock_serial", "tbl_om_order_item_sn", "stock_serial_id", "tbl_stock_serial", "id", "CASCADE", "RESTRICT");
+
 		//project
 		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
@@ -645,12 +716,15 @@ class m131105_025331_initial_schema extends CDbMigration
 	public function down()
 	{
 		//delete table data
-		//using DELETE instead of TRUNCATE (truncateTable will fail due to
-		//foreign key constraints with MySQL 5.5+). Refer to the MySQL 5.1
-		//manual Sec 13.1.34 and MySQL 5.5 manual Sec 5.1.33.
+		//originally used DELETE instead of TRUNCATE, truncateTable fails due
+		//to foreign key constraints with MySQL 5.5+. See MySQL 5.1 manual
+		//Sec 13.1.34 and MySQL 5.5 manual Sec 5.1.33.
 		//e.g $this->delete('tbl_serial_number');
+		//TODO disable fk checks and use TRUNCATE ??? (e.g. clear_tables.sql)
 
 		//drop tables
+		$this->execute("SET foreign_key_checks = 0;");
+
 		$this->dropTable('tbl_issue');
 		$this->dropTable('tbl_project');
 
@@ -687,7 +761,13 @@ class m131105_025331_initial_schema extends CDbMigration
 		
 		$this->dropTable('tbl_stock_location');
 		$this->dropTable('tbl_person');
-	}
+		
+		$this->dropTable('tbl_om_order');
+		$this->dropTable('tbl_om_order_item');
+		$this->dropTable('tbl_om_order_item_sn');
+
+		$this->execute("SET foreign_key_checks = 0;");
+}
 
 	/*
 	// Use safeUp/safeDown to do migration with transaction
