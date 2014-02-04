@@ -16,9 +16,9 @@ echo
 
 echo "Create dbms user and database..."
 # uncomment if maestro user and database exists (otherwise error and script aborts)
-#mysql -uroot -pappleton --show-warnings --verbose -e "DROP USER 'maestro'@'localhost' ;"
+#mysql -uroot -pappleton --show-warnings --verbose -e "DROP USER maestro@localhost ;"
 # not required to drop db, create_db.sql will drop db if exists
-#mysql -uroot -pappleton --show-warnings --verbose -e "DROP DATABASE `maestro` ;"
+#mysql -uroot -pappleton --show-warnings --verbose -e "DROP DATABASE maestro ;"
 mysql -uroot -pappleton --show-warnings --verbose < ./create_db.sql
 
 echo "Migrate database schema..."
