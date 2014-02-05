@@ -10,10 +10,9 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'List All Orders', 'url'=>array('index')),
 	array('label'=>'Create New Order', 'url'=>array('create')),	
-	array('label'=>'Update This Order', 'url'=>array('update', 'id'=>$model->id),
-	//array('label'=>'Add An Order Item', 'url'=>Yii::app()->createUrl("OmOrderItem/createItemToOrder", array("order_id"=>$model->id))),
-	array('label'=>'Delete This Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	//array('label'=>'Manage This Order', 'url'=>array('admin')
+	array('label'=>'Update This Order', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete This Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this order?')),
+	array('label'=>'Manage This Order', 'url'=>array('admin'),
 	),
 );
 ?>
@@ -41,6 +40,10 @@ $this->menu=array(
 		'name',
 		'type',
 		'status',
+		array(
+			'label'=>'Original Parts List',
+			'value'=>$model->partslist->PNTitle,
+		),
 	),
 )); ?>
 
@@ -99,62 +102,30 @@ $this->menu=array(
 <h2>Order Items</h2>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider' => $model->childs($model->id),
+	'dataProvider' => $dataProvider,
+	'filter' => $oimodel,
     'id' => 'detail_childs_id',
-    'showTableOnEmpty' => false,
+    //'showTableOnEmpty' => false,
     'emptyText' => 'This Order has no Order Items.',
 	'columns' => array(
         array(
-			'name'=>'Part Number',
+			'name'=>'part_id',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
 			'value'=>'CHtml::encode($data->part->PNPartNumber)',
 		),
         array(
-			'name'=>'Serialized',
-			'type'=>'raw',
-            'htmlOptions'=>array('style'=>'width: 10px; text-align: center;'),
-			'value'=>'CHtml::encode($data->part->PNUser1)',
-		),
-        array(
-			'name'=>'Desired Qty',
+			'name'=>'desired_qty',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 10px; text-align: center;'),
 			'value'=>'CHtml::encode($data->desired_qty)',
 		),
         array(
-			'name'=>'Shipped Qty',
+			'name'=>'shipped_qty',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 10px; text-align: center;'),
 			'value'=>'CHtml::encode($data->shipped_qty)',
 		),
-        array(
-            'class'=>'CButtonColumn',
-            'template' => '{editserial}{edit}      {delete}',
-			'buttons'=>array
-			(
-				'editserial' => array
-				(
-					'label'=>'Edit Serialized Order Item',
-					'visible'=>'!empty($data->part->PNUser1)',
-					'imageUrl'=>Yii::app()->request->baseUrl.'/images/pencil.png',
-					'url'=>'Yii::app()->createUrl("OmOrderItem/updateSerialized", array("id"=>$data->id))',
-				),
-				'edit' => array
-				(
-					'label'=>'Edit Order Item',
-					'visible'=>'empty($data->part->PNUser1)',
-					'imageUrl'=>Yii::app()->request->baseUrl.'/images/pencil.png',
-					'url'=>'Yii::app()->createUrl("OmOrderItem/update", array("id"=>$data->id))',
-				),
-				'delete' => array
-				(
-					'label'=>'Remove Order Item',
-					'imageUrl'=>Yii::app()->request->baseUrl.'/images/cross.png',
-					'url'=>'Yii::app()->createUrl("OmOrderItem/delete", array("id"=>$data->id))',
-				),
-			),
-        ),
 	),
 ));
 

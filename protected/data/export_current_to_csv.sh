@@ -2,8 +2,8 @@
 #
 # Create CSV-format demo data from source files (mdb, xlsx...)
 # - gets files from maestro/remotesfs, writes csv to maestro/csv
-# - file paths HARCODED
-# - REQUIRES /home/samba/maestro/remotefs, maestro/csv/, and maestro/csv.old/
+# - file paths HARDCODED
+# - REQUIRES /home/samba/maestro/remotefs/, maestro/csv/, and maestro/csv.old/
 #
 
 echo "Exporting current data to CSV..."
@@ -49,7 +49,7 @@ echo
 # comma-delimited csv will have Unix EOL (output from mdb-export on Unix system)
 # prevent access to P&V database during export or export may not be consistent
 # Export date format: yyyy-mm-dd
-echo "Parts - exporting to CSV...."
+echo "Parts&Vendors - exporting to CSV...."
 /usr/local/bin/mdb-export -D "%F" /home/samba/maestro/remotefs/pv.mdb AL    > /home/samba/maestro/csv/pv_al.csv
 /usr/local/bin/mdb-export -D "%F" /home/samba/maestro/remotefs/pv.mdb CNV   > /home/samba/maestro/csv/pv_cnv.csv
 /usr/local/bin/mdb-export -D "%F" /home/samba/maestro/remotefs/pv.mdb COST  > /home/samba/maestro/csv/pv_cost.csv

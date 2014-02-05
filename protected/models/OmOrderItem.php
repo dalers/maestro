@@ -14,6 +14,10 @@
  */
 class OmOrderItem extends CActiveRecord
 {
+	public $serial_numbers = "";
+	public $validSN  = array();
+	public $validSNID = array();
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -32,6 +36,7 @@ class OmOrderItem extends CActiveRecord
 		return array(
 			array('order_id, part_id', 'required'),
 			array('order_id, part_id, desired_qty, shipped_qty', 'numerical', 'integerOnly'=>true),
+			array('serial_numbers', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, order_id, part_id', 'safe', 'on'=>'search'),
@@ -62,6 +67,7 @@ class OmOrderItem extends CActiveRecord
 			'part_id' => 'Part Number',
 			'desired_qty' => 'Desired Qty',
 			'shipped_qty' => 'Shipped Qty',
+			'serial_numbers' => 'Enter Serial Numbers (Comma Separated)',
 		);
 	}
 
@@ -94,6 +100,19 @@ class OmOrderItem extends CActiveRecord
 		));
 	}
 
+	public function searchWithOrderId($order_id)
+	{
+		$criteria=new CDbCriteria;
+		$criteria->compare('id',$this->id);
+		$criteria->compare('order_id',$order_id);
+		$criteria->compare('part_id',$this->part_id);
+		$criteria->compare('desired_qty',$this->desired_qty);
+		$criteria->compare('shipped_qty',$this->shipped_qty);
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -121,5 +140,106 @@ class OmOrderItem extends CActiveRecord
 				'defaultOrder'=>'stock_serial_id ASC',
 			),
 		));
+	}
+	
+	public function beforeSave()
+	{
+		$invalidSN  = array();
+		if(parent::beforeSave())
+		{
+			if (isset($this->serial_numbers))
+			{
+				$tokens = explode(",", $this->serial_numbers);
+				foreach ($tokens as $sn)
+				{
+					// Lookup SN
+					$sn = trim($sn);
+					$sn_id = $this->isValidSN($sn,$this->part_id);
+					if ($sn_id!==0)
+					{
+						$this->validSN[] = $sn;
+						$this->validSNID[] = $sn_id;
+					}
+					else
+					{
+						$invalidSN[] = $sn;
+					}
+				}
+				
+				if ( count($this->validSN) > 0 )
+				{
+					$successStr = "";
+					$i = 0;
+					foreach($this->validSN as $v)
+					{
+						$successStr .= $v;
+						if(++$i !== count($this->validSN))
+						{
+							$successStr .= ",";
+						}
+					}
+					Yii::app()->user->setFlash('success', "Successfully saved: " . $successStr);
+				}
+
+				if ( count($invalidSN) > 0 )
+				{
+					$failStr = "";
+					$i = 0;
+					foreach($invalidSN as $iv)
+					{
+						$failStr .= $iv;
+						if(++$i !== count($invalidSN))
+						{
+							$failStr .= ",";
+						}
+					}
+					Yii::app()->user->setFlash('notice', "The following Serial Numbers were not valid: " . $failStr);
+					$invalidSN  = array();
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+
+		foreach ($this->validSNID as $snid)
+		{
+			$this->createOrderItemSN($snid);
+		}
+		$validSN  = array();
+		return true;
+	}
+
+	private function isValidSN($sn, $partId)
+	{
+		$command= Yii::app()->db->createCommand(
+			"SELECT ss.id AS id FROM maestro.tbl_stock_serial ss, maestro.tbl_pv_pn pn WHERE ss.part_number = pn.PNPartNumber AND ss.serial_number=:sn AND pn.id=:part_id ORDER BY id"
+		);
+		$command->bindValue(":sn", $sn, PDO::PARAM_STR);
+		$command->bindValue(":part_id", $partId, PDO::PARAM_INT);
+		$list = $command->queryAll();
+	
+		$ssid=0;
+
+		// Unique result is not ensured.  Return the last result.
+		foreach($list as $ss)
+		{
+			$ssid=$ss['id'];
+		}
+	
+		return $ssid;
+	}
+	
+	private function createOrderItemSN($sn_id)
+	{
+		$sql = "INSERT INTO tbl_om_order_item_sn (order_item_id, stock_serial_id) values (:order_item_id, :stock_serial_id)";
+
+		$parameters = array(":order_item_id"=>$this->id, ":stock_serial_id"=>$sn_id );
+
+		Yii::app()->db->createCommand($sql)->execute($parameters);
 	}
 }

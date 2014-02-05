@@ -46,7 +46,7 @@ dos2unix ./csv/pv_un.csv
 echo
 
 echo " clearing database..."
-# assuming clean database desired on windows as using script stand-alone
+# assuming clean database desired on windows (script will be run separately, not from load_current.sh)
 /usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
 echo
 
@@ -54,6 +54,5 @@ echo "Loading CSV files..."
 mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_current_win.sql
 echo
 
-echo "Done!"
-echo
+
 exit 0

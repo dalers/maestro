@@ -90,6 +90,21 @@ class OmOrderItemSn extends CActiveRecord
 		));
 	}
 
+	public function searchWithOrderItemId($order_item_id)
+	{
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('order_item_id',$order_item_id);
+		$criteria->compare('stock_serial_id',$this->stock_serial_id);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -99,5 +114,45 @@ class OmOrderItemSn extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+		
+		// Update associated Order Item Shipped Qty if associated Part is serialized
+		if (!empty($this->orderItem->part->PNUser1))
+		{
+			$criteria=new CDbCriteria;
+			$criteria->compare('order_item_id',$this->order_item_id);
+			$models = $this->findAll($criteria);
+
+			$sns = count($models);
+			
+			$this->orderItem->shipped_qty = $sns;
+			$this->orderItem->save();
+		}
+
+		return true;
+	}
+	
+	public function afterDelete()
+	{
+		parent::afterDelete();
+
+		// Update associated Order Item Shipped Qty if associated Part is serialized
+		if (!empty($this->orderItem->part->PNUser1))
+		{
+			$criteria=new CDbCriteria;
+			$criteria->compare('order_item_id',$this->order_item_id);
+			$models = $this->findAll($criteria);
+
+			$sns = count($models);
+			
+			$this->orderItem->shipped_qty = $sns;
+			$this->orderItem->save();
+		}
+
+		return true;
 	}
 }

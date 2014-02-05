@@ -5,14 +5,17 @@
 -- MAESTRO USER and DATABASE PASSWORDS IN PLAIN TEXT
 --
 
--- create user
--- if executing again, uncomment DROP USER and comment CREATE USER
+-- create user if necessary
+-- if user already exists, uncomment DROP USER and comment CREATE USER
 --   if user does not exist, DROP USER will fail and script will be aborted. If
 --   user does exist, CREATE USER will fail and script will be aborted (MySQL
 --   5.6.5+ supports "DROP USER IF EXISTS...").
 -- DROP USER 'maestro'@'localhost' ;
 CREATE USER 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer';
 GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+--
+-- create database (drop existing first)
+--
 
 --
 -- create database (drop existing first)
