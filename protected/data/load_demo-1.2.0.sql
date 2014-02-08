@@ -1,7 +1,7 @@
 -- load current database
 -- corresponds to maestro-scc-files-1.2.0.tar.gz
 --
--- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo.sql
+-- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < ./load_demo-1.2.0.sql
 --
 
 use maestro;
