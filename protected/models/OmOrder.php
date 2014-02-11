@@ -217,7 +217,7 @@ class OmOrder extends CActiveRecord
 
 	private function fetchPartsFromPartsList($id)
 	{
-		$list= Yii::app()->db->createCommand('SELECT pl.PLPartID AS PLPartID, pn.PNQty AS PNQty FROM tbl_pv_pl pl, tbl_pv_pn pn WHERE pl.PLPartID = pn.id AND PLListID=:plid')->bindValue('plid',$id)->queryAll();
+		$list= Yii::app()->db->createCommand('SELECT pl.PLPartID AS PLPartID, pl.PLQty AS PNQty FROM tbl_pv_pl pl, tbl_pv_pn pn WHERE pl.PLPartID = pn.id AND pl.PLListID=:plid')->bindValue('plid',$id)->queryAll();
 	
 		$rs=array();
 	
