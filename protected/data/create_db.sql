@@ -2,7 +2,7 @@
 --
 -- > mysql -uroot -p --show-warnings --verbose < ./create_db.sql
 --
--- MAESTRO USER and DATABASE PASSWORDS IN PLAIN TEXT
+-- USER and DATABASE PASSWORDS IN PLAIN TEXT
 --
 
 -- create user if necessary

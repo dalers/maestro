@@ -1,27 +1,35 @@
 #!/bin/sh
 #
 # Setup Maestro reference server environment
-# - DATABASE SERVER ROOT PASSWORD IN PLAIN TEXT
 #
 
 echo "Ensure shell scripts are executable..."
-chmod a+x /usr/local/www/maestro/protected/data/*.sh
-chmod a+x /usr/local/www/maestro/protected/yiic
+chmod a+x ./*.sh
+chmod a+x ../yiic
 echo
 
-echo "Set permissions on Yii runtime directories..."
+echo "Ensure web server has write permission to Yii runtime directories..."
 chmod a+rw ../../assets/
 chmod a+rw ../runtime/
 echo
 
 echo "Create dbms user and database..."
-# uncomment if maestro user and database exists (otherwise error and script aborts)
+# create_db.sql creates epd2 user and database 
+# uncomment if user exists (create_db.sql will drop db if needed)
 #mysql -uroot -p --show-warnings --verbose -e "DROP USER maestro@localhost ;"
 # not required to drop db, create_db.sql will drop db if exists
 #mysql -uroot -p --show-warnings --verbose -e "DROP DATABASE maestro ;"
+
 mysql -uroot -p --show-warnings --verbose < ./create_db.sql
 
 echo "Migrate database schema..."
 ../yiic migrate
+
+# uncomment to create maestro CIFS file share structure
+#rm -r /home/samba/maestro/*
+#mkdir /home/samba/maestro/csv/
+#mkdir /home/samba/maestro/csv.old/
+#mkdir /home/samba/maestro/work/
+#mkdir /home/samba/maestro/remotefs/
 
 exit 0

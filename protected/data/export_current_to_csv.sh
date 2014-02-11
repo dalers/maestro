@@ -1,55 +1,49 @@
 #!/bin/sh
 #
-# Create CSV-format demo data from source files (mdb, xlsx...)
-# - gets files from maestro/remotesfs, writes csv to maestro/csv
+# Create current csv from source files (mdb, xlsx...)
+# - copies master data spreadsheet csv from maestro/remotesfs to maestro/csv
+# - programatically exports csv from sources to epd2/csv
 # - file paths HARDCODED
-# - REQUIRES /home/samba/maestro/remotefs/, maestro/csv/, and maestro/csv.old/
+# - REQUIRES /home/samba/maestro/remotefs/, maestro/csv/, maestro/csv.old/
 #
 
-echo "Exporting current data to CSV..."
+echo "export_current_to_csv: person spreadsheet - NOT exported"
 echo
-
-# Person spreadsheet
-# network ID, email address and nick (Parts&Vendors ReqBy)
-# csv file will have Windows EOL (SaveAs from Excel to CIFS share)
-echo "Persons - NOT EXPORTED. Manually Save/As from person.xlsx"
-echo "  in same directory before running this script."
-cp /home/samba/maestro/remotefs/person.csv /home/samba/maestro/csv/
+echo "  Manually Save/As from person.xlsx to X:\remotefs\person.csv"
+echo "  before running this script."
 echo
+cp -af /home/samba/maestro/remotefs/person.csv /home/samba/maestro/csv/
 
-# Issue spreadsheet
-# csv file will have Windows EOL (SaveAs from Excel to Maestro Windows/CIFS share)
-echo "Issues - NOT EXPORTED. Manually SaveAs from Excel issue.xlsx"
-echo "  in same directory before running this script."
-cp /home/samba/maestro/remotefs/issue.csv /home/samba/maestro/csv/
+echo "export_current_to_csv: issue spreadsheet - NOT exported"
 echo
+echo "  Manually Save/As from issue.xlsx to X:\remotefs\issue.csv"
+echo "  before running this script."
+echo
+cp -af /home/samba/maestro/remotefs/issue.csv /home/samba/maestro/csv/
 
-# Project spreadsheet
-# csv file will have Windows EOL (SaveAs from Excel to Maestro Windows/CIFS share)
-echo "Projects - NOT EXPORTED. Manually SaveAs from Excel project.xlsx"
-echo "  in same directory before running this script."
+echo "export_current_to_csv: project spreadsheet - NOT exported"
+echo
+echo "  Manually Save/As from project.xlsx to X:\remotefs\project.csv"
+echo "  before running this script."
+echo
 cp /home/samba/maestro/remotefs/project.csv /home/samba/maestro/csv/
-echo
 
-# Stock location spreadsheet
-# csv file will have Windows EOL (SaveAs from Excel to Maestro Windows/CIFS share)
-echo "Stock locations - NOT EXPORTED. Manually Save/As from Excel stock_location.xlsx"
-echo "  in same directory before running this script."
+echo "export_current_to_csv: stock location spreadsheet - NOT exported"
+echo
+echo "  Manually Save/As from stock_location.xlsx to X:\remotefs\stock_location.csv"
+echo "  before running this script."
+echo
 cp /home/samba/maestro/remotefs/stock_location.csv /home/samba/maestro/csv/
-echo
 
-# Serial number spreadsheet
-# csv file will have Windows EOL (SaveAs from Excel to Maestro Windows/CIFS share)
-echo "Serial numbers - NOT EXPORTED. Export manually from Excel serial_number.xlsx"
-echo "  in same directory before running this script."
+echo "export_current_to_csv: serial number spreadsheet - NOT exported"
+echo
+echo "  Manually Save/As from stock_serial.xlsx to X:\remotefs\stock_serial.csv"
+echo "  before running this script."
+echo
 cp /home/samba/maestro/remotefs/stock_serial.csv /home/samba/maestro/csv/
-echo
 
-# Parts&Vendors
-# comma-delimited csv will have Unix EOL (output from mdb-export on Unix system)
-# prevent access to P&V database during export or export may not be consistent
-# Export date format: yyyy-mm-dd
-echo "Parts&Vendors - exporting to CSV...."
+echo "export_current_to_csv: Parts (Parts&Vendors) - exporting...."
+echo
 /usr/local/bin/mdb-export -D "%F" /home/samba/maestro/remotefs/pv.mdb AL    > /home/samba/maestro/csv/pv_al.csv
 /usr/local/bin/mdb-export -D "%F" /home/samba/maestro/remotefs/pv.mdb CNV   > /home/samba/maestro/csv/pv_cnv.csv
 /usr/local/bin/mdb-export -D "%F" /home/samba/maestro/remotefs/pv.mdb COST  > /home/samba/maestro/csv/pv_cost.csv

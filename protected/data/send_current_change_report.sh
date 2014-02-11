@@ -3,29 +3,31 @@
 # csv/pv_pn.csv and comparing to csv.old/pv_pn.csv
 # - REQUIRES ssmtp
 # - HARDCODED file paths (assumes Maestro reference server)
-# - WRITES to maestro smb file share
+# - WRITES to maestro CIFS file share
 #
 
-# FIND DIFFERENCES IN PARTS
-# create index file for part changes in current with extracted basic part details
+#
+# review current data
+#
+echo "send_current_change_report: extract details from 'current' csv and sort"
 python /usr/local/www/maestro/protected/data/pndetails.py /home/samba/maestro/csv/pv_pn.csv /home/samba/maestro/csv/pv_pn_details.csv
-# TODO bootstrap initial iteration (csv.old/pv_pn_details.csv will exist for 2nd and following iterations)
-python /usr/local/www/maestro/protected/data/pndetails.py /usr/home/samba/maestro/csv.old/pv_pn.csv /usr/home/samba/maestro/csv.old/pv_pn_details.csv
-
-# sort extracted details and generate new and changed (modified/deleted) lists
 sort /home/samba/maestro/csv/pv_pn_details.csv  > /home/samba/maestro/csv/pv_pn_details_sort.csv
-# TODO bootstrap initial iteration (for 2nd iteration, csv/pv_pn_details_sort.csv -> csv.old/pv_pn_details_sort.csv)
-sort /usr/home/samba/maestro/csv.old/pv_pn_details.csv  > /usr/home/samba/maestro/csv.old/pv_pn_details_sort.csv
+echo
 
-# compare current and previous part details to create new and changed/deleted lists
+echo "send_current_change_report: compare current to previous details and create new and changed/deleted lists"
 comm -23 /home/samba/maestro/csv/pv_pn_details_sort.csv /home/samba/maestro/csv.old/pv_pn_details_sort.csv > /home/samba/maestro/work/pv_pn_new.txt
 comm -13 /home/samba/maestro/csv/pv_pn_details_sort.csv /home/samba/maestro/csv.old/pv_pn_details_sort.csv > /home/samba/maestro/work/pv_pn_changed.txt
-
-# FIND DIFFERENCES IN FILES
+#echo "send_current_change_report: find file differences..."
 # rsync log file saved to maestro/work/rsync.log and used as-is for changes report
+#echo
 
-# SHOW RESULTS
-echo ""
+#
+# show review results
+#
+
+echo "send_current_change_report: show results..."
+echo
+
 echo "New PNs"
 echo "======================="
 cat /home/samba/maestro/work/pv_pn_new.txt
@@ -41,32 +43,48 @@ echo "======================"
 cat /home/samba/maestro/work/rsync.log
 echo
 
-# BUILD EMAIL REPORT
-# report header
-echo "From: maestro@scc.local" > /usr/home/samba/maestro/work/current_changereport.txt
-echo "Subject: Maestro Current Data Change Report" >> /usr/home/samba/maestro/work/current_changereport.txt
-echo "" >>  /usr/home/samba/maestro/work/current_changereport.txt
-echo "Do NOT reply" >> /usr/home/samba/maestro/work/current_changereport.txt
-date >> /usr/home/samba/maestro/work/current_changereport.txt
-echo "" >> /usr/home/samba/maestro/work/current_changereport.txt
+#
+# build results email
+#
 
-echo "New Part Numbers" >> /usr/home/samba/maestro/work/current_changereport.txt
-echo "=======================" >> /usr/home/samba/maestro/work/current_changereport.txt
-cat /usr/home/samba/maestro/work/pv_pn_new.txt >> /usr/home/samba/maestro/work/current_changereport.txt
-echo "" >> /usr/home/samba/maestro/work/current_changereport.txt
+echo "send_current_change_report: build email report..."
+# wrapper fields
+echo "From: maestro@firefly.scc.local" > /home/samba/maestro/work/current_changereport.txt
+echo "Subject: Maestro Current Data Change Report" >> /home/samba/maestro/work/current_changereport.txt
 
-echo "Modified and Deleted PNs" >> /usr/home/samba/maestro/work/current_changereport.txt
-echo "=======================" >> /usr/home/samba/maestro/work/current_changereport.txt
-cat /usr/home/samba/maestro/work/pv_pn_changed.txt >> /usr/home/samba/maestro/work/current_changereport.txt
-echo "" >> /usr/home/samba/maestro/work/current_changereport.txt
+# heading
+echo "" >>  /home/samba/maestro/work/current_changereport.txt
+echo "Do NOT reply" >> /home/samba/maestro/work/current_changereport.txt
+date >> /home/samba/maestro/work/current_changereport.txt
+echo "" >> /home/samba/maestro/work/current_changereport.txt
 
-echo "New and Modified Files" >> /usr/home/samba/maestro/work/current_changereport.txt
-echo "=====================" >> /usr/home/samba/maestro/work/current_changereport.txt
-cat /usr/home/samba/maestro/work/rsync.log >> /usr/home/samba/maestro/work/current_changereport.txt
-echo "" >> /usr/home/samba/maestro/work/current_changereport.txt
+# body
+echo "New Part Numbers" >> /home/samba/maestro/work/current_changereport.txt
+echo "=======================" >> /home/samba/maestro/work/current_changereport.txt
+cat /home/samba/maestro/work/pv_pn_new.txt >> /home/samba/maestro/work/current_changereport.txt
+echo "" >> /home/samba/maestro/work/current_changereport.txt
 
-# SEND EMAIL
-# ssmtp does not support aliases, each user must be listed explicitly
-/usr/local/sbin/ssmtp root < /usr/home/samba/maestro/work/current_changereport.txt
+echo "Modified and Deleted PNs" >> /home/samba/maestro/work/current_changereport.txt
+echo "=======================" >> /home/samba/maestro/work/current_changereport.txt
+cat /home/samba/maestro/work/pv_pn_changed.txt >> /home/samba/maestro/work/current_changereport.txt
+echo "" >> /home/samba/maestro/work/current_changereport.txt
+
+echo "New and Modified Files" >> /home/samba/maestro/work/current_changereport.txt
+echo "=====================" >> /home/samba/maestro/work/current_changereport.txt
+cat /home/samba/maestro/work/rsync.log >> /home/samba/maestro/work/current_changereport.txt
+echo "" >> /home/samba/maestro/work/current_changereport.txt
+
+#
+# send email
+# ssmtp does not support aliases, explicitly list each intended recipient
+#   - or email a group address (and administer the group separately)
+
+echo "send_current_change_report: send email report..."
+
+# Testing (uncomment to use, and comment "Production"
+/usr/local/sbin/ssmtp root < /home/samba/maestro/work/current_changereport.txt
+
+# Production (uncomment to use, and comment "Testing"
+#/usr/local/sbin/ssmtp tswift@scc.local fmason@scc.local mdelazes@scc.local < /home/samba/maestro/work/current_changereport.txt
 
 exit 0
