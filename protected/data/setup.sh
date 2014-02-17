@@ -14,7 +14,7 @@ chmod a+rw ../runtime/
 echo
 
 echo "Create dbms user and database..."
-# create_db.sql creates epd2 user and database 
+# create_db.sql creates maestro user and database 
 # uncomment if user exists (create_db.sql will drop db if needed)
 #mysql -uroot -p --show-warnings --verbose -e "DROP USER maestro@localhost ;"
 # not required to drop db, create_db.sql will drop db if exists

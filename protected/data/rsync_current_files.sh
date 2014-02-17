@@ -28,26 +28,20 @@
 #    \-- work/                    work to create PLM Change Report
 #
 
-echo
-echo "rsync_current_files..."
-
 #
 # X:\remotefs
 #
 
-echo "rsync_current_files: X:\remotefs\" > /tmp/epd2-rsync.log
-# note this has created a new log file
+echo "rsync_current_files: X:\remotefs\vault\ " > /tmp/maestro-rsync.log
+# note this creates a new log file
 rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault > /dev/null
 
 #
-# copy rsync log file to epd2 file share
+# copy rsync log file to maestro file share
 #
 echo "rsync_current_files: copy rsync log file"
-cp -a /tmp/epd2-rsync.log /home/samba/epd2/work/rsync.log
-rm /tmp/epd2-rsync.log
-echo
-
-exit 0
+cp -a /tmp/maestro-rsync.log /home/samba/maestro/work/rsync.log
+rm /tmp/maestro-rsync.log
 echo
 
 exit 0

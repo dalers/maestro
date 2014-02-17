@@ -2,7 +2,7 @@
 #
 # Create current csv from source files (mdb, xlsx...)
 # - copies master data spreadsheet csv from maestro/remotesfs to maestro/csv
-# - programatically exports csv from sources to epd2/csv
+# - programatically exports csv from sources to maestro/csv
 # - file paths HARDCODED
 # - REQUIRES /home/samba/maestro/remotefs/, maestro/csv/, maestro/csv.old/
 #

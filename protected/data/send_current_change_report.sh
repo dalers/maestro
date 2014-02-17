@@ -82,7 +82,7 @@ echo "" >> /home/samba/maestro/work/current_changereport.txt
 echo "send_current_change_report: send email report..."
 
 # Testing (uncomment to use, and comment "Production"
-/usr/local/sbin/ssmtp root < /home/samba/maestro/work/current_changereport.txt
+#/usr/local/sbin/ssmtp root < /home/samba/maestro/work/current_changereport.txt
 
 # Production (uncomment to use, and comment "Testing"
 #/usr/local/sbin/ssmtp tswift@scc.local fmason@scc.local mdelazes@scc.local < /home/samba/maestro/work/current_changereport.txt

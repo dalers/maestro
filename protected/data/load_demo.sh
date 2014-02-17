@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Load demo SCC demo/test data into Maestro
+# Load SCC Demo/Test data into Maestro
 #
 # EXECUTE from within dir containing ./maestro-scc-files-1.2.0.tar.gz
 # MAESTRO DATABASE PASSWORD IN PLAIN TEXT
@@ -11,7 +11,18 @@
 # - HARDCODED current-data file (maestro-scc-files-x.y.z.tar.gz)
 # - HARDCODED file paths (assumes Maestro reference server)
 #
-# SCC Demo/Test data tar.gz structure
+# Description
+# ------------------------------------------
+# Steps through successive iterations of data as if processed in real
+# time (e.g. scheduled nightly using cron). For each iteration:
+#
+#   * restores master data spreaseheets
+#   * restore Parts&Vendors(TM) database
+#   * restore current files
+#   * run get_current_and_review.sh (normally run nightly by cron)
+#   * pause (operator must press [Enter] to continue)
+#
+# SCC Demo/Test tar.gz structure
 # ------------------------
 #    maestro-scc-files/
 #    +-- pv-1.mdb                 iteration 1 Parts&Vendors(TM) database
@@ -64,12 +75,32 @@
 #    \-- work/                    work to create PLM Change Report
 #
 
+if test $# = 1
+then
+	infilename=$1
+    version="ver"
+    echo "load_demo: using data file: '$infilename' "
+    echo "load_demo: using filenames: '$version' "
+elif test $# = 2
+then
+	infilename=$1
+    version=$2
+    echo "load_demo: using data file: '$infilename' "
+    echo "load_demo: using filenames: '$version' "
+else
+	echo
+    echo "  Usage $0: filename.tar.gz [ver|nover]" 1>&2
+	echo
+	exit 1
+fi
+
 echo
-echo "Startup..."
+echo "======================================="
+echo "Setup"
 echo "======================================="
 echo
 
-echo "Destroy and re-create smb file share directories..."
+echo "load_demo: delete and re-create maestro CIFS file share structure"
 rm -r /usr/home/samba/maestro/*
 # maestro vault
 mkdir /home/samba/maestro/vault/
@@ -86,269 +117,243 @@ mkdir /home/samba/maestro/csv.old/
 mkdir /home/samba/maestro/work/
 echo
 
-echo "Extract ./maestro-scc-files/..."
+echo "load_demo: ls /home/samba/maestro/*"
+ls -ld /home/samba/maestro/*
+echo
+
+echo "load_demo: extract ./maestro-scc-files/..."
 # use -a when copying files to preserve file timestamps
-tar -xzf ./maestro-scc-files-1.2.0.tar.gz 
+#tar -xzf ./maestro-scc-files-1.2.0.tar.gz 
+tar -xzf ./$1 
+echo "load_demo: ls ./maestro-scc-files/*"
 ls -l maestro-scc-files/
 echo
 
-echo "Copy README.txt file to smb file share..."
+echo "load_demo: copy README.txt file to maestro CIFS file share..."
 cp -a ./maestro-scc-files/README.txt /usr/home/samba/maestro/
 # ensure README.txt uses Windows-type EOL
 #flip -m /usr/home/samba/maestro/remotefs/README.txt
 echo
 
-echo "Iteration 1..."
+echo "======================================="
+echo "Iteration 1 (with csv.old/ bootstrap)"
 echo "======================================="
 echo
 
-# don't copy csv/ to csv.old/ on first iteration (nothing to copy yet!)
-# see hack when exporting 'current' to CSV
-#echo "Copying csv/* to csv.old/* ..."
-#cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
-#echo
-
-echo "Restore 'current' master data spreadsheets (with csv) to (simulated) remote file share..."
+echo "load_demo: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/excel/*.xlsx /home/samba/maestro/remotefs/
-cp -a ./maestro-scc-files/excel/*.csv /home/samba/maestro/remotefs/
+cp -a ./maestro-scc-files/excel/*.csv  /home/samba/maestro/remotefs/
 echo
 
-echo "Restore 'current' Parts&Vendors(TM) database to (simulated) remote file share..."
+echo "load_demo: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/pv-1.mdb /home/samba/maestro/remotefs/pv.mdb
 echo
 
-echo "Restore 'current' data files to (simulated) remote file share..."
-cp -a ./maestro-scc-files/vault-1/* /home/samba/maestro/remotefs/vault/
+echo "load_demo: bootstrap csv.old/ with empty pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv"
+/usr/local/bin/mdb-export -D "%F" /home/samba/maestro/remotefs/pv.mdb PN    > /tmp/pv_pn.csv
+head -n 1 /tmp/pv_pn.csv > /home/samba/maestro/csv/pv_pn.csv ; rm /tmp/pv_pn.csv
+python /usr/local/www/maestro/protected/data/pndetails.py /home/samba/maestro/csv/pv_pn.csv /home/samba/maestro/csv/pv_pn_details.csv
+sort /home/samba/maestro/csv/pv_pn_details.csv  > /home/samba/maestro/csv/pv_pn_details_sort.csv
+echo
+
+# copy either vault-x/ or vault-x-norev/
+if test $version = "ver"
+then
+	echo "load_demo: restore 'current' files (versioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-1/* /home/samba/maestro/remotefs/vault/
+elif test $version = "nover"
+then
+	echo "load_demo: restore 'current' files (unversioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-1-nover/* /home/samba/maestro/remotefs/vault/
+else
+	echo "load_demo: invalid ver|nover"
+	echo
+	exit 1
+fi
+
 chown -R www:www /usr/home/samba/maestro/remotefs/
-chmod -R a+rw /usr/home/samba/maestro/remotefs/
+chmod -R a+rw    /usr/home/samba/maestro/remotefs/
 echo
 
-echo "Export 'current' to CSV..." ; echo
-/usr/local/www/maestro/protected/data/export_current_to_csv.sh
-# hack necessary csv.old/ files to bootstrap iteration 1
-head -n 1 /home/samba/maestro/csv/pv_pn.csv > /home/samba/maestro/csv.old/pv_pn.csv
+echo "load_demo: get_current_and_review.sh"
+/usr/local/www/maestro/protected/data/get_current_and_review.sh
 echo
 
-echo "Rsync (simulated) remote file share to Maestro vault..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault > /dev/null
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync.log
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync-1.log
-rm /tmp/maestro-rsync.log
+read -t 60 -p "load_demo: iteratation 1 complete - Press [Enter] to continue..." key
 echo
 
-echo "Report changes in 'current' data (from previous 'current' data)..."
-/usr/local/www/maestro/protected/data/send_current_change_report.sh
-echo
-
-echo "Load 'current' from CSV..."
-# first clear database tables, currently each iteration is complete current data into clean db
-# TODO support smart loading of iteration changes
-#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-# now load current from csv
-/usr/local/www/maestro/protected/data/load_current_from_csv.sh
-echo
-
-echo "Iteration 2..."
+echo "======================================="
+echo "Iteration 2"
 echo "======================================="
 echo
 
-echo "Copying csv/* to csv.old/* ..."
-cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
-echo
-
-echo "Restore 'current' master data spreadsheets (with csv) to (simulated) remote file share..."
+echo "load_demo: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/excel/*.xlsx /home/samba/maestro/remotefs/
 cp -a ./maestro-scc-files/excel/*.csv /home/samba/maestro/remotefs/
 echo
 
-echo "Restore 'current' Parts&Vendors(TM) database to (simulated) remote file share..."
+echo "load_demo: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/pv-2.mdb /home/samba/maestro/remotefs/pv.mdb
 echo
 
-echo "Restore 'current' data files to (simulated) remote file share..."
-cp -a ./maestro-scc-files/vault-2/* /home/samba/maestro/remotefs/vault/
+# copy either vault-x/ or vault-x-norev/
+if test $version = "ver"
+then
+	echo "load_demo: restore 'current' files (versioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-2/* /home/samba/maestro/remotefs/vault/
+elif test $version = "nover"
+then
+	echo "load_demo: restore 'current' files (unversioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-2-nover/* /home/samba/maestro/remotefs/vault/
+else
+	echo "load_demo: invalid ver|nover"
+	echo
+	exit 1
+fi
+
 chown -R www:www /usr/home/samba/maestro/remotefs/
-chmod -R a+rw /usr/home/samba/maestro/remotefs/
+chmod -R a+rw    /usr/home/samba/maestro/remotefs/
 echo
 
-echo "Export 'current' to CSV..." ; echo
-/usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo "load_demo: get_current_and_review.sh"
+/usr/local/www/maestro/protected/data/get_current_and_review.sh
 echo
 
-echo "Rsync (simulated) remote file share to Maestro vault..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault > /dev/null
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync.log
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync-2.log
-rm /tmp/maestro-rsync.log
+read -t 60 -p "load_demo: iteratation 2 complete - Press [Enter] to continue..." key
 echo
 
-echo "Report changes in 'current' data (from previous 'current' data)..."
-/usr/local/www/maestro/protected/data/send_current_change_report.sh
-echo
-
-echo "Load 'current' from CSV..."
-# first clear database tables, currently each iteration is complete current data into clean db
-# TODO support smart loading of iteration changes
-#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-# now load current from csv
-/usr/local/www/maestro/protected/data/load_current_from_csv.sh
-echo
-
-echo "Iteration 3..."
+echo "======================================="
+echo "Iteration 3"
 echo "======================================="
 echo
 
-echo "Copying csv/* to csv.old/* ..."
-cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
-echo
-
-echo "Restore 'current' master data spreadsheets (with csv) to (simulated) remote file share..."
+echo "load_demo: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/excel/*.xlsx /home/samba/maestro/remotefs/
 cp -a ./maestro-scc-files/excel/*.csv /home/samba/maestro/remotefs/
 echo
 
-echo "Restore 'current' Parts&Vendors(TM) database to (simulated) remote file share..."
+echo "load_demo: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/pv-3.mdb /home/samba/maestro/remotefs/pv.mdb
 echo
 
-echo "Restore 'current' data files to (simulated) remote file share..."
-cp -a ./maestro-scc-files/vault-3/* /home/samba/maestro/remotefs/vault/
+# copy either vault-x/ or vault-x-norev/
+if test $version = "ver"
+then
+	echo "load_demo: restore 'current' files (versioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-3/* /home/samba/maestro/remotefs/vault/
+elif test $version = "nover"
+then
+	echo "load_demo: restore 'current' files (unversioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-3-nover/* /home/samba/maestro/remotefs/vault/
+else
+	echo "load_demo: invalid ver|nover"
+	echo
+	exit 1
+fi
+
 chown -R www:www /usr/home/samba/maestro/remotefs/
-chmod -R a+rw /usr/home/samba/maestro/remotefs/
+chmod -R a+rw    /usr/home/samba/maestro/remotefs/
 echo
 
-echo "Export 'current' to CSV..." ; echo
-/usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo "load_demo: get_current_and_review.sh"
+/usr/local/www/maestro/protected/data/get_current_and_review.sh
 echo
 
-echo "Rsync (simulated) remote file share to Maestro vault..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault > /dev/null
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync.log
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync-3.log
-rm /tmp/maestro-rsync.log
+read -t 60 -p "load_demo: iteratation 3 complete - Press [Enter] to continue..." key
 echo
 
-echo "Report changes in 'current' data (from previous 'current' data)..."
-/usr/local/www/maestro/protected/data/send_current_change_report.sh
-echo
-
-echo "Load 'current' from CSV..."
-# first clear database tables, currently each iteration is complete current data into clean db
-# TODO support smart loading of iteration changes
-#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-# now load current from csv
-/usr/local/www/maestro/protected/data/load_current_from_csv.sh
-echo
-
-echo "Iteration 4..."
+echo "======================================="
+echo "Iteration 4"
 echo "======================================="
 echo
 
-echo "Copying csv/* to csv.old/* ..."
-cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
-echo
-
-echo "Restore 'current' master data spreadsheets (with csv) to (simulated) remote file share..."
+echo "load_demo: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/excel/*.xlsx /home/samba/maestro/remotefs/
 cp -a ./maestro-scc-files/excel/*.csv /home/samba/maestro/remotefs/
 echo
 
-echo "Restore 'current' Parts&Vendors(TM) database to (simulated) remote file share..."
+echo "load_demo: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/pv-4.mdb /home/samba/maestro/remotefs/pv.mdb
 echo
 
-echo "Restore 'current' data files to (simulated) remote file share..."
-cp -a ./maestro-scc-files/vault-4/* /home/samba/maestro/remotefs/vault/
+# copy either vault-x/ or vault-x-norev/
+if test $version = "ver"
+then
+	echo "load_demo: restore 'current' files (versioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-4/* /home/samba/maestro/remotefs/vault/
+elif test $version = "nover"
+then
+	echo "load_demo: restore 'current' files (unversioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-4-nover/* /home/samba/maestro/remotefs/vault/
+else
+	echo "load_demo: invalid ver|nover"
+	echo
+	exit 1
+fi
+
 chown -R www:www /usr/home/samba/maestro/remotefs/
-chmod -R a+rw /usr/home/samba/maestro/remotefs/
+chmod -R a+rw    /usr/home/samba/maestro/remotefs/
 echo
 
-echo "Export 'current' to CSV..." ; echo
-/usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo "load_demo: get_current_and_review.sh"
+/usr/local/www/maestro/protected/data/get_current_and_review.sh
 echo
 
-echo "Rsync (simulated) remote file share to Maestro vault..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault > /dev/null
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync.log
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync-4.log
-rm /tmp/maestro-rsync.log
+read -t 60 -p "load_demo: iteratation 4 complete - Press [Enter] to continue..." key
 echo
 
-echo "Report changes in 'current' data (from previous 'current' data)..."
-/usr/local/www/maestro/protected/data/send_current_change_report.sh
-echo
-
-echo "Load 'current' from CSV..."
-# first clear database tables, currently each iteration is complete current data into clean db
-# TODO support smart loading of iteration changes
-#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-# now load current from csv
-/usr/local/www/maestro/protected/data/load_current_from_csv.sh
-echo
-
-echo "Iteration 5..."
+echo "======================================="
+echo "Iteration 5"
 echo "======================================="
 echo
 
-echo "Copying csv/* to csv.old/* ..."
-cp /home/samba/maestro/csv/* /home/samba/maestro/csv.old/
-echo
-
-echo "Restore 'current' master data spreadsheets (with csv) to (simulated) remote file share..."
+echo "load_demo: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/excel/*.xlsx /home/samba/maestro/remotefs/
 cp -a ./maestro-scc-files/excel/*.csv /home/samba/maestro/remotefs/
 echo
 
-echo "Restore 'current' Parts&Vendors(TM) database to (simulated) remote file share..."
+echo "load_demo: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ./maestro-scc-files/pv-5.mdb /home/samba/maestro/remotefs/pv.mdb
 echo
 
-echo "Restore 'current' data files to (simulated) remote file share..."
-cp -a ./maestro-scc-files/vault-5/* /home/samba/maestro/remotefs/vault/
+# copy either vault-x/ or vault-x-norev/
+if test $version = "ver"
+then
+	echo "load_demo: restore 'current' files (versioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-5/* /home/samba/maestro/remotefs/vault/
+elif test $version = "nover"
+then
+	echo "load_demo: restore 'current' files (unversioned filenames) to remotefs/"
+	cp -a ./maestro-scc-files/vault-5-nover/* /home/samba/maestro/remotefs/vault/
+else
+	echo "load_demo: invalid ver|nover"
+	echo
+	exit 1
+fi
+
 chown -R www:www /usr/home/samba/maestro/remotefs/
-chmod -R a+rw /usr/home/samba/maestro/remotefs/
+chmod -R a+rw    /usr/home/samba/maestro/remotefs/
 echo
 
-echo "Export 'current' to CSV..." ; echo
-/usr/local/www/maestro/protected/data/export_current_to_csv.sh
+echo "load_demo: get_current_and_review.sh"
+/usr/local/www/maestro/protected/data/get_current_and_review.sh
 echo
 
-echo "Rsync (simulated) remote file share to Maestro vault..."
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault > /dev/null
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync.log
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync-5.log
-rm /tmp/maestro-rsync.log
-echo
-
-echo "Report changes in 'current' data (from previous 'current' data)..."
-/usr/local/www/maestro/protected/data/send_current_change_report.sh
-echo
-
-echo "Load 'current' from CSV..."
-# first clear database tables, currently each iteration is complete current data into clean db
-# TODO support smart loading of iteration changes
-#/usr/local/bin/mysql -uroot -pappleton --show-warnings --verbose --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-/usr/local/bin/mysql -uroot -pappleton --force < /usr/local/www/maestro/protected/data/clear_tables.sql
-# now load current from csv
-/usr/local/www/maestro/protected/data/load_current_from_csv.sh
+read -t 60 -p "load_demo: iteratation 5 complete - Press [Enter] to continue..." key
 echo
 
 echo "======================================="
-echo "Cleanup..."
+echo "Cleanup"
 echo "======================================="
 echo
 
