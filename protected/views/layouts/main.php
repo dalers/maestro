@@ -38,6 +38,7 @@
 				array('label'=>'Projects', 'url'=>array('/project/index')),
 				array('label'=>'Material', 'url'=>array('/stockSerial/index')),
 				array('label'=>'Orders', 'url'=>array('/omOrder/index')),
+				array('label'=>'Issues', 'url'=>array('/issue/index')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
