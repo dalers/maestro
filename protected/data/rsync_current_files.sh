@@ -28,9 +28,19 @@
 #    \-- work/                    work to create PLM Change Report
 #
 
-echo "Rsync (simulated) remote file share to Maestro vault..."
+#
+# X:\remotefs
+#
+
+echo "rsync_current_files: X:\remotefs\vault\ " > /tmp/maestro-rsync.log
+# note this creates a new log file
 rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/maestro-rsync.log" /home/samba/maestro/remotefs/vault/ /home/samba/maestro/vault > /dev/null
-cp /tmp/maestro-rsync.log /home/samba/maestro/work/rsync.log
+
+#
+# copy rsync log file to maestro file share
+#
+echo "rsync_current_files: copy rsync log file"
+cp -a /tmp/maestro-rsync.log /home/samba/maestro/work/rsync.log
 rm /tmp/maestro-rsync.log
 echo
 

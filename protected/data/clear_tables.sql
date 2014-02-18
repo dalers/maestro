@@ -1,4 +1,4 @@
--- delete ALL data from Maestro database
+-- delete ALL data from maestro database
 -- (leave Yii migration table as-is)
 --
 -- > mysql -uroot -p --show-warnings --verbose --force < ./clear_tables.sql
