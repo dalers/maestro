@@ -35,8 +35,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer',
 		), 'ENGINE=InnoDB');
 		
-		//om_order table
-		$this->createTable('tbl_om_order', array(
+		//order table
+		$this->createTable('tbl_order', array(
 			'id' => 'pk',
 			'name' => 'string',
 			'type' => 'string',
@@ -51,8 +51,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer DEFAULT NULL',
 		), 'ENGINE=InnoDB');
 		
-		//om_order_item table
-		$this->createTable('tbl_om_order_item', array(
+		//order_item table
+		$this->createTable('tbl_order_item', array(
 			'id' => 'pk',
 			'order_id' => 'integer',
 			'part_id' => 'integer',
@@ -66,8 +66,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			//'update_user_id' => 'int(11) DEFAULT NULL',
 		), 'ENGINE=InnoDB');
 		
-		//om_order_item_sn table
-		$this->createTable('tbl_om_order_item_sn', array(
+		//order_item_sn table
+		$this->createTable('tbl_order_item_sn', array(
 			'id' => 'pk',
 			'order_item_id' => 'integer',
 			'stock_serial_id' => 'integer',
@@ -651,21 +651,21 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
-		//om_order
-		$this->addForeignKey("fk_order_to_create_user", "tbl_om_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_to_project", "tbl_om_order", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		//order
+		$this->addForeignKey("fk_order_to_create_user", "tbl_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_to_project", "tbl_order", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
 		//TODO add new part_id column for fk to part (pv_pn.id) ???
 		//     how does this work ?!? order.id is fk to part.id ???
-		$this->addForeignKey("fk_order_to_pv_pn", "tbl_om_order", "id", "tbl_pv_pn", "id", "NO ACTION", "NO ACTION");
-		$this->addForeignKey("fk_order_to_update_user", "tbl_om_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_to_pv_pn", "tbl_order", "id", "tbl_pv_pn", "id", "NO ACTION", "NO ACTION");
+		$this->addForeignKey("fk_order_to_update_user", "tbl_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
-		//om_order_item
-		$this->addForeignKey("fk_order_item_to_order", "tbl_om_order_item", "order_id", "tbl_om_order", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_part", "tbl_om_order_item", "part_id", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
+		//order_item
+		$this->addForeignKey("fk_order_item_to_order", "tbl_order_item", "order_id", "tbl_order", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_item_to_part", "tbl_order_item", "part_id", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
 
-		//om_order_item_sn
-		$this->addForeignKey("fk_order_item_sn_to_order_item", "tbl_om_order_item_sn", "order_item_id", "tbl_om_order_item", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_sn_to_stock_serial", "tbl_om_order_item_sn", "stock_serial_id", "tbl_stock_serial", "id", "CASCADE", "RESTRICT");
+		//order_item_sn
+		$this->addForeignKey("fk_order_item_sn_to_order_item", "tbl_order_item_sn", "order_item_id", "tbl_order_item", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_item_sn_to_stock_serial", "tbl_order_item_sn", "stock_serial_id", "tbl_stock_serial", "id", "CASCADE", "RESTRICT");
 
 		//project
 		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
@@ -762,9 +762,9 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_stock_location');
 		$this->dropTable('tbl_person');
 		
-		$this->dropTable('tbl_om_order');
-		$this->dropTable('tbl_om_order_item');
-		$this->dropTable('tbl_om_order_item_sn');
+		$this->dropTable('tbl_order');
+		$this->dropTable('tbl_order_item');
+		$this->dropTable('tbl_order_item_sn');
 
 		$this->execute("SET foreign_key_checks = 0;");
 }
