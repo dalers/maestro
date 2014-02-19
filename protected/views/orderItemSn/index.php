@@ -1,18 +1,18 @@
 <?php
-/* @var $this StockSerialController */
+/* @var $this OrderItemSnController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Material',
+	'Serial Number',
 );
 
 $this->menu=array(
-	array('label'=>'Create StockSerial', 'url'=>array('create')),
-	array('label'=>'Manage StockSerial', 'url'=>array('admin')),
+	array('label'=>'Create Serial Number', 'url'=>array('create')),
+	array('label'=>'Manage Serial Number', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Materials</h1>
+<h1>Serial Number</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

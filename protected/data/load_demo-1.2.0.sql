@@ -5,14 +5,15 @@
 --
 
 use maestro;
+
 -- phpMyAdmin SQL Dump
--- version 4.1.5
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jan 31, 2014 at 04:02 AM
--- Server version: 5.5.35-log
--- PHP Version: 5.5.7
+-- Host: 127.0.0.1
+-- Generation Time: Feb 19, 2014 at 12:32 AM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,11 +24,6 @@ SET time_zone = "+00:00";
 --
 
 --
--- Truncate table before insert `tbl_issue`
---
-
-TRUNCATE TABLE `tbl_issue`;
---
 -- Dumping data for table `tbl_issue`
 --
 
@@ -36,25 +32,30 @@ INSERT INTO `tbl_issue` (`id`, `number`, `name`, `description`, `project`, `type
 (2, 'IR00002', 'Difficult assembly procedure', 'Difficult to assemble and test PCA due to copper-side-up orientation. Orienting PCA component-side up allows for full access to components for debugging after assembly.', 'P09-001', 'ASSY', 'YES', '0', 'CLOSED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2013-01-03 00:00:00', NULL, NULL, NULL);
 
 --
--- Truncate table before insert `tbl_om_order`
+-- Dumping data for table `tbl_order`
 --
 
-TRUNCATE TABLE `tbl_om_order`;
+INSERT INTO `tbl_order` (`id`, `name`, `type`, `status`, `project_id`, `parts_list_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
+(1, 'Order 1', 'Spares', 'Active', 1, 33, '2014-02-18 16:28:07', 2, '2014-02-18 16:28:07', 2);
+
 --
--- Truncate table before insert `tbl_om_order_item`
+-- Dumping data for table `tbl_order_item`
 --
 
-TRUNCATE TABLE `tbl_om_order_item`;
+INSERT INTO `tbl_order_item` (`id`, `order_id`, `part_id`, `desired_qty`, `shipped_qty`) VALUES
+(1, 1, 20, 1, 0),
+(2, 1, 5, 1, 0),
+(3, 1, 2, 1, 0),
+(4, 1, 6, 1, 0);
+
 --
--- Truncate table before insert `tbl_om_order_item_sn`
+-- Dumping data for table `tbl_order_item_sn`
 --
 
-TRUNCATE TABLE `tbl_om_order_item_sn`;
---
--- Truncate table before insert `tbl_person`
---
+INSERT INTO `tbl_order_item_sn` (`id`, `order_item_id`, `stock_serial_id`) VALUES
+(1, 3, 7),
+(2, 3, 8);
 
-TRUNCATE TABLE `tbl_person`;
 --
 -- Dumping data for table `tbl_person`
 --
@@ -86,11 +87,6 @@ INSERT INTO `tbl_person` (`id`, `username`, `status`, `password`, `email`, `nick
 (24, 'wcrawford', 1, 'appleton', 'wcrawford@firefly.scc.loc', 'WC', 'Crawford', 'William', 'WC', 1, NULL, NULL, NULL, NULL, NULL);
 
 --
--- Truncate table before insert `tbl_project`
---
-
-TRUNCATE TABLE `tbl_project`;
---
 -- Dumping data for table `tbl_project`
 --
 
@@ -98,21 +94,6 @@ INSERT INTO `tbl_project` (`id`, `name`, `client`, `description`, `type`, `statu
 (1, 'P09-001', 'Aircraft Wireless', 'Development and air trials', 'R&D', 'ACTIVE', 'PILOT', '2013-02-14 00:00:00', '12345678', '12345679', '12345680', '12345681', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2, 'P09-002', 'Fire-fighting Bombsight', 'Development and air trials', 'R&D', 'HOLD', 'DEFINITION', '2013-03-16 00:00:00', '23456789', '23456790', '23456791', '23456792', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
---
--- Truncate table before insert `tbl_pv_al`
---
-
-TRUNCATE TABLE `tbl_pv_al`;
---
--- Truncate table before insert `tbl_pv_cnv`
---
-
-TRUNCATE TABLE `tbl_pv_cnv`;
---
--- Truncate table before insert `tbl_pv_cost`
---
-
-TRUNCATE TABLE `tbl_pv_cost`;
 --
 -- Dumping data for table `tbl_pv_cost`
 --
@@ -148,11 +129,6 @@ INSERT INTO `tbl_pv_cost` (`id`, `COSTLNKID`, `COSTAtQty`, `COSTLeadtime`, `COST
 (28, 28, 10, 0, 0.419);
 
 --
--- Truncate table before insert `tbl_pv_cu`
---
-
-TRUNCATE TABLE `tbl_pv_cu`;
---
 -- Dumping data for table `tbl_pv_cu`
 --
 
@@ -163,22 +139,12 @@ INSERT INTO `tbl_pv_cu` (`id`, `CUCustomer`, `CUAddress`, `CUShipAddress`, `CUPh
 (4, 'Titus Bro. Construction Co.', '26-15 Ulmer Street College Point, NY 11354, USA', '26-15 Ulmer Street College Point, NY 11354, USA', '1-718-554-2320', '', 'Job Titus, Principal', '', '1-315-678-9012', 'job@titusbros.com', '', 'Earth tunneling equipment', 'http://en.wikipedia.org/wiki/Tunnel', 'TITUS', 'C0004', 'NG', '20-1234571', '12-127', 0);
 
 --
--- Truncate table before insert `tbl_pv_cur`
---
-
-TRUNCATE TABLE `tbl_pv_cur`;
---
 -- Dumping data for table `tbl_pv_cur`
 --
 
 INSERT INTO `tbl_pv_cur` (`id`, `CURCurrencyName`, `CURExchangeRate`, `CURCurrencyChar`, `CURFormat`, `CURFormatExt`) VALUES
 (1, '$ USD', 1, '$', '$#,##0.000;($#,##0.000)', '$#,##0.00;($#,##0.00)');
 
---
--- Truncate table before insert `tbl_pv_fil`
---
-
-TRUNCATE TABLE `tbl_pv_fil`;
 --
 -- Dumping data for table `tbl_pv_fil`
 --
@@ -250,16 +216,6 @@ INSERT INTO `tbl_pv_fil` (`id`, `FILPNID`, `FILPNPartNumber`, `FILFilePath`, `FI
 (70, 6, '', '', 'D:\\vault\\parts\\50000001\\50000001_DSN-01-graphics.zip', 0, 'Design Source (graphic files)');
 
 --
--- Truncate table before insert `tbl_pv_hist`
---
-
-TRUNCATE TABLE `tbl_pv_hist`;
---
--- Truncate table before insert `tbl_pv_hpref`
---
-
-TRUNCATE TABLE `tbl_pv_hpref`;
---
 -- Dumping data for table `tbl_pv_hpref`
 --
 
@@ -275,16 +231,6 @@ INSERT INTO `tbl_pv_hpref` (`id`, `GPREFKey`, `GPREFText1`, `GPREFText2`, `GPREF
 (25, 'CustomerCaption', 'Customer', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', ''),
 (26, 'Lic', 'DEMO', '', '', '', '', 0, 0, 0, 0, 0, '', '', '', '', '');
 
---
--- Truncate table before insert `tbl_pv_job`
---
-
-TRUNCATE TABLE `tbl_pv_job`;
---
--- Truncate table before insert `tbl_pv_lin`
---
-
-TRUNCATE TABLE `tbl_pv_lin`;
 --
 -- Dumping data for table `tbl_pv_lin`
 --
@@ -307,11 +253,6 @@ INSERT INTO `tbl_pv_lin` (`id`, `LINSUID`, `LINMFRID`) VALUES
 (15, 3, 14),
 (16, 3, 17);
 
---
--- Truncate table before insert `tbl_pv_lnk`
---
-
-TRUNCATE TABLE `tbl_pv_lnk`;
 --
 -- Dumping data for table `tbl_pv_lnk`
 --
@@ -347,16 +288,6 @@ INSERT INTO `tbl_pv_lnk` (`id`, `LNKSUID`, `LNKMFRPNID`, `LNKMFRID`, `LNKUNID`, 
 (28, 3, 22, 14, 1, 32, 0, 1, '', 0, '2203K-ND', 'STANDOFF HEX 4-40THR ALUM .500"L', 10, '0000-00-00 00:00:00', 0, 0.419, 0, 0, '', '');
 
 --
--- Truncate table before insert `tbl_pv_mf`
---
-
-TRUNCATE TABLE `tbl_pv_mf`;
---
--- Truncate table before insert `tbl_pv_mfr`
---
-
-TRUNCATE TABLE `tbl_pv_mfr`;
---
 -- Dumping data for table `tbl_pv_mfr`
 --
 
@@ -379,11 +310,6 @@ INSERT INTO `tbl_pv_mfr` (`id`, `MFRMfrName`, `MFRAddress`, `MFRCountry`, `MFRCo
 (16, 'Emerson', '3000 Lakeside Drive, Suite 308N, Bannockburn, IL 60015, USA', 'USA', '', '', '1-847-739-0300', '', '1-847-739-0301', 'http://emersonconnectivity.com/', '', 'EMERSON', '', '', 0),
 (17, 'Emerson Network Power Connectivity Solutions', '', '', '', '', '', '', '', '', '', '', '', '', 0);
 
---
--- Truncate table before insert `tbl_pv_mfrpn`
---
-
-TRUNCATE TABLE `tbl_pv_mfrpn`;
 --
 -- Dumping data for table `tbl_pv_mfrpn`
 --
@@ -413,11 +339,6 @@ INSERT INTO `tbl_pv_mfrpn` (`id`, `MFRPNMFRID`, `MFRPNPart`) VALUES
 (22, 14, '2203K-ND');
 
 --
--- Truncate table before insert `tbl_pv_org`
---
-
-TRUNCATE TABLE `tbl_pv_org`;
---
 -- Dumping data for table `tbl_pv_org`
 --
 
@@ -425,11 +346,6 @@ INSERT INTO `tbl_pv_org` (`id`, `ORGKey`, `ORGName`, `ORGAddress`, `ORGPhone`, `
 (1, 'Billing', 'Swift Construction Company', '1 Swift Way\r\nShopton, NY 13054, USA', '1-315-123-4567', '1-315-123-4568', 0, 0, 0),
 (6, 'Shipping', '', 'Swift Construction Company\r\n1 Swift Way\r\nShopton, NY 13054, USA', '', '', 1, 1, 1);
 
---
--- Truncate table before insert `tbl_pv_pl`
---
-
-TRUNCATE TABLE `tbl_pv_pl`;
 --
 -- Dumping data for table `tbl_pv_pl`
 --
@@ -470,11 +386,6 @@ INSERT INTO `tbl_pv_pl` (`id`, `PLListID`, `PLPartID`, `PLItem`, `PLQty`, `PLRef
 (37, 33, 6, 4, '1', '', '', 0, '', 0, 0, 0, 0);
 
 --
--- Truncate table before insert `tbl_pv_pll`
---
-
-TRUNCATE TABLE `tbl_pv_pll`;
---
 -- Dumping data for table `tbl_pv_pll`
 --
 
@@ -486,11 +397,6 @@ INSERT INTO `tbl_pv_pll` (`id`, `PLLParentListID`, `PLLSubListID`, `PLLQty`, `PL
 (5, 33, 20, 1, 0, 0, 1),
 (6, 33, 2, 1, 0, 0, 3);
 
---
--- Truncate table before insert `tbl_pv_pn`
---
-
-TRUNCATE TABLE `tbl_pv_pn`;
 --
 -- Dumping data for table `tbl_pv_pn`
 --
@@ -531,16 +437,6 @@ INSERT INTO `tbl_pv_pn` (`id`, `PNIDToLNK`, `PNUNID`, `PNTabParentID`, `PNPrefix
 (33, 0, 1, 0, '', '60000001', '', 'PL', '1', 'ASSY,FIELD SPARES,AIRCRAFT WIRELESS', '', 'R', 'B. Jenks', '', '', '', '', '', '', '', '', '', '', '', '2013-05-01 00:00:00', 0, 0, '', 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
--- Truncate table before insert `tbl_pv_po`
---
-
-TRUNCATE TABLE `tbl_pv_po`;
---
--- Truncate table before insert `tbl_pv_pod`
---
-
-TRUNCATE TABLE `tbl_pv_pod`;
---
 -- Dumping data for table `tbl_pv_pod`
 --
 
@@ -571,21 +467,6 @@ INSERT INTO `tbl_pv_pod` (`id`, `PODField`, `PODCaption`, `PODOrder`, `PODUse`, 
 (24, 'LNKRoHSNote', 'RoHS Note', 23, 1, 1, 1, 0, 0, 0, 0, 0);
 
 --
--- Truncate table before insert `tbl_pv_pom`
---
-
-TRUNCATE TABLE `tbl_pv_pom`;
---
--- Truncate table before insert `tbl_pv_rpx`
---
-
-TRUNCATE TABLE `tbl_pv_rpx`;
---
--- Truncate table before insert `tbl_pv_ship`
---
-
-TRUNCATE TABLE `tbl_pv_ship`;
---
 -- Dumping data for table `tbl_pv_ship`
 --
 
@@ -594,11 +475,6 @@ INSERT INTO `tbl_pv_ship` (`id`, `SHIPMethod`) VALUES
 (2, 'FEDX Economy'),
 (3, 'UPS');
 
---
--- Truncate table before insert `tbl_pv_su`
---
-
-TRUNCATE TABLE `tbl_pv_su`;
 --
 -- Dumping data for table `tbl_pv_su`
 --
@@ -618,16 +494,6 @@ INSERT INTO `tbl_pv_su` (`id`, `SUSupplier`, `SUAddress`, `SUCountry`, `SUPhone1
 (12, 'Uline', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00', 0, '', '', '', '', '', '', '', '', 0, 0, 1, 0, 0);
 
 --
--- Truncate table before insert `tbl_pv_task`
---
-
-TRUNCATE TABLE `tbl_pv_task`;
---
--- Truncate table before insert `tbl_pv_type`
---
-
-TRUNCATE TABLE `tbl_pv_type`;
---
 -- Dumping data for table `tbl_pv_type`
 --
 
@@ -640,11 +506,6 @@ INSERT INTO `tbl_pv_type` (`id`, `TYPEType`) VALUES
 (6, 'CAT');
 
 --
--- Truncate table before insert `tbl_pv_un`
---
-
-TRUNCATE TABLE `tbl_pv_un`;
---
 -- Dumping data for table `tbl_pv_un`
 --
 
@@ -656,11 +517,6 @@ INSERT INTO `tbl_pv_un` (`id`, `UNUseUnits`, `UNPurchUnits`, `UNConvUnits`) VALU
 (23, 'cm', 'spool100FT', 3048),
 (24, 'cm', 'spool19300FT', 588264);
 
---
--- Truncate table before insert `tbl_stock_location`
---
-
-TRUNCATE TABLE `tbl_stock_location`;
 --
 -- Dumping data for table `tbl_stock_location`
 --
@@ -678,11 +534,6 @@ INSERT INTO `tbl_stock_location` (`id`, `name`, `use_sublocation`, `sublocation_
 (10, 'SHOPSUP', 1, 1, 10),
 (11, 'YARD', 0, 0, 0);
 
---
--- Truncate table before insert `tbl_stock_serial`
---
-
-TRUNCATE TABLE `tbl_stock_serial`;
 --
 -- Dumping data for table `tbl_stock_serial`
 --
