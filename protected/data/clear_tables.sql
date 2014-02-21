@@ -1,12 +1,10 @@
--- delete ALL data from maestro database
+-- delete ALL data from database
 -- (leave Yii migration table as-is)
 --
 -- > mysql -uroot -p --show-warnings --verbose --force < ./clear_tables.sql
 --
 -- MUST match current migration schema
 --
-
-use maestro;
 
 SET FOREIGN_KEY_CHECKS=0;
 

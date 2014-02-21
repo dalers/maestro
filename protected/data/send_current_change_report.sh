@@ -2,8 +2,8 @@
 # find new and modified parts by extracting Part Number, Title and Detail from
 # csv/pv_pn.csv and comparing to csv.old/pv_pn.csv
 # - REQUIRES ssmtp
-# - HARDCODED file paths (assumes Maestro reference server)
-# - WRITES to maestro CIFS file share
+# - HARDCODED file paths
+# - WRITES to CIFS file share
 #
 
 #

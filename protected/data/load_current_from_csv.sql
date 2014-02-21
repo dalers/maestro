@@ -1,6 +1,6 @@
 -- load current data from csv
 --
--- HARDCODED file paths (assumes Maestro reference server)
+-- HARDCODED file paths
 -- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < /path/to/load_current_from_csv.sql
 --
 -- csv files published from spreadsheets (all but pv_*)
@@ -8,10 +8,8 @@
 --   - do not contain pk field
 -- csv files from mdbtools (pv_*)
 --   - unix EOL
---   - pk field from P&V used as pk in Maestro
+--   - pk field being imported from P&V re-used as pk
 --
-
-use maestro;
 
 -- disable foreign key constraint check during data import
 SET foreign_key_checks = 0;

@@ -1,8 +1,8 @@
--- create maestro user and db, and load stored procedures
+-- create user and db, and load stored procedures
 --
 -- > mysql -uroot -p --show-warnings --verbose < ./create_db.sql
 --
--- USER and DATABASE PASSWORDS IN PLAIN TEXT
+-- DATABASE USER AND PASSWORD IN PLAIN TEXT
 --
 
 -- create user if necessary
@@ -13,9 +13,6 @@
 -- DROP USER 'maestro'@'localhost' ;
 CREATE USER 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer';
 GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
---
--- create database (drop existing first)
---
 
 --
 -- create database (drop existing first)
@@ -24,6 +21,7 @@ GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH M
 DROP SCHEMA IF EXISTS `maestro` ;
 CREATE SCHEMA IF NOT EXISTS `maestro` DEFAULT CHARACTER SET latin1 ;
 GRANT ALL PRIVILEGES ON `maestro` . * TO 'maestro'@'localhost';
+
 USE `maestro` ;
 
 --
