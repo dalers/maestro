@@ -1,0 +1,42 @@
+Maestro SCC Demo/Test Data
+
+The documented product is the SCC Aircraft Wireless. Current information 
+at each iteration in its product lifecycle has been captured, including 
+related documents. This allows the iterations to be "played back" as they
+occured sequentially in time. 
+
+Iterations:
+
+  1  Printed Circuit Assembly    2013-01-01
+  2  Revised PCB                 2013-01-02
+  3  Product Release             2013-01-03
+  4  Manufacturing Improvements  2013-01-04
+  5  Field Spares Kit            2013-01-05
+
+Directory and file timestamps conform to iterations dates. Dates within 
+files (e.g. the date in a drawing title block) conform to iteration 
+dates as much as is possible. Refer to the Maestro project wiki for more 
+information on the changes in each iteration. 
+
+Iterations in Parts&Vendors data versus vault documents
+-------------------------------------------------------
+Parts&Vendors iteration databases contain "current" data as of that 
+iteration (e.g. pv-1.mdb, pv-2.mdb...). Vault directories are
+likewise named by iteration (e.g. vault-1, vault-2...).
+
+Files in vault directories vault-1/, vault-2/... have the file version
+included in the filename (e.g. vault-1/parts/10000001_PBS-00.pdf).
+
+Files in vault directories vault-1-norev/, vault-2-norev/... do not have 
+the file version included in the filename. Different iterations may 
+include files that are different but have the same filename (e.g. 
+vault-1-norev/parts/10000001_PBS.pdf, vault-3-norev/parts/10000001_PBS.pdf).
+
+Only files added or modified by an iteration are included in the 
+respective vault. This is done to more easily manage file and directory 
+dates by iteration. To reconstruct the complete "current" file system 
+for a particular iteration, copy vault iterations in order "on top of"
+a generic "vault" directory; start with the initial iteration and continue
+up to and including the desired iteration (preserve file timestamps). 
+
+###
