@@ -5,9 +5,9 @@ Maestro for OpenERP
 
 Maestro(TM) is a data framework for demonstrating ERP and ERP-like applications. Maestro is particularaly intended for design, manufacturing and sales teams to manage and share information related to parts, projects, material (simple, serialized, or lot controlled), issues and people. Maestro demonstrates how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a single cohesive environment - a walled garden of *Transparency with Trust*.
 
-Maestro is a complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
+Maestro provides a complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
 
-The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a common dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may always be completely stable. Review this README and the [*Maestro for OpenERP* project wiki](https://github.com/dalers/maestro-oe/wiki), and explore behaviour carefully before any critical use. 
+The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a common dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent. Review this README and the [*Maestro for OpenERP* project wiki](https://github.com/dalers/maestro-oe/wiki), and explore behaviour carefully before any critical use. 
 
 Getting Started
 ===============
@@ -25,7 +25,12 @@ Install OpenERP and create a new database (e.g. "scc"), then install the followi
 
 Login to the new database as "admin".
 
-Configured company (SCC) (email server NOT configured)
+Configure company (SCC)
+* Company name: Swift Construction Co.
+* Logo: scc/scc-noname-100x51.jpg
+* Address, phone, fax, tagline, website
+* Paper Format: US Letter
+* Do NOT configure email server (unless you know what you're doing ;-))
 
 Import users (import/res.users.csv)
 * all passwords "maestro"
