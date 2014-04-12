@@ -5,13 +5,13 @@ Maestro for OpenERP
 
 Maestro(TM) is a data framework for demonstrating ERP and ERP-like applications. Maestro is particularaly intended for design, manufacturing and sales teams to manage and share information related to parts, projects, material (simple, serialized, or lot controlled), issues and people. Maestro demonstrates how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a single cohesive environment - a walled garden of *Transparency with Trust*.
 
-Maestro is provides a complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
+Maestro is a complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
 
 The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a common dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may always be completely stable. Review this README and the [*Maestro for OpenERP* project wiki](https://github.com/dalers/maestro-oe/wiki), and explore behaviour carefully before any critical use. 
 
 Getting Started
 ===============
-Follow this procedure to *install* Maestro in OpenERP. When complete, you are encouraged to review the Maestro OpenERP [Guided Tour](http://github.com/dalers/maestro-oe/wiki/Guided-tour).
+Follow this procedure to **install** *Maestro for OpenERP* in OpenERP. When complete, you are encouraged to review the *Maestro for OpenERP* [Guided Tour](http://github.com/dalers/maestro-oe/wiki/Guided-tour).
 
 Install OpenERP and create a new database (e.g. "scc"), then install the following modules in order:
 * Remove openerp.com bindings
@@ -59,60 +59,60 @@ PNUser5
 PNUser9			(not imported at this time)
 PNUser10		(not imported at this time)
 PNDate			
-PNTitleDetail	Name				"<PNTitle> : <PNDetail>", formula "=CONCATENATE(J2,IF(K2="","",CONCATENATE(" : ",K2)))"
+PNTitleDetail	Name ("[Title] : [Detail]")
 ```
 
 Create customer.
 
 ```
-- Sales / Customers / Create / Edward Bentley (B&E Submarines)
-	Sales & Purchases / Salesperson / Jacab Wood
-	Sales & Purchases / Sales Team / Sales Department
+Sales / Customers / Create / Edward Bentley (B&E Submarines)
+  Sales & Purchases / Salesperson / Jacab Wood
+  Sales & Purchases / Sales Team / Sales Department
 ```
 
 Create Sales Order.
-* created invoice, validate, print PDF
-* leave invoice UNPAID PAID (do not "Register Payment")
+* Create invoice, validate, print PDF
+* Leave invoice UNPAID PAID (do not "Register Payment")
 
 Create Opportunity.
 
 ```
-- Settings / Users / Jacab Wood / Edit /
-	Preferences / Default Sales Team: Sales Department
-	Access Rights / Sales / Manager
-- Sales / Customers / Edward Bentley / Edit / 
-	Sales & Purchases / Salesperson / Jacab Wood
-	Sales & Purchases / Sales Team / Sales Department
-- Sales / Opportunities / Create
-	Subject: Airforce Trial
-	- changed state to Proposition
-	- logged a note, attached proposal (docx and pdf)
-		- noted attaching files to note is essentially same as using Attachment
-			button, but leaves nice audit trail
-	- scheduled call, marked done
-	- updated expected revenue and risk percentage
-	- change stage to negotiation
-	- added Technical Approval to stages of the sale (kanban view)
-	- change stage to Won
-	- Create Quotation (book calls it "Make Quotation")
-		Quotation SO002
-	- left quotation as-is (did not convert to Sales Order)
+Settings / Users / Jacab Wood / Edit /
+  Preferences / Default Sales Team: Sales Department
+  Access Rights / Sales / Manager
+Sales / Customers / Edward Bentley / Edit / 
+  Sales & Purchases / Salesperson / Jacab Wood
+  Sales & Purchases / Sales Team / Sales Department
+Sales / Opportunities / Create
+  Subject: Airforce Trial
+    changed state to Proposition
+    logged a note, attached proposal (docx and pdf)
+      noted attaching files to note is essentially same as using Attachment
+      button, but leaves nice audit trail
+    scheduled call, marked done
+    updated expected revenue and risk percentage
+    change stage to negotiation
+    added Technical Approval to stages of the sale (kanban view)
+    change stage to Won
+    Create Quotation (book calls it "Make Quotation")
+      Quotation SO002
+    Left quotation as-is (did not convert to Sales Order)
 ```
 	
 Create Lead.
 
 ```
-- Sales / Leads / Create Fenwick Hosmer (Hosmer Engineering)
-	did not identify as customer
-	save
-- did not create custom stages for "Sales Department" as shown in book, however...
-	Sales / Configuration / Sales Teams / Sales Department
-		- why isn't Jacab Wood shown as Team Members?!?
-			could add manually but did not (unsure if need to and also implications of doing so)
-			profile for Jacab shows Default Sales Team = Sales Department - perhaps only when documents "pushed" from user?
+Sales / Leads / Create Fenwick Hosmer (Hosmer Engineering)
+  did not identify as customer
+  save
+did not create custom stages for "Sales Department" as shown in book, however...
+  Sales / Configuration / Sales Teams / Sales Department
+    why isn't Jacab Wood shown as Team Members?!?
+    could add manually but did not (unsure if need to and also implications of doing so)
+    profile for Jacab shows Default Sales Team = Sales Department - perhaps only when documents "pushed" from user?
 ```
 	
-Create BoM for electronics spares kit
+Create BoM for electronics spares kit.
 * Manufacturing / Bill of Materials / Create / 
 * Add items as per BoM worksheet
 		
@@ -172,12 +172,12 @@ Inport product sources from Parts&Vendors(TM)
 	
 Code Repository and Issue Tracking
 ==================================
-* [Maestro project repo](https://github.com/dalers/maestro-oe)
-* [Maestro issue tracker](https://github.com/dalers/maestro-oe) (also includes milestones)
+* [*Maestro for OpenERP* project repo](https://github.com/dalers/maestro-oe)
+* [*Maestro for OpenERP* issue tracker](https://github.com/dalers/maestro-oe/issues) (also includes milestones)
 
 Communication Channels
 ======================
-At this time, the official communication channel is the [issue tracker](https://github.com/dalers/maestro-oe/issues). Other options (e.g. mailing list, Google Group...) are being considered and will be announced should they become available.
+At this time, the official communication channel is the [*Maestro for OpenERP* issue tracker](https://github.com/dalers/maestro-oe/issues). Other options (e.g. mailing list, Google Group...) are being considered and will be announced should they become available.
 
 Developer Guidelines
 ====================
@@ -199,9 +199,7 @@ Official project documentation is published in the [*Maestro for OpenERP* projec
 
 Legal
 =====
-Maestro source is copyright by its authors, as recorded in the repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the Maestro project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the GNU Affero General Public License.
-
-The Maestro name and image are trademarks of Dale Scott, for use according to the [Maestro Trademark and Logo Policy](https://github.com/maestrobpm/maestro/wiki/Trademark-and-logo-policy).
+*Maestro for OpenERP* source is copyright by its authors, as recorded in the repository commit log. The *Maestro for OpenERP* project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the GNU Affero General Public License.
 
 Support
 =======
