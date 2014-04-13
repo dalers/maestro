@@ -1,4 +1,4 @@
-Maestro SCC Demo/Test Data
+SCC Demo/Test Data
 
 The documented product is the SCC Aircraft Wireless. Current information 
 at each iteration in its product lifecycle has been captured, including 
@@ -27,10 +27,10 @@ likewise named by iteration (e.g. vault-1, vault-2...).
 Files in vault directories vault-1/, vault-2/... have the file version
 included in the filename (e.g. vault-1/parts/10000001_PBS-00.pdf).
 
-Files in vault directories vault-1-norev/, vault-2-norev/... do not have 
+Files in vault directories vault-1-nover/, vault-2-nover/... do not have 
 the file version included in the filename. Different iterations may 
 include files that are different but have the same filename (e.g. 
-vault-1-norev/parts/10000001_PBS.pdf, vault-3-norev/parts/10000001_PBS.pdf).
+vault-1-nover/parts/10000001_PBS.pdf, vault-3-nover/parts/10000001_PBS.pdf).
 
 Only files added or modified by an iteration are included in the 
 respective vault. This is done to more easily manage file and directory 

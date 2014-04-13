@@ -1,0 +1,18 @@
+MFRID,MFRMfrName,MFRAddress,MFRCountry,MFRContact1,MFRContact2,MFRPhone1,MFRPhone2,MFRFax,MFRWeb,MFRNotes,MFRCode,MFREMail1,MFREMail2,MFRNoPhonePrefix
+1,"General Cable (Carol Brand)","4 Tesseneer Drive, Highland Heights, KY 41076, USA","USA",,,"1-859-572-8000",,"1-859-572-8458","http://www.generalcable.com/",,"CAROL",,,0
+2,"Vishay (BC Components)","One Greenwich Place, Shelton, CT 06484, USA","USA",,,"1-402-563-6866",,"1-402-563-6296","http://www.vishay.com/",,"VISHAY",,,0
+3,"Kemet","P.O. Box 5928, Greenville, SC 29606, USA","USA",,"Tech Svces (8am - 5pm ET)","1-864-963-6300","1-877-695-3638",,"http://www.kemet.com/",,"KEMET",,,0
+4,"AVX Corporation","801 17th Avenue South, Box 867, Myrtle Beach, SC 29578-0687 USA","USA",,,"1-843-448-9411",,,"http://www.avx.com/",,"AVX",,,0
+5,"Panasonic (Industrial)","Three Panasonic Way, M/S: 7H-2, Secaucus, NJ 07094, USA","USA",,,"1-800-344-2112",,,"http://www.panasonic.com/industrial/electronic-components/",,"PANA",,,0
+6,"Semelab","Coventry Road, Lutterworth, Leicestershire LE17 4JB","Great Britain",,,"011-44-0-1455-552505",,,"http://www.semelab.com/",,"SEMI",,,0
+7,"Sprague-Goodman","1700 Shames Drive, Westbury, NY 11590, USA","USA",,,"1-516-334-8700",,"1-516-334-8771","http://www.spraguegoodman.com/",,"SPRAG",,,0
+8,"CUI Inc.","20050 SW 112th Avenue, Tualatin, OR 97062, USA","USA",,,"1-800-275-4899",,"1-503-612-2383","http://www.cui.com/",,"CUI",,,0
+9,"AP Circuits","Unit 3, 1112-40th Ave. NE, Calgary, AB T2E5T8, Canada","Canada",,,"1-403-250-3406",,,"http://www.apcircuits.com/",,"APC",,,0
+10,"Belden","7733 Forsyth Boulevard, Suite 800, St. Louis, MO 63105, USA","USA",,"Customer Svces","1-314-854-8000","1-800-235-3361",,"http://www.belden.com/",,"BLDN",,,0
+11,"3M","300 Tartan Drive, London, Ontario N5V 4M9, Canada","Canada",,,"1-888-364-3577",,"1-800-479-4453","http://www.3m.com/",,"THREEM",,,0
+12,"B&F Fastener Supply","2827 Anthony Lane South, Minneapolis, MN 55418, USA","USA",,,"1-612-788-7468","1-800-964-8241","1-612-788-1914","http://www.buildingfasteners.com/",,"BANDF",,,0
+13,"Hammond Manufacturing","394 Edinburgh Rd North, Guelph , ON N1H 1E5, Canada","Canada",,,"1-519-822-2960","1-905-456-3770","1-519-822-0715","http://www.hammondmfg.com/",,"HAMMOND","sales@hammfg.com",,0
+14,"Keystone Electronics","31-07 20th Road, Astoria, NY 11105, USA","USA",,,"1-718-956-8900","1-800-221-5510","1-718-956-9040","http://www.keyelco.com/",,"KEYSTONE",,,0
+15,"Tyco Electronics",,,"Canada Support",,"1-905-475-6222",,,"http://www.tycoelectronics.com/",,"TYCO",,,0
+16,"Emerson","3000 Lakeside Drive, Suite 308N, Bannockburn, IL 60015, USA","USA",,,"1-847-739-0300",,"1-847-739-0301","http://emersonconnectivity.com/",,"EMERSON",,,0
+17,"Emerson Network Power Connectivity Solutions",,,,,,,,,,,,,0

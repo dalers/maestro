@@ -3,7 +3,7 @@ maestro-oe
 
 Maestro for OpenERP
 
-Maestro(TM) is a cohesive data set for ERP and ERP-like applications. It is intended to provide a background for exploring and demonstrating how design, manufacturing and sales teams can manage and share information related to parts, projects, material (optionally serialized or otherwise controlled), issues and people. Maestro can be used to demonstrate how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a walled garden of *Transparency with Trust*.
+Maestro(TM) is a cohesive data set for using with ERP and ERP-like applications. Maestro provides a background for exploring and demonstrating how design, manufacturing and sales teams can manage and share information related to parts, projects, material (optionally serialized or otherwise controlled), issues and people. Maestro provides a context for demonstrating how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a walled garden of *Transparency with Trust*.
 
 Maestro provides the complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
 
@@ -40,11 +40,11 @@ To re-create import/res.users.csv,
 * edit scc-files/excel/persons.xlsx (master information in 1st tab)
 * save res.users tab in CSV format as import/res.users.csv
 
-3) Import products from Parts&Vendors(TM) (import/product.csv)
+3) Import products from Parts&Vendors(TM) (import/product.product.csv)
 * Sales / Products / list view / Import / Encoding: Latin1
 
-To re-create product.csv,
-* export P&V PN table using mdbtools (pv_pn.csv)
+To re-create product.product.csv,
+* export PN table from a Parts&Vendors(TM) database using mdbtools (pv_pn.csv)
 * copy export from P&V PN table (testdata/csv-2014-03-24/pv_pn.csv)
 * add column PNTitleDetail =CONCATENATE(J2,IF(K2="","",CONCATENATE(" : ",K2)))
 * copy/paste PNTitleDetail column as text to replace formula
@@ -121,9 +121,9 @@ did not create custom stages for "Sales Department" as shown in book, however...
     profile for Jacab shows Default Sales Team = Sales Department - perhaps only when documents "pushed" from user?
 ```
 	
-8) Create BoM for electronics spares kit.
+8) Create BoM for electronics spares kit PN 60000001.
 * Manufacturing / Bill of Materials / Create / 
-* Add items as per BoM worksheet
+* Add items as per Parts&Vendors BoM
 		
 9) Import BoMs from Parts&Vendors(TM).
 
@@ -150,7 +150,7 @@ Access rights:
 	Sharing: User
 	Administration: Settings
 
-Administrator: also "Technical"
+Administrator: enable "Technical"
 ```
 
 11) Purchase product from supplier.
