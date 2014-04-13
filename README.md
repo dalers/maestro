@@ -3,17 +3,17 @@ maestro-oe
 
 Maestro for OpenERP
 
-Maestro(TM) is a data framework for demonstrating ERP and ERP-like applications. Maestro is particularaly intended for design, manufacturing and sales teams to manage and share information related to parts, projects, material (simple, serialized, or lot controlled), issues and people. Maestro demonstrates how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a single cohesive environment - a walled garden of *Transparency with Trust*.
+Maestro(TM) is a cohesive data set for ERP and ERP-like applications. It is intended to provide a background for exploring and demonstrating how design, manufacturing and sales teams can manage and share information related to parts, projects, material (optionally serialized or otherwise controlled), issues and people. Maestro can be used to demonstrate how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a walled garden of *Transparency with Trust*.
 
-Maestro provides a complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
+Maestro provides the complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
 
-The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a common dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent. Review this README and the [*Maestro for OpenERP* project wiki](https://github.com/dalers/maestro-oe/wiki), and explore behaviour carefully before any critical use. 
+The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a shared dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent, you should explore behaviour carefully before any critical use. 
 
 Getting Started
 ===============
-Follow this procedure to **install** *Maestro for OpenERP* in OpenERP. When complete, you are encouraged to review the *Maestro for OpenERP* [Guided Tour](http://github.com/dalers/maestro-oe/wiki/Guided-tour).
+Follow this procedure to "install" *Maestro for OpenERP* in OpenERP. When complete, you are encouraged to review the *Maestro for OpenERP* [Guided Tour](http://github.com/dalers/maestro-oe/wiki/Guided-tour).
 
-Install OpenERP and create a new database (e.g. "scc"), then install the following modules in order:
+First, install OpenERP and create a new database (e.g. "scc"), then install the following modules in order:
 * Remove openerp.com bindings
 * Sales Management
 * CRM
@@ -23,20 +23,25 @@ Install OpenERP and create a new database (e.g. "scc"), then install the followi
 * Base Import
 * Document Management System (install wizard reports config will be based on installed modules)
 
-Login to the new database as "admin".
+Login to the new database as "admin" to complete the rest of the procedure.
 
-Configure company (SCC)
+1) Configure company (SCC)
 * Company name: Swift Construction Co.
 * Logo: scc/scc-noname-100x51.jpg
 * Address, phone, fax, tagline, website
 * Paper Format: US Letter
 * Do NOT configure email server (unless you know what you're doing ;-))
 
-Import users (import/res.users.csv)
+2) Import users (import/res.users.csv)
 * all passwords "maestro"
 * NEVER receive email
 
-Import products from Parts&Vendors(TM) (import/product.csv)
+To re-create import/res.users.csv,
+* edit scc-files/excel/persons.xlsx (master information in 1st tab)
+* save res.users tab in CSV format as import/res.users.csv
+
+3) Import products from Parts&Vendors(TM) (import/product.csv)
+* Sales / Products / list view / Import / Encoding: Latin1
 
 To re-create product.csv,
 * export P&V PN table using mdbtools (pv_pn.csv)
@@ -47,7 +52,6 @@ To re-create product.csv,
 * sort by PNID (or PNPartNumber?)
 * delete all columns except: PNID, PNPartNumber, PNNotes, PNTitleDetail
 * edit column titles: PNID -> External ID, PNPartNumber -> Internal Reference, PNNotes -> Description, PNTitleDetail -> Name
-* Sales / Products / list view / Import / Encoding: Latin1
 
 ```
 PV.PN			Import
@@ -67,7 +71,7 @@ PNDate
 PNTitleDetail	Name ("[Title] : [Detail]")
 ```
 
-Create customer.
+4) Create customer.
 
 ```
 Sales / Customers / Create / Edward Bentley (B&E Submarines)
@@ -75,11 +79,11 @@ Sales / Customers / Create / Edward Bentley (B&E Submarines)
   Sales & Purchases / Sales Team / Sales Department
 ```
 
-Create Sales Order.
+5) Create Sales Order.
 * Create invoice, validate, print PDF
 * Leave invoice UNPAID PAID (do not "Register Payment")
 
-Create Opportunity.
+6) Create Opportunity.
 
 ```
 Settings / Users / Jacab Wood / Edit /
@@ -104,7 +108,7 @@ Sales / Opportunities / Create
     Left quotation as-is (did not convert to Sales Order)
 ```
 	
-Create Lead.
+7) Create Lead.
 
 ```
 Sales / Leads / Create Fenwick Hosmer (Hosmer Engineering)
@@ -117,13 +121,13 @@ did not create custom stages for "Sales Department" as shown in book, however...
     profile for Jacab shows Default Sales Team = Sales Department - perhaps only when documents "pushed" from user?
 ```
 	
-Create BoM for electronics spares kit.
+8) Create BoM for electronics spares kit.
 * Manufacturing / Bill of Materials / Create / 
 * Add items as per BoM worksheet
 		
-Import BoMs from Parts&Vendors(TM).
+9) Import BoMs from Parts&Vendors(TM).
 
-Configure users:
+10) Configure users:
 * Tom Swift
 * James Period
 * Miquel DeLazes
@@ -149,21 +153,21 @@ Access rights:
 Administrator: also "Technical"
 ```
 
-Purchase product from supplier.
+11) Purchase product from supplier.
 * buy ??? from ???
 * serialized!
 
-Import projects (import/projects.csv)
+12) Import projects (import/projects.csv)
 
-Import issues (import/issues.csv)
+13) Import issues (import/issues.csv)
 
-Create, sell, ship, and return a spares kit
+14) Create, sell, ship, and return a spares kit
 * Create manufacturing order
 * Return products from spares kit to stock
 
-Create workflow (e.g. RMA, re-verification test)
+15) Create workflow (e.g. RMA, re-verification test)
 
-Add new product fields.
+16) Add new product fields.
 * Type (pv-pn.PNType)
 * Creation date (pv-pn.PNDate)
 * Designer (pv-pn.PNReqBy)			
@@ -172,7 +176,7 @@ Add new product fields.
 * Title (pv-pn.PNTitle) ???
 * Detail (pv-pn.PNDetail) ???
 
-Inport product sources from Parts&Vendors(TM)
+17) Inport product sources from Parts&Vendors(TM)
 * imported sources (at least primary source, export manually via "Show All" pane)
 	
 Code Repository and Issue Tracking
