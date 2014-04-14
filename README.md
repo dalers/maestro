@@ -1,19 +1,16 @@
-maestro-oe
+maestro
 ==========
+Maestro(TM) is a cohesive set of demo and test data for using with ERP and ERP-like applications, representing a well-defined but fictional going concern - the Swift Construction Company (SCC). Maestro provides a background for exploring and demonstrating how design, manufacturing and sales teams can manage and share information related to parts, projects, material (optionally serialized or otherwise controlled), issues and people. Maestro also provides a context for demonstrating how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a common environment of *Transparency with Trust*.
 
-Maestro for OpenERP
+Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
 
-Maestro(TM) is a cohesive data set for using with ERP and ERP-like applications. Maestro provides a background for exploring and demonstrating how design, manufacturing and sales teams can manage and share information related to parts, projects, material (optionally serialized or otherwise controlled), issues and people. Maestro provides a context for demonstrating how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a walled garden of *Transparency with Trust*.
-
-Maestro provides the complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
-
-The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a shared dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent, you should explore behaviour carefully before any critical use. 
+The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a shared dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent, you should explore behaviour carefully before any critical use.
 
 Getting Started
 ===============
-Follow this procedure to "install" *Maestro for OpenERP* in OpenERP. When complete, you are encouraged to review the *Maestro for OpenERP* [Guided Tour](http://github.com/dalers/maestro-oe/wiki/Guided-tour).
+The initial (and currently only) implementation target for Maestro is [OpenERP](https://www.openerp.com). Follow this procedure to "install" Maestro in OpenERP. When complete, you are encouraged to review the [Maestro OpenERP Guided Tour](http://github.com/maestrobpm/maestro/wiki/Maestro-OpenERP-Guided-Tour).
 
-First, install OpenERP and create a new database (e.g. "scc"), then install the following modules in order:
+First, install OpenERP, create a new database (e.g. "scc"), and install the following OpenERP applications in order:
 * Remove openerp.com bindings
 * Sales Management
 * CRM
@@ -25,7 +22,7 @@ First, install OpenERP and create a new database (e.g. "scc"), then install the 
 
 Login to the new database as "admin" to complete the rest of the procedure.
 
-1) Configure company (SCC)
+1) Configure company
 * Company name: Swift Construction Co.
 * Logo: scc/scc-noname-100x51.jpg
 * Address, phone, fax, tagline, website
@@ -34,13 +31,13 @@ Login to the new database as "admin" to complete the rest of the procedure.
 
 2) Import users (import/res.users.csv)
 * all passwords "maestro"
-* NEVER receive email
+* users configured to NEVER receive email (all communication will be done from within OpenERP)
 
 To re-create import/res.users.csv,
-* edit scc-files/excel/persons.xlsx (master information in 1st tab)
-* save res.users tab in CSV format as import/res.users.csv
+* edit the Master worksheet in scc-files/excel/persons.xlsx
+* save the res.users worksheet in CSV format to import/res.users.csv
 
-3) Import products from Parts&Vendors(TM) (import/product.product.csv)
+3) Import products (import/product.product.csv)
 * Sales / Products / list view / Import / Encoding: Latin1
 
 To re-create product.product.csv,
@@ -125,9 +122,7 @@ did not create custom stages for "Sales Department" as shown in book, however...
 * Manufacturing / Bill of Materials / Create / 
 * Add items as per Parts&Vendors BoM
 		
-9) Import BoMs from Parts&Vendors(TM).
-
-10) Configure users:
+9) Configure users:
 * Tom Swift
 * James Period
 * Miquel DeLazes
@@ -153,21 +148,21 @@ Access rights:
 Administrator: enable "Technical"
 ```
 
-11) Purchase product from supplier.
+10) Purchase product from supplier.
 * buy ??? from ???
 * serialized!
 
-12) Import projects (import/projects.csv)
+11) Import projects (import/projects.csv)
 
-13) Import issues (import/issues.csv)
+12) Import issues (import/issues.csv)
 
-14) Create, sell, ship, and return a spares kit
+13) Create, sell, ship, and return a spares kit
 * Create manufacturing order
 * Return products from spares kit to stock
 
-15) Create workflow (e.g. RMA, re-verification test)
+14) Create workflow (e.g. RMA, re-verification test)
 
-16) Add new product fields.
+15) Add new product fields.
 * Type (pv-pn.PNType)
 * Creation date (pv-pn.PNDate)
 * Designer (pv-pn.PNReqBy)			
@@ -176,22 +171,24 @@ Administrator: enable "Technical"
 * Title (pv-pn.PNTitle) ???
 * Detail (pv-pn.PNDetail) ???
 
-17) Inport product sources from Parts&Vendors(TM)
+16) Import BoMs from Parts&Vendors(TM).
+
+17) Import product sources from Parts&Vendors(TM)
 * imported sources (at least primary source, export manually via "Show All" pane)
 	
 Code Repository and Issue Tracking
 ==================================
-* [*Maestro for OpenERP* project repo](https://github.com/dalers/maestro-oe)
-* [*Maestro for OpenERP* issue tracker](https://github.com/dalers/maestro-oe/issues) (also includes milestones)
+* [Maestro project repo](https://github.com/maestrobpm/maestro)
+* [Maestro issue tracker](https://github.com/maestrobpm/maestro/issues) (also includes milestones)
 
 Communication Channels
 ======================
-At this time, the official communication channel is the [*Maestro for OpenERP* issue tracker](https://github.com/dalers/maestro-oe/issues). Other options (e.g. mailing list, Google Group...) are being considered and will be announced should they become available.
+At this time, the official communication channel is the [Maestro issue tracker](https://github.com/maestrobpm/maestro/issues). Other options (e.g. mailing list, Google Group...) are being considered and will be announced if and when they are should be used.
 
 Developer Guidelines
 ====================
 The basic development procedure is:
-* Create a GitHub account and use GitHub to fork the project repo
+* Create a GitHub account and use GitHub to fork the Maestro project repo
 * Clone your fork locally
 * Create a local topic branch off the master branch
 * Develop and test your work locally
@@ -200,33 +197,32 @@ The basic development procedure is:
 
 All development is currently done in the master branch.
 
-For more information, see the [*Maestro for OpenERP* project wiki](https://github.com/dalers/maestro-oe/wiki).
+For more information, see the [Maestro project Wiki](https://github.com/maestrobpm/maestro/wiki).
 
 Project Documentation
 =====================
-Official project documentation is published in the [*Maestro for OpenERP* project wiki](https://github.com/dalers/maestro-oe/wiki).
+Official project documentation is published in the [Maestro project Wiki](https://github.com/maestrobpm/maestro/wiki).
 
 Legal
 =====
-*Maestro for OpenERP* source is copyright by its authors, as recorded in the repository commit log. The *Maestro for OpenERP* project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the GNU Affero General Public License.
+Maestro source is copyright by its authors, as recorded in the repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you acknowledge that a) you have the legal right to do so, and b) you are licensing the work according to the GNU Affero General Public License.
 
 Support
 =======
 Should you need help, try the following.
 
 * Update your code to the latest commit in the project repo on GitHub.
-* Search the [*Maestro for OpenERP* wiki](https://github.com/maestrobpm/maestro/wiki/).
-* Search the [*Maestro OpenERP issue tracker*](https://github.com/dalers/maestro-oe/issues) (and post if necessary).
+* Search the [Maestro project Wiki](https://github.com/maestrobpm/maestro/wiki/).
+* Search the [Maestro issue tracker](https://github.com/maestrobpm/maestro/issues) (and submit an issue if necessary).
 
-If you post an issue, try to include as much of the following information as possible.
+If you post an issue, try to include answers to the following questions:
 
 * What are you trying to achieve?
 * What are the symptoms of your problem? Why do you think this *is* a problem?
-* What Maestro version are you using? *Until formal releases, give the date you downloaded or cloned the project repo.*
-* What version of OpenERP are you using? *E.g. "Bitnami OpenERP vx.y.z"*
+* What is the version of Maestro you are using?
+* What is the version of OpenERP you are using?
 * Include as an example, the **simplest** sequence of operations that demonstrates the symptoms.
 
 ---
 
 Maestro is a trademark of [Dale Scott](http://www.dalescott.net). Parts&Vendors is a trademark of [Trilogy Design](http://www.trilogydesign.com).
-
