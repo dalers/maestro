@@ -5,7 +5,7 @@ Maestro(TM) is a cohesive demo and test data set for use with ERP and ERP-like a
 Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license encourages the return of derived works to the project to the benefit of all.
 
 
-The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a shared dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent, you should explore behaviour carefully before any critical use.
+The purpose of the [Maestro project is to create, as a community, a shared dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent, you should explore behaviour carefully before any critical use.
 
 Some of the applications Maestro has been used with include:
 * [OpenERP](http://www.openerp.com)
