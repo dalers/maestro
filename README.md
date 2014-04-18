@@ -1,13 +1,17 @@
-maestro-oe
+maestro
 ==========
-
-Maestro for OpenERP
 
 Maestro(TM) is a cohesive data set for using with ERP and ERP-like applications. Maestro provides a background for exploring and demonstrating how design, manufacturing and sales teams can manage and share information related to parts, projects, material (optionally serialized or otherwise controlled), issues and people. Maestro provides a context for demonstrating how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a walled garden of *Transparency with Trust*.
 
 Maestro provides the complete data set for a well-defined but fictional going concern, the Swift Construction Company (SCC). Maestro is an open source project, licensed according to the terms of the [GNU Affero General Public License](http://opensource.org/licenses/AGPL-3.0). This license was selected to encourage the return of derived works to the project, in particular from presenters and trainers who find Maestro useful in their business practices.
 
-The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a shared dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent, you should explore behaviour carefully before any critical use. 
+The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, a shared dataset for demonstrating business processes and integration opportunities. Maestro is in active development, and may not always be completely stable or consistent, you should explore behaviour carefully before any critical use.
+
+Some of the applications Maestro has been used with include:
+* [OpenERP](http://www.openerp.com)
+* [Parts&Vendors(TM)](http://www.triogydesign.com)
+* [WebERP](http://www.weberp.org)
+* [KwaMoja](http://www.kwamoja.com/)
 
 Getting Started
 ===============
