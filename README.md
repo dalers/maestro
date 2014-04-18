@@ -15,7 +15,8 @@ Some of the applications Maestro has been used with include:
 
 Getting Started
 ===============
-Follow this procedure to "install" *Maestro for OpenERP* in OpenERP. When complete, you are encouraged to review the *Maestro for OpenERP* [Guided Tour](http://github.com/dalers/maestro-oe/wiki/Guided-tour).
+
+Maestro documentation currently assumes use with OpenERP. Follow this procedure to "install" Maestro in OpenERP. When complete, you are encouraged to review the [Maestro Guided Tour](http://github.com/dalers/maestro-oe/wiki/Guided-tour).
 
 First, install OpenERP and create a new database (e.g. "scc"), then install the following modules in order:
 * Remove openerp.com bindings
