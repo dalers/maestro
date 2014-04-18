@@ -9,6 +9,7 @@ The purpose of the Maestro project is to create, as a community, a shared datase
 Some of the applications Maestro has been used with include:
 * [OpenERP](http://www.openerp.com)
 * [Parts&Vendors(TM)](http://www.triogydesign.com)
+* [Maestro-Yii](http://www.github.com/dalers/maestro-yii)
 * [WebERP](http://www.weberp.org)
 * [KwaMoja](http://www.kwamoja.com/)
 
