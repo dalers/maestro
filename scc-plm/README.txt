@@ -1,7 +1,7 @@
-SCC Demo/Test Data
+SCC PLM Data
 
-The documented product is the SCC Aircraft Wireless, whose product 
-life cycle contains five distinct iterations.
+The PLM data documents the SCC Aircraft Wireless. The life-cycle of
+the Aircraft Wireless product has five distinct iterations.
 
 Iteration                      Date
 -----------------------------------------

@@ -19,34 +19,29 @@
 echo "Iteration 1..."
 touch -t 201301010101 pv-1.mdb
 touch -t 201301010101 csv-1/*
-touch -t 201301010101 excel/*
 find ./vault-1 -exec touch -t 201301010101 {} \;
 find ./vault-1-nover -exec touch -t 201301010101 {} \;
 
 echo "Iteration 2..."
 touch -t 201301020101 pv-2.mdb
 touch -t 201301020101 csv-2/*
-touch -t 201301020101 excel/*
 find ./vault-2 -exec touch -t 201301020101 {} \;
 find ./vault-2-nover -exec touch -t 201301020101 {} \;
 
 echo "Iteration 3..."
 touch -t 201301030101 pv-3.mdb
 touch -t 201301030101 csv-3/*
-touch -t 201301030101 excel/*
 find ./vault-3 -exec touch -t 201301030101 {} \;
 find ./vault-3-nover -exec touch -t 201301030101 {} \;
 
 echo "Iteration 4..."
 touch -t 201301040101 pv-4.mdb
 touch -t 201301040101 csv-4/*
-touch -t 201301040101 excel/*
 find ./vault-4 -exec touch -t 201301040101 {} \;
 find ./vault-4-nover -exec touch -t 201301040101 {} \;
 
 echo "Iteration 5..."
 touch -t 201301050101 pv-5.mdb
 touch -t 201301050101 csv-5/*
-touch -t 201301050101 excel/*
 find ./vault-5 -exec touch -t 201301050101 {} \;
 find ./vault-5-nover -exec touch -t 201301050101 {} \;
