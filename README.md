@@ -4,7 +4,7 @@ maestro
 
 The purpose of the Maestro project is to create, as a community, a shared knowledge base of operational practices based on a common data set.
 
-Some of the target applications Maestro has been used with include:
+Target applications Maestro has been used with include:
 * [OpenERP](http://www.openerp.com)
 * [Parts&Vendors(TM)](http://www.triogydesign.com)
 * [Maestro-Yii](http://www.github.com/dalers/maestro-yii)
