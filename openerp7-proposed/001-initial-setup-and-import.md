@@ -16,8 +16,8 @@ Configure Company
 ------------------------------
 Settings / Companies / Companies
 * Company name: Swift Construction Co.
-* Logo: scc/scc-noname-100x51.jpg
-* Address, phone, fax, tagline, website
+* Logo: scc-documents/logo/scc-noname-100x51.jpg
+* Address, phone, fax, tagline, website as per the [SCC QSM](https://github.com/dalers/maestro/wiki/SCC-QSM)
 * Paper Format: US Letter
 * Do NOT configure email server (unless you know what you're doing ;-))
 
@@ -204,11 +204,11 @@ Scenario 1
 ------------------------------
 Explore serial numbers in the context of a customer purchase. B&E Submarines desires to purchase a spare parts kit for the Aircraft Wireless unit they previously purchased. A serialized circuit board is used in the assembly of the spare parts kit (preferably a phantom-type BoM to make the parts in it visible), which is then sold and delivered to B&E.
 
-Sometime later, Ed Bentley calls from B&E. He says he found a circuit board, but he doesn’t know if it’s the circuit board from the spares kit. He’s not sure but he thinks the original board might have failed, and he swapped it with the one from the spare parts kit. Ed wants to know if the serial number on the board is the same as the board shipped in the spare parts kit he bought.
+Sometime later, Ed Bentley calls from B&E. He says he found a circuit board, but he doesnï¿½t know if itï¿½s the circuit board from the spares kit. Heï¿½s not sure but he thinks the original board might have failed, and he swapped it with the one from the spare parts kit. Ed wants to know if the serial number on the board is the same as the board shipped in the spare parts kit he bought.
 
 Scenario 2
 ------------------------------
-Explore serial numbers in the context of a project. B&E Submarines plans to upgrade 5 of their submarines with Aircraft Wireless systems. A contract is negotiated between the SCC and B&E, and the SCC initiates a Project to capture all related activity (of which the physical receiver units are only one portion). Complete radio receivers PN 10000003 are manufactured, each with its own serial number – traceable to the serialized electronics circuit board inside. The completed radio receivers are sold and delivered to B&E as part of the overall project.
+Explore serial numbers in the context of a project. B&E Submarines plans to upgrade 5 of their submarines with Aircraft Wireless systems. A contract is negotiated between the SCC and B&E, and the SCC initiates a Project to capture all related activity (of which the physical receiver units are only one portion). Complete radio receivers PN 10000003 are manufactured, each with its own serial number ï¿½ traceable to the serialized electronics circuit board inside. The completed radio receivers are sold and delivered to B&E as part of the overall project.
 
 Sometime later, Ed Bentley calls from B&E. He has a circuit board in his hand again, and wants to know where the serial number came from. Ed asks if the circuit board was from one of the 5 receivers delivered as part of the upgrade project.
 
