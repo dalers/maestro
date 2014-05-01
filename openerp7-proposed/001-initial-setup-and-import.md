@@ -27,11 +27,11 @@ Load and Configure Users
 * all passwords "maestro"
 * users configured to NEVER receive email (all communication will be done from within OpenERP)
 
-To re-create import/res.users.csv,
+To re-create import/res.users.csv
 * edit the Master worksheet in scc-files/excel/persons.xlsx
 * save the res.users worksheet in CSV format to import/res.users.csv
 
-2) Configure users:
+2) Configure users
 * Tom Swift
 * James Period
 * Miquel DeLazes
@@ -60,7 +60,10 @@ Administrator: enable "Technical"
 Load Products
 ------------------------------
 1) Import products (import/product.product.csv)
+
+```
 Sales / Products / list view / Import / Encoding: Latin1
+```
 
 To re-create product.product.csv,
 * export PN table from a Parts&Vendors(TM) database using mdbtools (pv_pn.csv)
@@ -92,7 +95,10 @@ PNTitleDetail	Name ("[Title] : [Detail]")
 
 2) Create BoMs
 Create BoMs as per scc/plm/csv-5/pv_pl.csv
-* Manufacturing / Product / xxx / Bill of Materials / Create / 
+
+```
+Manufacturing / Product / xxx / Bill of Materials / Create
+```
 
 ```
 10000002
@@ -104,7 +110,7 @@ Create BoMs as per scc/plm/csv-5/pv_pl.csv
 |--- 90000012 EARPH,MONO,HI-Z,3.5MM
 |--- 50000001 DOC,USER,AIRCRAFT WIRELESS
 |--- 80000005 BOX,SHIPPING,5X4X2,CARDBOARD,WHITE
-|--- 10000001 ASSY,AIRCRAFT WIRELESS
+\--- 10000001 ASSY,AIRCRAFT WIRELESS
      |--- 10000002 ENCL,AIRCRAFT WIRELESS
      |    \--- 80000001 BOX,IP54,4.74X3.13X2.17",ALUM,BLK,SCREWS
      |--- 20000003 PCA,AIRCRAFT WIRELESS
@@ -120,16 +126,16 @@ Create BoMs as per scc/plm/csv-5/pv_pl.csv
      |    |--- 90000008 CAP,CER,33PF,100V,10%,RADIAL,ROHS
      |    |--- 90000009 CAP,CER,3300PF,100V,10%,RADIAL,ROHS
      |    |--- 90000010 RES,AXIAL,2.0M,0.4W,1%,MF,ROHS
-     |    |--- 90000011 RES,AXIAL,5.6M,0.4W,1%,MF,ROHS
+     |    \--- 90000011 RES,AXIAL,5.6M,0.4W,1%,MF,ROHS
      |--- 80000003 SCREW,MACHINE,PHIL,4-40X1/4,SS
-     |--- 80000004 PS 6 each WASHER,FLAT,4-40
-     |--- 80000006 PS 3 each STANDOFF,HEX,4-40,0.5"L,ALUM
-     |--- 80000007 PS 1 each WASHER,LOCK,#4,INTERNAL TOOTH
-     |--- 90000014 PS 1 each CONN,BINDING POST BANANA,INSUL,GRN
-     |--- 90000015 PS 1 each CONN,BINDING POST BANANA,INSUL,YEL
-     |--- 90000016 PS 2 each CONN,RING,16-22AWG,#4,RED
-     |--- 90000017 PS 5 each WIRE,STRANDED,16AWG,GREEN,POLY
-     \--- 90000018 PS 5 each WIRE,STRANDED,16AWG,YELLOW,POLY
+     |--- 80000004 WASHER,FLAT,4-40
+     |--- 80000006 STANDOFF,HEX,4-40,0.5"L,ALUM
+     |--- 80000007 WASHER,LOCK,#4,INTERNAL TOOTH
+     |--- 90000014 CONN,BINDING POST BANANA,INSUL,GRN
+     |--- 90000015 CONN,BINDING POST BANANA,INSUL,YEL
+     |--- 90000016 CONN,RING,16-22AWG,#4,RED
+     |--- 90000017 WIRE,STRANDED,16AWG,GREEN,POLY
+     \--- 90000018 WIRE,STRANDED,16AWG,YELLOW,POLY
 ```
 
 Sales Walkthrough
@@ -194,10 +200,6 @@ Project Management Walkthrough
 ------------------------------
 1) Import projects (import/projects.csv)
 
-13) Create, sell, ship, and return a spares kit
-* Create manufacturing order
-* Return products from spares kit to stock
-
 Scenario 1
 ------------------------------
 Explore serial numbers in the context of a customer purchase. B&E Submarines desires to purchase a spare parts kit for the Aircraft Wireless unit they previously purchased. A serialized circuit board is used in the assembly of the spare parts kit (preferably a phantom-type BoM to make the parts in it visible), which is then sold and delivered to B&E.
@@ -210,13 +212,21 @@ Explore serial numbers in the context of a project. B&E Submarines plans to upgr
 
 Sometime later, Ed Bentley calls from B&E. He has a circuit board in his hand again, and wants to know where the serial number came from. Ed asks if the circuit board was from one of the 5 receivers delivered as part of the upgrade project.
 
+Create, sell, ship, and return a field spares kit
+------------------------------
+* Create manufacturing order
+* Issue material to order (serialized PCA)
+* Deliver order to customer
+* Return order from customer
+* Return material to stock (serialized PCA)
+
 Issues Walkthrough
 ------------------------------
 1) Import issues (import/issues.csv)
 
 ToDo
 ------------------------------
-1) Create Workflow
+1) Create new workflow
 * RMA
 * Re-verification test
 
@@ -232,7 +242,7 @@ ToDo
 3) Import BoMs
 * pv_pl.csv
 
-4) Import Product Sources
+4) Import product sources
 * pv_su.csv
 * pv_mfr.csv
 * pv_mfrpn.csv
