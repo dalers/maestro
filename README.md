@@ -12,6 +12,10 @@ Some of the target applications Maestro has been used with include:
 
 Maestro is an open source project, licensed according to the terms of the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/). This license encourages the return of derived works to the project to the benefit of the community.
 
+Get Started
+--------------------------------
+Review the workflow (aka processes) directory. The numbering methodology is currently chronological, following my investigations and initial blog post http://www.dalescott.net/wordpress/?p=2723
+
 Proposing or Editing a Workflow
 --------------------------------
 To propose a new or revised workflow:
