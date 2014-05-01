@@ -1,8 +1,8 @@
 maestro
 =======
-**Maestro**(TM) is a cohesive demo and test data set for use with ERP and ERP-like applications. The data represent a well-defined but fictional going concern - the Swift Construction Company (SCC). Maestro provides a background for exploring and demonstrating how design, manufacturing and sales teams can manage and share information related to parts, projects, material (optionally serialized or otherwise controlled), issues and people. Maestro also provides a context for demonstrating how "current" information from spreadsheets, shared directories and single-purpose applications can be consolidated in a common environment of *Transparency with Trust*.
+**Maestro**(TM) is a cohesive data set to use with ERP and ERP-like applications for evaluating and demonstrating business workflows. The data represents a fictional well-defined going concern - the Swift Construction Company (SCC). Workflows are documented for specific ERP-type software applications, emphasizing workflows related to parts, projects, material, issues and people. Maestro provides a context for demonstrating how information from a variety of sources can be consolidated in a shared environment of *Transparency with Trust*.
 
-The purpose of the Maestro project is to create, as a community, a shared dataset for evaluating and demonstrating business processes and workflows.
+The purpose of the Maestro project is to create, as a community, a shared knowledge base of operational practices based on a common data set.
 
 Some of the target applications Maestro has been used with include:
 * [OpenERP](http://www.openerp.com)
@@ -12,12 +12,12 @@ Some of the target applications Maestro has been used with include:
 
 Maestro is an open source project, licensed according to the terms of the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/). This license encourages the return of derived works to the project to the benefit of the community.
 
-Get Started
---------------------------------
-Review the workflow (aka processes) directory. The numbering methodology is currently chronological, following my investigations and initial blog post http://www.dalescott.net/wordpress/?p=2723
+Getting Started
+---------------
+Review the ERP-specific workflows in xxx-accepted/ (released) and xxx-proposed/ (proposed/draft). The numbering methodology is currently chronological, based on [my blog post](http://www.dalescott.net/wordpress/?p=2723).
 
 Proposing or Editing a Workflow
---------------------------------
+-------------------------------
 To propose a new or revised workflow:
 * fork this repo, create a branch, checkout that branch, add the new or modified workflow in `*xxx*-proposed/`, push the branch to Github, and send a pull request; or,
 * create a issue in the repository to start a discussion on Github.
