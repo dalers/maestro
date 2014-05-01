@@ -1,6 +1,6 @@
 maestro
 =======
-**Maestro**(TM) is a cohesive data set to use with ERP and ERP-like applications for evaluating and demonstrating business workflows. The data represents a fictional well-defined going concern - the Swift Construction Company (SCC). Workflows are documented for specific ERP-type software applications, emphasizing workflows related to parts, projects, material, issues and people. Maestro provides a context for demonstrating how information from a variety of sources can be consolidated in a shared environment of *Transparency with Trust*.
+**Maestro**(TM) is a cohesive data set to use with ERP and ERP-like applications for evaluating and demonstrating business workflows. Workflows are documented for specific ERP-type software applications, emphasizing processes related to parts, projects, material, issues and people. The data represents a fictional well-defined going concern - the Swift Construction Company (SCC). Maestro provides the context to understand how information can be consolidated in an environment of *Transparency with Trust*.
 
 The purpose of the Maestro project is to create, as a community, a shared knowledge base of operational practices based on a common data set.
 
