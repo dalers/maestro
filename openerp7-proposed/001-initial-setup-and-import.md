@@ -246,3 +246,7 @@ ToDo
 * pv_su.csv
 * pv_mfr.csv
 * pv_mfrpn.csv
+
+# References
+
+- [OpenERP documentation](http://doc.openerp.com)
