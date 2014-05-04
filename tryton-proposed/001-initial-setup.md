@@ -6,10 +6,14 @@
 
 ## Getting Started ##
 
-- [Tryton Official Download Page](http://www.tryton.org/download.html)
+- [Download Page](http://www.tryton.org/download.html)
+- [Project Documentation](http://doc.tryton.org/3.2/)
+- [Project Wiki (Google Code)](http://code.google.com/p/tryton/wiki/HelloWorld)
+
+
+External References
+
 - [Tryton Community Documentation](http://tryton-documentation.readthedocs.org/en/latest/index.html)
-- [Tryton Project Documentation](http://doc.tryton.org/3.2/)
-- [Tryton Google wiki](http://code.google.com/p/tryton/wiki/HelloWorld)
 - Installing on FreeBSD
  - [http://code.google.com/p/tryton/wiki/InstallationFreeBSD (see comments re outdated)](http://code.google.com/p/tryton/wiki/InstallationFreeBSD)
  - [http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/](http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/) (Tryton ~1.4)
