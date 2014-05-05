@@ -39,7 +39,7 @@
 
 ## Getting Started ##
 
-- [Hello World (Google Code Tryton Project Wiki)](http://code.google.com/p/tryton/wiki/HelloWorld)
+- [Hello World (Tryton Project Wiki - Google Code)](http://code.google.com/p/tryton/wiki/HelloWorld)
 - [Tryton Development Workflow Series (Openlabs blog posts) ](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository)
 
 ### Tryton on FreeBSD
