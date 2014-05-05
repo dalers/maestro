@@ -21,11 +21,22 @@
 - [Tryton-Dev](https://groups.google.com/forum/#!forum/tryton-dev)
  - [Tryton-Dev Announcement](https://groups.google.com/forum/#!topic/tryton-dev/0UMgTirPdZw)
 
-### Openlabs
+### [Openlabs](http://www.openlabs.co.in)
 - [GitHub Tryton Mirror](https://github.com/tryton)
 - [GitHub Tryton Documentation project](https://github.com/tryton/tryton-documentation/blob/master/developer_guide/getting_started.rst)
-- Calgary [Openlabs contact](http://www.openlabs.co.in/contact-us): Mark Hayden, PO Box 97074, Harvest Hills RPO, Calgary, AB T3K 0B0, Canada. +1 813 793-6736
+- Calgary contact: Mark Hayden, PO Box 97074, Harvest Hills RPO, Calgary, AB T3K 0B0, Canada. +1 813 793-6736
+- Tutorials
+ - [Tryton development workflow at Openlabs](http://engineering.openlabs.co.in/post/72769621921/tryton-development-workflow-at-openlabs)
+ - [Pt 1 - Tryton development workflow series - Repository](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository)
+ - [Pt 2 - Tryton development workflow series - Project](http://engineering.openlabs.co.in/post/72769297075/part-2-tryton-development-workflow-series-project)
+ - [Pt 3 - Tryton development workflow series - Code Review](http://engineering.openlabs.co.in/post/72769329161/part-3-tryton-development-workflow-series-code)
+ - [Pt 4 - Tryton development workflow series - Pull Requests & Continuous Integration](http://engineering.openlabs.co.in/post/72769367053/part-4-tryton-development-workflow-series-pull)
+ - [Pt 5 - Tryton development workflow series - Deploying & Monitoring](http://engineering.openlabs.co.in/post/72769399345/part-5-tryton-development-workflow-series-deploying)
+ - [CSV Reports for Tryton](http://engineering.openlabs.co.in/post/28108366021/csv-reports-for-tryton)
 
+### B2CK
+- http://www.b2ck.com/news/index.html
+ 
 ### Floss Manuals
 - http://booki.flossmanuals.net/tryton-erp/_info/
 - http://booki.flossmanuals.net/tryton-erp/_draft/_v/1.0/installing-tryton/
