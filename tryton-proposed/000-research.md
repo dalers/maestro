@@ -21,9 +21,10 @@
 - [Tryton-Dev](https://groups.google.com/forum/#!forum/tryton-dev)
  - [Tryton-Dev Announcement](https://groups.google.com/forum/#!topic/tryton-dev/0UMgTirPdZw)
 
-### Openlabs GitHub Tryton Mirror
+### Openlabs
 - [GitHub Tryton Mirror](https://github.com/tryton)
-- [Tryton Documentation project](https://github.com/tryton/tryton-documentation/blob/master/developer_guide/getting_started.rst)
+- [GitHub Tryton Documentation project](https://github.com/tryton/tryton-documentation/blob/master/developer_guide/getting_started.rst)
+- Calgary [Openlabs contact](http://www.openlabs.co.in/contact-us): Mark Hayden, PO Box 97074, Harvest Hills RPO, Calgary, AB T3K 0B0, Canada. +1 813 793-6736
 
 ### Floss Manuals
 - http://booki.flossmanuals.net/tryton-erp/_info/
@@ -39,6 +40,7 @@
 ## Getting Started ##
 
 - [Hello World (Google Code Tryton Project Wiki)](http://code.google.com/p/tryton/wiki/HelloWorld)
+- [Tryton Development Workflow Series (Openlabs blog posts) ](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository)
 
 ### Tryton on FreeBSD
 - Latest release in FreeBSD ports/packages is Tryton 2.8 (current Tryton relese 3.2)
@@ -46,10 +48,6 @@
  - https://groups.google.com/forum/#!msg/tryton/fX8lRUFuH18/ss3ghEGTmhwJ (proposed update to wiki, assumes 2.8 port)
 - [http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/](http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/) (Tryton ~1.4)
 - [Python on FreeBSD (Japanese slideshare)](http://www.slideshare.net/pycontw/python-on-freebsd)
-
-### [Openlabs](http://www.openlabs.co.in/contact-us)
-- [PART 1: TRYTON DEVELOPMENT WORKFLOW SERIES - REPOSITORY](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository) (blog series)
-- Calgary contact: Mark Hayden, PO Box 97074, Harvest Hills RPO , Calgary, AB T3K 0B0,Canada. +1 813 793-6736
 
 ## Using Source Control ##
 
