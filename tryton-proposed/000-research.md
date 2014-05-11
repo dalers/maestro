@@ -24,7 +24,7 @@
 ### [Openlabs](http://www.openlabs.co.in)
 - [GitHub Tryton Mirror](https://github.com/tryton)
 - [GitHub Tryton Documentation project](https://github.com/tryton/tryton-documentation/blob/master/developer_guide/getting_started.rst)
-- Calgary contact: Mark Hayden, PO Box 97074, Harvest Hills RPO, Calgary, AB T3K 0B0, Canada. +1 813 793-6736
+- Calgary contact?
 - Tutorials
  - [Tryton development workflow at Openlabs](http://engineering.openlabs.co.in/post/72769621921/tryton-development-workflow-at-openlabs)
  - [Pt 1 - Tryton development workflow series - Repository](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository)
