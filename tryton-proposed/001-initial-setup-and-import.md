@@ -155,12 +155,12 @@ To re-create import/res.users.csv
 
 1) Login as admin
 
-2) Menu: Product > Products, Toolbar: Import Data (Encoding: Latin1) -> import/product.product.csv
+2) Menu: Product > Products, Toolbar: Import Data (Encoding: Latin1) -> tryton-import/scc-products.csv
 
-To re-create product.product.csv,
+To re-create scc-products.csv using concatenated name and detail as name:
 
 * export PN table from a Parts&Vendors(TM) database using mdbtools (pv_pn.csv)
-* copy export from P&V PN table (testdata/csv-2014-03-24/pv_pn.csv)
+* copy export from P&V PN table (e.g. scc/plm-scc-csv-5/pv_pn.csv)
 * add column PNTitleDetail =CONCATENATE(J2,IF(K2="","",CONCATENATE(" : ",K2)))
 * copy/paste PNTitleDetail column as text to replace formula
 * sort by PNTitleDetail
