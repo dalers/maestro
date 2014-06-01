@@ -168,6 +168,31 @@ To re-create scc-products.csv using concatenated name and detail as name:
 * delete all columns except: PNID, PNPartNumber, PNNotes, PNTitleDetail
 * edit column titles: PNID -> External ID, PNPartNumber -> Internal Reference, PNNotes -> Description, PNTitleDetail -> Name
 
+Tryton
+Basic data
+```
+P&V                  -> Tryton
+-----------------------------------------------------------			
+PNID                 -> product-attribute PNID
+PNUNID               -> product-attribute PNUNID
+PNPartNumber         -> Code
+PNType               -> product-attribute PNType
+PNRevision           -> product-attribute PNRevision
+PNTitle              -> Name
+PNDetail             -> product-attribute PNDetail
+PNStatus             -> product-attribute PNStatus
+PNReqBy              -> product-attribute PNReqBy
+PNNotes              -> Detail
+PNUser1...PNUser10   -> product-attribute PNUser1..PNUser10
+PNDate               -> product-attribute PNDate 
+```
+Keys
+- PNID, primary key, is fk in parts list table
+- PNUNID
+- PNTYPE
+- PNSTATUS
+
+OpenERP7
 ```
 PV.PN           Import
 ---------------------------			
@@ -185,6 +210,7 @@ PNUser10        (not imported at this time)
 PNDate
 PNTitleDetail   Name ("[Title] : [Detail]")
 ```
+
 
 ### Create Bills of Materials (BoMs)
 

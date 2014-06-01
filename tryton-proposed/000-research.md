@@ -67,3 +67,38 @@
 ## Coding ##
 
 ## Guidelines ##
+
+## Modules
+
+
+## Integrations
+
+- [Roundup Issue Tracker](http://www.roundup-tracker.org/)
+	- [Recommended by Cedric Krier May 29](https://groups.google.com/forum/#!topic/tryton/ek5-_LV-RT0)
+
+## Nereid (Tryton Web Server)
+
+Nereid is a friendly web-type user interface to Tryton, particularly for external stakeholders. 
+
+- [Nereid Documentation](http://nereid.readthedocs.org/en/develop/)
+
+- [Nereid Demo Store (overview)](http://openlabs.github.io/nereid-demo-store/).
+	- [Demo Site](http://nereid-webshop-demo.openlabs.us/)
+	- Product data taken from [icecat, the open catalogue](http://www.icecat.biz/)
+
+### Nereid Project
+
+Nereid Project is an open-source collaborative development platform created by [Openlabs](http://www.openlabs.co.in/). It is used at Openlabs to manage software projects & tasks, but can be used for managing any kind of project. The aim is to connect everything together on a single interface, avoiding unnecessary time consumption, and track project’s progress, task’s status, shared files, and time spent on individual tasks.
+
+Sharoon Thomas (Openlabs): "We have extended project management module of Tryton to do this for us and we have a web app built around it. We are a software development shop and the issues are obviously tasks, bugs etc. However, we also know users who use it for other purposes like the ones you mentioned. The design is completely extensible and you can adapt it to do the additional integrations with sales etc.".
+
+- [Nereid Project Documentation (with screenshots)](http://tryton-nereid-project.readthedocs.org/en/latest/)
+
+## [NaN-tic](http://www.nan-tic.com/en/)
+Founded 2008, based in Barcelona, Spain. Concentrates on ERP-type work, promoted OpenERP as partner 2009-2010, appears to now prefer Tryton. Has business agreement with OpenLabs.
+- Albert Cervera Areny: We created several small modules extending projects and tasks for our own needs. We're not using Nereid Project yet, but I think we should try it soon..
+	- [Nantic project modules on Bitbucket](https://bitbucket.org/nantic/profile/repositories?search=project)
+- 
+
+
+
