@@ -149,9 +149,49 @@ To re-create import/res.users.csv
 	* Sharing: User
 	* Administration: Settings
 
-## Load Products
+## Enter Reference Data
 
-### Import products
+1) Define Additional Product Attributes
+
+Create additional product attributes:
+
+```
+PNUser1       User1                          Char
+PNUser2       User2                          Char
+PNUser3       User3                          Char
+PNUser4       User4                          Char
+PNUser5       User5                          Char
+PNUser6       User6                          Char
+PNUser7       User7                          Char
+PNUser8       User8                          Char
+PNUser9       User9                          Char
+PNUser10      User10                         Char
+PNID          PNID (int)                     Integer
+PNUNID        PNUNID (int)                   Integer
+PNType        Type (CAT,PL,DWG,PS,AW,DOC)    Char
+PNRevision    Rev (1...)                     Char
+PNDetail      Detail                         Char
+PNStatus      Status (U,R,O)                 Char
+PNReqBy       By                             Char
+PNDate        Date (dd-mm-yyyy)              Char
+```
+
+2) Define Units of Measure
+
+One of the units in an "UOM Category" is assigned Factor and Rate both equal to 1, and the other units in the UOM Category are expressed in terms of that unit. For example, a meter (m) is a unit of length, and has factor and rate of 1. The other units of length (mile, kilometer, centimeter and millimeter) are expressed in terms of meters.
+
+```
+Name          Symbol      UOM Cat  Factor   Rate            Rounding Precision
+--------------------------------------------------------------------------
+spool66FT     spl66FT     Length   20.1168  0.049709695378  0.01
+spool100FT    spl100FT    Length   30.48    0.032808398950  0.01
+spool19300FT  spl19300FT  Length   5882.64  0.000169991704  0.01
+```
+
+Notes
+- A UOM symbol has a maximum of 10 characters.
+
+## Import products
 
 1) Login as admin
 
@@ -165,11 +205,11 @@ To re-create scc-products.csv using concatenated name and detail as name:
 * copy/paste PNTitleDetail column as text to replace formula
 * sort by PNTitleDetail
 * sort by PNID (or PNPartNumber?)
-* delete all columns except: PNID, PNPartNumber, PNNotes, PNTitleDetail
-* edit column titles: PNID -> External ID, PNPartNumber -> Internal Reference, PNNotes -> Description, PNTitleDetail -> Name
+* delete all columns except those included in Tryton mapping
+* edit column titles according to Tryton mapping
 
-Tryton
-Basic data
+### Mapping from Parts&Vendors to Tryton
+
 ```
 P&V                  -> Tryton
 -----------------------------------------------------------			
@@ -187,30 +227,12 @@ PNUser1...PNUser10   -> product-attribute PNUser1..PNUser10
 PNDate               -> product-attribute PNDate 
 ```
 Keys
-- PNID, primary key, is fk in parts list table
-- PNUNID
-- PNTYPE
-- PNSTATUS
+- PNID, primary part key (partslist table references using fk)
+- PNUNID (fk to table UN)
+- PNTYPE (fk to table TYPE)
 
-OpenERP7
-```
-PV.PN           Import
----------------------------			
-PNID            External ID
-PNPartNumber    Internal Reference
-PNType          (not imported at this time)
-PNStatus
-PNTitle         (see PNTitleDetail)
-PNDetail        (see PNTitleDetail)
-PNReqBy
-PNNotes         Description
-PNUser5
-PNUser9         (not imported at this time)
-PNUser10        (not imported at this time)
-PNDate
-PNTitleDetail   Name ("[Title] : [Detail]")
-```
-
+Notes
+- PNSTATUS contains status value (i.e. "U", "R", or "O"), but could (should?) be fk to STATUSID in table STATUS (that is, if table STATUS existed). 
 
 ### Create Bills of Materials (BoMs)
 
