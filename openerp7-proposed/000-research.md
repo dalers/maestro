@@ -120,6 +120,28 @@ Supporters represent the development community in general to the board of direct
 - [Installing on FreeBSD](http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/)
 - [Debian Install](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=592908)
 
+## Creating a BoM
+
+- [Google Search](https://www.google.ca/search?q=how+to+create+bom+in+tryton&ie=UTF-8&oe=UTF-8&hl=en&client=safari)
+
+## Misc Tryton
+
+https://code.google.com/p/tryton/wiki/TrytonMRPIntegration
+
+http://www.itqlick.com/index.php?module=Products&pname=internalcompare&prod1=7026&prod2=4333
+
+http://www.ipa.fraunhofer.de/fileadmin/www.ipa.fhg.de/Publikationen/Studie_OpenSource%20ERP.pdf
+
+http://www.slideshare.net/ejazahmedbhatti/erp-a-research-study-paper-by-ejaz-ahmed-bhatti
+
+http://www.tryton.org/~irclog/2013-10-30.log.html
+
+https://groups.google.com/forum/m/#!msg/tryton/tIA6hlMydjc/ZqAehXvctKsJ
+
+[OpenBSD Ports Readme: port productivity/tryton/trytond](http://readme.portsbug.me.uk/path/productivity/tryton/trytond)
+
+[Google search tryton serial-number using](http://www.google.com/search?client=ms-rim&hl=en&q=tryton%20serial-number%20using&ie=UTF-8&oe=UTF-8&channel=browser)
+
 ## Installing a Module
 
 * Install module (either)
@@ -132,7 +154,7 @@ Supporters represent the development community in general to the board of direct
 
     python trytond -c /etc/tryton -u a_module -d databasename
 
-# Tryton on FreeBSD
+## Tryton on FreeBSD
 
 - Tryton 2.8 in [ports collection](http://www.freebsd.org/cgi/ports.cgi?query=trytond28&stype=all&sektion=all) (current version 3.2)
 - [http://code.google.com/p/tryton/wiki/InstallationFreeBSD (see comments re outdated)](http://code.google.com/p/tryton/wiki/InstallationFreeBSD)
@@ -140,6 +162,30 @@ Supporters represent the development community in general to the board of direct
 - [http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/](http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/) (Tryton ~1.4)
 - [Python on FreeBSD (Japanese slideshare)](http://www.slideshare.net/pycontw/python-on-freebsd)
 - how to start trytond? (copy rc.d/trytond from OpenBSD?)
+
+### Mounting an NTFS drive on FreeBSD
+
+I had wanted to restore a server using a system dump on an NTFS USB drive (the only file system supported by Windows that you can save a 4G+ file to). Unfortunately, read-only support for NTFS was removed from the base system as of FreeBSD-10 (NTFS is still supported in 9.x images, including Live CD and memstick). This also means you do not have NTFS support if you boot from a FreeBSD-10 CD/DVD or memstick.
+
+To access NTFS file systems as of FreeBSD-10, you must install fusefs-ntfs (e.g. # pkg install fusefs-ntfs), load the kernel module and use the file system driver. The [Whitney Technologies blog post](http://www.whitneytechnologies.com/?p=241) is a good reference for the procedure.
+
+- [Mounting an NTFS drive into FreeBSD » Whitney Technologies](http://www.whitneytechnologies.com/?p=241)
+
+- [FreeBSD fusefs-ntfs port](http://www.freshports.org/sysutils/fusefs-ntfs/)
+
+- [[Solved] ntfs-3g vs mount -t ntfs-3g](https://forums.freebsd.org/viewtopic.php?f=48&t=45173)
+
+- [Can't mount NTFS drive in FreeBSD 10](https://forums.freebsd.org/viewtopic.php?f=48&t=46248)
+
+- [NTFS-Write in FreeBSD](http://ootput.wordpress.com/2012/06/18/ntfs-write-in-freebsd/)
+
+- [How to mount NTFS Windows XP filesystem on FreeBSD, NetBSD, OpenBSD](http://www.pc-freak.net/blog/how-to-mount-ntfs-windows-xp-filesystem-on-freebsd-netbsd-openbsd/)
+
+- [Mounting an NTFS Disk with Write Capabilties in FreeBSD 9](http://virtuallyhyper.com/2012/10/mounting-an-ntfs-disk-in-write-mode-in-freebsd-9/)
+
+- [HowTo: Mounting NTFS partition in write mode on FreeBSD](http://linux-bsd-sharing.blogspot.ca/2012/01/howto-mounting-ntfs-partition-in-write.html)
+
+- [how to mount ntfs usb HDD with rw access](https://forums.freebsd.org/viewtopic.php?&t=10720)
 
 ## trytond.conf
 - jsondata_path (path of json-rpc data) - see tryton28 port?
@@ -172,6 +218,9 @@ Supporters represent the development community in general to the board of direct
 	- [Nereid documentation](http://nereid.openlabs.co.in/en/develop/index.html)
 
 # Coding
+
+- [fig-standards/accepted/PSR-2-coding-style-guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+
 ## Python
 
 - [Python Packaging Documentation](https://python-packaging-user-guide.readthedocs.org/en/latest/tutorial.html)
