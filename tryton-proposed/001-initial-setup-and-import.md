@@ -279,7 +279,13 @@ Notes
 ```
 
 # Workflows
-These workflows are included here temporarily for convenience, and will eventually be moved to one or more separate documents.
+
+*These workflows are included here temporarily for convenience, and will eventually be moved to one or more separate documents.*
+
+The Swift Construction Company (SCC) manufactures a radio receiver called an  Aircraft Wireless.  The SCC buys an assembled electronics circuit board (Part Number 20000003) in lots of 10 from Trilogy-Net.  The circuit boards are used to manufacture Aircraft Wireless units (PN 10000003). When circuit boards from Trilogy-Net arrive at the SCC, they are inspected and, if acceptable, identified with a serial number and stored on a shelf. One of the SCC’s customers is B&E Submarines, who some time ago purchased an Aircraft Wireless system from the SCC to evaluate.
+
+The products (part numbers), customer (B&E) and supplier (Trilogy-Net) have been created. Two BoMs have been created, one for the finished Aircraft Wireless product (PN 10000003) and one for a spare parts kit (PN 60000001), which includes the electronics circuit board (PN 20000003).
+
 
 ## Sales
 
