@@ -33,7 +33,7 @@ exporting from one system and importing into another. Each Parts&Vendors
 database has been exported to CSV-format files using the mdb-export 
 utility from the mdbtools project, with one CSV file for each database 
 table. The CSV files for each iteration are in separate directories 
-(e.g. csv-1/ for iteration 1, csv-2/ for iteration 2, etc.). 
+(e.g. plm-csv-1/ for iteration 1, plm-csv-2/ for iteration 2, etc.). 
 
 File vaults
 -------------------------------------------------------
@@ -43,20 +43,21 @@ Demo/Test data set include document references, with the documents
 themselves located in a vault directory corresponding to the iteration 
 of the Parts&Vendors database file. 
 
-There are two sets of vault directories, vault-n/ and vault-n-nover/. 
-Documents in the vault-n/ set of directories include the document 
-version in its file name (e.g. vault-1/parts/10000001_PBS-00.pdf for 
-version 00, vault-1/parts/10000001_PBS-01 for version 01). 
+There are two sets of vault directories, plm-vault-n/ and 
+plm-vault-n-nover/. Documents in the plm-vault-n/ set of directories 
+include the document version in its file name (e.g. 
+plm-vault-1/parts/10000001_PBS-00.pdf for version 00, 
+plm-vault-1/parts/10000001_PBS-01 for version 01). 
 
 Although including the document version in the document's file name 
 allows for convenient identification, mistakes can easily be made (in 
 particular when done manually). An alternative approach is to not change 
 the document file name after making changes, and treat a modified 
 document file as a new version (although the version itself will not be 
-known). Files in the vault-n-nover/ set of directories follow this 
-approach. For example, vault-1-nover/parts/10000001_PBS.pdf is the 
+known). Files in the plm-vault-n-nover/ set of directories follow this 
+approach. For example, plm-vault-1-nover/parts/10000001_PBS.pdf is the 
 version in iteration 1 of the Aircraft Wireless product life cycle, and 
-vault-3-nover/parts/10000001_PBS.pdf is the version in iteration 3 
+plm-vault-3-nover/parts/10000001_PBS.pdf is the version in iteration 3 
 (opening the documents in a reader application will show they are 
 version 00 and version 01 respectively). 
 
@@ -73,15 +74,15 @@ Next, copy vault iterations in order "over top of" a new vault directory
 (preserving timestamps), starting with iteration 1 and continuing up to 
 and including the desired iteration. 
 
-For example, to re-create the vault at iteration 5 using the vault-n/ 
-set of directories: 
+For example, to re-create the vault at iteration 5 using the 
+plm-vault-n/ set of directories: 
 
  $ ./fix_iteration_datetime.sh
  $ mkdir vault
- $ cp -a ./vault-1/* ./vault/
- $ cp -a ./vault-2/* ./vault/
- $ cp -a ./vault-3/* ./vault/
- $ cp -a ./vault-4/* ./vault/
- $ cp -a ./vault-5/* ./vault/
+ $ cp -a ./plm-vault-1/* ./plm-vault/
+ $ cp -a ./plm-vault-2/* ./plm-vault/
+ $ cp -a ./plm-vault-3/* ./plm-vault/
+ $ cp -a ./plm-vault-4/* ./plm-vault/
+ $ cp -a ./plm-vault-5/* ./plm-vault/
 
 ###
