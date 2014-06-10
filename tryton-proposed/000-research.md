@@ -200,6 +200,7 @@ Board of Directors (as of 2014-06-02)
 
 ### [NaN-tic](http://www.nan-tic.com/en/)
 - Founded 2008, based in Barcelona, Spain. Specializes in ERP, was OpenERP partner 2009-2010 but now prefers Tryton. Business agreement with OpenLabs.
+- [Module repository on BitBucket](https://bitbucket.org/nantic/)
 - Albert Cervera Areny: We created several small modules extending projects and tasks for our own needs. We're not using Nereid Project yet, but I think we should try it soon..
 	- [Nantic project modules on Bitbucket](https://bitbucket.org/nantic/profile/repositories?search=project)
 
