@@ -3,12 +3,15 @@
 - [Tryton Project Website](http://www.tryton.org/)
 - [Tryton News](http://news.tryton.org/)
 - [Documentation (http://doc.tryton.org/)](http://doc.tryton.org/)
+- [Mailing Lists, IRC, Wiki, Presentations and Papers](http://www.tryton.org/community.html)
+- [Wiki (Google Code)](http://code.google.com/p/tryton/wiki)
 - [Downloads](http://www.tryton.org/download.html)
 - [Bug Tracker (https://bugs.tryton.org/)](https://bugs.tryton.org/)
 - [Source Control (http://hg.tryton.org)](http://hg.tryton.org/)
 	- [Modules (http://hg.tryton.org/modules)](http://hg.tryton.org/modules)
 
-### Google Groups (mailer / forum)
+### Google Groups Mailing List
+(English-language only are listed)
 - [Tryton (general)](https://groups.google.com/forum/#!forum/tryton)
 - [Tryton-Dev (core coding and architecture design)](https://groups.google.com/forum/#!forum/tryton-dev)
 
@@ -28,21 +31,23 @@
 
 ## External Resources
 
-- [Mailing Lists, IRC, Wiki, Presentations and Papers (Tryton.org website)](http://www.tryton.org/community.html)
-- [Wiki (Google Code)](http://code.google.com/p/tryton/wiki)
-- [Tryton Community Documentation (Openlabs)](http://tryton-documentation.readthedocs.org/en/latest/index.html)
-	- [PDF Version](https://media.readthedocs.org/pdf/tryton-documentation/latest/tryton-documentation.pdf)
-- [Tryton 2.2 administration manual (Google Docs)](https://docs.google.com/document/d/1wPjdd965wy0_WlQCu8nCw1zl9GJ9xa2jQHQflpiBx98/mobilebasic?authkey=CLK6q9gK#h.etd8pr3oaqqv)
-- [Spanish manual (http://doc.tryton-erp.es)](http://doc.tryton-erp.es)
+- Openlabs Tryton documentation
+	- [Tryton Community Documentation (ReadTheDocs)](http://tryton-documentation.readthedocs.org/en/latest/index.html)
+		- [PDF Version](https://media.readthedocs.org/pdf/tryton-documentation/latest/tryton-documentation.pdf)
+	- [Tryton Documentation project (GitHub)](https://github.com/tryton/tryton-documentation/blob/master/developer_guide/getting_started.rst)
+- [Spanish Tryton manual (http://doc.tryton-erp.es)](http://doc.tryton-erp.es)
+	- [English translation](http://translate.google.com/translate?sl=auto&tl=en&u=http%3A//doc.tryton-erp.es/)
 - [OpenERP to Tryton (assumes familiarity with OpenERP)(NaN-tic)](http://www.openerp2tryton.com/users.html)
-- [Tryton Documentation project (Openlabs, on GitHub)](https://github.com/tryton/tryton-documentation/blob/master/developer_guide/getting_started.rst)
-- [3-Part blog series on Tryton on Version2Beta](http://version2beta.com/articles/evaluating-tryton-as-an-ecommerce-backend_web-framework/)
-- [Experience OpenERP deployments in French companies (case study)](http://translate.google.com/translate?depth=1&hl=en&rurl=translate.google.com&sl=fr&tl=en&u=http://people.via.ecp.fr/~alexis/openerp/) (Google English translation)
-- [NaN-tic Tryton slideshow](http://www.slideshare.net/NaN-tic/tryton-16270050)
+- [Tryton 2.2 administration manual (Google Docs)](https://docs.google.com/document/d/1wPjdd965wy0_WlQCu8nCw1zl9GJ9xa2jQHQflpiBx98/mobilebasic?authkey=CLK6q9gK#h.etd8pr3oaqqv)
+- [3-Part blog series on Tryton (Version2Beta)](http://version2beta.com/articles/evaluating-tryton-as-an-ecommerce-backend_web-framework/)
+- [Tryton slideshow (NaN-tic)](http://www.slideshare.net/NaN-tic/tryton-16270050)
 
 ### Wikipedia
 - [Tryton - Wikipedia article](http://en.wikipedia.org/wiki/Tryton)
 - [Tryton vs OpenERP - Wikipedia article](http://en.wikipedia.org/wiki/Comparison_of_Tryton_and_Open_ERP)
+
+### YouTube
+- TODO
 
 ### Floss Manuals
 - http://booki.flossmanuals.net/tryton-erp/_info/
@@ -52,6 +57,9 @@
 - openlabs-engineering
 - dev-openerp
 
+### Related
+- [Experience OpenERP deployments in French companies (case study)](http://translate.google.com/translate?depth=1&hl=en&rurl=translate.google.com&sl=fr&tl=en&u=http://people.via.ecp.fr/~alexis/openerp/) (Google English translation)
+
 ## Getting Started ##
 
 - [Setup and Install (Community Wiki)](http://code.google.com/p/tryton/wiki/SetupAndStart)
@@ -59,6 +67,11 @@
 	- [Recent Tryton "Hello World" discussion](https://groups.google.com/forum/#!topic/tryton/21oJqWKbFUI) on tryton group
 - [Tryton Development Workflow Series (Openlabs blog posts) ](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository)
 - [HelloworldModule (http://wiki.tryton-erp.es/)](http://wiki.tryton-erp.es/HelloworldModule)
+
+### CSV import/export
+- [Code patch recommended by Spanish Tryton Manual](http://codereview.tryton-erp.es/85/patch/192/2342)
+	- See [Import product by CSV in Spanish Tryton Manual](http://translate.googleusercontent.com/translate_c?depth=1&rurl=translate.google.com&sl=auto&tl=en&u=http://www.tryton-erp.es/posts/importacion-de-productos-mediante-csv.html&usg=ALkJrhjCvQZ5VqEj5mayYaTJA-rtA_CMtg) 
+
 
 ### Coding Guidelines
 - [Python Packaging Documentation](https://python-packaging-user-guide.readthedocs.org/en/latest/tutorial.html)
@@ -191,7 +204,7 @@ Board of Directors (as of 2014-06-02)
 - Varun Kumar
 - Zikzakmedia, S.L.
 
-## Partner Details
+## Detailed Partner Information
 
 ### [B2CK](http://www.b2ck.com)
 - [News (http://www.b2ck.com/news/index.html)](http://www.b2ck.com/news/index.html)

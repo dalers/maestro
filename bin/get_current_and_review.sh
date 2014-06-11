@@ -1,9 +1,9 @@
 #!/bin/sh
 #
 # 1. export current data from source to csv
-# 2. load current csv 
+# 2. load current data from csv 
 # 3. add new and/or modified current documents to local vault
-# 4. analyse current vs previous data and send change report
+# 4. analyse current vs previous data and files, send change report
 #
 # Schedule regular execution using cron e.g. nightly
 #
