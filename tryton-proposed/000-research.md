@@ -72,6 +72,9 @@
 - [Code patch recommended by Spanish Tryton Manual](http://codereview.tryton-erp.es/85/patch/192/2342)
 	- See [Import product by CSV in Spanish Tryton Manual](http://translate.googleusercontent.com/translate_c?depth=1&rurl=translate.google.com&sl=auto&tl=en&u=http://www.tryton-erp.es/posts/importacion-de-productos-mediante-csv.html&usg=ALkJrhjCvQZ5VqEj5mayYaTJA-rtA_CMtg) 
 
+### FreeBSD
+
+- trytond installed (with pip) to /usr/local/lib/python2.7/site-packages/trytond/
 
 ### Coding Guidelines
 - [Python Packaging Documentation](https://python-packaging-user-guide.readthedocs.org/en/latest/tutorial.html)
