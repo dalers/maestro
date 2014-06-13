@@ -1,22 +1,20 @@
 #!/bin/sh
 #
-# Load SCC Demo/Test data into Maestro
+# Load SCC demo data
 #
-# EXECUTE from within dir containing ./maestro-scc-files-1.2.0.tar.gz
-# MAESTRO DATABASE PASSWORD IN PLAIN TEXT
+# EXECUTE from maestro/bin/
 #
 # Creates maestro smb file share and sub-directory structure
 # - /usr/home/samba/maestro MUST EXIST with r/w permission
-# - DELETES /usr/home/samab/maestro/* (files and directories)
-# - HARDCODED current-data file (maestro-scc-files-x.y.z.tar.gz)
-# - HARDCODED file paths (assumes Maestro reference server)
+# - DELETES /usr/home/samab/scc/* (files and directories)
+# - HARDCODED file paths
 #
 # Description
 # ------------------------------------------
 # Steps through successive iterations of data as if processed in real
 # time (e.g. scheduled nightly using cron). For each iteration:
 #
-#   * restores master data spreaseheets
+#   * restore master data spreadsheets
 #   * restore Parts&Vendors(TM) database
 #   * restore current files
 #   * run get_current_and_review.sh (normally run nightly by cron)
@@ -53,7 +51,7 @@
 #
 # Maestro smb file share structure
 # ------------------------
-#    maestro/                     root of maestro smb file share
+#    scc/                         root of scc file share
 #    +-- README.txt
 #    +-- remotefs/                simulated remote file share
 #    |   +-- issue.xlsx           "current" issue master data
