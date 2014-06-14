@@ -1,12 +1,14 @@
 #!/bin/sh
 #
 # Create consolidated plm-vault/
-#
-# Usage: ./bin/create_consolidated_vault.sh
+# Execute from maestro/scc/
+# Usage: ../bin/create_consolidated_vault.sh
 #
 
-cp -r plm-vault-1/* plm-vault/
-cp -r plm-vault-2/* plm-vault/
-cp -r plm-vault-3/* plm-vault/
-cp -r plm-vault-4/* plm-vault/
-cp -r plm-vault-5/* plm-vault/
+#mkdir ../scc/parts
+
+cp -r ../scc/parts-1/* parts/
+cp -r ../scc/parts-2/* parts/
+cp -r ../scc/parts-3/* parts/
+cp -r ../scc/parts-4/* parts/
+cp -r ../scc/parts-5/* parts/
