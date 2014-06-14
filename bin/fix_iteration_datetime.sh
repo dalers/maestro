@@ -15,6 +15,9 @@
 # Refer to the Maestro project Wiki for more information.
 #
 
+# master data spreadsheets currently do not change with iteration
+touch -t 201301010101 ../scc/excel/*
+
 echo "Iteration 1..."
 touch -t 201301010101 ../scc/pv/pv-1.mdb
 touch -t 201301010101 ../scc/csv-1/*
