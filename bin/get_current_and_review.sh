@@ -11,7 +11,7 @@
 echo
 echo "get_current_and_review: copy csv/ to csv.old/"
 echo
-cp -a /home/samba/maestro/csv/ /home/samba/maestro/csv.old/
+cp -a /home/samba/scc/csv/ /home/samba/scc/csv.old/
 
 echo "get_current_and_review: export_current_to_csv"
 echo
@@ -20,13 +20,9 @@ echo
 # Initial bootstrap - uncomment commands for initial run
 # csv.old/ will be empty on first-time execution, files required
 # by current-vs-previous analysis must be specially created
-#head -n 1 /home/samba/maestro/csv/pv_pn.csv > /home/samba/maestro/csv.old/pv_pn.csv
-#python /usr/local/maestro/bin/pndetails.py /home/samba/maestro/csv.old/pv_pn.csv /home/samba/maestro/csv.old/pv_pn_details.csv
-#sort /home/samba/maestro/csv.old/pv_pn_details.csv  > /home/samba/maestro/csv.old/pv_pn_details_sort.csv
-
-echo "get_current_and_review: load_current_from_csv.sh"
-echo
-/usr/local/maestro/bin/load_current_from_csv.sh
+#head -n 1 /home/samba/scc/csv/pv_pn.csv > /home/samba/scc/csv.old/pv_pn.csv
+#python /usr/local/maestro/bin/pndetails.py /home/samba/scc/csv.old/pv_pn.csv /home/samba/scc/csv.old/pv_pn_details.csv
+#sort /home/samba/scc/csv.old/pv_pn_details.csv  > /home/samba/scc/csv.old/pv_pn_details_sort.csv
 
 echo "get_current_and_review: rsync_current_files.sh"
 echo
