@@ -2,6 +2,9 @@
 #
 # Setup file share
 #
+# "maestro" system user (e.g. tryton, root, etc.) must have read/write
+# privileges to /home/samba/scc/
+#
 
 rm -r /home/samba/scc/*
 mkdir /home/samba/scc/csv/
