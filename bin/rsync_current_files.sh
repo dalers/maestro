@@ -1,12 +1,12 @@
 #!/bin/sh
 #
 # Sync to current part and material documents
-# - files added in source will be added to vault (i.e. new files)
-# - files updated in source will retain name, existing document
-#     in vault will be modified with a timestamp suffix i.e. the
-#     date the document was superseded by an update
-#     e.g. document-yyyy-mm-dd-x-hh-mm-ss
-# - files deleted in source will be retained in vault
+# - files added to source directory will be added to target directory
+# - a file in the target directory which has been modified in the source
+#   directory will have its file name suffixed with a timestamp for being
+#   superseded (e.g. document-yyyy-mm-dd-x-hh-mm-ss.pdf), before the
+#   modified file is copied.
+# - files deleted from source directory are retained in target directory.
 #
 
 echo
@@ -17,7 +17,7 @@ echo "rsync_current_files: " > /tmp/scc-rsync.log
 #
 # parts
 #
-rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/scc-rsync.log" /home/samba/scc/parts/ /home/samba/scc/parts.rsync > /dev/null
+/usr/local/bin/rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/scc-rsync.log" /home/samba/scc/parts/ /home/samba/scc/parts.rsync > /dev/null
 
 #
 # material

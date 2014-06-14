@@ -132,6 +132,7 @@ echo
 
 echo "load_demo: get_current_and_review.sh"
 ./get_current_and_review.sh
+cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-1.txt
 echo
 
 read -t 60 -p "load_demo: iteration 1 complete - Press [Enter] to continue..." key
@@ -175,6 +176,7 @@ echo
 
 echo "load_demo: get_current_and_review.sh"
 ./get_current_and_review.sh
+cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-2.txt
 echo
 
 read -t 60 -p "load_demo: iteration 2 complete - Press [Enter] to continue..." key
@@ -218,6 +220,7 @@ echo
 
 echo "load_demo: get_current_and_review.sh"
 ./get_current_and_review.sh
+cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-3.txt
 echo
 
 read -t 60 -p "load_demo: iteration 3 complete - Press [Enter] to continue..." key
@@ -261,6 +264,7 @@ echo
 
 echo "load_demo: get_current_and_review.sh"
 ./get_current_and_review.sh
+cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-4.txt
 echo
 
 read -t 60 -p "load_demo: iteration 4 complete - Press [Enter] to continue..." key
@@ -304,6 +308,7 @@ echo
 
 echo "load_demo: get_current_and_review.sh"
 ./get_current_and_review.sh
+cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-5.txt
 echo
 
 read -t 60 -p "load_demo: iteration 5 complete - Press [Enter] to continue..." key

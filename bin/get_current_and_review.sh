@@ -5,7 +5,7 @@
 # 3. add new and/or modified current documents to local vault
 # 4. analyse current vs previous data and files, send change report
 #
-# Schedule regular execution using cron e.g. nightly
+# Typically executed periodically using cron (e.g. nightly)
 #
 
 echo
