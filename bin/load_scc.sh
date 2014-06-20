@@ -87,7 +87,7 @@ cp -a ../scc/README.txt /home/samba/scc/
 #flip -m /home/samba/scc/README.txt
 echo
 
-echo "load_scc: running fix_iteration_datetime.sh (force document modified datetime)"
+echo "load_scc: running fix_iteration_datetime.sh"
 ./fix_iteration_datetime.sh
 echo
 
@@ -96,7 +96,7 @@ echo "Iteration 1 (with csv.old/ bootstrap)"
 echo "======================================="
 echo
 
-echo "load_scc: restore 'current' master data spreadsheets (with csv) to fileshare"
+echo "load_scc: restore 'current' master data spreadsheets and csv to fileshare"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
@@ -125,11 +125,11 @@ echo
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
 if test $version = "VER"
 then
-	echo "load_scc: restore 'current' files with version suffix"
+	echo "load_scc: restore 'current' files (version suffix) to fileshare"
 	cp -a ../scc/parts-1/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "load_scc: restore 'current' files (unversioned filenames) to remotefs/"
+	echo "load_scc: restore 'current' files (NO version suffix) to fileshare"
 	cp -a ../scc/parts-1-nover/* /home/samba/scc/parts/
 else
 	echo "load_scc: invalid VER | NOVER"
@@ -138,13 +138,23 @@ else
 fi
 
 chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw         /home/samba/scc/parts/
+chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
-echo "load_scc: get_current_and_review.sh"
-./get_current_and_review.sh
-cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-1.txt
+echo "load_scc: rsync_current_files.sh"
+/usr/local/maestro/bin/rsync_current_files.sh
 echo
+
+echo "load_scc: export_current_to_csv.sh"
+/usr/local/maestro/bin/export_current_to_csv.sh
+echo
+
+echo "load_scc: send_current_change_report.sh"
+/usr/local/maestro/bin/send_current_change_report.sh
+echo
+
+# keep copy of change report
+cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-1.txt
 
 read -t 60 -p "load_scc: iteration 1 complete - Press [Enter] to continue..." key
 echo
@@ -173,11 +183,11 @@ echo
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
 if test $version = "VER"
 then
-	echo "load_scc: restore 'current' files with version suffix"
+	echo "load_scc: restore 'current' files (version suffix) to fileshare"
 	cp -a ../scc/parts-2/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "load_scc: restore 'current' files (unversioned filenames) to remotefs/"
+	echo "load_scc: restore 'current' files (NO version suffix) to fileshare"
 	cp -a ../scc/parts-2-nover/* /home/samba/scc/parts/
 else
 	echo "load_scc: invalid VER | NOVER"
@@ -186,11 +196,22 @@ else
 fi
 
 chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw         /home/samba/scc/parts/
+chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
-echo "load_scc: get_current_and_review.sh"
-./get_current_and_review.sh
+echo "load_scc: rsync_current_files.sh"
+/usr/local/maestro/bin/rsync_current_files.sh
+echo
+
+echo "load_scc: export_current_to_csv.sh"
+/usr/local/maestro/bin/export_current_to_csv.sh
+echo
+
+echo "load_scc: send_current_change_report.sh"
+/usr/local/maestro/bin/send_current_change_report.sh
+echo
+
+# keep copy of change report
 cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-2.txt
 echo
 
@@ -221,11 +242,11 @@ echo
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
 if test $version = "VER"
 then
-	echo "load_scc: restore 'current' files with version suffix"
+	echo "load_scc: restore 'current' files (version suffix) to fileshare"
 	cp -a ../scc/parts-3/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "load_scc: restore 'current' files (unversioned filenames) to remotefs/"
+	echo "load_scc: restore 'current' files (NO version suffix) to fileshare"
 	cp -a ../scc/parts-3-nover/* /home/samba/scc/parts/
 else
 	echo "load_scc: invalid VER | NOVER"
@@ -234,11 +255,22 @@ else
 fi
 
 chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw         /home/samba/scc/parts/
+chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
-echo "load_scc: get_current_and_review.sh"
-./get_current_and_review.sh
+echo "load_scc: rsync_current_files.sh"
+/usr/local/maestro/bin/rsync_current_files.sh
+echo
+
+echo "load_scc: export_current_to_csv.sh"
+/usr/local/maestro/bin/export_current_to_csv.sh
+echo
+
+echo "load_scc: send_current_change_report.sh"
+/usr/local/maestro/bin/send_current_change_report.sh
+echo
+
+# keep copy of change report
 cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-3.txt
 echo
 
@@ -269,11 +301,11 @@ echo
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
 if test $version = "VER"
 then
-	echo "load_scc: restore 'current' files with version suffix"
+	echo "load_scc: restore 'current' files (version suffix) to fileshare"
 	cp -a ../scc/parts-4/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "load_scc: restore 'current' files (unversioned filenames) to remotefs/"
+	echo "load_scc: restore 'current' files (NO version suffix) to fileshare"
 	cp -a ../scc/parts-4-nover/* /home/samba/scc/parts/
 else
 	echo "load_scc: invalid VER | NOVER"
@@ -282,11 +314,22 @@ else
 fi
 
 chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw         /home/samba/scc/parts/
+chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
-echo "load_scc: get_current_and_review.sh"
-./get_current_and_review.sh
+echo "load_scc: rsync_current_files.sh"
+/usr/local/maestro/bin/rsync_current_files.sh
+echo
+
+echo "load_scc: export_current_to_csv.sh"
+/usr/local/maestro/bin/export_current_to_csv.sh
+echo
+
+echo "load_scc: send_current_change_report.sh"
+/usr/local/maestro/bin/send_current_change_report.sh
+echo
+
+# keep copy of change report
 cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-4.txt
 echo
 
@@ -317,11 +360,11 @@ echo
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
 if test $version = "VER"
 then
-	echo "load_scc: restore 'current' files with version suffix"
+	echo "load_scc: restore 'current' files (version suffix) to fileshare"
 	cp -a ../scc/parts-5/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "load_scc: restore 'current' files (unversioned filenames) to remotefs/"
+	echo "load_scc: restore 'current' files (NO version suffix) to fileshare"
 	cp -a ../scc/parts-5-nover/* /home/samba/scc/parts/
 else
 	echo "load_scc: invalid VER | NOVER"
@@ -330,11 +373,22 @@ else
 fi
 
 chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw         /home/samba/scc/parts/
+chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
-echo "load_scc: get_current_and_review.sh"
-./get_current_and_review.sh
+echo "load_scc: rsync_current_files.sh"
+/usr/local/maestro/bin/rsync_current_files.sh
+echo
+
+echo "load_scc: export_current_to_csv.sh"
+/usr/local/maestro/bin/export_current_to_csv.sh
+echo
+
+echo "load_scc: send_current_change_report.sh"
+/usr/local/maestro/bin/send_current_change_report.sh
+echo
+
+# keep copy of change report
 cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-5.txt
 echo
 

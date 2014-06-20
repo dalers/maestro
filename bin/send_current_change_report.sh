@@ -34,17 +34,18 @@ echo "send_current_change_report: review rsync log files"
 # parts
 #
 # create new file
-echo "parts"  >  /home/samba/scc/work/rsync.log
-cut -c 29- /home/samba/scc/work/rsync-parts.log | grep '^>f'          >> /home/samba/scc/work/rsync.log
-cut -c 29- /home/samba/scc/work/rsync-parts.log | grep error          >> /home/samba/scc/work/rsync.log
+echo "Parts:"  >  /home/samba/scc/work/rsync.log
+cut -c 28- /home/samba/scc/work/rsync-parts.log | grep '^>f'          >> /home/samba/scc/work/rsync.log
+cut -c 28- /home/samba/scc/work/rsync-parts.log | grep error          >> /home/samba/scc/work/rsync.log
 echo ""                                                            >> /home/samba/scc/work/rsync.log
                                                                 
 #                                                               
 # material                                                      
 #                                                               
-#echo "material"  >  /home/samba/scc/work/rsync.log
-#cut -c 29- /home/samba/scc/work/rsync-material.log | grep '^>f'          >> /home/samba/scc/work/rsync.log
-#cut -c 29- /home/samba/scc/work/rsync-material.log | grep error          >> /home/samba/scc/work/rsync.log
+#echo ""          >  /home/samba/scc/work/rsync.log
+#echo "Material:"  >  /home/samba/scc/work/rsync.log
+#cut -c 28- /home/samba/scc/work/rsync-material.log | grep '^>f'          >> /home/samba/scc/work/rsync.log
+#cut -c 28- /home/samba/scc/work/rsync-material.log | grep error          >> /home/samba/scc/work/rsync.log
 #echo ""                                                            >> /home/samba/scc/work/rsync.log
 
 #
