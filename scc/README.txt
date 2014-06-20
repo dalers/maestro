@@ -1,7 +1,9 @@
-SCC PLM Data
+SCC Product Lifecycle Management (PLM) Data
 
-The PLM data documents the SCC Aircraft Wireless. The life-cycle of
-the Aircraft Wireless product has five distinct iterations.
+The SCC PLM data currently exists of part data for the SCC Aircraft
+Wireless product.
+
+The Aircraft Wireless product lifecycle includes five design iterations.
 
 Iteration                      Date
 -----------------------------------------
@@ -11,7 +13,7 @@ Iteration                      Date
 4  Manufacturing Improvements  2013-01-04
 5  Field Spares Kit            2013-01-05
 
-The "current" information at each iteration in the product life cycle of 
+"Current" information for each iteration in the product life cycle of 
 the Aircraft Wireless has been captured, including documents related to 
 each part number. This allows the iterations to be "played back" in 
 sequence, as if occurring sequentially in time. 
@@ -33,7 +35,7 @@ exporting from one system and importing into another. Each Parts&Vendors
 database has been exported to CSV-format files using the mdb-export 
 utility from the mdbtools project, with one CSV file for each database 
 table. The CSV files for each iteration are in separate directories 
-(e.g. plm-csv-1/ for iteration 1, plm-csv-2/ for iteration 2, etc.). 
+(e.g. csv-1/ for iteration 1, csv-2/ for iteration 2, etc.). 
 
 File vaults
 -------------------------------------------------------
@@ -46,20 +48,19 @@ of the Parts&Vendors database file.
 There are two sets of vault directories, plm-vault-n/ and 
 plm-vault-n-nover/. Documents in the plm-vault-n/ set of directories 
 include the document version in its file name (e.g. 
-plm-vault-1/parts/10000001_PBS-00.pdf for version 00, 
-plm-vault-1/parts/10000001_PBS-01 for version 01). 
+parts-1/10000001/10000001_PBS-00.pdf for version 00, 
+parts-2/10000001/10000001_PBS-01 for version 01, etc.). 
 
-Although including the document version in the document's file name 
-allows for convenient identification, mistakes can easily be made (in 
-particular when done manually). An alternative approach is to not change 
-the document file name after making changes, and treat a modified 
-document file as a new version (although the version itself will not be 
-known). Files in the plm-vault-n-nover/ set of directories follow this 
-approach. For example, plm-vault-1-nover/parts/10000001_PBS.pdf is the 
+Including the document version within in a document file name 
+allows convenient identification, but guaranteeing this is difficult
+in a manual process. One alternative is to accept that file names
+may not change, and simply identify that the content has changed.
+Files in parts-n-nover/* take this approach.
+
+E.g. parts-1-nover/10000001/10000001_PBS.pdf is the 
 version in iteration 1 of the Aircraft Wireless product life cycle, and 
-plm-vault-3-nover/parts/10000001_PBS.pdf is the version in iteration 3 
-(opening the documents in a reader application will show they are 
-version 00 and version 01 respectively). 
+parts-3-nover/10000001/10000001_PBS.pdf is version 3  (to confirm, open
+the documents in a viewer and inspect the title blocks). 
 
 Recreating a "current" file vault
 -------------------------------------------------------
@@ -68,21 +69,23 @@ respective vault directory. This allows the file and directory
 dates to be readily managed by iteration.
 
 To reconstruct the complete "current" file system as of a particular 
-iteration, first execute fix_iteration_datetime.sh to ensure the 
-directory and document file timestamps conform to the iteration dates. 
+iteration, first execute fix_iteration_datetime.sh to ensure document
+modified datefiles are consistent with the iteration story.
 Next, copy vault iterations in order "over top of" a new vault directory 
-(preserving timestamps), starting with iteration 1 and continuing up to 
-and including the desired iteration. 
+preserving the modified datetime, starting with iteration 1 and continuing
+up to and including the desired iteration. 
 
 For example, to re-create the vault at iteration 5 using the 
 plm-vault-n/ set of directories: 
 
  $ ./fix_iteration_datetime.sh
  $ mkdir vault
- $ cp -a ./plm-vault-1/* ./plm-vault/
- $ cp -a ./plm-vault-2/* ./plm-vault/
- $ cp -a ./plm-vault-3/* ./plm-vault/
- $ cp -a ./plm-vault-4/* ./plm-vault/
- $ cp -a ./plm-vault-5/* ./plm-vault/
+ $ cp -a ../scc/parts-1/* ./plm-vault/
+ $ cp -a ../scc/parts-2/* ./plm-vault/
+ $ cp -a ../scc/parts-3/* ./plm-vault/
+ $ cp -a ../scc/parts-4/* ./plm-vault/
+ $ cp -a ../scc/parts-5/* ./plm-vault/
+
+Also see maestro/bin/parts_all.sh
 
 ###
