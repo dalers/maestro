@@ -21,8 +21,8 @@ mkdir /home/samba/scc/parts.rsync
 
 # material documents
 # ad hoc document directory
-mkdir -p /home/samba/scc/material/
+mkdir /home/samba/scc/material/
 # rsync document directory (preserves original file when overwritten with modified file)
-mkdir -p /home/samba/scc/material.rsync/
+mkdir /home/samba/scc/material.rsync/
 
 exit 0

@@ -1,5 +1,7 @@
 ## Tryton Project
 
+Tryton was created by forking TinyERP v4.2, the first release was published November 2008.
+
 - [Tryton Project Website](http://www.tryton.org/)
 - [Tryton News](http://news.tryton.org/)
 - [Documentation (http://doc.tryton.org/)](http://doc.tryton.org/)
@@ -9,6 +11,9 @@
 - [Bug Tracker (https://bugs.tryton.org/)](https://bugs.tryton.org/)
 - [Source Control (http://hg.tryton.org)](http://hg.tryton.org/)
 	- [Modules (http://hg.tryton.org/modules)](http://hg.tryton.org/modules)
+- Wikipedia
+	- [Tryton](http://en.wikipedia.org/wiki/Tryton)
+	- [Comparison of Tryton and OpenERP](http://en.wikipedia.org/wiki/Comparison_of_Tryton_and_Open_ERP)
 
 ### Google Groups Mailing List
 (English-language only are listed)
@@ -21,12 +26,15 @@
 
 ### Definitions
 - Tryton – project name
-- trytond – server daemon
-- tryton – GTK client
-- Nereid - framework for developing a web user interfaces to Tryton, based on flask.
+	- trytond – server daemon
+	- tryton – GTK client
+- Nereid - framework for developing a web user interfaces to Tryton.
+	- Based on flask.
 - neso – standalone client+server (uses SQLite DBMS). Intended for use in demonstrations, and to give developers and testers a simple vehicle for evaluating new releases.
-- proteus – Python library to access Tryton server, most popular use appears to be for testing.
-	- [Proteus Overview](http://downloads.tryton.org/TUB2013/proteus.pdf)
+- proteus – Python library to access Tryton server.
+	- Most popular use appears to be for testing.
+	- Used by GNU Health to load demo database.
+	- [Proteus Overview (Tryton Unconference Barcelona (TUB2013) presentation)](http://downloads.tryton.org/TUB2013/proteus.pdf)
 - sao - web client (attempts to provide equivalent functionality as tryton client) 
 
 ## External Resources
@@ -35,36 +43,33 @@
 	- [Tryton Community Documentation (ReadTheDocs)](http://tryton-documentation.readthedocs.org/en/latest/index.html)
 		- [PDF Version](https://media.readthedocs.org/pdf/tryton-documentation/latest/tryton-documentation.pdf)
 	- [Tryton Documentation project (GitHub)](https://github.com/tryton/tryton-documentation/blob/master/developer_guide/getting_started.rst)
+- StackOverflow
+	- [Tryton Search](http://stackoverflow.com/search?q=tryton)
+	- [OpenERP Search](http://stackoverflow.com/search?q=openerp)
+	- [TinyERP Search (no significant results)](http://stackoverflow.com/search?q=tinyerp)
 - [Spanish Tryton manual (http://doc.tryton-erp.es)](http://doc.tryton-erp.es)
 	- [English translation](http://translate.google.com/translate?sl=auto&tl=en&u=http%3A//doc.tryton-erp.es/)
-- [OpenERP to Tryton (assumes familiarity with OpenERP)(NaN-tic)](http://www.openerp2tryton.com/users.html)
+- [OpenERP to Tryton (NaN-tic)](http://www.openerp2tryton.com/users.html)
+	- assumes familiarity with OpenERP but good overview of Tryton 
 - [Tryton 2.2 administration manual (Google Docs)](https://docs.google.com/document/d/1wPjdd965wy0_WlQCu8nCw1zl9GJ9xa2jQHQflpiBx98/mobilebasic?authkey=CLK6q9gK#h.etd8pr3oaqqv)
-- [3-Part blog series on Tryton (Version2Beta)](http://version2beta.com/articles/evaluating-tryton-as-an-ecommerce-backend_web-framework/)
+- [Tryton as an e-commerce back-end (Version2Beta blog, 3 parts)](http://version2beta.com/articles/evaluating-tryton-as-an-ecommerce-backend_about-tryton/)
 - [Tryton slideshow (NaN-tic)](http://www.slideshare.net/NaN-tic/tryton-16270050)
-
-### Wikipedia
-- [Tryton - Wikipedia article](http://en.wikipedia.org/wiki/Tryton)
-- [Tryton vs OpenERP - Wikipedia article](http://en.wikipedia.org/wiki/Comparison_of_Tryton_and_Open_ERP)
-
-### YouTube
-- TODO
-
-### Floss Manuals
-- http://booki.flossmanuals.net/tryton-erp/_info/
-- http://booki.flossmanuals.net/tryton-erp/_draft/_v/1.0/installing-tryton/
-
-### Tumblr
-- openlabs-engineering
-- dev-openerp
-
-### Related
-- [Experience OpenERP deployments in French companies (case study)](http://translate.google.com/translate?depth=1&hl=en&rurl=translate.google.com&sl=fr&tl=en&u=http://people.via.ecp.fr/~alexis/openerp/) (Google English translation)
+- [Thinking about switching from OpenERP to Tryton (Tryton Forum)](https://groups.google.com/forum/#!topic/tryton/1kOND1_kGZ8)
+- [Tryton and its cousin OpenERP. Family matters? (Tryton Forum)](http://comments.gmane.org/gmane.comp.python.tryton/2009)
+- [FindTheBest - Tryton vs OpenERP vs planguru](http://accounting-software.findthebest.com/compare/52-107/Tryton-vs-OpenERP)
+- [Is OpenERP still free of charge ? Small budgets 0-2500 Euros](http://sisalp.fr/index.php/post/Is-OpenERP-still-free-of-charge-Small-budgets-0-2500-Euros)
+- [How good is OpenERP? (StackOverflow)](http://stackoverflow.com/questions/5415741/how-good-is-openerp)
+- Floss Manuals
+	- http://booki.flossmanuals.net/tryton-erp/_info/
+	- http://booki.flossmanuals.net/tryton-erp/_draft/_v/1.0/installing-tryton/
+- YouTube
+	- TODO
 
 ## Getting Started ##
 
 - [Setup and Install (Community Wiki)](http://code.google.com/p/tryton/wiki/SetupAndStart)
-- [Hello World (Tryton Project Wiki - Google Code)](http://code.google.com/p/tryton/wiki/HelloWorld)
-	- [Recent Tryton "Hello World" discussion](https://groups.google.com/forum/#!topic/tryton/21oJqWKbFUI) on tryton group
+- [Hello World Module Tutorial (Google Code Tryton Wiki)](http://code.google.com/p/tryton/wiki/HelloWorld)
+	- ["Hello World" discussion  (Google Groups Forum)](https://groups.google.com/forum/#!topic/tryton/21oJqWKbFUI) on tryton group
 - [Tryton Development Workflow Series (Openlabs blog posts) ](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository)
 - [HelloworldModule (http://wiki.tryton-erp.es/)](http://wiki.tryton-erp.es/HelloworldModule)
 
@@ -72,9 +77,12 @@
 - [Code patch recommended by Spanish Tryton Manual](http://codereview.tryton-erp.es/85/patch/192/2342)
 	- See [Import product by CSV in Spanish Tryton Manual](http://translate.googleusercontent.com/translate_c?depth=1&rurl=translate.google.com&sl=auto&tl=en&u=http://www.tryton-erp.es/posts/importacion-de-productos-mediante-csv.html&usg=ALkJrhjCvQZ5VqEj5mayYaTJA-rtA_CMtg) 
 
-### FreeBSD
-
-- trytond installed (with pip) to /usr/local/lib/python2.7/site-packages/trytond/
+### Hosting on FreeBSD
+- using pip, trytond is installed to /usr/local/lib/python2.7/site-packages/trytond/
+- latest trytond port/package is Tryton v2.8 (current v3.2)
+- [http://code.google.com/p/tryton/wiki/InstallationFreeBSD (see comments re outdated)](http://code.google.com/p/tryton/wiki/InstallationFreeBSD)
+ - https://groups.google.com/forum/#!msg/tryton/fX8lRUFuH18/ss3ghEGTmhwJ (proposed update to wiki, assumes 2.8 port)
+- [http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/](http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/) (Tryton ~1.4)
 
 ### Coding Guidelines
 - [Python Packaging Documentation](https://python-packaging-user-guide.readthedocs.org/en/latest/tutorial.html)
@@ -122,12 +130,21 @@ python trytond -c /etc/tryton -u a_module -d databasename
 
 ## Related Projects
 
-### FreeBSD
-- Latest release in FreeBSD ports/packages is Tryton 2.8 (current Tryton relese 3.2)
-- [http://code.google.com/p/tryton/wiki/InstallationFreeBSD (see comments re outdated)](http://code.google.com/p/tryton/wiki/InstallationFreeBSD)
- - https://groups.google.com/forum/#!msg/tryton/fX8lRUFuH18/ss3ghEGTmhwJ (proposed update to wiki, assumes 2.8 port)
-- [http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/](http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/) (Tryton ~1.4)
-- [Python on FreeBSD (Japanese slideshare)](http://www.slideshare.net/pycontw/python-on-freebsd)
+### GNU Health
+GNU Health is based on Tryton and founded in 2008.
+
+- [GNU Health Project Website](http://health.gnu.org/)
+- [GNU Health (Wikipedia)](http://en.wikipedia.org/wiki/GNU_Health)
+- [GNU Health (WikiBoks)](http://en.wikibooks.org/wiki/GNU_Health)
+- [Interview with Gabriela Brenes (communications liaison for GNU Solidario and Thymbra), and Luis Falcón (founder of Thymbra and GNU Health, and president of GNU Solidario) (FLOSS Weekly)](http://twit.tv/show/floss-weekly/288)
+- [GNU Health Demo Database (Serpent Consulting)](http://www.serpentcs.com/serpentcs-yes-gnu-health-now-has-a-demo-database-server-go-get-it)
+- [Success of GNU Health goes beyond free software (opensource.com blog)](http://opensource.com/health/13/3/interview-luis-falcon-gnu-health)
+- Commercial supporters
+	- Thymbra (for-profit) 
+		- [GNU Health page on Thymbra website](http://www.thymbra.com/en/solutions/gnuhealth.html)
+		- [Why Thymbra is no longer an OpenERP partner (Thymbra blog)](http://blog.thymbra.com/2011/09/why-thymbra-is-no-longer-openerp.html)
+	- [GNU Solidario (not-for-profit)](http://www.gnusolidario.org/)
+- [Demo Database (with install instructions, public server also available)](http://en.wikibooks.org/wiki/GNU_Health/The_Demo_database) 
 
 ### [Nereid](http://nereid.openlabs.co.in/en/develop/index.html)
 Nereid is a framework for developing a web user interface to Tryton, expected to be particularly useful for providing Tryton access to external stakeholders. Nereid is based on flask, a Python web app framework (also see [OpenERP to Tryton)](http://www.openerp2tryton.com/users.html).
@@ -149,6 +166,7 @@ Sharoon Thomas (Openlabs): "We have extended project management module of Tryton
 - Enapps - forked OpenERP core with enhanced web interface (including OpenERP 6.1 extended support):
 	- http://www.enapps.co.uk/new-web-clientserver-revision-marking-a-new-level-in-business-productivity/
 	- http://www.enapps.co.uk/new-web-clientserver-revision-marking-a-new-level-in-business-productivity/
+- [Experience OpenERP deployments in French companies (case study)](http://translate.google.com/translate?depth=1&hl=en&rurl=translate.google.com&sl=fr&tl=en&u=http://people.via.ecp.fr/~alexis/openerp/) (Google English translation)
 
 ### [Roundup Issue Tracker](http://www.roundup-tracker.org/)
 - [Recommended by Cedric Krier May 29 for integration with Tryton as Issue Tracker](https://groups.google.com/forum/#!topic/tryton/ek5-_LV-RT0)
@@ -159,6 +177,17 @@ Sharoon Thomas (Openlabs): "We have extended project management module of Tryton
 - [NPO Accounting project for Tryton on Gitorious](https://gitorious.org/conservancy/npo-acct-wiki/source/7c3d12364858ee0189f3904f02e56546b0c704e0:ExistingProjects/Tryton.mdwn)
 	- reference to community modules on bitbucket
 	- reference to “sao” web client with demo on tryton.org ([demo](https://demo.tryton.org:8000/))
+
+## Hosting (specifically on FreeBSD)
+
+OS and hosting Python web apps in general
+
+- [Python on FreeBSD (Japanese slideshare)](http://www.slideshare.net/pycontw/python-on-freebsd)
+- Pip Package Manager
+	- Wikipedia - http://en.wikipedia.org/wiki/Pip_(Python)
+	- [So you want to install a Python package (blog)](http://dubroy.com/blog/so-you-want-to-install-a-python-package)
+	- [The Hitchhiker's Guide to Packaging](http://guide.python-distribute.org/)
+
 
 ## Tryton Foundation
 

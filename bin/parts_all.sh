@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# Create consolidated parts/ directory
-# Execute from maestro/scc/
-# Usage: ../bin/create_consolidated_vault.sh
+# Copy all parts to parts/
+# Execute from maestro/scc/bin/
+# Usage: ./parts_all.sh
 #
 
 #mkdir ../scc/parts
