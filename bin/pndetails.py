@@ -1,13 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # Extract Part Number, Title and Detail from input file
 #   Write to output file
 #   Assumes input file has same structure pv_pn.csv
 #
-# Note on Python shebang:
-#   !/usr/bin/env python - execute using first python in user path - most portable
-#   #!/usr/bin/python - execute assuming common Linux install (not FreeBSD! /usr/local/bin/python)
-#   #!/usr/bin/python2.5 - execute using specific Python version (but for Linux install)
+# Note on shebang:
+#   #!/usr/bin/env python    - use first python in user path - most portable (unless no "python" as default on FreeBSD)
+#   #!/usr/local/bin/python2 - FreeBSD default python 2.x install
+#   #!/usr/bin/python        - common Linux python install
+#   #!/usr/bin/python2.5     - specific Python version (common Linux install as shown)
 #
 
 import csv

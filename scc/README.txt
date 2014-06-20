@@ -62,18 +62,20 @@ version in iteration 1 of the Aircraft Wireless product life cycle, and
 parts-3-nover/10000001/10000001_PBS.pdf is version 3  (to confirm, open
 the documents in a viewer and inspect the title blocks). 
 
-Recreating a "current" file vault
+Recreating a "current" condition of part documents
 -------------------------------------------------------
 Only files added or modified by an iteration are included in the 
-respective vault directory. This allows the file and directory 
-dates to be readily managed by iteration.
+respective parts directory.
 
-To reconstruct the complete "current" file system as of a particular 
-iteration, first execute fix_iteration_datetime.sh to ensure document
+To reconstruct the "current" condition of the file system as of a
+particular iteration:
+
+* execute fix_iteration_datetime.sh to ensure document
 modified datefiles are consistent with the iteration story.
-Next, copy vault iterations in order "over top of" a new vault directory 
-preserving the modified datetime, starting with iteration 1 and continuing
-up to and including the desired iteration. 
+
+* copy vault iterations in order to a new vault directory (preserve
+  file modified datetime, start with iteration 1, continue up to and
+  including the desired iteration. 
 
 For example, to re-create the vault at iteration 5 using the 
 plm-vault-n/ set of directories: 
@@ -86,6 +88,6 @@ plm-vault-n/ set of directories:
  $ cp -a ../scc/parts-4/* ./plm-vault/
  $ cp -a ../scc/parts-5/* ./plm-vault/
 
-Also see maestro/bin/parts_all.sh
+See parts_all*.sch and load_scc.sh
 
 ###

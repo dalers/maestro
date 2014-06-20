@@ -2,12 +2,11 @@
 #
 # Load SCC data sequentially iteration 1, 2, 3... 
 #
-# EXECUTE from .../maestro/bin/ (e.g. /usr/local/maestro/bin/)
+# MUST RUN from .../maestro/bin/ (e.g. /usr/local/maestro/bin/)
 #
 # Creates scc file share and sub-directory structure
 # - /usr/home/samba/scc MUST EXIST with r/w permission
-# - RUNS setup.sh for new scc/ structure (existing files are deleted)
-# - HARDCODED file paths
+# - RUNS setup.sh to delete and recreate scc/ file structure
 #
 # Description
 # ------------------------------------------
@@ -79,9 +78,7 @@ echo "======================================="
 echo
 
 echo "load_scc: running setup.sh (create clean scc/ fileshare structure)"
-rm -r /home/samba/scc/*
 ./setup.sh
-ls -ld /home/samba/scc/*
 echo
 
 echo "load_scc: copy README.txt file to scc file share..."
@@ -101,20 +98,27 @@ echo
 
 echo "load_scc: restore 'current' master data spreadsheets (with csv) to fileshare"
 # -a archive mode preserves file times
+# no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
 cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
+chown -R nobody:wheel /home/samba/scc/excel/
+chmod ugo+rw /home/samba/scc/excel/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to fileshare"
 # -a archive mode preserves file times
 cp -a ../scc/pv/pv-1.mdb /home/samba/scc/pv/pv.mdb
+chown -R nobody:wheel /home/samba/scc/pv/
+chmod ugo+rw /home/samba/scc/pv/*
 echo
+
+# bootstrap - only do first time through
 
 echo "load_scc: bootstrap csv.old/ with empty pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv"
 /usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb PN    > /tmp/pv_pn.csv
 head -n 1 /tmp/pv_pn.csv > /home/samba/scc/csv.old/pv_pn.csv ; rm /tmp/pv_pn.csv
-python /usr/local/maestro/bin/pndetails.py /home/samba/scc/csv.old/pv_pn.csv /home/samba/scc/csv.old/pv_pn_details.csv
-# create required file (although sorting here doesn't accomplish anything)
+/usr/local/maestro/bin/pndetails.py /home/samba/scc/csv.old/pv_pn.csv /home/samba/scc/csv.old/pv_pn_details.csv
+# sorting doesn't accomplish anything but required bootstrap file is created
 sort /home/samba/scc/csv.old/pv_pn_details.csv  > /home/samba/scc/csv.old/pv_pn_details_sort.csv
 echo
 
@@ -133,8 +137,8 @@ else
 	exit 1
 fi
 
-chown -R root:wheel /home/samba/scc/parts/
-chmod -R a+rw       /home/samba/scc/parts/
+chown -R nobody:wheel /home/samba/scc/parts/
+chmod -R ugo+rw         /home/samba/scc/parts/
 echo
 
 echo "load_scc: get_current_and_review.sh"
@@ -154,12 +158,16 @@ echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotef
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/csv-2/*.csv  /home/samba/scc/csv/
+cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
+chown -R nobody:wheel /home/samba/scc/excel/
+chmod ugo+rw /home/samba/scc/excel/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ../scc/pv/pv-2.mdb /home/samba/scc/pv/pv.mdb
+chown -R nobody:wheel /home/samba/scc/pv/
+chmod ugo+rw /home/samba/scc/pv/*
 echo
 
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
@@ -177,8 +185,8 @@ else
 	exit 1
 fi
 
-chown -R root:wheel /home/samba/scc/parts/
-chmod -R a+rw       /home/samba/scc/parts/
+chown -R nobody:wheel /home/samba/scc/parts/
+chmod -R ugo+rw         /home/samba/scc/parts/
 echo
 
 echo "load_scc: get_current_and_review.sh"
@@ -198,12 +206,16 @@ echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotef
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/csv-3/*.csv  /home/samba/scc/csv/
+cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
+chown -R nobody:wheel /home/samba/scc/excel/
+chmod ugo+rw /home/samba/scc/excel/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ../scc/pv/pv-3.mdb /home/samba/scc/pv/pv.mdb
+chown -R nobody:wheel /home/samba/scc/pv/
+chmod ugo+rw /home/samba/scc/pv/*
 echo
 
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
@@ -221,8 +233,8 @@ else
 	exit 1
 fi
 
-chown -R root:wheel /home/samba/scc/parts/
-chmod -R a+rw       /home/samba/scc/parts/
+chown -R nobody:wheel /home/samba/scc/parts/
+chmod -R ugo+rw         /home/samba/scc/parts/
 echo
 
 echo "load_scc: get_current_and_review.sh"
@@ -242,12 +254,16 @@ echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotef
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/csv-4/*.csv  /home/samba/scc/csv/
+cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
+chown -R nobody:wheel /home/samba/scc/excel/
+chmod ugo+rw /home/samba/scc/excel/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ../scc/pv/pv-4.mdb /home/samba/scc/pv/pv.mdb
+chown -R nobody:wheel /home/samba/scc/pv/
+chmod ugo+rw /home/samba/scc/pv/*
 echo
 
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
@@ -265,8 +281,8 @@ else
 	exit 1
 fi
 
-chown -R root:wheel /home/samba/scc/parts/
-chmod -R a+rw       /home/samba/scc/parts/
+chown -R nobody:wheel /home/samba/scc/parts/
+chmod -R ugo+rw         /home/samba/scc/parts/
 echo
 
 echo "load_scc: get_current_and_review.sh"
@@ -286,12 +302,16 @@ echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotef
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/csv-5/*.csv  /home/samba/scc/csv/
+cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
+chown -R nobody:wheel /home/samba/scc/excel/
+chmod ugo+rw /home/samba/scc/parts/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
 cp -a ../scc/pv/pv-5.mdb /home/samba/scc/pv/pv.mdb
+chown -R nobody:wheel /home/samba/scc/pv/
+chmod ugo+rw /home/samba/scc/pv/*
 echo
 
 # copy part documents from either vault-[n]/ or vault-[n]-norev/
@@ -309,8 +329,8 @@ else
 	exit 1
 fi
 
-chown -R root:wheel /home/samba/scc/parts/
-chmod -R a+rw       /home/samba/scc/parts/
+chown -R nobody:wheel /home/samba/scc/parts/
+chmod -R ugo+rw         /home/samba/scc/parts/
 echo
 
 echo "load_scc: get_current_and_review.sh"

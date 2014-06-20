@@ -1,35 +1,28 @@
 #!/bin/sh
 #
-# Sync to current part and material documents
-# - files added to source directory will be added to target directory
-# - a file in the target directory which has been modified in the source
-#   directory will have its file name suffixed with a timestamp for being
-#   superseded (e.g. document-yyyy-mm-dd-x-hh-mm-ss.pdf), before the
-#   modified file is copied.
-# - files deleted from source directory are retained in target directory.
+# Sync [parts|material].rsync/ from source directories
+# - copy "new" files in source directory to [parts|material].rsync/
+# - if a file already exists in [parts|material].rsync/ and has been
+#   modified in source directory, rename the file in [parts|material].rsync/
+#   first by adding current datetime suffix (e.g. "somedoc.pdf-YYYYMMDDHHMMSS"),
+#   then copy modified file from source/
+# - files deleted in a source directory are not deleted from [parts|material].rsync/
 #
-
-echo
-echo "rsync_current_files: "
-# create new log file
-echo "rsync_current_files: " > /tmp/scc-rsync.log
+# Schedule using cron as follows:
+#   1. rsync_current_files.sh
+#      - rsync MUST complete before send_current_change_report.sh runs
+#   2. export_current_to_csv.sh
+#   3. send_current_change_report.sh
+#
 
 #
 # parts
 #
-/usr/local/bin/rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/scc-rsync.log" /home/samba/scc/parts/ /home/samba/scc/parts.rsync > /dev/null
+/usr/local/bin/rsync -a --itemize-changes --include-from=/usr/local/maestro/bin/rsync_include --exclude-from=/usr/local/maestro/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/samba/bhi/work/rsync-parts.log" /home/samba/scc/parts/ /home/samba/scc/parts.rsync > /dev/null
 
 #
 # material
 #
-#rsync -a --itemize-changes --backup --suffix=-`date +%FT%T` --log-file="/tmp/scc-rsync.log" /home/samba/scc/material/ /home/samba/scc/material.rsync > /dev/null
-
-#
-# copy rsync log file to file share
-#
-echo "rsync_current_files: copy rsync log file"
-cp -a /tmp/scc-rsync.log /home/samba/scc/work/rsync.log
-rm /tmp/scc-rsync.log
-echo
+#/usr/local/bin/rsync -a --itemize-changes --include-from=/usr/local/maestro/bin/rsync_include --exclude-from=/usr/local/maestro/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/samba/bhi/work/rsync-material.log" /home/samba/scc/material/ /home/samba/scc/material.rsync > /dev/null
 
 exit 0

@@ -1,48 +1,59 @@
 #!/bin/sh
 #
-# Create current csv from source files (mdb, xlsx...)
-# - copies master data spreadsheet csv from scc/excel to scc/csv
-# - export csv from sources to scc/csv/
-# - file paths HARDCODED
+# Create or copy "current" csv to csv/
+# - copy csv/ to csv.old/
+# - export csv from source db to csv/ when possible
+# - copy manually-exported csv to csv/
+#
+# MUST perform bootstrap if first-time run (see bottom of file)
+#
+# Schedule using cron as follows:
+#   1. rsync_current_files.sh
+#      - rsync MUST complete before send_current_change_report.sh runs
+#   2. export_current_to_csv.sh
+#   3. send_current_change_report.sh
 #
 
+echo
+echo "export_current_to_csv: copy csv/ to csv.old/"
+cp -a /home/samba/scc/csv/ /home/samba/scc/csv.old/
+echo
+
 echo "export_current_to_csv: person spreadsheet - NOT exported"
-echo
-echo "  Manually Save/As Z:\excel\person.xlsx to Z:\excel\person.csv"
-echo "  before running this script."
-echo
+# Manually Save/As Z:\excel\person.xlsx to Z:\excel\person.csv
+# before running this script.
+#
 cp -af /home/samba/scc/excel/person.csv /home/samba/scc/csv/
+echo
 
 echo "export_current_to_csv: issue spreadsheet - NOT exported"
-echo
-echo "  Manually Save/As from Z:\excel\issue.xlsx to Z:\excel\issue.csv"
-echo "  before running this script."
-echo
+# Manually Save/As Z:\excel\issue.xlsx to Z:\excel\issue.csv
+# before running this script.
+# 
 cp -af /home/samba/scc/excel/issue.csv /home/samba/scc/csv/
+echo
 
 echo "export_current_to_csv: project spreadsheet - NOT exported"
-echo
-echo "  Manually Save/As from project.xlsx to X:\remotefs\project.csv"
-echo "  before running this script."
-echo
+# Manually Save/As Z:\excel\project.xlsx to Z:\excel\project.csv
+# before running this script.
 cp /home/samba/scc/excel/project.csv /home/samba/scc/csv/
+echo
 
 echo "export_current_to_csv: stock location spreadsheet - NOT exported"
-echo
-echo "  Manually Save/As from stock_location.xlsx to X:\remotefs\stock_location.csv"
-echo "  before running this script."
-echo
+# Manually Save/As from Z:\excel\stock_location.xlsx to Z:\excel\stock_location.csv"
+# before running this script."
+# 
 cp /home/samba/scc/excel/stock_location.csv /home/samba/scc/csv/
+echo
 
-echo "export_current_to_csv: serial number spreadsheet - NOT exported"
-echo
-echo "  Manually Save/As from stock_serial.xlsx to X:\remotefs\stock_serial.csv"
-echo "  before running this script."
-echo
+echo "export_current_to_csv: stock serial number spreadsheet - NOT exported"
+# Manually Save/As from Z:\excel\stock_serial.xlsx to Z:\excel\stock_serial.csv"
+# before running this script."
+# 
 cp /home/samba/scc/excel/stock_serial.csv /home/samba/scc/csv/
-
-echo "export_current_to_csv: Parts (Parts&Vendors) - exporting...."
 echo
+
+echo "export_current_to_csv: parts (Parts&Vendors) - exporting...."
 /usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb AL    > /home/samba/scc/csv/pv_al.csv
 /usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb CNV   > /home/samba/scc/csv/pv_cnv.csv
 /usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb COST  > /home/samba/scc/csv/pv_cost.csv
@@ -71,5 +82,17 @@ echo
 /usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb TYPE  > /home/samba/scc/csv/pv_type.csv
 /usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb UN    > /home/samba/scc/csv/pv_un.csv
 echo
+
+# MUST bootstrap csv.old/ with PN change history on first-time run
+#
+# On first-time run, csv.old/ will be empty and send_current_change_report.sh
+# will fail due to missing files for current-vs-previous analysis.
+#
+# Uncomment following commands for first-time run (and re-comment after), or
+# execute commands manually.
+#
+#head -n 1 /home/samba/bhi/csv/pv_pn.csv > /home/samba/scc/csv.old/pv_pn.csv
+#/usr/local/maestro/bin/pndetails.py /home/samba/scc/csv.old/pv_pn.csv /home/samba/scc/csv.old/pv_pn_details.csv
+#sort /home/samba/scc/csv.old/pv_pn_details.csv  > /home/samba/scc/csv.old/pv_pn_details_sort.csv
 
 exit 0
