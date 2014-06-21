@@ -16,17 +16,17 @@
 
 _The modules must have already been installed on the server, this step installs them into a Tryton database._
 
-* trytond-dashboard
-* trytond-product
-* trytond-product-attribute
-* trytond-production
-* trytond-project
-* trytond-project-plan
-* trytond-purchase
-* trytond-sale
-* trytond-stock
-* trytond-stock-lot
-* trytond-stock-split
+* dashboard
+* product
+* product-attribute
+* production
+* project
+* project-plan
+* purchase
+* sale
+* stock
+* stock-lot
+* stock-split
 
 2) Execute the _Perform Pending Installation/Upgrade_ Wizard. The Module Configuration wizard will then run automatically to configure the newly installed modules.
 
