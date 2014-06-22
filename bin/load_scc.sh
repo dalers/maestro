@@ -100,6 +100,7 @@ echo "load_scc: restore 'current' master data spreadsheets and csv to fileshare"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
+cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
 cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
 chown -R nobody:wheel /home/samba/scc/excel/
 chmod ugo+rw /home/samba/scc/excel/*
@@ -168,6 +169,7 @@ echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotef
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
+cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
 cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
 chown -R nobody:wheel /home/samba/scc/excel/
 chmod ugo+rw /home/samba/scc/excel/*
@@ -227,6 +229,7 @@ echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotef
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
+cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
 cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
 chown -R nobody:wheel /home/samba/scc/excel/
 chmod ugo+rw /home/samba/scc/excel/*
@@ -286,6 +289,7 @@ echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotef
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
+cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
 cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
 chown -R nobody:wheel /home/samba/scc/excel/
 chmod ugo+rw /home/samba/scc/excel/*
@@ -345,6 +349,7 @@ echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotef
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
 cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
+cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
 cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
 chown -R nobody:wheel /home/samba/scc/excel/
 chmod ugo+rw /home/samba/scc/parts/*
