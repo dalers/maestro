@@ -6,11 +6,11 @@
 
 2) Login to the new database as user "admin" (with password used to create the database). The Module Configuration Wizard will run automatically after login to configure the new database.
 
-* Add user (e.g. "Dale Scott", login "dale")
+* Add user (e.g. "Dale Scott", login "dale"), optionally add permissions (you may need to update user permissions after installing modules, so this is optional at this point), 
 	* add Permissions: "Administration" (which will be the only permission group available)
 	* add Rule: Read, Write, Create, Delete, Model: View Search (which will be the only rule available available)
 
-## Install Modules
+## Install Modules into Database
 
 1) Mark the following modules for install.
 
@@ -28,11 +28,16 @@ _The modules must have already been installed on the server, this step installs 
 * stock-lot
 * stock-split
 
-2) Execute the _Perform Pending Installation/Upgrade_ Wizard. The Module Configuration wizard will then run automatically to configure the newly installed modules.
+2) Install the selected modules. There are two ways to perform the install.
 
-2.1) Create Company
+* Select *Launch Action* icon in the Modules menu bar and then _Perform Pending Installation/Upgrade_, or
+* Execute the _Perform Pending Installation/Upgrade_ Wizard from the main Tryton menu. 
 
-Create a new party
+After the install/upgrade completes, the Module Configuration wizard runs and will query you to configure the installed modules.
+
+3) Create Company
+
+A company is a type of 'party'. To create the desired company, you need to select the party the new company will be associated with. Since there are no parties in the new database, you will have to create a party, then select it by the new company.
 
 * Name
 	* Swift Construction Company
@@ -43,10 +48,19 @@ Create a new party
 	* City: Shopton
 	* Country: United States
 	* Subdivision: New York
-* Currency
+* Language
+	* English
+
+4) Configure Company
+
+* Enter Company > Currency
 	* US Dollar
 
-2.2) Create Chart of Accounts
+* On the Company > Employees > Party view
+	* select the new company (e.g. Swift Construction Company)
+	* select _Add_
+
+5) Create Chart of Accounts
 
 * Company: Swift Construction Company
 * Account Template: Minimal Account Chart
@@ -54,18 +68,26 @@ Create a new party
 	* Default Receivable Account: Main Receivable
 	* Default Payable Account: Main Payable
 
+6) The Tryton menu needs reloading to show the menus for the newly installed modules. 
+
+* Follow menu: User > Menu Reload (Ctrl-T).
+
 ## Load Users
 
 ### Import Users
 
 1) Login as admin
 
-2) Menu: Administration > Users > Users, Toolbar: Import Data (encoding: Latin1) -> import/res.users.csv
+2) Follow Menu Path: Administration > Users > Users. Access Toolbar: Import Data (Auto-Detect fields, CSV parameters: encoding Latin1),  -> scc/excel/tryton-users.csv
 
-To re-create import/res.users.csv
+Users will be imported with the new company set as their "Main Company". This is because during configuration of the new database, you set the Swift Construction Company as the default party for employees.
 
-* edit the Master worksheet in scc-files/excel/persons.xlsx
-* save the res.users worksheet in CSV format to import/res.users.csv
+_144 user records are imported in ~15 seconds with the server running in VirtualBox on a ThinkPad T61 laptop_
+
+#### To re-create import/tryton-users.csv
+
+* edit the "master" worksheet in workbook scc/excel/persons.xlsx
+* save the "tryton-users" worksheet in CSV format to scc/excel/tryton-users.csv
 
 ### Configure Users
 
