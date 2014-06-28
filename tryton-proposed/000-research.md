@@ -162,6 +162,11 @@ Sharoon Thomas (Openlabs): "We have extended project management module of Tryton
 
 - [Nereid Project Documentation (with screenshots)](http://tryton-nereid-project.readthedocs.org/en/latest/)
 
+### Kafkadb
+KafkaDB is a Kettle-based framework for migrating data between databases with different structures (e.g. different versions of the same application, or different applications). It has highly reusable transforms, making it ideal for module/plugin-based applications such as OpenERP and the Tryton framework.
+
+- [Kafkadb Project website](https://bitbucket.org/angelnan/kafkadb/wiki/Home)
+
 ### OpenERP
 - Enapps - forked OpenERP core with enhanced web interface (including OpenERP 6.1 extended support):
 	- http://www.enapps.co.uk/new-web-clientserver-revision-marking-a-new-level-in-business-productivity/

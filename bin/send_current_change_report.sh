@@ -5,15 +5,13 @@
 #   and compare to csv.old/pv_pn.csv
 # - extract file transfer details (and errors) from rsync
 #   log files
-# - assemble and mail report
+# - assemble and mail report (mail sent using ssmtp)
 #
 # Schedule using cron as follows:
 #   1. rsync_current_files.sh
 #      - rsync MUST complete before send_current_change_report.sh runs
 #   2. export_current_to_csv.sh
 #   3. send_current_change_report.sh
-#
-# - HARDCODED ssmtp for mailing
 #
 
 # find new/modified/deleted part numbers and create report lists
