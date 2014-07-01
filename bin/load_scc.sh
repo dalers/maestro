@@ -24,7 +24,7 @@
 #    scc/
 #    +-- csv[-n]/                 csv P&V + master data spreadsheet export iteration n (not used, csv re-created on-the-fly) 
 #    +-- doc/                     arbitrary SCC documents not specifically part or material-related
-#    +-- excel/                   master data spreadsheets (xlsx and csv)
+#    +-- ods/                     master data spreadsheets (with csv)
 #    +-- logo/                    SCC artwork
 #    +-- parts/                   stub directory - developer convenience for temp consolidated parts/ (has .gitignore)
 #    +-- parts[-n]/               documents related to parts iteration n, document revision in filename
@@ -47,7 +47,7 @@
 # ------------------------
 #    scc/
 #    +-- doc/
-#    +-- excel/                   master data spreadsheets (xlsx and csv)
+#    +-- ods/                     master data spreadsheets (with csv)
 #    +-- logo/                    SCC artwork
 #    +-- csv/                     current P&V and master data spreadsheet csv export
 #    +-- csv.old/                 previous csv export
@@ -99,11 +99,9 @@ echo
 echo "load_scc: restore 'current' master data spreadsheets and csv to fileshare"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
-cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
-chown -R nobody:wheel /home/samba/scc/excel/
-chmod ugo+rw /home/samba/scc/excel/*
+cp -a ../scc/ods/* /home/samba/scc/ods/
+chown -R nobody:wheel /home/samba/scc/ods/
+chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to fileshare"
@@ -168,11 +166,9 @@ echo
 echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
-cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
-chown -R nobody:wheel /home/samba/scc/excel/
-chmod ugo+rw /home/samba/scc/excel/*
+cp -a ../scc/ods/* /home/samba/scc/ods/
+chown -R nobody:wheel /home/samba/scc/ods/
+chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to remotefs"
@@ -228,11 +224,9 @@ echo
 echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
-cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
-chown -R nobody:wheel /home/samba/scc/excel/
-chmod ugo+rw /home/samba/scc/excel/*
+cp -a ../scc/ods/* /home/samba/scc/ods/
+chown -R nobody:wheel /home/samba/scc/ods/
+chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to remotefs"
@@ -288,11 +282,9 @@ echo
 echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
-cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
-chown -R nobody:wheel /home/samba/scc/excel/
-chmod ugo+rw /home/samba/scc/excel/*
+cp -a ../scc/ods/* /home/samba/scc/ods/
+chown -R nobody:wheel /home/samba/scc/ods/
+chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to remotefs"
@@ -348,11 +340,9 @@ echo
 echo "load_scc: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/excel/*.xlsx /home/samba/scc/excel/
-cp -a ../scc/excel/*.xls  /home/samba/scc/excel/
-cp -a ../scc/excel/*.csv  /home/samba/scc/excel/
-chown -R nobody:wheel /home/samba/scc/excel/
-chmod ugo+rw /home/samba/scc/parts/*
+cp -a ../scc/ods/* /home/samba/scc/ods/
+chown -R nobody:wheel /home/samba/scc/ods/
+chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "load_scc: restore 'current' Parts&Vendors(TM) database to remotefs"

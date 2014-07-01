@@ -20,37 +20,37 @@ cp -a /home/samba/scc/csv/ /home/samba/scc/csv.old/
 echo
 
 echo "export_current_to_csv: person spreadsheet - NOT exported"
-# Manually Save/As Z:\excel\person.xlsx to Z:\excel\person.csv
+# Manually Save/As Z:\ods\person.ods to Z:\ods\person.csv
 # before running this script.
 #
-cp -af /home/samba/scc/excel/person.csv /home/samba/scc/csv/
+cp -af /home/samba/scc/ods/person-tryton-user.csv /home/samba/scc/csv/
 echo
 
 echo "export_current_to_csv: issue spreadsheet - NOT exported"
-# Manually Save/As Z:\excel\issue.xlsx to Z:\excel\issue.csv
+# Manually Save/As Z:\ods\issue.ods to Z:\ods\issue.csv
 # before running this script.
 # 
-cp -af /home/samba/scc/excel/issue.csv /home/samba/scc/csv/
+cp -af /home/samba/scc/ods/issue-tryton.csv /home/samba/scc/csv/
 echo
 
 echo "export_current_to_csv: project spreadsheet - NOT exported"
-# Manually Save/As Z:\excel\project.xlsx to Z:\excel\project.csv
+# Manually Save/As Z:\ods\project.ods to Z:\ods\project.csv
 # before running this script.
-cp /home/samba/scc/excel/project.csv /home/samba/scc/csv/
+cp /home/samba/scc/ods/project-tryton.csv /home/samba/scc/csv/
 echo
 
 echo "export_current_to_csv: stock location spreadsheet - NOT exported"
-# Manually Save/As from Z:\excel\stock_location.xlsx to Z:\excel\stock_location.csv"
+# Manually Save/As from Z:\ods\stock_location.ods to Z:\ods\stock_location-tryton.csv"
 # before running this script."
 # 
-cp /home/samba/scc/excel/stock_location.csv /home/samba/scc/csv/
+cp /home/samba/scc/ods/stock_location-tryton.csv /home/samba/scc/csv/
 echo
 
 echo "export_current_to_csv: stock serial number spreadsheet - NOT exported"
-# Manually Save/As from Z:\excel\stock_serial.xlsx to Z:\excel\stock_serial.csv"
+# Manually Save/As from Z:\ods\stock_serial.ods to Z:\ods\stock_serial-tryton.csv"
 # before running this script."
 # 
-cp /home/samba/scc/excel/stock_serial.csv /home/samba/scc/csv/
+cp /home/samba/scc/ods/stock_serial.csv /home/samba/scc/csv/
 echo
 
 echo "export_current_to_csv: parts (Parts&Vendors) - exporting...."

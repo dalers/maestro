@@ -9,7 +9,7 @@
 rm -r /home/samba/scc/*
 mkdir /home/samba/scc/csv/
 mkdir /home/samba/scc/csv.old/
-mkdir /home/samba/scc/excel/
+mkdir /home/samba/scc/ods/
 mkdir /home/samba/scc/pv/
 mkdir /home/samba/scc/work/
 

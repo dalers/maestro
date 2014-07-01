@@ -16,7 +16,7 @@
 #
 
 # master data spreadsheets currently do not change with iteration
-touch -t 201301010101 ../scc/excel/*
+touch -t 201301010101 ../scc/ods/*
 
 echo "Iteration 1..."
 touch -t 201301010101 ../scc/pv/pv-1.mdb
