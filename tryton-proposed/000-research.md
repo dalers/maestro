@@ -152,7 +152,7 @@ Nereid is a framework for developing a web user interface to Tryton, expected to
 - [Nereid Documentation (Openlabs)](http://nereid.openlabs.co.in/en/develop/index.html)
 - [Nereid Documentation (readthedocs)](http://nereid.readthedocs.org/en/develop/)
 - [Nereid Demo Store (overview)](http://openlabs.github.io/nereid-demo-store/).
-	- [Demo Site](http://nereid-webshop-demo.openlabs.us/), which includes product data obtained from [icecat, the open catalogue](http://www.icecat.biz/)
+	- [Demo Site](http://nereid-webshop-demo.openlabs.us/) (includes product data obtained from [icecat, the open catalogue](http://www.icecat.biz/))
 - [Serving Nereid using Apache and mod_wsgi (Nereid Wiki)](http://code.google.com/p/tryton-nereid/wiki/UseAsWSGIService)
 
 ### Nereid Project
