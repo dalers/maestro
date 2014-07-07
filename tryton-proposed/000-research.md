@@ -1,6 +1,6 @@
 ## Tryton Project
 
-Tryton was created by forking TinyERP v4.2, the first release was published November 2008.
+The Tryton project was created by forking TinyERP v4.2, the first release was published November 2008.
 
 - [Tryton Project Website](http://www.tryton.org/)
 - [Tryton News](http://news.tryton.org/)
@@ -65,46 +65,46 @@ Tryton was created by forking TinyERP v4.2, the first release was published Nove
 - YouTube
 	- TODO
 
-## Getting Started ##
+## Installing
 
+- [Requirements (Community Wiki)](http://code.google.com/p/tryton/wiki/Requirements)
 - [Setup and Install (Community Wiki)](http://code.google.com/p/tryton/wiki/SetupAndStart)
-- [Hello World Module Tutorial (Google Code Tryton Wiki)](http://code.google.com/p/tryton/wiki/HelloWorld)
-	- ["Hello World" discussion  (Google Groups Forum)](https://groups.google.com/forum/#!topic/tryton/21oJqWKbFUI) on tryton group
-- [Tryton Development Workflow Series (Openlabs blog posts) ](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository)
-- [HelloworldModule (http://wiki.tryton-erp.es/)](http://wiki.tryton-erp.es/HelloworldModule)
 
-### CSV import/export
-- [Code patch recommended by Spanish Tryton Manual](http://codereview.tryton-erp.es/85/patch/192/2342)
-	- See [Import product by CSV in Spanish Tryton Manual](http://translate.googleusercontent.com/translate_c?depth=1&rurl=translate.google.com&sl=auto&tl=en&u=http://www.tryton-erp.es/posts/importacion-de-productos-mediante-csv.html&usg=ALkJrhjCvQZ5VqEj5mayYaTJA-rtA_CMtg) 
+### Ubuntu
+- [Installing on Ubuntu](http://braincoop.devecoop.com/posts/guia-agil-para-instalacion-de-tryton-con-localizacion-argentina.html)
 
-### Hosting on FreeBSD
-- using pip, trytond is installed to /usr/local/lib/python2.7/site-packages/trytond/
+### FreeBSD
+- pip installs trytond to /usr/local/lib/python2.7/site-packages/trytond/
 - latest trytond port/package is Tryton v2.8 (current v3.2)
 - [http://code.google.com/p/tryton/wiki/InstallationFreeBSD (see comments re outdated)](http://code.google.com/p/tryton/wiki/InstallationFreeBSD)
  - https://groups.google.com/forum/#!msg/tryton/fX8lRUFuH18/ss3ghEGTmhwJ (proposed update to wiki, assumes 2.8 port)
 - [http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/](http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/) (Tryton ~1.4)
 
-### Coding Guidelines
-- [Python Packaging Documentation](https://python-packaging-user-guide.readthedocs.org/en/latest/tutorial.html)
+#### General
+- [Python on FreeBSD (Japanese slideshare)](http://www.slideshare.net/pycontw/python-on-freebsd)
+- Pip Package Manager
+	- Wikipedia - http://en.wikipedia.org/wiki/Pip_(Python)
+	- [So you want to install a Python package (blog)](http://dubroy.com/blog/so-you-want-to-install-a-python-package)
+	- [The Hitchhiker's Guide to Packaging](http://guide.python-distribute.org/)
 
-### tryton.conf
-- jsondata_path (path of json-rpc data) – see tryton28 port?
+### Configuration (tryton.conf)
+- jsondata_path - path for json-rpc data
 - database connection
-```
-#db_host = False
-#db_port = False
-#db_user = False
-#db_password = False
-#db_minconn = 1
-#db_maxconn = 64
-```
+
+    db_host = False
+    db_port = False
+    db_user = False
+    db_password = False
+    db_minconn = 1
+    db_maxconn = 64
+
 - pg_path (postgresql path for the executable)
 - pidfile (path of the file for the pid)
 - logfile (path of the file for the logs)
 - data_path (path to store attachments and sqlite database)
 - unoconv (unoconv connection)
 
-### Installing a Module
+### Install module on server
 Either:
 
 ```
@@ -127,6 +127,18 @@ python trytond -c /etc/tryton -u a_module -d databasename
 - [Cannot connect to tryton via internet (StackOverflow)](http://stackoverflow.com/questions/22064595/cannot-connect-to-tryton-postgresql-via-internet)
 - [Installing on FreeBSD](http://booki.flossmanuals.net/tryton-erp/linux-and-freebsd-installation/)
 - [Debian Install](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=592908)
+
+## Coding
+
+- [Python Packaging Documentation](https://python-packaging-user-guide.readthedocs.org/en/latest/tutorial.html)
+- [Hello World Module Tutorial (Google Code Tryton Wiki)](http://code.google.com/p/tryton/wiki/HelloWorld)
+	- ["Hello World" discussion  (Google Groups Forum)](https://groups.google.com/forum/#!topic/tryton/21oJqWKbFUI) on tryton group
+- [Tryton Development Workflow Series (Openlabs blog posts) ](http://engineering.openlabs.co.in/post/72769275514/part-1-tryton-development-workflow-series-repository)
+- [HelloworldModule (http://wiki.tryton-erp.es/)](http://wiki.tryton-erp.es/HelloworldModule)
+
+## CSV import/export
+- [Code patch recommended by Spanish Tryton Manual](http://codereview.tryton-erp.es/85/patch/192/2342)
+	- See [Import product by CSV in Spanish Tryton Manual](http://translate.googleusercontent.com/translate_c?depth=1&rurl=translate.google.com&sl=auto&tl=en&u=http://www.tryton-erp.es/posts/importacion-de-productos-mediante-csv.html&usg=ALkJrhjCvQZ5VqEj5mayYaTJA-rtA_CMtg) 
 
 ## Related Projects
 
@@ -174,7 +186,7 @@ KafkaDB is a Kettle-based framework for migrating data between databases with di
 - [Experience OpenERP deployments in French companies (case study)](http://translate.google.com/translate?depth=1&hl=en&rurl=translate.google.com&sl=fr&tl=en&u=http://people.via.ecp.fr/~alexis/openerp/) (Google English translation)
 
 ### [Roundup Issue Tracker](http://www.roundup-tracker.org/)
-- [Recommended by Cedric Krier May 29 for integration with Tryton as Issue Tracker](https://groups.google.com/forum/#!topic/tryton/ek5-_LV-RT0)
+- [Recommended by Cedric Krier 2014-05-29 for integration with Tryton as Issue Tracker](https://groups.google.com/forum/#!topic/tryton/ek5-_LV-RT0)
 
 ### sao
 - sao is a Javascript web client, attempts to be equivalent to the native tryton client
@@ -182,17 +194,6 @@ KafkaDB is a Kettle-based framework for migrating data between databases with di
 - [NPO Accounting project for Tryton on Gitorious](https://gitorious.org/conservancy/npo-acct-wiki/source/7c3d12364858ee0189f3904f02e56546b0c704e0:ExistingProjects/Tryton.mdwn)
 	- reference to community modules on bitbucket
 	- reference to “sao” web client with demo on tryton.org ([demo](https://demo.tryton.org:8000/))
-
-## Hosting (specifically on FreeBSD)
-
-OS and hosting Python web apps in general
-
-- [Python on FreeBSD (Japanese slideshare)](http://www.slideshare.net/pycontw/python-on-freebsd)
-- Pip Package Manager
-	- Wikipedia - http://en.wikipedia.org/wiki/Pip_(Python)
-	- [So you want to install a Python package (blog)](http://dubroy.com/blog/so-you-want-to-install-a-python-package)
-	- [The Hitchhiker's Guide to Packaging](http://guide.python-distribute.org/)
-
 
 ## Tryton Foundation
 
@@ -240,8 +241,6 @@ Board of Directors (as of 2014-06-02)
 - Udo Spallek (Preisler & Spallek, [Virtual-Things](http://www.virtual-things.biz))
 - Varun Kumar
 - Zikzakmedia, S.L.
-
-## Detailed Partner Information
 
 ### [B2CK](http://www.b2ck.com)
 - [News (http://www.b2ck.com/news/index.html)](http://www.b2ck.com/news/index.html)
