@@ -12,7 +12,10 @@
 . /etc/rc.subr
 
 name=trytond
-rcvar=`set_rcvar`
+# for FreeBSD-9.3
+#rcvar=`set_rcvar`
+# for FreeBSD-10
+rcvar=trytond_enable
 
 load_rc_config $name
 
@@ -35,6 +38,12 @@ trytond_start() {
 trytond_stop() {
 if [ -f /var/run/${name}/${name}.pid ]; then
   kill `cat /var/run/${name}/${name}.pid`
+  fi
+}
+
+trytond_status() {
+if [ -f /var/run/${name}/${name}.pid ]; then
+  echo "tryton is running as pid `cat /var/run/${name}/${name}.pid`"
   fi
 }
 
