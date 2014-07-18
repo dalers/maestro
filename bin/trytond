@@ -43,7 +43,7 @@ if [ -f /var/run/${name}/${name}.pid ]; then
 
 trytond_status() {
 if [ -f /var/run/${name}/${name}.pid ]; then
-  echo "tryton is running as pid `cat /var/run/${name}/${name}.pid`"
+  echo "trytond is running as pid `cat /var/run/${name}/${name}.pid`"
   fi
 }
 
