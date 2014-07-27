@@ -44,16 +44,14 @@ db_type = postgresql
 db_host = localhost
 db_port = 5432
 db_user = tryton
-#db_password = appleton
-db_password = sTr@temeyer
+db_password = appleton
 
 # Configure the postgresql path for the executable
 #pg_path = None
 
 # Configure the Tryton server password
 #admin_passwd = admin
-#admin_passwd = appleton
-admin_passwd = sTr@temeyer
+admin_passwd = appleton
 
 # Configure the path of the files for the pid and the logs
 #pidfile = False
