@@ -1,6 +1,6 @@
 dn,cn,givenName,mail,manager,objectClass,objectClass,sn,title,uid,userPassword
-"cn=Administrator User,ou=People,dc=whizzer,dc=local",Administrator User,Administrator,,,inetOrgPerson,top,User,,administrator,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Administrator User,ou=People,dc=whizzer,dc=local",Administrator User,Administrator,,,inetOrgPerson,top,User,,admin,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+"cn=Administrator User,ou=People,dc=scc,dc=org",Administrator User,Administrator,,,inetOrgPerson,top,User,,administrator,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+"cn=Administrator User,ou=People,dc=scc,dc=org",Administrator User,Administrator,,,inetOrgPerson,top,User,,admin,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 "cn=Barcoe Jenks,ou=People,dc=scc,dc=org",Barcoe Jenks,Barcoe,bjenks@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,Jenks,Electronics Engineer,bjenks,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 "cn=Barton Swift,ou=People,dc=scc,dc=org",Barton Swift,Barton,bswift@whizzer.local,,inetOrgPerson,top,Swift,President,bswift,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 "cn=Bub Armstrong,ou=People,dc=scc,dc=org",Bub Armstrong,Bub,barmstrong@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,Armstrong,Mechanical Engineer,barmstrong,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
