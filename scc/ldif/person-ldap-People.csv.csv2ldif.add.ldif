@@ -1,0 +1,699 @@
+
+version: 1
+
+dn: cn=Administrator User,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Administrator User
+-
+add: givenName
+givenName: Administrator
+-
+add: mail
+mail: 
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: inetOrgPerson
+-
+add: objectClass
+objectClass: top
+-
+add: sn
+sn: User
+-
+add: uid
+uid: administrator
+-
+add: userPassword
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Administrator User,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Administrator User
+-
+add: givenName
+givenName: Administrator
+-
+add: mail
+mail: 
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: inetOrgPerson
+-
+add: objectClass
+objectClass: top
+-
+add: sn
+sn: User
+-
+add: uid
+uid: admin
+-
+add: userPassword
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Barcoe Jenks,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Barcoe Jenks
+-
+add: givenName
+givenName: Barcoe
+-
+add: mail
+mail: bjenks@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Barton Swift,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Barton Swift
+-
+add: givenName
+givenName: Barton
+-
+add: mail
+mail: bswift@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: inetOrgPerson
+-
+add: objectClass
+objectClass: top
+-
+add: sn
+sn: Swift
+-
+add: uid
+uid: bswift
+-
+add: userPassword
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Bub Armstrong,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Bub Armstrong
+-
+add: givenName
+givenName: Bub
+-
+add: mail
+mail: barmstrong@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Frank Mason,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Frank Mason
+-
+add: givenName
+givenName: Frank
+-
+add: mail
+mail: fmason@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Garret Jackson,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Garret Jackson
+-
+add: givenName
+givenName: Garret
+-
+add: mail
+mail: gjackson@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Hank Baldwin,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Hank Baldwin
+-
+add: givenName
+givenName: Hank
+-
+add: mail
+mail: hbaldwin@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Helen Randall,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Helen Randall
+-
+add: givenName
+givenName: Helen
+-
+add: mail
+mail: hrandall@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Jacab Wood,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Jacab Wood
+-
+add: givenName
+givenName: Jacab
+-
+add: mail
+mail: jwood@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=James Period,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: James Period
+-
+add: givenName
+givenName: James
+-
+add: mail
+mail: jperiod@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Jennie Haddon,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Jennie Haddon
+-
+add: givenName
+givenName: Jennie
+-
+add: mail
+mail: jhaddon@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Jennie Morse,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Jennie Morse
+-
+add: givenName
+givenName: Jennie
+-
+add: mail
+mail: jmorse@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=John Sharp,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: John Sharp
+-
+add: givenName
+givenName: John
+-
+add: mail
+mail: jsharp@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Martha Baggert,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Martha Baggert
+-
+add: givenName
+givenName: Martha
+-
+add: mail
+mail: mbaggert@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Mary Nestor,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Mary Nestor
+-
+add: givenName
+givenName: Mary
+-
+add: mail
+mail: mnestor@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Minnie Blair,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Minnie Blair
+-
+add: givenName
+givenName: Minnie
+-
+add: mail
+mail: mblair@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Miquel DeLazes
+-
+add: givenName
+givenName: Miquel
+-
+add: mail
+mail: mdelazes@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Ned Newton,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Ned Newton
+-
+add: givenName
+givenName: Ned
+-
+add: mail
+mail: nnewton@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Rad Sampson,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Rad Sampson
+-
+add: givenName
+givenName: Rad
+-
+add: mail
+mail: rsampson@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Sarah Malloy,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Sarah Malloy
+-
+add: givenName
+givenName: Sarah
+-
+add: mail
+mail: smalloy@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Tom Swift,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Tom Swift
+-
+add: givenName
+givenName: Tom
+-
+add: mail
+mail: tswift@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=Wakefield Damon,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: Wakefield Damon
+-
+add: givenName
+givenName: Wakefield
+-
+add: mail
+mail: wdamon@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+
+dn: cn=William Crawford,ou=People,dc=scc,dc=org
+changetype: modify
+add: cn
+cn: William Crawford
+-
+add: givenName
+givenName: William
+-
+add: mail
+mail: wcrawford@whizzer.local
+-
+add: manager
+manager: 
+-
+add: objectClass
+objectClass: 
+-
+add: objectClass
+objectClass: 
+-
+add: sn
+sn: 
+-
+add: uid
+uid: 
+-
+add: userPassword
+userPassword: 
+

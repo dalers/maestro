@@ -1,4 +1,4 @@
-# LDIF Export for ou=People,dc=whizzer,dc=local
+# LDIF Export for ou=People,dc=scc,dc=org
 # Server: My LDAP Server (127.0.0.1)
 # Search Scope: sub
 # Search Filter: (objectClass=*)
@@ -9,28 +9,29 @@
 
 version: 1
 
-# Entry 1: ou=People,dc=whizzer,dc=local
-dn: ou=People,dc=whizzer,dc=local
+# Entry 1: ou=People,dc=scc,dc=org
+dn: ou=People,dc=scc,dc=org
 objectclass: top
 objectclass: organizationalUnit
 ou: People
 
-# Entry 2: cn=Administrator User,ou=People,dc=whizzer,dc=local
-dn: cn=Administrator User,ou=People,dc=whizzer,dc=local
+# Entry 2: cn=Administrator User,ou=People,dc=scc,dc=org
+dn: cn=Administrator User,ou=People,dc=scc,dc=org
 cn: Administrator User
 givenname: Administrator
 objectclass: inetOrgPerson
 objectclass: top
 sn: User
+uid: admin
 uid: administrator
 userpassword: {SSHA}+ulJbxjrNs8xAOWxv2w80gVAjBoohgQq
 
-# Entry 3: cn=Barcoe Jenks,ou=People,dc=whizzer,dc=local
-dn: cn=Barcoe Jenks,ou=People,dc=whizzer,dc=local
+# Entry 3: cn=Barcoe Jenks,ou=People,dc=scc,dc=org
+dn: cn=Barcoe Jenks,ou=People,dc=scc,dc=org
 cn: Barcoe Jenks
 givenname: Barcoe
 mail: bjenks@whizzer.local
-manager: cn=Tom Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Tom Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Jenks
@@ -38,8 +39,8 @@ title: Electronics Engineer
 uid: bjenks
 userpassword: {SSHA}hCRJ8z0eb/NCNo63tZszb+YGQvqdyrGz
 
-# Entry 4: cn=Barton Swift,ou=People,dc=whizzer,dc=local
-dn: cn=Barton Swift,ou=People,dc=whizzer,dc=local
+# Entry 4: cn=Barton Swift,ou=People,dc=scc,dc=org
+dn: cn=Barton Swift,ou=People,dc=scc,dc=org
 cn: Barton Swift
 givenname: Barton
 mail: bswift@whizzer.local
@@ -50,12 +51,12 @@ title: President
 uid: bswift
 userpassword: {SSHA}bgK6Xvxp14jjOooB8SvWF93dEEbhzC45
 
-# Entry 5: cn=Bub Armstrong,ou=People,dc=whizzer,dc=local
-dn: cn=Bub Armstrong,ou=People,dc=whizzer,dc=local
+# Entry 5: cn=Bub Armstrong,ou=People,dc=scc,dc=org
+dn: cn=Bub Armstrong,ou=People,dc=scc,dc=org
 cn: Bub Armstrong
 givenname: Bub
 mail: barmstrong@whizzer.local
-manager: cn=Tom Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Tom Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Armstrong
@@ -63,8 +64,8 @@ title: Mechanical Engineer
 uid: barmstrong
 userpassword: {SSHA}QGrGKifTf0m+USyM0G5yOkhraYQ/NamN
 
-# Entry 6: cn=Dale Scott,ou=People,dc=whizzer,dc=local
-dn: cn=Dale Scott,ou=People,dc=whizzer,dc=local
+# Entry 6: cn=Dale Scott,ou=People,dc=scc,dc=org
+dn: cn=Dale Scott,ou=People,dc=scc,dc=org
 cn: Dale Scott
 givenname: Dale
 mail: dale@whizzer.local
@@ -74,12 +75,12 @@ sn: Scott
 uid: dale
 userpassword: {SSHA}CgYj0XE3WwUyZMd3hFhSFaW01wn0x2DI
 
-# Entry 7: cn=Frank Mason,ou=People,dc=whizzer,dc=local
-dn: cn=Frank Mason,ou=People,dc=whizzer,dc=local
+# Entry 7: cn=Frank Mason,ou=People,dc=scc,dc=org
+dn: cn=Frank Mason,ou=People,dc=scc,dc=org
 cn: Frank Mason
 givenname: Frank
 mail: fmason@whizzer.local
-manager: cn=Tom Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Tom Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Mason
@@ -87,12 +88,12 @@ title: Project Coordinator
 uid: fmason
 userpassword: {SSHA}xV846baCh82x9voByt4vNQtOgHdhJc60
 
-# Entry 8: cn=Garret Jackson,ou=People,dc=whizzer,dc=local
-dn: cn=Garret Jackson,ou=People,dc=whizzer,dc=local
+# Entry 8: cn=Garret Jackson,ou=People,dc=scc,dc=org
+dn: cn=Garret Jackson,ou=People,dc=scc,dc=org
 cn: Garret Jackson
 givenname: Garret
 mail: gjackson@whizzer.local
-manager: cn=Miquel DeLazes,ou=People,dc=whizzer,dc=local
+manager: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Jackson
@@ -100,12 +101,12 @@ title: Production Planner
 uid: gjackson
 userpassword: {SSHA}PoH9K9rsLn/g76Hjcqr2XCsR3hYJ+lLC
 
-# Entry 9: cn=Hank Baldwin,ou=People,dc=whizzer,dc=local
-dn: cn=Hank Baldwin,ou=People,dc=whizzer,dc=local
+# Entry 9: cn=Hank Baldwin,ou=People,dc=scc,dc=org
+dn: cn=Hank Baldwin,ou=People,dc=scc,dc=org
 cn: Hank Baldwin
 givenname: Hank
 mail: hbaldwin@whizzer.local
-manager: cn=Miquel DeLazes,ou=People,dc=whizzer,dc=local
+manager: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Baldwin
@@ -113,12 +114,12 @@ title: Lead Hand
 uid: hbaldwin
 userpassword: {SSHA}dXW2L9GVGTw9LycQk/8IgDe6QfxAWCYu
 
-# Entry 10: cn=Helen Randall,ou=People,dc=whizzer,dc=local
-dn: cn=Helen Randall,ou=People,dc=whizzer,dc=local
+# Entry 10: cn=Helen Randall,ou=People,dc=scc,dc=org
+dn: cn=Helen Randall,ou=People,dc=scc,dc=org
 cn: Helen Randall
 givenname: Helen
 mail: hrandall@whizzer.local
-manager: cn=Ned Newton,ou=People,dc=whizzer,dc=local
+manager: cn=Ned Newton,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Randall
@@ -126,12 +127,12 @@ title: AP Clerk
 uid: hrandall
 userpassword: {SSHA}uhk6ubUS5nQfbCewrg9OpCl5De/2sc9G
 
-# Entry 11: cn=Jacob Wood,ou=People,dc=whizzer,dc=local
-dn: cn=Jacob Wood,ou=People,dc=whizzer,dc=local
+# Entry 11: cn=Jacob Wood,ou=People,dc=scc,dc=org
+dn: cn=Jacob Wood,ou=People,dc=scc,dc=org
 cn: Jacob Wood
 givenname: Jacob
 mail: jwood@whizzer.local
-manager: cn=James Period,ou=People,dc=whizzer,dc=local
+manager: cn=James Period,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Wood
@@ -139,12 +140,12 @@ title: Sales Agent
 uid: jwood
 userpassword: {SSHA}V8RpM5tUrp4m9MDVgoXld4jr90Ip+hNI
 
-# Entry 12: cn=James Period,ou=People,dc=whizzer,dc=local
-dn: cn=James Period,ou=People,dc=whizzer,dc=local
+# Entry 12: cn=James Period,ou=People,dc=scc,dc=org
+dn: cn=James Period,ou=People,dc=scc,dc=org
 cn: James Period
 givenname: James
 mail: jperiod@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Barton Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Period
@@ -152,12 +153,12 @@ title: Director, Sales & Marketing
 uid: jperiod
 userpassword: {SSHA}hY4CtT2NZquIEj25HYoSsKzZWc0F27xc
 
-# Entry 13: cn=Jennie Haddon,ou=People,dc=whizzer,dc=local
-dn: cn=Jennie Haddon,ou=People,dc=whizzer,dc=local
+# Entry 13: cn=Jennie Haddon,ou=People,dc=scc,dc=org
+dn: cn=Jennie Haddon,ou=People,dc=scc,dc=org
 cn: Jennie Haddon
 givenname: Jennie
 mail: jhaddon@whizzer.local
-manager: cn=Miquel DeLazes,ou=People,dc=whizzer,dc=local
+manager: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Haddon
@@ -165,12 +166,12 @@ title: Buyer
 uid: jhaddon
 userpassword: {SSHA}WKh+uOp1KpnSKqxBJksbGGOhAXCHjwxj
 
-# Entry 14: cn=Jennie Morse,ou=People,dc=whizzer,dc=local
-dn: cn=Jennie Morse,ou=People,dc=whizzer,dc=local
+# Entry 14: cn=Jennie Morse,ou=People,dc=scc,dc=org
+dn: cn=Jennie Morse,ou=People,dc=scc,dc=org
 cn: Jennie Morse
 givenname: Jennie
 mail: jmorse@whizzer.local
-manager: cn=Ned Newton,ou=People,dc=whizzer,dc=local
+manager: cn=Ned Newton,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Morse
@@ -178,12 +179,12 @@ title: AR Clerk
 uid: jmorse
 userpassword: {SSHA}gE0Jd++AyaNplBdiKMyCZDxOle0UjDFV
 
-# Entry 15: cn=John Sharp,ou=People,dc=whizzer,dc=local
-dn: cn=John Sharp,ou=People,dc=whizzer,dc=local
+# Entry 15: cn=John Sharp,ou=People,dc=scc,dc=org
+dn: cn=John Sharp,ou=People,dc=scc,dc=org
 cn: John Sharp
 givenname: John
 mail: jsharp@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Barton Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Sharp
@@ -191,12 +192,12 @@ title: Director, Product Management
 uid: jsharp
 userpassword: {SSHA}2EO4Y449S5nIe0EIwKz+ZY58MEnt1ZfY
 
-# Entry 16: cn=Mary Nestor,ou=People,dc=whizzer,dc=local
-dn: cn=Mary Nestor,ou=People,dc=whizzer,dc=local
+# Entry 16: cn=Mary Nestor,ou=People,dc=scc,dc=org
+dn: cn=Mary Nestor,ou=People,dc=scc,dc=org
 cn: Mary Nestor
 givenname: Mary
 mail: mnestor@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Barton Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Nestor
@@ -204,12 +205,12 @@ title: Director, MIS
 uid: mnestor
 userpassword: {SSHA}PfvLF1fF/p/fomE68a8/6jA/8VnjuUKB
 
-# Entry 17: cn=Minnie Blair,ou=People,dc=whizzer,dc=local
-dn: cn=Minnie Blair,ou=People,dc=whizzer,dc=local
+# Entry 17: cn=Minnie Blair,ou=People,dc=scc,dc=org
+dn: cn=Minnie Blair,ou=People,dc=scc,dc=org
 cn: Minnie Blair
 givenname: Minnie
 mail: mblair@whizzer.local
-manager: cn=Tom Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Tom Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Blair
@@ -217,12 +218,12 @@ title: Software Engineer
 uid: mblair
 userpassword: {SSHA}NN5nU1p5IyRLKRq+U18FRPYuYsagCp5B
 
-# Entry 18: cn=Miquel DeLazes,ou=People,dc=whizzer,dc=local
-dn: cn=Miquel DeLazes,ou=People,dc=whizzer,dc=local
+# Entry 18: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
+dn: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
 cn: Miquel DeLazes
 givenname: Miquel
 mail: mdelazes@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Barton Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: DeLazes
@@ -230,12 +231,12 @@ title: Director, Manufacturing
 uid: mdelazes
 userpassword: {SSHA}Z20rFbUf9ZUcwTY1LmZIfNXNsWcq7p1r
 
-# Entry 19: cn=Ned Newton,ou=People,dc=whizzer,dc=local
-dn: cn=Ned Newton,ou=People,dc=whizzer,dc=local
+# Entry 19: cn=Ned Newton,ou=People,dc=scc,dc=org
+dn: cn=Ned Newton,ou=People,dc=scc,dc=org
 cn: Ned Newton
 givenname: Ned
 mail: nnewton@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Barton Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Newton
@@ -243,12 +244,12 @@ title: Director, Finance
 uid: nnewton
 userpassword: {SSHA}nXA+nUl5BokdQxPELMOH8lnxFjDi2/Hl
 
-# Entry 20: cn=Rad Sampson,ou=People,dc=whizzer,dc=local
-dn: cn=Rad Sampson,ou=People,dc=whizzer,dc=local
+# Entry 20: cn=Rad Sampson,ou=People,dc=scc,dc=org
+dn: cn=Rad Sampson,ou=People,dc=scc,dc=org
 cn: Rad Sampson
 givenname: Rad
 mail: rsampson@whizzer.local
-manager: cn=Barcoe Jenks,ou=People,dc=whizzer,dc=local
+manager: cn=Barcoe Jenks,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Sampson
@@ -256,12 +257,12 @@ title: Director, Quality
 uid: rsampson
 userpassword: {SSHA}YRsLnIUCcPZ/NQS2IEy9dZt3p1YVsywe
 
-# Entry 21: cn=Sarah Malloy,ou=People,dc=whizzer,dc=local
-dn: cn=Sarah Malloy,ou=People,dc=whizzer,dc=local
+# Entry 21: cn=Sarah Malloy,ou=People,dc=scc,dc=org
+dn: cn=Sarah Malloy,ou=People,dc=scc,dc=org
 cn: Sarah Malloy
 givenname: Sarah
 mail: smalloy@whizzer.local
-manager: cn=Miquel DeLazes,ou=People,dc=whizzer,dc=local
+manager: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Malloy
@@ -269,12 +270,12 @@ title: Receiver
 uid: smalloy
 userpassword: {SSHA}NwTpPydco1BEME6l08IXNvw/iAUyAkF1
 
-# Entry 22: cn=Tom Swift,ou=People,dc=whizzer,dc=local
-dn: cn=Tom Swift,ou=People,dc=whizzer,dc=local
+# Entry 22: cn=Tom Swift,ou=People,dc=scc,dc=org
+dn: cn=Tom Swift,ou=People,dc=scc,dc=org
 cn: Tom Swift
 givenname: Tom
 mail: tswift@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Barton Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Swift
@@ -282,12 +283,12 @@ title: Director, Engineering
 uid: tswift
 userpassword: {SSHA}9YGvcyfqfrzO6lAk/SlMq+wm7ywcXDZw
 
-# Entry 23: cn=Wakefield Damon,ou=People,dc=whizzer,dc=local
-dn: cn=Wakefield Damon,ou=People,dc=whizzer,dc=local
+# Entry 23: cn=Wakefield Damon,ou=People,dc=scc,dc=org
+dn: cn=Wakefield Damon,ou=People,dc=scc,dc=org
 cn: Wakefield Damon
 givenname: Wakefield
 mail: wdamon@whizzer.local
-manager: cn=John Sharp,ou=People,dc=whizzer,dc=local
+manager: cn=John Sharp,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Damon
@@ -295,12 +296,12 @@ title: Technical Writer
 uid: wdamon
 userpassword: {SSHA}wRVTbThSDFFSRQ0UBicN8mnO/jTv8bxq
 
-# Entry 24: cn=William Crawford,ou=People,dc=whizzer,dc=local
-dn: cn=William Crawford,ou=People,dc=whizzer,dc=local
+# Entry 24: cn=William Crawford,ou=People,dc=scc,dc=org
+dn: cn=William Crawford,ou=People,dc=scc,dc=org
 cn: William Crawford
 givenname: William
 mail: wcrawford@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=whizzer,dc=local
+manager: cn=Barton Swift,ou=People,dc=scc,dc=org
 objectclass: inetOrgPerson
 objectclass: top
 sn: Crawford

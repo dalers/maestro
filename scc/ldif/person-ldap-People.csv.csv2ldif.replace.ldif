@@ -1,7 +1,7 @@
 
 version: 1
 
-dn: cn=Administrator User,ou=People,dc=whizzer,dc=local
+dn: cn=Administrator User,ou=People,dc=scc,dc=org
 changetype: modify
 replace: cn
 cn: Administrator User
@@ -23,17 +23,14 @@ objectClass: top
 -
 replace: sn
 sn: User
--
-replace: title
-title: 
 -
 replace: uid
 uid: administrator
 -
 replace: userPassword
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
-dn: cn=Administrator User,ou=People,dc=whizzer,dc=local
+dn: cn=Administrator User,ou=People,dc=scc,dc=org
 changetype: modify
 replace: cn
 cn: Administrator User
@@ -56,14 +53,11 @@ objectClass: top
 replace: sn
 sn: User
 -
-replace: title
-title: 
--
 replace: uid
 uid: admin
 -
 replace: userPassword
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
 dn: cn=Barcoe Jenks,ou=People,dc=scc,dc=org
 changetype: modify
@@ -88,14 +82,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Barton Swift,ou=People,dc=scc,dc=org
 changetype: modify
@@ -120,14 +111,11 @@ objectClass: top
 replace: sn
 sn: Swift
 -
-replace: title
-title: President
--
 replace: uid
 uid: bswift
 -
 replace: userPassword
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
 dn: cn=Bub Armstrong,ou=People,dc=scc,dc=org
 changetype: modify
@@ -152,14 +140,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Frank Mason,ou=People,dc=scc,dc=org
 changetype: modify
@@ -184,14 +169,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Garret Jackson,ou=People,dc=scc,dc=org
 changetype: modify
@@ -216,14 +198,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Hank Baldwin,ou=People,dc=scc,dc=org
 changetype: modify
@@ -248,14 +227,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Helen Randall,ou=People,dc=scc,dc=org
 changetype: modify
@@ -280,14 +256,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Jacab Wood,ou=People,dc=scc,dc=org
 changetype: modify
@@ -312,14 +285,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=James Period,ou=People,dc=scc,dc=org
 changetype: modify
@@ -344,14 +314,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Jennie Haddon,ou=People,dc=scc,dc=org
 changetype: modify
@@ -376,14 +343,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Jennie Morse,ou=People,dc=scc,dc=org
 changetype: modify
@@ -408,14 +372,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=John Sharp,ou=People,dc=scc,dc=org
 changetype: modify
@@ -440,14 +401,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Martha Baggert,ou=People,dc=scc,dc=org
 changetype: modify
@@ -472,14 +430,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Mary Nestor,ou=People,dc=scc,dc=org
 changetype: modify
@@ -504,14 +459,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Minnie Blair,ou=People,dc=scc,dc=org
 changetype: modify
@@ -536,14 +488,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
 changetype: modify
@@ -568,14 +517,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Ned Newton,ou=People,dc=scc,dc=org
 changetype: modify
@@ -600,14 +546,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Rad Sampson,ou=People,dc=scc,dc=org
 changetype: modify
@@ -632,14 +575,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Sarah Malloy,ou=People,dc=scc,dc=org
 changetype: modify
@@ -664,14 +604,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Tom Swift,ou=People,dc=scc,dc=org
 changetype: modify
@@ -696,14 +633,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=Wakefield Damon,ou=People,dc=scc,dc=org
 changetype: modify
@@ -728,14 +662,11 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
 dn: cn=William Crawford,ou=People,dc=scc,dc=org
 changetype: modify
@@ -760,12 +691,9 @@ objectClass:
 replace: sn
 sn: 
 -
-replace: title
-title: 
--
 replace: uid
 uid: 
 -
 replace: userPassword
-userPassword: 
+userPassword: 
 
