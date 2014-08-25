@@ -1,4 +1,4 @@
-# Tryton Setup and Configuration
+# Tryton Setup
 
 ## Create New Database
 

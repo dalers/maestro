@@ -1,25 +1,25 @@
-dn,cn,givenName,mail,manager,objectClass,objectClass,sn,uid,userPassword
-"cn=Administrator User,ou=People,dc=scc,dc=org",Administrator User,Administrator,,,inetOrgPerson,top,User,administrator,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Administrator User,ou=People,dc=scc,dc=org",Administrator User,Administrator,,,inetOrgPerson,top,User,admin,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Barcoe Jenks,ou=People,dc=scc,dc=org",Barcoe Jenks,Barcoe,bjenks@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,Jenks,bjenks,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Barton Swift,ou=People,dc=scc,dc=org",Barton Swift,Barton,bswift@whizzer.local,,inetOrgPerson,top,Swift,bswift,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Bub Armstrong,ou=People,dc=scc,dc=org",Bub Armstrong,Bub,barmstrong@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,Armstrong,barmstrong,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Frank Mason,ou=People,dc=scc,dc=org",Frank Mason,Frank,fmason@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,Mason,fmason,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Garret Jackson,ou=People,dc=scc,dc=org",Garret Jackson,Garret,gjackson@whizzer.local,"cn=Miguel DeLazes,dc=scc,dc=org",inetOrgPerson,top,Jackson,gjackson,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Hank Baldwin,ou=People,dc=scc,dc=org",Hank Baldwin,Hank,hbaldwin@whizzer.local,"cn=Miguel DeLazes,dc=scc,dc=org",inetOrgPerson,top,Baldwin,hbaldwin,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Helen Randall,ou=People,dc=scc,dc=org",Helen Randall,Helen,hrandall@whizzer.local,"cn=Ned Newton,dc=scc,dc=org",inetOrgPerson,top,Randall,hrandall,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Jacab Wood,ou=People,dc=scc,dc=org",Jacab Wood,Jacab,jwood@whizzer.local,"cn=James Period,dc=scc,dc=org",inetOrgPerson,top,Wood,jwood,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=James Period,ou=People,dc=scc,dc=org",James Period,James,jperiod@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,Period,jperiod,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Jennie Haddon,ou=People,dc=scc,dc=org",Jennie Haddon,Jennie,jhaddon@whizzer.local,"cn=Miguel DeLazes,dc=scc,dc=org",inetOrgPerson,top,Haddon,jhaddon,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Jennie Morse,ou=People,dc=scc,dc=org",Jennie Morse,Jennie,jmorse@whizzer.local,"cn=Ned Newton,dc=scc,dc=org",inetOrgPerson,top,Morse,jmorse,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=John Sharp,ou=People,dc=scc,dc=org",John Sharp,John,jsharp@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,Sharp,jsharp,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Martha Baggert,ou=People,dc=scc,dc=org",Martha Baggert,Martha,mbaggert@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,Baggert,mbaggert,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Mary Nestor,ou=People,dc=scc,dc=org",Mary Nestor,Mary,mnestor@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,Nestor,mnestor,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Minnie Blair,ou=People,dc=scc,dc=org",Minnie Blair,Minnie,mblair@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,Blair,mblair,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Miquel DeLazes,ou=People,dc=scc,dc=org",Miquel DeLazes,Miquel,mdelazes@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,DeLazes,mdelazes,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Ned Newton,ou=People,dc=scc,dc=org",Ned Newton,Ned,nnewton@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,Newton,nnewton,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Rad Sampson,ou=People,dc=scc,dc=org",Rad Sampson,Rad,rsampson@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,Sampson,rsampson,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Sarah Malloy,ou=People,dc=scc,dc=org",Sarah Malloy,Sarah,smalloy@whizzer.local,"cn=Miguel DeLazes,dc=scc,dc=org",inetOrgPerson,top,Malloy,smalloy,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Tom Swift,ou=People,dc=scc,dc=org",Tom Swift,Tom,tswift@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,Swift,tswift,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=Wakefield Damon,ou=People,dc=scc,dc=org",Wakefield Damon,Wakefield,wdamon@whizzer.local,"cn=John Sharp,dc=scc,dc=org",inetOrgPerson,top,Damon,wdamon,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-"cn=William Crawford,ou=People,dc=scc,dc=org",William Crawford,William,wcrawford@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,Crawford,wcrawford,{SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+cn,givenName,sn,title,mail,manager,objectClass,objectClass,uid,userPassword
+Administrator User,Administrator,User,,,,inetOrgPerson,top,administrator,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Administrator User,Administrator,User,,,,inetOrgPerson,top,admin,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Barcoe Jenks,Barcoe,Jenks,Electronic Engineer,bjenks@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,bjenks,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Barton Swift,Barton,Swift,President,bswift@whizzer.local,,inetOrgPerson,top,bswift,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Bub Armstrong,Bub,Armstrong,Mechanical Engineer,barmstrong@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,barmstrong,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Frank Mason,Frank,Mason,Engineering Project Coordinator,fmason@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,fmason,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Garret Jackson,Garret,Jackson,Production Planner,gjackson@whizzer.local,"cn=Miguel DeLazes,dc=scc,dc=org",inetOrgPerson,top,gjackson,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Hank Baldwin,Hank,Baldwin,Lead Hand,hbaldwin@whizzer.local,"cn=Miguel DeLazes,dc=scc,dc=org",inetOrgPerson,top,hbaldwin,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Helen Randall,Helen,Randall,AP Clerk,hrandall@whizzer.local,"cn=Ned Newton,dc=scc,dc=org",inetOrgPerson,top,hrandall,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Jacab Wood,Jacab,Wood,Sales Agent,jwood@whizzer.local,"cn=James Period,dc=scc,dc=org",inetOrgPerson,top,jwood,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+James Period,James,Period,"Director, Sales & Marketing",jperiod@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,jperiod,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Jennie Haddon,Jennie,Haddon,Buyer,jhaddon@whizzer.local,"cn=Miguel DeLazes,dc=scc,dc=org",inetOrgPerson,top,jhaddon,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Jennie Morse,Jennie,Morse,AR Clerk,jmorse@whizzer.local,"cn=Ned Newton,dc=scc,dc=org",inetOrgPerson,top,jmorse,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+John Sharp,John,Sharp,"Director, Prod Mgmt",jsharp@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,jsharp,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Martha Baggert,Martha,Baggert,"Director, Human Resources",mbaggert@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,mbaggert,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Mary Nestor,Mary,Nestor,"Director, MIS-IT",mnestor@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,mnestor,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Minnie Blair,Minnie,Blair,Software Engineer,mblair@whizzer.local,"cn=Tom Swift,dc=scc,dc=org",inetOrgPerson,top,mblair,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Miquel DeLazes,Miquel,DeLazes,"Director, Manufacturing",mdelazes@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,mdelazes,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Ned Newton,Ned,Newton,Chief Financial Officer,nnewton@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,nnewton,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Rad Sampson,Rad,Sampson,"Director, Quality",rsampson@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,rsampson,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Sarah Malloy,Sarah,Malloy,Receiver,smalloy@whizzer.local,"cn=Miguel DeLazes,dc=scc,dc=org",inetOrgPerson,top,smalloy,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Tom Swift,Tom,Swift,"Director, Engineering",tswift@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,tswift,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+Wakefield Damon,Wakefield,Damon,Technical Writer,wdamon@whizzer.local,"cn=John Sharp,dc=scc,dc=org",inetOrgPerson,top,wdamon,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+William Crawford,William,Crawford,"Director, Legal",wcrawford@whizzer.local,"cn=Barton Swift,dc=scc,dc=org",inetOrgPerson,top,wcrawford,{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
