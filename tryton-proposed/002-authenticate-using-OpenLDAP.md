@@ -85,6 +85,12 @@ If you have been following the workflows in order (i.e. you have completed 001-t
     # /usr/local/bin/trytond -c /usr/local/etc/trytond.conf -i ldap_authentication -d scc
 
 
+- Update Tryton scc database to make LDAP menu available (workaround for https://bugs.tryton.org/issue2638)
+
+
+    # /usr/local/bin/trytond -c /usr/local/etc/trytond.conf -u all -d scc
+
+
 - Start trytond server
 
 
