@@ -97,3 +97,14 @@ If you have been following the workflows in order (i.e. you have completed 001-t
     # rm /var/run/trytond/trytond.pid
     # /usr/local/etc/rc.d/trytond start
 
+## Known Issues
+
+### Default admin user
+
+csv2ldif.pl does not correctly create the cn = "Administrator User" directory entry, which should have two uid values:
+    - uid="administrator"
+    - uid="admin"
+    
+Tryton authenticates its default administrator user "administrator" by searching for uid = "admin". As a workaround, edit the output from csv2ldif2 and add the second uid manually ("uid: admin"). Alternatively, use phpLDAPadmin to add a second uid value "admin" to the "Administrator User" directory entry.
+ 
+FWIW, Mantis authenticates its default administrator user "administrator" by searching for cn = "Administrator User" (not for the uid as Tryton does).

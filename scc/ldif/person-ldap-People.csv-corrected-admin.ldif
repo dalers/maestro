@@ -256,6 +256,7 @@ sn: User
 objectClass: inetOrgPerson
 objectClass: top
 uid: administrator
+uid: admin
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
 dn: cn=Minnie Blair,ou=People,dc=scc,dc=org
