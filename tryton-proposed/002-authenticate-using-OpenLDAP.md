@@ -41,13 +41,13 @@ $ slappasswd -s appleton
 
 ## Convert LDAP data to LDIF format from CSV
 
-* Convert person-ldap-People.csv to LDIF format
+* Convert person-ldap-People.csv to LDIF format using csv2ldif2.pl (from the SourceForge csv2ldif2 project, http://sourceforge.net/projects/csv2ldif2)
 
 ```
 $ csv2ldif2.pl -b ou=People,dc=scc,dc=org < /usr/local/maestro/scc/ods/person-ldap-People.csv > /usr/local/maestro/scc/ldif/person-ldap-People.csv.ldif
 ```
     
-*csv2ldif2.pl is obtained from the SourceForge csv2ldif2 project http://sourceforge.net/projects/csv2ldif2*
+*See Known Issues - Administrator User. person-ldap-People.csv.ldif must be edited before importing into OpenLDAP to add a second uid value to entry cn = "Administrator User".*
 
 ## Import Users into OpenLDAP
 
@@ -102,7 +102,7 @@ If you have been following the workflows in order (i.e. you have completed 001-t
 
 ## Known Issues
 
-### Default admin user
+### Administrator User
 
 csv2ldif.pl does not correctly create the cn = "Administrator User" directory entry (or potentially any directeory entry that contains multiple attribute values). The resulting ldif file contains only one uid value, "administrator", when it should contain both "administrator" and "admin".
     
