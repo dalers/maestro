@@ -24,7 +24,7 @@ $ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/ldif/people.
     
 ```
 $ slappasswd -s appleton
-    {SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
+{SSHA}Fa8SeAxWzHRAu+qQZJRAhH93JbZRICUg
 ```
 
 *slappasswd generates a different string for the same password when executed multiple times because a different salt is used (the  default hash method SSHA is a salted SHA-1 hash, and the generated string includes both the salt and the hash).*
