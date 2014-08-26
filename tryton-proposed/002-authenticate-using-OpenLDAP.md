@@ -104,10 +104,8 @@ If you have been following the workflows in order (i.e. you have completed 001-t
 
 ### Default admin user
 
-csv2ldif.pl does not correctly create the cn = "Administrator User" directory entry. The resulting ldif file contains only one uid value, which it should contain two uid values:
-* uid="administrator"
-* uid="admin"
+csv2ldif.pl does not correctly create the cn = "Administrator User" directory entry (or potentially any directeory entry that contains multiple attribute values). The resulting ldif file contains only one uid value, "administrator", when it should contain both "administrator" and "admin".
     
-Tryton authenticates its default administrator user "administrator" by searching for uid = "admin". As a workaround, edit the output from csv2ldif2 and add the second uid manually ("uid: admin"). Alternatively, use phpLDAPadmin to add a second uid value "admin" to the "Administrator User" directory entry.
+The Tryton ldap_authentication module authenticates by uid (login username). For example, it searches for uid = "admin" to authenticate the Tryton default administrator "admin" (if LDAP authentication fails, Tryton will then attempt to authenticate the user in the Tryton database). As a workaround for csv2ldif.pl behaviour, edit the output from csv2ldif2.pl and add the second uid ("uid: admin") to the cn = "Administrator User" entry. Alternatively, use a LDAP directory editor such as phpLDAPadmin to add the second uid value.
  
-FWIW, Mantis authenticates its default administrator user "administrator" by searching for cn = "Administrator User" (not for the uid as Tryton does).
+*Mantis authenticates its default administrator user "administrator" by searching for cn = "Administrator User" (not for the uid as Tryton does).*
