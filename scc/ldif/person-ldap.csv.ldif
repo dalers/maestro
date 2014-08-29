@@ -1,16 +1,181 @@
-dn: cn=Rad Sampson,ou=People,dc=scc,dc=org
-cn: Rad Sampson
-givenName: Rad
-sn: Sampson
-title: Director, Quality
-mail: rsampson@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
+dn: cn=Barcoe Jenks,ou=People,ou=scc,dc=root,dc=org
+cn: Barcoe Jenks
+givenName: Barcoe
+sn: Jenks
+title: Electronics Engineer
+mail: bjenks@whizzer.local
+manager: cn=Tom Swift,ou=People,ou=scc,dc=root,dc=org
 objectClass: inetOrgPerson
 objectClass: top
-uid: rsampson
+uid: bjenks
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
-dn: cn=Barton Swift,ou=People,dc=scc,dc=org
+dn: cn=Hank Baldwin,ou=People,ou=scc,dc=root,dc=org
+cn: Hank Baldwin
+givenName: Hank
+sn: Baldwin
+title: Lead Hand
+mail: hbaldwin@whizzer.local
+manager: cn=Miguel DeLazes,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: hbaldwin
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=John Sharp,ou=People,ou=scc,dc=root,dc=org
+cn: John Sharp
+givenName: John
+sn: Sharp
+title: Director, Prod Mgmt
+mail: jsharp@whizzer.local
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: jsharp
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=William Crawford,ou=People,ou=scc,dc=root,dc=org
+cn: William Crawford
+givenName: William
+sn: Crawford
+title: Director, Legal
+mail: wcrawford@whizzer.local
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: wcrawford
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Administrator User,ou=People,ou=scc,dc=root,dc=org
+cn: Administrator User
+givenName: Administrator
+sn: User
+objectClass: inetOrgPerson
+objectClass: top
+uid: administrator
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Miquel DeLazes,ou=People,ou=scc,dc=root,dc=org
+cn: Miquel DeLazes
+givenName: Miquel
+sn: DeLazes
+title: Director, Manufacturing
+mail: mdelazes@whizzer.local
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: mdelazes
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Ned Newton,ou=People,ou=scc,dc=root,dc=org
+cn: Ned Newton
+givenName: Ned
+sn: Newton
+title: Chief Financial Officer
+mail: nnewton@whizzer.local
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: nnewton
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=James Period,ou=People,ou=scc,dc=root,dc=org
+cn: James Period
+givenName: James
+sn: Period
+title: Director, Sales & Marketing
+mail: jperiod@whizzer.local
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: jperiod
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Tom Swift,ou=People,ou=scc,dc=root,dc=org
+cn: Tom Swift
+givenName: Tom
+sn: Swift
+title: Director, Engineering
+mail: tswift@whizzer.local
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: tswift
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Frank Mason,ou=People,ou=scc,dc=root,dc=org
+cn: Frank Mason
+givenName: Frank
+sn: Mason
+title: Engineering Project Coordinator
+mail: fmason@whizzer.local
+manager: cn=Tom Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: fmason
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Jacab Wood,ou=People,ou=scc,dc=root,dc=org
+cn: Jacab Wood
+givenName: Jacab
+sn: Wood
+title: Sales Agent
+mail: jwood@whizzer.local
+manager: cn=James Period,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: jwood
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Jennie Haddon,ou=People,ou=scc,dc=root,dc=org
+cn: Jennie Haddon
+givenName: Jennie
+sn: Haddon
+title: Buyer
+mail: jhaddon@whizzer.local
+manager: cn=Miguel DeLazes,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: jhaddon
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Mary Nestor,ou=People,ou=scc,dc=root,dc=org
+cn: Mary Nestor
+givenName: Mary
+sn: Nestor
+title: Director, MIS-IT
+mail: mnestor@whizzer.local
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: mnestor
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Bub Armstrong,ou=People,ou=scc,dc=root,dc=org
+cn: Bub Armstrong
+givenName: Bub
+sn: Armstrong
+title: Mechanical Engineer
+mail: barmstrong@whizzer.local
+manager: cn=Tom Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: barmstrong
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Garret Jackson,ou=People,ou=scc,dc=root,dc=org
+cn: Garret Jackson
+givenName: Garret
+sn: Jackson
+title: Production Planner
+mail: gjackson@whizzer.local
+manager: cn=Miguel DeLazes,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: gjackson
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
 cn: Barton Swift
 givenName: Barton
 sn: Swift
@@ -21,252 +186,87 @@ objectClass: top
 uid: bswift
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
-dn: cn=Wakefield Damon,ou=People,dc=scc,dc=org
-cn: Wakefield Damon
-givenName: Wakefield
-sn: Damon
-title: Technical Writer
-mail: wdamon@whizzer.local
-manager: cn=John Sharp,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: wdamon
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Sarah Malloy,ou=People,dc=scc,dc=org
+dn: cn=Sarah Malloy,ou=People,ou=scc,dc=root,dc=org
 cn: Sarah Malloy
 givenName: Sarah
 sn: Malloy
 title: Receiver
 mail: smalloy@whizzer.local
-manager: cn=Miguel DeLazes,ou=People,dc=scc,dc=org
+manager: cn=Miguel DeLazes,ou=People,ou=scc,dc=root,dc=org
 objectClass: inetOrgPerson
 objectClass: top
 uid: smalloy
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
-dn: cn=William Crawford,ou=People,dc=scc,dc=org
-cn: William Crawford
-givenName: William
-sn: Crawford
-title: Director, Legal
-mail: wcrawford@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: wcrawford
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Frank Mason,ou=People,dc=scc,dc=org
-cn: Frank Mason
-givenName: Frank
-sn: Mason
-title: Engineering Project Coordinator
-mail: fmason@whizzer.local
-manager: cn=Tom Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: fmason
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Barcoe Jenks,ou=People,dc=scc,dc=org
-cn: Barcoe Jenks
-givenName: Barcoe
-sn: Jenks
-title: Electronics Engineer
-mail: bjenks@whizzer.local
-manager: cn=Tom Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: bjenks
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Jacab Wood,ou=People,dc=scc,dc=org
-cn: Jacab Wood
-givenName: Jacab
-sn: Wood
-title: Sales Agent
-mail: jwood@whizzer.local
-manager: cn=James Period,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: jwood
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Mary Nestor,ou=People,dc=scc,dc=org
-cn: Mary Nestor
-givenName: Mary
-sn: Nestor
-title: Director, MIS-IT
-mail: mnestor@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: mnestor
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Helen Randall,ou=People,dc=scc,dc=org
-cn: Helen Randall
-givenName: Helen
-sn: Randall
-title: AP Clerk
-mail: hrandall@whizzer.local
-manager: cn=Ned Newton,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: hrandall
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Ned Newton,ou=People,dc=scc,dc=org
-cn: Ned Newton
-givenName: Ned
-sn: Newton
-title: Chief Financial Officer
-mail: nnewton@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: nnewton
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=James Period,ou=People,dc=scc,dc=org
-cn: James Period
-givenName: James
-sn: Period
-title: Director, Sales & Marketing
-mail: jperiod@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: jperiod
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Tom Swift,ou=People,dc=scc,dc=org
-cn: Tom Swift
-givenName: Tom
-sn: Swift
-title: Director, Engineering
-mail: tswift@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: tswift
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Miquel DeLazes,ou=People,dc=scc,dc=org
-cn: Miquel DeLazes
-givenName: Miquel
-sn: DeLazes
-title: Director, Manufacturing
-mail: mdelazes@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: mdelazes
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Jennie Morse,ou=People,dc=scc,dc=org
+dn: cn=Jennie Morse,ou=People,ou=scc,dc=root,dc=org
 cn: Jennie Morse
 givenName: Jennie
 sn: Morse
 title: AR Clerk
 mail: jmorse@whizzer.local
-manager: cn=Ned Newton,ou=People,dc=scc,dc=org
+manager: cn=Ned Newton,ou=People,ou=scc,dc=root,dc=org
 objectClass: inetOrgPerson
 objectClass: top
 uid: jmorse
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
-dn: cn=John Sharp,ou=People,dc=scc,dc=org
-cn: John Sharp
-givenName: John
-sn: Sharp
-title: Director, Prod Mgmt
-mail: jsharp@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
+dn: cn=Wakefield Damon,ou=People,ou=scc,dc=root,dc=org
+cn: Wakefield Damon
+givenName: Wakefield
+sn: Damon
+title: Technical Writer
+mail: wdamon@whizzer.local
+manager: cn=John Sharp,ou=People,ou=scc,dc=root,dc=org
 objectClass: inetOrgPerson
 objectClass: top
-uid: jsharp
+uid: wdamon
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
-dn: cn=Martha Baggert,ou=People,dc=scc,dc=org
+dn: cn=Helen Randall,ou=People,ou=scc,dc=root,dc=org
+cn: Helen Randall
+givenName: Helen
+sn: Randall
+title: AP Clerk
+mail: hrandall@whizzer.local
+manager: cn=Ned Newton,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: hrandall
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Martha Baggert,ou=People,ou=scc,dc=root,dc=org
 cn: Martha Baggert
 givenName: Martha
 sn: Baggert
 title: Director, Human Resources
 mail: mbaggert@whizzer.local
-manager: cn=Barton Swift,ou=People,dc=scc,dc=org
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
 objectClass: inetOrgPerson
 objectClass: top
 uid: mbaggert
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 
-dn: cn=Garret Jackson,ou=People,dc=scc,dc=org
-cn: Garret Jackson
-givenName: Garret
-sn: Jackson
-title: Production Planner
-mail: gjackson@whizzer.local
-manager: cn=Miguel DeLazes,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: gjackson
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Hank Baldwin,ou=People,dc=scc,dc=org
-cn: Hank Baldwin
-givenName: Hank
-sn: Baldwin
-title: Lead Hand
-mail: hbaldwin@whizzer.local
-manager: cn=Miguel DeLazes,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: hbaldwin
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Bub Armstrong,ou=People,dc=scc,dc=org
-cn: Bub Armstrong
-givenName: Bub
-sn: Armstrong
-title: Mechanical Engineer
-mail: barmstrong@whizzer.local
-manager: cn=Tom Swift,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: barmstrong
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Jennie Haddon,ou=People,dc=scc,dc=org
-cn: Jennie Haddon
-givenName: Jennie
-sn: Haddon
-title: Buyer
-mail: jhaddon@whizzer.local
-manager: cn=Miguel DeLazes,ou=People,dc=scc,dc=org
-objectClass: inetOrgPerson
-objectClass: top
-uid: jhaddon
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Administrator User,ou=People,dc=scc,dc=org
-cn: Administrator User
-givenName: Administrator
-sn: User
-objectClass: inetOrgPerson
-objectClass: top
-uid: administrator
-userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
-
-dn: cn=Minnie Blair,ou=People,dc=scc,dc=org
+dn: cn=Minnie Blair,ou=People,ou=scc,dc=root,dc=org
 cn: Minnie Blair
 givenName: Minnie
 sn: Blair
 title: Software Engineer
 mail: mblair@whizzer.local
-manager: cn=Tom Swift,ou=People,dc=scc,dc=org
+manager: cn=Tom Swift,ou=People,ou=scc,dc=root,dc=org
 objectClass: inetOrgPerson
 objectClass: top
 uid: mblair
+userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
+
+dn: cn=Rad Sampson,ou=People,ou=scc,dc=root,dc=org
+cn: Rad Sampson
+givenName: Rad
+sn: Sampson
+title: Director, Quality
+mail: rsampson@whizzer.local
+manager: cn=Barton Swift,ou=People,ou=scc,dc=root,dc=org
+objectClass: inetOrgPerson
+objectClass: top
+uid: rsampson
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
 

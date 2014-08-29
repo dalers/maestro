@@ -1,0 +1,23 @@
+# Create Domain entry
+dn: dc=root,dc=org
+objectclass: dcObject
+objectclass: organization
+o: root.org
+dc: root
+
+# Create Manager entry
+dn: cn=Manager,dc=root,dc=org
+objectclass: organizationalRole
+cn: Manager
+
+# Create "scc" organizational unit
+dn: ou=scc,dc=root,dc=org
+objectclass: organizationalUnit
+objectclass: top
+ou: scc 
+
+# Create scc "People" organizational unit
+dn: ou=People,ou=scc,dc=root,dc=org
+objectclass: organizationalUnit
+objectclass: top
+ou: People
