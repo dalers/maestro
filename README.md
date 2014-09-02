@@ -1,4 +1,4 @@
-Maestro<sup>TM</sup) is a cohesive enterprise model to explore, evaluate and demonstrate business workflows with ERP and ERP-like systems, with an emphasis on processes related to parts, projects, material, issues and people. Maestro is based on a well-defined fictional going concern - the Swift Construction Company.
+Maestro<sup>TM</sup> is a cohesive enterprise model for exploring, evaluating and demonstrating business workflows using ERP and ERP-like systems, with an emphasis on processes related to parts, projects, material, issues and people. Maestro is based on a well-defined fictional going concern - the Swift Construction Company.
 
 The purpose of the Maestro project is to create, as a community, a shared knowledge base of operational practices based on a common data set, based on a philosophy of *Transparency with Trust*.
 
