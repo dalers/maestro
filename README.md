@@ -1,9 +1,9 @@
 maestro
 =======
 
-***Maestro***(TM) is a cohesive model for use with ERP and ERP-like applications to explore, evaluate and demonstrate business workflows. Maestro emphasizes processes related to parts, projects, material, issues and people. Maestro Is based on a well-defined fictional going concern - the Swift Construction Company (the *SCC*). Maestro provides a context to understand how business information can be consolidated in an environment of *Transparency with Trust*.
+***Maestro***(TM) is a cohesive enterprise model to explore, evaluate and demonstrate business workflows with ERP and ERP-like systems, with an emphasis on processes related to parts, projects, material, issues and people. Maestro is based on a well-defined fictional going concern - the Swift Construction Company (the *SCC*).
 
-The purpose of the Maestro project is to create, as a community, a shared knowledge base of operational practices based on a common data set.
+The purpose of the Maestro project is to create, as a community, a shared knowledge base of operational practices based on a common data set, based on a philosophy of *Transparency with Trust*
 
 Maestro has been used with a number of applications, including:
 * [Tryton](http://www.tryton.org)
