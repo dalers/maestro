@@ -14,7 +14,7 @@ $ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/scc/ldif/dom
 $ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/scc/ldif/person-ldif.csv.corrected-admin.ldif
 ```    
 
-*The the generic "Administration User" entry in the directory has multiple dn attributes which are the aggregate of the names used by each component application. Currently this must be done manually (for more information, see the updating master spreadsheet procedure).*
+*The generic "Administration User" entry in the directory has multiple dn attributes which are the aggregate of the names used by each component application. Currently this must be done manually (for more information, see the updating master spreadsheet procedure).*
 
 ## Updating the Master Person Spreadsheet
 
