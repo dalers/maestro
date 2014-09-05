@@ -1,6 +1,6 @@
 ## Configure SCC OpenLDAP directory
 
-*Root password is in /usr/local/etc/openldap/slapd.conf (SSHA hash)*
+*The root OpenLDAP password is in /usr/local/etc/openldap/slapd.conf (SSHA hash)*
 
 * create SCC Domain and Manager entries, and "People" organizational unit for user entries.
 
