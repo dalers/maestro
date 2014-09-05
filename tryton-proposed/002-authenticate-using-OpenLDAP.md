@@ -8,6 +8,14 @@
 $ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/scc/ldif/domainmgr_scc_People.ldif
 ```    
 
+* add SCC users (People).
+
+```
+$ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/scc/ldif/person-ldif.csv.corrected-admin.ldif
+```    
+
+*The the generic "Administration User" entry in the directory has multiple dn attributes, the aggregate of the names used by each component application.*
+
 ## Update Master Person Spreadsheet and CSV
 
 * Edit maestro/scc/ods/person.ods using OpenOffice
