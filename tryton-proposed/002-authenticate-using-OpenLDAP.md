@@ -2,16 +2,10 @@
 
 *Root password is in /usr/local/etc/openldap/slapd.conf (SSHA hash)*
 
-* create SCC Domain and Manager entries.
+* create SCC Domain and Manager entries, and "People" organizational unit for user entries.
 
 ```
-$ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/ldif/domainmgr.ldif
-```    
-
-- create "People" organizational unit for user entries.
-
-```
-$ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/ldif/people.ldif
+$ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/scc/ldif/domainmgr_scc_People.ldif
 ```    
 
 ## Update Master Person Spreadsheet and CSV
