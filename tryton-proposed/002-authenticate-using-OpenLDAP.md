@@ -33,7 +33,7 @@ $ slappasswd -s appleton
     
 ## Export LDAP data in CSV format from Master Person Spreadsheet
 
-* Save/As ldap-People sheet to ods/person-ldap-People.csv
+* Save/As ldap-People sheet to ods/person-ldap.csv
     * Export Text File options (typically as defaulted)
         * Character set: Western Europe (Windows-1252/WinLatin1)
         * Field delimeter: ","
@@ -43,13 +43,13 @@ $ slappasswd -s appleton
 
 ## Convert LDAP data to LDIF format from CSV
 
-* Convert person-ldap-People.csv to LDIF format using csv2ldif2.pl (from the SourceForge csv2ldif2 project, http://sourceforge.net/projects/csv2ldif2)
+* Convert person-ldap.csv to LDIF format using csv2ldif2.pl (from the SourceForge csv2ldif2 project, http://sourceforge.net/projects/csv2ldif2)
 
 ```
-$ csv2ldif2.pl -b ou=People,dc=scc,dc=org < /usr/local/maestro/scc/ods/person-ldap-People.csv > /usr/local/maestro/scc/ldif/person-ldap-People.csv.ldif
+$ csv2ldif2.pl -b ou=People,dc=scc,dc=org < /usr/local/maestro/scc/ods/person-ldap.csv > /usr/local/maestro/scc/ldif/person-ldap.csv.ldif
 ```
     
-*See Known Issues - Administrator User. person-ldap-People.csv.ldif must be edited before importing into OpenLDAP to add a second uid value to entry cn = "Administrator User".*
+*See Known Issues - Create person-ldap-csv.corrected-admin.ldif by editing person-ldap.csv.ldif and add an additional uid value to cn = "Administrator User".*
 
 ## Import Users into OpenLDAP
 
