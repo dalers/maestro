@@ -14,9 +14,9 @@ $ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/scc/ldif/dom
 $ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/scc/ldif/person-ldif.csv.corrected-admin.ldif
 ```    
 
-*The the generic "Administration User" entry in the directory has multiple dn attributes, the aggregate of the names used by each component application.*
+*The the generic "Administration User" entry in the directory has multiple dn attributes which are the aggregate of the names used by each component application. Currently this must be done manually (for more information, see the updating master spreadsheet procedure).*
 
-## Update Master Person Spreadsheet and CSV
+## Updating the Master Person Spreadsheet
 
 * Edit maestro/scc/ods/person.ods using OpenOffice
     * Add new persons on master sheet as needed (and/or modify)
@@ -56,11 +56,11 @@ $ csv2ldif2.pl -b ou=People,dc=scc,dc=org < /usr/local/maestro/scc/ods/person-ld
 * Import SCC users into OpenLDAP.
 
 ```
-$ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/ldif/person-ldap-People.csv.ldif
+$ ldapadd -x -D "cn=Manager,dc=scc,dc=org" -W -f /usr/local/maestro/scc/ldif/person-ldap-People.csv.ldif
 ```
     
 
-*Alternatively, copy /usr/local/maestro/scc/ldif/person-ldap-People.csv.ldif to a host system and import using phpLdapAdmin in web browser.*
+*Alternatively, copy /usr/local/maestro/scc/ldif/person-ldap-People.csv.ldif to a host system and import using a client tool (e.g. phpLDAPadmin, adminer).*
 
 ## Configure Tryton to authenticate using OpenLDAP
 
