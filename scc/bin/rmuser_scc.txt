@@ -1,0 +1,27 @@
+# SCC employee list for rmuser_scc.sh
+# - must be writable ONLY by root 
+#
+# 2010-09-08  dale scott  creation
+#
+bjenks
+bswift
+barmstrong
+fmason
+gjackson
+hbaldwin
+hrandall
+jwood
+jperiod
+jhaddon
+jmorse
+jsharp
+mbaggert
+mnestor
+mdelazes
+mblair
+nnewton
+rsampson
+smalloy
+tswift
+wdamon
+wcrawford
