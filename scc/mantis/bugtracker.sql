@@ -5,7 +5,7 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-USE `bugtracker_scc`;
+USE `bugtracker`;
 
 DROP TABLE IF EXISTS `mantis_bugnote_table`;
 CREATE TABLE `mantis_bugnote_table` (
