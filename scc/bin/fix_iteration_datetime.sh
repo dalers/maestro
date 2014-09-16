@@ -16,34 +16,34 @@
 #
 
 # master data spreadsheets currently do not change with iteration
-touch -t 201301010101 ../scc/ods/*
+touch -t 201301010101 ../ods/*
 
 echo "Iteration 1..."
-touch -t 201301010101 ../scc/pv/pv-1.mdb
-touch -t 201301010101 ../scc/csv-1/*
-find ../scc/parts-1 -exec touch -t 201301010101 {} \;
-find ../scc/parts-1-nover -exec touch -t 201301010101 {} \;
+touch -t 201301010101 ../pv/pv-1.mdb
+touch -t 201301010101 ../csv-1/*
+find ../parts-1 -exec touch -t 201301010101 {} \;
+find ../parts-1-nover -exec touch -t 201301010101 {} \;
 
 echo "Iteration 2..."
-touch -t 201301020101 ../scc/pv/pv-2.mdb
-touch -t 201301020101 ../scc/csv-2/*
-find ../scc/parts-2 -exec touch -t 201301020101 {} \;
-find ../scc/parts-2-nover -exec touch -t 201301020101 {} \;
+touch -t 201301020101 ../pv/pv-2.mdb
+touch -t 201301020101 ../csv-2/*
+find ../parts-2 -exec touch -t 201301020101 {} \;
+find ../parts-2-nover -exec touch -t 201301020101 {} \;
 
 echo "Iteration 3..."
-touch -t 201301030101 ../scc/pv/pv-3.mdb
-touch -t 201301030101 ../scc/csv-3/*
-find ../scc/parts-3 -exec touch -t 201301030101 {} \;
-find ../scc/parts-3-nover -exec touch -t 201301030101 {} \;
+touch -t 201301030101 ../pv/pv-3.mdb
+touch -t 201301030101 ../csv-3/*
+find ../parts-3 -exec touch -t 201301030101 {} \;
+find ../parts-3-nover -exec touch -t 201301030101 {} \;
 
 echo "Iteration 4..."
-touch -t 201301040101 ../scc/pv/pv-4.mdb
-touch -t 201301040101 ../scc/csv-4/*
-find ../scc/parts-4 -exec touch -t 201301040101 {} \;
-find ../scc/parts-4-nover -exec touch -t 201301040101 {} \;
+touch -t 201301040101 ../pv/pv-4.mdb
+touch -t 201301040101 ../csv-4/*
+find ../parts-4 -exec touch -t 201301040101 {} \;
+find ../parts-4-nover -exec touch -t 201301040101 {} \;
 
 echo "Iteration 5..."
-touch -t 201301050101 ../scc/pv/pv-5.mdb
-touch -t 201301050101 ../scc/csv-5/*
-find ../scc/parts-5 -exec touch -t 201301050101 {} \;
-find ../scc/parts-5-nover -exec touch -t 201301050101 {} \;
+touch -t 201301050101 ../pv/pv-5.mdb
+touch -t 201301050101 ../csv-5/*
+find ../parts-5 -exec touch -t 201301050101 {} \;
+find ../parts-5-nover -exec touch -t 201301050101 {} \;
