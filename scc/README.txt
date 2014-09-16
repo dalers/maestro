@@ -80,13 +80,14 @@ modified datefiles are consistent with the iteration story.
 For example, to re-create the vault at iteration 5 using the 
 plm-vault-n/ set of directories: 
 
+ $ cd .../maestro/scc/bin/
  $ ./fix_iteration_datetime.sh
  $ mkdir vault
- $ cp -a ../scc/parts-1/* ./plm-vault/
- $ cp -a ../scc/parts-2/* ./plm-vault/
- $ cp -a ../scc/parts-3/* ./plm-vault/
- $ cp -a ../scc/parts-4/* ./plm-vault/
- $ cp -a ../scc/parts-5/* ./plm-vault/
+ $ cp -a ../parts-1/* ./plm-vault/
+ $ cp -a ../parts-2/* ./plm-vault/
+ $ cp -a ../parts-3/* ./plm-vault/
+ $ cp -a ../parts-4/* ./plm-vault/
+ $ cp -a ../parts-5/* ./plm-vault/
 
 See parts_all*.sch and load_scc.sh
 
