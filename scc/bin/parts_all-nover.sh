@@ -1,15 +1,15 @@
 #!/bin/sh
 #
+# Delete parts/ directories
 # Copy all parts-x-nover/ to parts/
-# Execute from maestro/scc/bin/
-# Usage: ./parts_all-nover.sh
+#
+# cd .../maestro/bin/
+# ./parts_all-nover.sh
 #
 
-#mkdir ../scc/parts
-
-rm -r ../scc/parts/*
-cp -r ../scc/parts-1-nover/* ../scc/parts/
-cp -r ../scc/parts-2-nover/* ../scc/parts/
-cp -r ../scc/parts-3-nover/* ../scc/parts/
-cp -r ../scc/parts-4-nover/* ../scc/parts/
-cp -r ../scc/parts-5-nover/* ../scc/parts/
+rm -r  ../parts/[1,2,3,,4,5,6,7,8,9]*
+cp -r ../parts-1-nover/* ../parts/
+cp -r ../parts-2-nover/* ../parts/
+cp -r ../parts-3-nover/* ../parts/
+cp -r ../parts-4-nover/* ../parts/
+cp -r ../parts-5-nover/* ../parts/

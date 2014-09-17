@@ -1,15 +1,15 @@
 #!/bin/sh
 #
+# Delete all parts/ directories
 # Copy all parts-x/ to parts/
-# Execute from maestro/scc/bin/
-# Usage: ./parts_all.sh
+#
+# cd .../maestro/bin/
+# ./parts_all.sh
 #
 
-#mkdir ../scc/parts
-
-rm -r ../scc/parts/*
-cp -r ../scc/parts-1/* ../scc/parts/
-cp -r ../scc/parts-2/* ../scc/parts/
-cp -r ../scc/parts-3/* ../scc/parts/
-cp -r ../scc/parts-4/* ../scc/parts/
-cp -r ../scc/parts-5/* ../scc/parts/
+rm -r  ../parts/[1,2,3,,4,5,6,7,8,9]*
+cp -r ../parts-1/* ../parts/
+cp -r ../parts-2/* ../parts/
+cp -r ../parts-3/* ../parts/
+cp -r ../parts-4/* ../parts/
+cp -r ../parts-5/* ../parts/
