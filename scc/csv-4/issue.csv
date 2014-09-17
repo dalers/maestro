@@ -1,3 +1,7 @@
-number,name,description,project,type,corrective_action,cost,status,create_time
-IR00001,Incorrect PCB layout,Connectivity of PCB-type inductor in layout is incorrect.,P09-001,PCB,YES,0,CLOSED,2013-01-02
-IR00002,Difficult assembly procedure,Difficult to assemble and test PCA due to copper-side-up orientation. Orienting PCA component-side up allows for full access to components for debugging after assembly.,P09-001,ASSY,YES,0,CLOSED,2013-01-03
+Id,Project,Reporter,Assigned To,Priority,Severity,Reproducibility,Product Version,Category,Date Submitted,OS,OS Version,Platform,View Status,Updated,Summary,Status,Resolution,Fixed in Version
+17,Aircraft Wireless 09-001,fmason,bjenks,none,minor,have not tried,0,General,2012-12-31,0,0,0,public,2014-09-17,Iteration 1 - Release prototype PCA,closed,fixed,0
+18,Aircraft Wireless 09-001,fmason,bjenks,none,minor,have not tried,0,General,2013-01-01,0,0,0,public,2014-09-17,Iteration 2 - Make PCB corrections,assigned,open,0
+28,Aircraft Wireless 09-001,tswift,bjenks,high,block,always,0,General,2014-09-17,N/A,N/A,N/A,public,2014-09-17,Incorrect PCB layout,closed,fixed,0
+19,Aircraft Wireless 09-001,fmason,,none,minor,have not tried,0,General,2013-01-02,0,0,0,public,2014-09-17,Iteration 3 - Release marketing assembly,assigned,open,0
+29,Aircraft Wireless 09-001,tswift,bjenks,normal,minor,always,0,General,2014-09-17,N/A,N/A,N/A,public,2014-09-17,Difficult assembly procedure,assigned,open,0
+20,Aircraft Wireless 09-001,fmason,,none,minor,have not tried,0,General,2013-01-03,0,0,0,public,2014-09-17,Iteration 4 - Reduce cost and improve quality,assigned,open,0
