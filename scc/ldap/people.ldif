@@ -1,0 +1,5 @@
+# Create Organizational Unit (People)
+dn: ou=People,dc=root,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: People
