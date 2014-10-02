@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/4.0" created="2014-09-26 20:47" -->
+<!-- generator="WordPress/4.0" created="2014-09-28 03:47" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -26,10 +26,10 @@
 >
 
 <channel>
-	<title>Maestro Portal</title>
+	<title>Maestro</title>
 	<link>http://localhost:8080/wordpress</link>
 	<description>Transparency with Trust</description>
-	<pubDate>Fri, 26 Sep 2014 20:47:06 +0000</pubDate>
+	<pubDate>Sun, 28 Sep 2014 03:47:23 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>http://localhost:8080/wordpress</wp:base_site_url>
@@ -171,31 +171,30 @@ To delete a comment, just log in and view the post&#039;s comments. There you wi
 		<guid isPermaLink="false">http://localhost:8080/wordpress/?page_id=8</guid>
 		<description></description>
 		<content:encoded><![CDATA[<ul>
-	<li><a title="Maestro Mail" href="http://localhost:8080/squirrelmail/" target="_blank">Maestro Mail</a></li>
+	<li><b>Maestro Mail</b> - Hub for messages between Maestro components and Maestro users.</li>
 <ul>
-	<li>Hub for messages between Maestro components and Maestro users.</li>
 	<li>User login: "login-id", password: "appleton"</li>
 </ul>
 </ul>
+
 <ul>
-	<li><a title="Maestro Issues" href="http://localhost:8080/mantis/" target="_blank">Maestro Issues</a></li>
+	<li><b>Maestro Issues</b> - General-purpose issue tracking: enterprise issues and non-conformances, workgroup tasks, tasks for sharing with team and stakeholders.</li>
 <ul>
-	<li>General-purpose issue tracking: enterprise issues and non-conformances, workgroup tasks, tasks for sharing with team and stakeholders.</li>
 	<li>User login: "login-id", password: "appleton"</li>
 </ul>
 </ul>
+
 <ul>
-	<li><a title="Maestro Users" href="http://localhost:8080/phpldapadmin/" target="_blank">Maestro Users</a></li>
+	<li><b>Maestro Users</b> - Maintain user login id's, passwords, and email addresses.</li>
 <ul>
-	<li>Maintain user login id's, passwords, and email addresses.</li>
 	<li>User login: "cn=lname\2C fname,ou=People,ou=scc,dc=root,dc=org", password: "appleton"</li>
 	<li>Admin login: "cn=Manager,dc=root,dc=org", password: "appleton"</li>
 </ul>
 </ul>
+
 <ul>
-	<li><a title="Maestro Admin Db" href="http://localhost:8080/adminer/" target="_blank">Maestro Admin Db</a></li>
+	<li><b>Maestro Admin Db</b> - Database management (currently MySQL only, use PGAdmin III for PostgreSQL databases).</li>
 <ul>
-	<li>Database management (currently MySQL only, use PGAdmin III for PostgreSQL databases).</li>
 	<li>Admin login: "root", password: "appleton"</li>
 </ul>
 </ul>]]></content:encoded>
@@ -292,7 +291,7 @@ Maestro is an open source project, licensed according to the terms of the <a hre
 		<dc:creator><![CDATA[admin]]></dc:creator>
 		<guid isPermaLink="false">http://localhost:8080/wordpress/?p=14</guid>
 		<description></description>
-		<content:encoded><![CDATA[The <a title="Maestro Project" href="http://www.github.com/dalers/maestro" target="_blank">Maestro Project </a>is pleased to announce  WordPress<sup>TM</sup> has been selected to provide document and content control functionality, and provide portal access to other Maestro components.]]></content:encoded>
+		<content:encoded><![CDATA[The <a title="Maestro Project" href="http://www.github.com/dalers/maestro" target="_blank">Maestro Project </a>is pleased to announce  WordPress<sup>TM</sup> has been selected to provide document and content control for Maestro, and be the launchpad to other Maestro components.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>14</wp:post_id>
 		<wp:post_date>2014-09-26 14:09:45</wp:post_date>
@@ -350,6 +349,196 @@ Maestro is an open source project, licensed according to the terms of the <a hre
 		<wp:postmeta>
 			<wp:meta_key>_encloseme</wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_pingme</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_encloseme</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+				<title>Maestro</title>
+		<link>http://localhost:8080/wordpress/?page_id=35</link>
+		<pubDate>Sun, 28 Sep 2014 00:04:16 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">http://localhost:8080/wordpress/?page_id=35</guid>
+		<description></description>
+		<content:encoded><![CDATA[ Components top-level menu selector]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>35</wp:post_id>
+		<wp:post_date>2014-09-27 18:04:16</wp:post_date>
+		<wp:post_date_gmt>2014-09-28 00:04:16</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>components</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>10</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_page_template</wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+				<title>Mail</title>
+		<link>http://localhost:8080/squirrelmail/</link>
+		<pubDate>Sun, 28 Sep 2014 00:05:50 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">http://localhost:8080/wordpress/?page_id=37</guid>
+		<description></description>
+		<content:encoded><![CDATA[Menu selector]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>37</wp:post_id>
+		<wp:post_date>2014-09-27 18:05:50</wp:post_date>
+		<wp:post_date_gmt>2014-09-28 00:05:50</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>mail</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>35</wp:post_parent>
+		<wp:menu_order>10</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_page_template</wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_links_to</wp:meta_key>
+			<wp:meta_value><![CDATA[http://localhost:8080/squirrelmail/]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_links_to_target</wp:meta_key>
+			<wp:meta_value><![CDATA[_blank]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+				<title>Users</title>
+		<link>http://localhost:8080/phpldapadmin/</link>
+		<pubDate>Sun, 28 Sep 2014 00:06:12 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">http://localhost:8080/wordpress/?page_id=39</guid>
+		<description></description>
+		<content:encoded><![CDATA[Menu selector]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>39</wp:post_id>
+		<wp:post_date>2014-09-27 18:06:12</wp:post_date>
+		<wp:post_date_gmt>2014-09-28 00:06:12</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>users</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>35</wp:post_parent>
+		<wp:menu_order>30</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_page_template</wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_links_to</wp:meta_key>
+			<wp:meta_value><![CDATA[http://localhost:8080/phpldapadmin/]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_links_to_target</wp:meta_key>
+			<wp:meta_value><![CDATA[_blank]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+				<title>Issues</title>
+		<link>http://localhost:8080/mantis/</link>
+		<pubDate>Sun, 28 Sep 2014 00:06:55 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">http://localhost:8080/wordpress/?page_id=41</guid>
+		<description></description>
+		<content:encoded><![CDATA[Menu selector]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>41</wp:post_id>
+		<wp:post_date>2014-09-27 18:06:55</wp:post_date>
+		<wp:post_date_gmt>2014-09-28 00:06:55</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>issues</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>35</wp:post_parent>
+		<wp:menu_order>20</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_page_template</wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_links_to</wp:meta_key>
+			<wp:meta_value><![CDATA[http://localhost:8080/mantis/]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_links_to_target</wp:meta_key>
+			<wp:meta_value><![CDATA[_blank]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+				<title>Admin Db</title>
+		<link>http://localhost:8080/adminer/</link>
+		<pubDate>Sun, 28 Sep 2014 00:08:09 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">http://localhost:8080/wordpress/?page_id=43</guid>
+		<description></description>
+		<content:encoded><![CDATA[Menu selector]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>43</wp:post_id>
+		<wp:post_date>2014-09-27 18:08:09</wp:post_date>
+		<wp:post_date_gmt>2014-09-28 00:08:09</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>admin-db</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>35</wp:post_parent>
+		<wp:menu_order>70</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_page_template</wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_links_to</wp:meta_key>
+			<wp:meta_value><![CDATA[http://localhost:8080/adminer/]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_links_to_target</wp:meta_key>
+			<wp:meta_value><![CDATA[_blank]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 </channel>
