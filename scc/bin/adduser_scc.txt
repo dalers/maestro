@@ -1,4 +1,4 @@
-# SCC employee list for adduser_scc.sh
+# employee list for adduser_scc.sh
 # - must be writable ONLY by root  
 #
 #name(login):uid:gid:class(login):change(password ageing):expire(account):gecos(full name, dpt/title):home_dir:shell:password

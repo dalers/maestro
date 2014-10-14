@@ -1,17 +1,9 @@
 #!/bin/sh
 #
-# Delete system user accounts for SCC employees
+# Delete server system accounts for users
 # - must be executed by root from script directory
 # - "rmuser_scc.txt" must be writable ONLY by root
 #
-# History
-# ------------------------------
-# 2010-09-07  dale scott  creation
-#
-
-echo
-echo "Deleting SCC system user accounts"
-echo
 
 rmuser -yv -f ./rmuser_scc.txt
 
