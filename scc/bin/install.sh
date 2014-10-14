@@ -5,7 +5,7 @@
 #
 # Creates scc file share and sub-directory structure
 # - /usr/home/samba/scc MUST EXIST with r/w permission
-# - RUNS setup.sh to delete and recreate scc/ file structure
+# - deletes and recreates /home/samba/scc/* file structure
 # - "runs" through iterations 1, 2, 3..., processing changes and
 #   generating reports as if happening in real-time
 #
@@ -26,7 +26,7 @@
 #    scc/
 #    +-- csv[-n]/                 csv P&V + master data spreadsheet export iteration n (not used, csv re-created on-the-fly) 
 #    +-- docs[-n]/                ad-hoc documents (not specifically part or material-related)
-#    +-- ods/                     master data spreadsheets (with csv export)
+#    +-- ods/                     master data spreadsheet/csv
 #    +-- logo/                    artwork
 #    +-- parts/                   stub directory to create temp consolidated parts/ for developer convenience (.gitignore)
 #    +-- parts[-n]/               documents related to parts iteration n, document revision in filename
@@ -48,7 +48,7 @@
 # SCC file share structure
 # ------------------------
 #    scc/
-#    +-- bootstrap/               bootstrap master data (with csv)
+#    +-- ods/                     master data spreadsheet/csv
 #    +-- csv/                     current P&V and master data spreadsheet csv export
 #    +-- csv.old/                 previous csv export
 #    +-- doc/                     current ad-hoc documents
@@ -78,12 +78,12 @@ echo "Setup"
 echo "======================================="
 echo
 
-echo "install: running setup.sh (create clean scc/ fileshare structure)"
+echo "install: run setup_file_share.sh to delete/re-create /home/samba/scc/ directory structure"
 ./setup_file_share.sh
 echo
 
 echo "install: copy README.txt file to scc file share..."
-cp -a ../scc/README.txt /home/samba/scc/
+cp -a ../README.txt /home/samba/scc/
 # ensure Windows-type EOL
 #flip -m /home/samba/scc/README.txt
 echo
@@ -100,14 +100,14 @@ echo
 echo "install: restore 'current' master data spreadsheets and csv to fileshare"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/ods/* /home/samba/scc/ods/
+cp -a ../ods/* /home/samba/scc/ods/
 chown -R nobody:wheel /home/samba/scc/ods/
 chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "install: restore 'current' Parts&Vendors(TM) database to fileshare"
 # -a archive mode preserves file times
-cp -a ../scc/pv/pv-1.mdb /home/samba/scc/pv/pv.mdb
+cp -a ../pv/pv-1.mdb /home/samba/scc/pv/pv.mdb
 chown -R nobody:wheel /home/samba/scc/pv/
 chmod ugo+rw /home/samba/scc/pv/*
 echo
@@ -117,7 +117,7 @@ echo
 echo "install: bootstrap csv.old/ with empty pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv"
 /usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb PN    > /tmp/pv_pn.csv
 head -n 1 /tmp/pv_pn.csv > /home/samba/scc/csv.old/pv_pn.csv ; rm /tmp/pv_pn.csv
-/usr/local/maestro/bin/pndetails.py /home/samba/scc/csv.old/pv_pn.csv /home/samba/scc/csv.old/pv_pn_details.csv
+./pndetails.py /home/samba/scc/csv.old/pv_pn.csv /home/samba/scc/csv.old/pv_pn_details.csv
 # sorting doesn't accomplish anything but required bootstrap file is created
 sort /home/samba/scc/csv.old/pv_pn_details.csv  > /home/samba/scc/csv.old/pv_pn_details_sort.csv
 echo
@@ -126,11 +126,11 @@ echo
 if test $version = "VER"
 then
 	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../scc/parts-1/* /home/samba/scc/parts/
+	cp -a ../parts-1/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
 	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../scc/parts-1-nover/* /home/samba/scc/parts/
+	cp -a ../parts-1-nover/* /home/samba/scc/parts/
 else
 	echo "install: invalid VER | NOVER"
 	echo
@@ -142,15 +142,15 @@ chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
 echo "install: rsync_current_files.sh"
-/usr/local/maestro/bin/rsync_current_files.sh
+./rsync_current_files.sh
 echo
 
 echo "install: export_current_to_csv.sh"
-/usr/local/maestro/bin/export_current_to_csv.sh
+./export_current_to_csv.sh
 echo
 
 echo "install: send_current_change_report.sh"
-/usr/local/maestro/bin/send_current_change_report.sh
+./send_current_change_report.sh
 echo
 
 # keep copy of change report
@@ -167,14 +167,14 @@ echo
 echo "install: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/ods/* /home/samba/scc/ods/
+cp -a ../ods/* /home/samba/scc/ods/
 chown -R nobody:wheel /home/samba/scc/ods/
 chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "install: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
-cp -a ../scc/pv/pv-2.mdb /home/samba/scc/pv/pv.mdb
+cp -a ../pv/pv-2.mdb /home/samba/scc/pv/pv.mdb
 chown -R nobody:wheel /home/samba/scc/pv/
 chmod ugo+rw /home/samba/scc/pv/*
 echo
@@ -183,11 +183,11 @@ echo
 if test $version = "VER"
 then
 	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../scc/parts-2/* /home/samba/scc/parts/
+	cp -a ../parts-2/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
 	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../scc/parts-2-nover/* /home/samba/scc/parts/
+	cp -a ../parts-2-nover/* /home/samba/scc/parts/
 else
 	echo "install: invalid VER | NOVER"
 	echo
@@ -199,15 +199,15 @@ chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
 echo "install: rsync_current_files.sh"
-/usr/local/maestro/bin/rsync_current_files.sh
+./rsync_current_files.sh
 echo
 
 echo "install: export_current_to_csv.sh"
-/usr/local/maestro/bin/export_current_to_csv.sh
+./export_current_to_csv.sh
 echo
 
 echo "install: send_current_change_report.sh"
-/usr/local/maestro/bin/send_current_change_report.sh
+./send_current_change_report.sh
 echo
 
 # keep copy of change report
@@ -225,14 +225,14 @@ echo
 echo "install: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/ods/* /home/samba/scc/ods/
+cp -a ../ods/* /home/samba/scc/ods/
 chown -R nobody:wheel /home/samba/scc/ods/
 chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "install: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
-cp -a ../scc/pv/pv-3.mdb /home/samba/scc/pv/pv.mdb
+cp -a ../pv/pv-3.mdb /home/samba/scc/pv/pv.mdb
 chown -R nobody:wheel /home/samba/scc/pv/
 chmod ugo+rw /home/samba/scc/pv/*
 echo
@@ -241,11 +241,11 @@ echo
 if test $version = "VER"
 then
 	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../scc/parts-3/* /home/samba/scc/parts/
+	cp -a ../parts-3/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
 	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../scc/parts-3-nover/* /home/samba/scc/parts/
+	cp -a ../parts-3-nover/* /home/samba/scc/parts/
 else
 	echo "install: invalid VER | NOVER"
 	echo
@@ -257,15 +257,15 @@ chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
 echo "install: rsync_current_files.sh"
-/usr/local/maestro/bin/rsync_current_files.sh
+./rsync_current_files.sh
 echo
 
 echo "install: export_current_to_csv.sh"
-/usr/local/maestro/bin/export_current_to_csv.sh
+./export_current_to_csv.sh
 echo
 
 echo "install: send_current_change_report.sh"
-/usr/local/maestro/bin/send_current_change_report.sh
+./send_current_change_report.sh
 echo
 
 # keep copy of change report
@@ -283,14 +283,14 @@ echo
 echo "install: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/ods/* /home/samba/scc/ods/
+cp -a ../ods/* /home/samba/scc/ods/
 chown -R nobody:wheel /home/samba/scc/ods/
 chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "install: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
-cp -a ../scc/pv/pv-4.mdb /home/samba/scc/pv/pv.mdb
+cp -a ../pv/pv-4.mdb /home/samba/scc/pv/pv.mdb
 chown -R nobody:wheel /home/samba/scc/pv/
 chmod ugo+rw /home/samba/scc/pv/*
 echo
@@ -299,11 +299,11 @@ echo
 if test $version = "VER"
 then
 	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../scc/parts-4/* /home/samba/scc/parts/
+	cp -a ../parts-4/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
 	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../scc/parts-4-nover/* /home/samba/scc/parts/
+	cp -a ../parts-4-nover/* /home/samba/scc/parts/
 else
 	echo "install: invalid VER | NOVER"
 	echo
@@ -315,15 +315,15 @@ chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
 echo "install: rsync_current_files.sh"
-/usr/local/maestro/bin/rsync_current_files.sh
+./rsync_current_files.sh
 echo
 
 echo "install: export_current_to_csv.sh"
-/usr/local/maestro/bin/export_current_to_csv.sh
+./export_current_to_csv.sh
 echo
 
 echo "install: send_current_change_report.sh"
-/usr/local/maestro/bin/send_current_change_report.sh
+./send_current_change_report.sh
 echo
 
 # keep copy of change report
@@ -341,14 +341,14 @@ echo
 echo "install: restore 'current' master data spreadsheets (with csv) to remotefs"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../scc/ods/* /home/samba/scc/ods/
+cp -a ../ods/* /home/samba/scc/ods/
 chown -R nobody:wheel /home/samba/scc/ods/
 chmod ugo+rw /home/samba/scc/ods/*
 echo
 
 echo "install: restore 'current' Parts&Vendors(TM) database to remotefs"
 # -a archive mode preserves file times
-cp -a ../scc/pv/pv-5.mdb /home/samba/scc/pv/pv.mdb
+cp -a ../pv/pv-5.mdb /home/samba/scc/pv/pv.mdb
 chown -R nobody:wheel /home/samba/scc/pv/
 chmod ugo+rw /home/samba/scc/pv/*
 echo
@@ -357,11 +357,11 @@ echo
 if test $version = "VER"
 then
 	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../scc/parts-5/* /home/samba/scc/parts/
+	cp -a ../parts-5/* /home/samba/scc/parts/
 elif test $version = "NOVER"
 then
 	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../scc/parts-5-nover/* /home/samba/scc/parts/
+	cp -a ../parts-5-nover/* /home/samba/scc/parts/
 else
 	echo "install: invalid VER | NOVER"
 	echo
@@ -373,15 +373,15 @@ chmod -R ugo+rw       /home/samba/scc/parts/
 echo
 
 echo "install: rsync_current_files.sh"
-/usr/local/maestro/bin/rsync_current_files.sh
+./rsync_current_files.sh
 echo
 
 echo "install: export_current_to_csv.sh"
-/usr/local/maestro/bin/export_current_to_csv.sh
+./export_current_to_csv.sh
 echo
 
 echo "install: send_current_change_report.sh"
-/usr/local/maestro/bin/send_current_change_report.sh
+./send_current_change_report.sh
 echo
 
 # keep copy of change report

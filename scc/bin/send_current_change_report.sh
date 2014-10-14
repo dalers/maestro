@@ -5,11 +5,11 @@
 #   and compare to csv.old/pv_pn.csv
 # - extract file transfer details (and errors) from rsync
 #   log files
-# - assemble and mail report (mail sent using ssmtp)
+# - assemble and mail report
 #
-# Schedule using cron as follows:
+# Schedule using cron:
 #   1. rsync_current_files.sh
-#      - rsync MUST complete before send_current_change_report.sh runs
+#      - note rsync must complete before send_current_change_report.sh runs
 #   2. export_current_to_csv.sh
 #   3. send_current_change_report.sh
 #
@@ -47,7 +47,7 @@ echo ""                                                            >> /home/samb
 #echo ""                                                            >> /home/samba/scc/work/rsync.log
 
 #
-# build email report
+# build report
 #
 echo "send_current_change_report: build email report..."
 # wrapper fields
@@ -82,15 +82,14 @@ date >> /home/samba/scc/work/current_changereport.txt
 echo "" >> /home/samba/scc/work/current_changereport.txt
 
 #
-# send email
-# ssmtp does not support aliases, explicitly list each intended recipient
+# send report
+#
 echo "send_current_change_report: send email report..."
-/usr/local/sbin/ssmtp root < /home/samba/scc/work/current_changereport.txt
+mail -s "Part and Document Changes" admin@whizzer.local < /home/samba/scc/work/current_changereport.txt
 
 #
 # cleanup
 #
-
 #rm /home/samba/scc/work/rsync*.log
 echo
 
