@@ -30,7 +30,7 @@ mkdir /home/samba/scc/parts.rsync
 
 # make directories that will be written to from remote MS Windows clients read/write
 # MUST also make files read/write if necessary when copied (e.g. pv/pv.mdb)
-chmod ugo+rw /home/samba/scc/excel/
+chmod ugo+rw /home/samba/scc/ods/
 chmod ugo+rw /home/samba/scc/docs/
 chmod ugo+rw /home/samba/scc/material/
 chmod ugo+rw /home/samba/scc/parts/
