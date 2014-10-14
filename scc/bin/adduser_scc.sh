@@ -1,13 +1,9 @@
 #!/bin/sh
 #
-# Create system user accounts for scc employees
+# Create server system accounts for users
 # - must be executed by root from script directory
 # - "adduser_scc.txt" and "adduser_scc_msg.txt" must be writable ONLY by root
 #
-
-echo
-echo "Create SCC system user accounts"
-echo
 
 # add employees to group "scc" if desired (group scc must already exist!)
 # adduser -G scc -f ./adduser_scc.txt -m ./adduser_scc_msg.txt -w yes

@@ -1,7 +1,5 @@
-# SCC employee list for rmuser_scc.sh
+# employee list for rmuser_scc.sh
 # - must be writable ONLY by root 
-#
-# 2010-09-08  dale scott  creation
 #
 bjenks
 bswift
