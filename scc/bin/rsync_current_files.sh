@@ -22,11 +22,11 @@ rm /home/samba/scc/work/rsync-parts.log
 #
 # parts
 #
-/usr/local/bin/rsync -a --itemize-changes --include-from=/usr/local/maestro/bin/rsync_include --exclude-from=/usr/local/maestro/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/samba/scc/work/rsync-parts.log" /home/samba/scc/parts/ /home/samba/scc/parts.rsync > /dev/null
+/usr/local/bin/rsync -a --itemize-changes --include-from=/usr/local/maestro/scc/bin/rsync_include --exclude-from=/usr/local/maestro/scc/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/samba/scc/work/rsync-parts.log" /home/samba/scc/parts/ /home/samba/scc/parts.rsync > /dev/null
 
 #
 # material
 #
-#/usr/local/bin/rsync -a --itemize-changes --include-from=/usr/local/maestro/bin/rsync_include --exclude-from=/usr/local/maestro/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/samba/scc/work/rsync-material.log" /home/samba/scc/material/ /home/samba/scc/material.rsync > /dev/null
+#/usr/local/bin/rsync -a --itemize-changes --include-from=/usr/local/maestro/scc/bin/rsync_include --exclude-from=/usr/local/maestro/scc/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/samba/scc/work/rsync-material.log" /home/samba/scc/material/ /home/samba/scc/material.rsync > /dev/null
 
 exit 0

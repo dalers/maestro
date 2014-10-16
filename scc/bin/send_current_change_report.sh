@@ -16,7 +16,7 @@
 
 # find new/modified/deleted part numbers and create report lists
 echo "send_current_change_report: extract PN details from current csv"
-/usr/local/maestro/bin/pndetails.py /home/samba/scc/csv/pv_pn.csv /home/samba/scc/csv/pv_pn_details.csv
+/usr/local/maestro/scc/bin/pndetails.py /home/samba/scc/csv/pv_pn.csv /home/samba/scc/csv/pv_pn_details.csv
 sort /home/samba/scc/csv/pv_pn_details.csv  > /home/samba/scc/csv/pv_pn_details_sort.csv
 echo
 
@@ -50,10 +50,6 @@ echo ""                                                            >> /home/samb
 # build report
 #
 echo "send_current_change_report: build email report..."
-# wrapper fields
-echo "From: maestro@hotstuff.can.bjs" > /home/samba/scc/work/current_changereport.txt
-echo "Subject: Maestro Part Number and File Changes" >> /home/samba/scc/work/current_changereport.txt
-
 # heading
 echo "" >>  /home/samba/scc/work/current_changereport.txt
 echo "Do not reply, this address does not accept mail" >> /home/samba/scc/work/current_changereport.txt
@@ -85,7 +81,7 @@ echo "" >> /home/samba/scc/work/current_changereport.txt
 # send report
 #
 echo "send_current_change_report: send email report..."
-mail -s "Part and Document Changes" admin@whizzer.local < /home/samba/scc/work/current_changereport.txt
+mail -s "Maestro Part and Document Changes" admin@whizzer.local < /home/samba/scc/work/current_changereport.txt
 
 #
 # cleanup

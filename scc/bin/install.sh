@@ -78,7 +78,7 @@ echo "Setup"
 echo "======================================="
 echo
 
-echo "install: run setup_file_share.sh to delete/re-create /home/samba/scc/ directory structure"
+echo "install: setup_file_share.sh (delete/re-create /home/samba/scc/... dir structure)"
 ./setup_file_share.sh
 echo
 
@@ -88,7 +88,7 @@ cp -a ../README.txt /home/samba/scc/
 #flip -m /home/samba/scc/README.txt
 echo
 
-echo "install: running fix_iteration_datetime.sh"
+echo "install: fix_iteration_datetime.sh"
 ./fix_iteration_datetime.sh
 echo
 
@@ -112,7 +112,7 @@ chown -R nobody:wheel /home/samba/scc/pv/
 chmod ugo+rw /home/samba/scc/pv/*
 echo
 
-# bootstrap - only do first time through
+# bootstrap - oly do first time through
 
 echo "install: bootstrap csv.old/ with empty pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv"
 /usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb PN    > /tmp/pv_pn.csv
