@@ -1,13 +1,12 @@
 #!/bin/sh
 #
-# Install SCC data
-# - MUST RUN from .../maestro/bin/ (e.g. /usr/local/maestro/bin/)
+# Setup SCC data
+# - MUST run from /home/maestro/maestro-repo/scc/bin/
+# - /home/maestro/scc/ MUST EXIST with r/w permission
+# - select either versioned or un-versioned document filenames
+# - select either part data from repo or regenerated (from P&V mdb using mdbtools)
 #
-# Creates scc file share and sub-directory structure
-# - /usr/home/samba/scc MUST EXIST with r/w permission
-# - deletes and recreates /home/samba/scc/* file structure
-# - "runs" through iterations 1, 2, 3..., processing changes and
-#   generating reports as if happening in real-time
+# Process Aircraft Wireless PLM iterations in order
 #
 # Description
 # ------------------------------------------
@@ -21,9 +20,9 @@
 #   * run get_current_and_review.sh (normally run nightly by cron)
 #   * pause (operator must press [Enter] to continue)
 #
-# SCC git repo structure
+# SCC repo structure
 # ------------------------
-#    scc/
+#    /home/maestro/maestro-repo/scc/
 #    +-- csv[-n]/                 csv P&V + master data spreadsheet export iteration n (not used, csv re-created on-the-fly) 
 #    +-- docs[-n]/                ad-hoc documents (not specifically part or material-related)
 #    +-- ods/                     master data spreadsheet/csv
@@ -47,7 +46,7 @@
 #
 # SCC file share structure
 # ------------------------
-#    scc/
+#    /home/maestro/scc/
 #    +-- ods/                     master data spreadsheet/csv
 #    +-- csv/                     current P&V and master data spreadsheet csv export
 #    +-- csv.old/                 previous csv export
@@ -61,334 +60,384 @@
 #    \-- README.txt               file share readme
 #
 
-if test $# = 1
+if test $# = 0
+then
+    echo
+    echo "  ERROR: no arguments"
+    echo "  Usage: $0 [ VER | NOVER ]  { MDBTOOLS }" 1>&2
+    echo
+    exit 1
+elif test $# = 1
 then
     version=$1
-    echo "install: using '$version' "
+    mdbtools="NOMDBTOOLS"
+    echo "Using '$version' documents and '$mdbtools'"
+elif test $# = 2
+then
+    version=$1
+    mdbtools=$2
+    echo "Using '$version' documents and '$mdbtools'"
 else
-	echo
-    echo "  Usage: $0 VER | NOVER" 1>&2
-	echo
-	exit 1
+    echo
+    echo "  ERROR: too many arguments"
+    echo "  Usage: $0 [ VER | NOVER ]  { MDBTOOLS }" 1>&2
+    echo
+    exit 1
 fi
 
 echo
-echo "======================================="
 echo "Setup"
 echo "======================================="
-echo
 
-echo "install: setup_file_share.sh (delete/re-create /home/samba/scc/... dir structure)"
+echo "run setup_file_share.sh (delete/re-create /home/maestro/scc/...)"
 ./setup_file_share.sh
-echo
 
-echo "install: copy README.txt file to scc file share..."
-cp -a ../README.txt /home/samba/scc/
+echo "copy README.txt"
+cp -a ../README.txt /home/maestro/scc/
 # ensure Windows-type EOL
-#flip -m /home/samba/scc/README.txt
-echo
+#flip -m /home/maestro/scc/README.txt
 
-echo "install: fix_iteration_datetime.sh"
-./fix_iteration_datetime.sh
-echo
+echo "run setup_fix_iteration_datetime.sh"
+./setup_fix_iteration_datetime.sh
 
+echo "create 'null' files in csv.old/ (pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv)"
+head -n 1 /home/maestro/maestro-repo/scc/csv-1/pv_pn.csv > /home/maestro/scc/csv.old/pv_pn.csv
+./pndetails.py /home/maestro/scc/csv.old/pv_pn.csv /home/maestro/scc/csv.old/pv_pn_details.csv
+# sorting doesn't accomplish anything but required bootstrap file does get created
+sort /home/maestro/scc/csv.old/pv_pn_details.csv  > /home/maestro/scc/csv.old/pv_pn_details_sort.csv
+#chown -R nobody:wheel /home/maestro/scc/csv.old/
+chmod ugo+rw /home/maestro/scc/csv.old/*
+
+echo
+read -t 60 -p "setup complete - Press [Enter] to continue..." key
+
+echo
+echo "Iteration 1"
 echo "======================================="
-echo "Iteration 1 (with csv.old/ bootstrap)"
-echo "======================================="
-echo
 
-echo "install: restore 'current' master data spreadsheets and csv to fileshare"
+echo "copy 'current' master data spreadsheets and csv exports"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../ods/* /home/samba/scc/ods/
-chown -R nobody:wheel /home/samba/scc/ods/
-chmod ugo+rw /home/samba/scc/ods/*
-echo
+cp -a ../ods/* /home/maestro/scc/ods/
+#chown -R nobody:wheel /home/maestro/scc/ods/
+chmod ugo+rw /home/maestro/scc/ods/*
 
-echo "install: restore 'current' Parts&Vendors(TM) database to fileshare"
-# -a archive mode preserves file times
-cp -a ../pv/pv-1.mdb /home/samba/scc/pv/pv.mdb
-chown -R nobody:wheel /home/samba/scc/pv/
-chmod ugo+rw /home/samba/scc/pv/*
-echo
-
-# bootstrap - oly do first time through
-
-echo "install: bootstrap csv.old/ with empty pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv"
-/usr/local/bin/mdb-export -D "%F" /home/samba/scc/pv/pv.mdb PN    > /tmp/pv_pn.csv
-head -n 1 /tmp/pv_pn.csv > /home/samba/scc/csv.old/pv_pn.csv ; rm /tmp/pv_pn.csv
-./pndetails.py /home/samba/scc/csv.old/pv_pn.csv /home/samba/scc/csv.old/pv_pn_details.csv
-# sorting doesn't accomplish anything but required bootstrap file is created
-sort /home/samba/scc/csv.old/pv_pn_details.csv  > /home/samba/scc/csv.old/pv_pn_details_sort.csv
-echo
-
-# copy part documents from either vault-[n]/ or vault-[n]-norev/
+# copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../parts-1/* /home/samba/scc/parts/
+	echo "copy versioned 'current' part documents"
+	cp -a ../parts-1/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../parts-1-nover/* /home/samba/scc/parts/
+	echo "copy un-versioned 'current' part documents"
+	cp -a ../parts-1-nover/* /home/maestro/scc/parts/
 else
-	echo "install: invalid VER | NOVER"
+	echo "ERROR: invalid [ VER | NOVER ]"
 	echo
 	exit 1
 fi
+#chown -R nobody:wheel /home/maestro/scc/parts/
+chmod -R ugo+rw       /home/maestro/scc/parts/
 
-chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw       /home/samba/scc/parts/
-echo
+echo "copy 'current' Parts&Vendors(TM) database"
+# -a archive mode preserves file times
+cp -a ../pv/pv-1.mdb /home/maestro/scc/pv/pv.mdb
+#chown -R nobody:wheel /home/maestro/scc/pv/
+chmod ugo+rw /home/maestro/scc/pv/*
 
-echo "install: rsync_current_files.sh"
+# copy 'current' CSV files to fileshare
+if test $mdbtools = "NOMDBTOOLS"
+then
+	echo "copy 'current' CSV files from repo"
+	cp ../csv-1/* /home/maestro/scc/csv/
+elif test $mdbtools = "MDBTOOLS"
+then
+	echo "copy 'current' CSV files by re-generating"
+	./export_current_to_csv.sh
+else
+	echo "ERROR: invalid { MDBTOOLS }"
+	echo
+	exit 1
+fi
+#chown -R nobody:wheel /home/maestro/scc/csv/
+chmod -R ugo+rw       /home/maestro/scc/csv/
+
+echo "run rsync_current_files.sh"
 ./rsync_current_files.sh
-echo
 
-echo "install: export_current_to_csv.sh"
-./export_current_to_csv.sh
-echo
-
-echo "install: send_current_change_report.sh"
+echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
+
+echo "preserve change report"
+cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-1.txt
+
 echo
+read -t 60 -p "iteration 1 complete - Press [Enter] to continue..." key
 
-# keep copy of change report
-cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-1.txt
-
-read -t 60 -p "install: iteration 1 complete - Press [Enter] to continue..." key
 echo
-
-echo "======================================="
 echo "Iteration 2"
 echo "======================================="
-echo
 
-echo "install: restore 'current' master data spreadsheets (with csv) to remotefs"
+echo "move 'current' csv to 'old' csv"
+cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
+
+echo "copy 'current' master data spreadsheets and csv exports"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../ods/* /home/samba/scc/ods/
-chown -R nobody:wheel /home/samba/scc/ods/
-chmod ugo+rw /home/samba/scc/ods/*
-echo
+cp -a ../ods/* /home/maestro/scc/ods/
+#chown -R nobody:wheel /home/maestro/scc/ods/
+chmod ugo+rw /home/maestro/scc/ods/*
 
-echo "install: restore 'current' Parts&Vendors(TM) database to remotefs"
-# -a archive mode preserves file times
-cp -a ../pv/pv-2.mdb /home/samba/scc/pv/pv.mdb
-chown -R nobody:wheel /home/samba/scc/pv/
-chmod ugo+rw /home/samba/scc/pv/*
-echo
-
-# copy part documents from either vault-[n]/ or vault-[n]-norev/
+# copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../parts-2/* /home/samba/scc/parts/
+	echo "copy versioned 'current' part documents"
+	cp -a ../parts-2/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../parts-2-nover/* /home/samba/scc/parts/
+	echo "copy un-versioned 'current' part documents"
+	cp -a ../parts-2-nover/* /home/maestro/scc/parts/
 else
-	echo "install: invalid VER | NOVER"
+	echo "ERROR: invalid [ VER | NOVER ]"
 	echo
 	exit 1
 fi
+#chown -R nobody:wheel /home/maestro/scc/parts/
+chmod -R ugo+rw       /home/maestro/scc/parts/
 
-chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw       /home/samba/scc/parts/
-echo
+echo "copy 'current' Parts&Vendors(TM) database"
+# -a archive mode preserves file times
+cp -a ../pv/pv-2.mdb /home/maestro/scc/pv/pv.mdb
+#chown -R nobody:wheel /home/maestro/scc/pv/
+chmod ugo+rw /home/maestro/scc/pv/*
 
-echo "install: rsync_current_files.sh"
+# copy 'current' CSV files to fileshare
+if test $mdbtools = "NOMDBTOOLS"
+then
+	echo "copy 'current' CSV files from repo"
+	cp ../csv-2/* /home/maestro/scc/csv/
+elif test $mdbtools = "MDBTOOLS"
+then
+	echo "copy 'current' CSV files by re-generating"
+	./export_current_to_csv.sh
+else
+	echo "ERROR: invalid { MDBTOOLS }"
+	echo
+	exit 1
+fi
+#chown -R nobody:wheel /home/maestro/scc/csv/
+chmod -R ugo+rw       /home/maestro/scc/csv/
+
+echo "run rsync_current_files.sh"
 ./rsync_current_files.sh
-echo
 
-echo "install: export_current_to_csv.sh"
-./export_current_to_csv.sh
-echo
-
-echo "install: send_current_change_report.sh"
+echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
-echo
 
-# keep copy of change report
-cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-2.txt
-echo
+echo "preserve change report"
+cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-2.txt
 
-read -t 60 -p "install: iteration 2 complete - Press [Enter] to continue..." key
 echo
+read -t 60 -p "iteration 2 complete - Press [Enter] to continue..." key
 
-echo "======================================="
+echo
 echo "Iteration 3"
 echo "======================================="
-echo
 
-echo "install: restore 'current' master data spreadsheets (with csv) to remotefs"
+echo "move 'current' csv to 'old' csv"
+cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
+
+echo "copy 'current' master data spreadsheets and csv exports"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../ods/* /home/samba/scc/ods/
-chown -R nobody:wheel /home/samba/scc/ods/
-chmod ugo+rw /home/samba/scc/ods/*
-echo
+cp -a ../ods/* /home/maestro/scc/ods/
+#chown -R nobody:wheel /home/maestro/scc/ods/
+chmod ugo+rw /home/maestro/scc/ods/*
 
-echo "install: restore 'current' Parts&Vendors(TM) database to remotefs"
-# -a archive mode preserves file times
-cp -a ../pv/pv-3.mdb /home/samba/scc/pv/pv.mdb
-chown -R nobody:wheel /home/samba/scc/pv/
-chmod ugo+rw /home/samba/scc/pv/*
-echo
-
-# copy part documents from either vault-[n]/ or vault-[n]-norev/
+# copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../parts-3/* /home/samba/scc/parts/
+	echo "copy versioned 'current' part documents"
+	cp -a ../parts-3/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../parts-3-nover/* /home/samba/scc/parts/
+	echo "copy un-versioned 'current' part documents"
+	cp -a ../parts-3-nover/* /home/maestro/scc/parts/
 else
-	echo "install: invalid VER | NOVER"
+	echo "ERROR: invalid [ VER | NOVER ]"
 	echo
 	exit 1
 fi
+#chown -R nobody:wheel /home/maestro/scc/parts/
+chmod -R ugo+rw       /home/maestro/scc/parts/
 
-chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw       /home/samba/scc/parts/
-echo
+echo "copy 'current' Parts&Vendors(TM) database"
+# -a archive mode preserves file times
+cp -a ../pv/pv-3.mdb /home/maestro/scc/pv/pv.mdb
+#chown -R nobody:wheel /home/maestro/scc/pv/
+chmod ugo+rw /home/maestro/scc/pv/*
 
-echo "install: rsync_current_files.sh"
+# copy 'current' CSV files to fileshare
+if test $mdbtools = "NOMDBTOOLS"
+then
+	echo "copy 'current' CSV files from repo"
+	cp ../csv-3/* /home/maestro/scc/csv/
+elif test $mdbtools = "MDBTOOLS"
+then
+	echo "copy 'current' CSV files by re-generating"
+	./export_current_to_csv.sh
+else
+	echo "ERROR: invalid { MDBTOOLS }"
+	echo
+	exit 1
+fi
+#chown -R nobody:wheel /home/maestro/scc/csv/
+chmod -R ugo+rw       /home/maestro/scc/csv/
+
+echo "run rsync_current_files.sh"
 ./rsync_current_files.sh
-echo
 
-echo "install: export_current_to_csv.sh"
-./export_current_to_csv.sh
-echo
-
-echo "install: send_current_change_report.sh"
+echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
-echo
 
-# keep copy of change report
-cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-3.txt
-echo
+echo "preserve change report"
+cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-3.txt
 
-read -t 60 -p "install: iteration 3 complete - Press [Enter] to continue..." key
 echo
+read -t 60 -p "iteration 3 complete - Press [Enter] to continue..." key
 
-echo "======================================="
+echo
 echo "Iteration 4"
 echo "======================================="
-echo
 
-echo "install: restore 'current' master data spreadsheets (with csv) to remotefs"
+echo "move 'current' csv to 'old' csv"
+cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
+
+echo "copy 'current' master data spreadsheets and csv exports"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../ods/* /home/samba/scc/ods/
-chown -R nobody:wheel /home/samba/scc/ods/
-chmod ugo+rw /home/samba/scc/ods/*
-echo
+cp -a ../ods/* /home/maestro/scc/ods/
+#chown -R nobody:wheel /home/maestro/scc/ods/
+chmod ugo+rw /home/maestro/scc/ods/*
 
-echo "install: restore 'current' Parts&Vendors(TM) database to remotefs"
-# -a archive mode preserves file times
-cp -a ../pv/pv-4.mdb /home/samba/scc/pv/pv.mdb
-chown -R nobody:wheel /home/samba/scc/pv/
-chmod ugo+rw /home/samba/scc/pv/*
-echo
-
-# copy part documents from either vault-[n]/ or vault-[n]-norev/
+# copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../parts-4/* /home/samba/scc/parts/
+	echo "copy versioned 'current' part documents"
+	cp -a ../parts-4/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../parts-4-nover/* /home/samba/scc/parts/
+	echo "copy un-versioned 'current' part documents"
+	cp -a ../parts-4-nover/* /home/maestro/scc/parts/
 else
-	echo "install: invalid VER | NOVER"
+	echo "ERROR: invalid [ VER | NOVER ]"
 	echo
 	exit 1
 fi
+#chown -R nobody:wheel /home/maestro/scc/parts/
+chmod -R ugo+rw       /home/maestro/scc/parts/
 
-chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw       /home/samba/scc/parts/
-echo
+echo "copy 'current' Parts&Vendors(TM) database"
+# -a archive mode preserves file times
+cp -a ../pv/pv-4.mdb /home/maestro/scc/pv/pv.mdb
+#chown -R nobody:wheel /home/maestro/scc/pv/
+chmod ugo+rw /home/maestro/scc/pv/*
 
-echo "install: rsync_current_files.sh"
+# copy 'current' CSV files to fileshare
+if test $mdbtools = "NOMDBTOOLS"
+then
+	echo "copy 'current' CSV files from repo"
+	cp ../csv-4/* /home/maestro/scc/csv/
+elif test $mdbtools = "MDBTOOLS"
+then
+	echo "copy 'current' CSV files by re-generating"
+	./export_current_to_csv.sh
+else
+	echo "ERROR: invalid { MDBTOOLS }"
+	echo
+	exit 1
+fi
+#chown -R nobody:wheel /home/maestro/scc/csv/
+chmod -R ugo+rw       /home/maestro/scc/csv/
+
+echo "run rsync_current_files.sh"
 ./rsync_current_files.sh
-echo
 
-echo "install: export_current_to_csv.sh"
-./export_current_to_csv.sh
-echo
-
-echo "install: send_current_change_report.sh"
+echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
-echo
 
-# keep copy of change report
-cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-4.txt
-echo
+echo "preserve change report"
+cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-4.txt
 
-read -t 60 -p "install: iteration 4 complete - Press [Enter] to continue..." key
 echo
+read -t 60 -p "iteration 4 complete - Press [Enter] to continue..." key
 
-echo "======================================="
+echo
 echo "Iteration 5"
 echo "======================================="
-echo
 
-echo "install: restore 'current' master data spreadsheets (with csv) to remotefs"
+echo "move 'current' csv to 'old' csv"
+cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
+
+echo "copy 'current' master data spreadsheets and csv exports"
 # -a archive mode preserves file times
 # no iterations for master data spreadsheets
-cp -a ../ods/* /home/samba/scc/ods/
-chown -R nobody:wheel /home/samba/scc/ods/
-chmod ugo+rw /home/samba/scc/ods/*
-echo
+cp -a ../ods/* /home/maestro/scc/ods/
+#chown -R nobody:wheel /home/maestro/scc/ods/
+chmod ugo+rw /home/maestro/scc/ods/*
 
-echo "install: restore 'current' Parts&Vendors(TM) database to remotefs"
-# -a archive mode preserves file times
-cp -a ../pv/pv-5.mdb /home/samba/scc/pv/pv.mdb
-chown -R nobody:wheel /home/samba/scc/pv/
-chmod ugo+rw /home/samba/scc/pv/*
-echo
-
-# copy part documents from either vault-[n]/ or vault-[n]-norev/
+# copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "install: restore 'current' files (version suffix) to fileshare"
-	cp -a ../parts-5/* /home/samba/scc/parts/
+	echo "copy versioned 'current' part documents"
+	cp -a ../parts-5/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "install: restore 'current' files (NO version suffix) to fileshare"
-	cp -a ../parts-5-nover/* /home/samba/scc/parts/
+	echo "copy un-versioned 'current' part documents"
+	cp -a ../parts-5-nover/* /home/maestro/scc/parts/
 else
-	echo "install: invalid VER | NOVER"
+	echo "ERROR: invalid [ VER | NOVER ]"
 	echo
 	exit 1
 fi
+#chown -R nobody:wheel /home/maestro/scc/parts/
+chmod -R ugo+rw       /home/maestro/scc/parts/
 
-chown -R nobody:wheel /home/samba/scc/parts/
-chmod -R ugo+rw       /home/samba/scc/parts/
-echo
+echo "copy 'current' Parts&Vendors(TM) database"
+# -a archive mode preserves file times
+cp -a ../pv/pv-5.mdb /home/maestro/scc/pv/pv.mdb
+#chown -R nobody:wheel /home/maestro/scc/pv/
+chmod ugo+rw /home/maestro/scc/pv/*
 
-echo "install: rsync_current_files.sh"
+# copy 'current' CSV files to fileshare
+if test $mdbtools = "NOMDBTOOLS"
+then
+	echo "copy 'current' CSV files from repo"
+	cp ../csv-5/* /home/maestro/scc/csv/
+elif test $mdbtools = "MDBTOOLS"
+then
+	echo "copy 'current' CSV files by re-generating"
+	./export_current_to_csv.sh
+else
+	echo "ERROR: invalid { MDBTOOLS }"
+	echo
+	exit 1
+fi
+#chown -R nobody:wheel /home/maestro/scc/csv/
+chmod -R ugo+rw       /home/maestro/scc/csv/
+
+echo "run rsync_current_files.sh"
 ./rsync_current_files.sh
-echo
 
-echo "install: export_current_to_csv.sh"
-./export_current_to_csv.sh
-echo
-
-echo "install: send_current_change_report.sh"
+echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
-echo
 
-# keep copy of change report
-cp /home/samba/scc/work/current_changereport.txt  /home/samba/scc/work/current_changereport-5.txt
-echo
+echo "preserve change report"
+cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-5.txt
 
-read -t 60 -p "install: iteration 5 complete - Press [Enter] to continue..." key
 echo
+echo "iteration 5 complete - all iterations completed"
+
+# Cleanup
 
 exit 0
