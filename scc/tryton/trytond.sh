@@ -1,5 +1,5 @@
 #!/bin/sh
 # Run trytond daemon
-# - temporary shortcut until rc.d script works
+# - run trytond manually instead of trytond rc.d script
 
 /usr/local/bin/trytond -c /usr/local/etc/trytond.conf &

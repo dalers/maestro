@@ -5,7 +5,7 @@
 # - "rmuser_scc.txt" must be writable ONLY by root
 #
 
-rmuser -yv -f ./rmuser_scc.txt
+rmuser -yv -f ./setup_rmuser_fbsd.txt
 
 #        -y  implicitly answer "yes" to any and all prompts
 #        -v  be verbose about actions taken

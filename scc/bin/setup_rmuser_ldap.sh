@@ -13,6 +13,6 @@
 #
 
 # delete SCC users (leave admin user)
-ldapdelete -v -x -D "cn=Manager,dc=root,dc=org" -c -w appleton -f /usr/local/maestro/scc/ldap/person-delete.ldif
+ldapdelete -v -x -D "cn=Manager,dc=root,dc=org" -c -w appleton -f ./setup_rmuser_ldapp.ldif
 
 exit 0
