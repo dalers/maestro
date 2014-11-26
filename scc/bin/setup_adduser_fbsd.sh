@@ -6,8 +6,8 @@
 #
 
 # add employees to group "scc" if desired (group scc must already exist!)
-# adduser -G scc -f ./setup_adduser_fbsd.txt -m ./setup_adduser_fbsd_msg.txt -w yes
-adduser -f ./setup_adduser_fbsd.txt -m ./setup_adduser_fbsd_msg.txt -w yes
+# adduser -G scc -f ./setup_adduser_fbsd.txt -m ./setup_adduser_msg.txt -w yes
+adduser -f ./setup_adduser_fbsd.txt -m ./setup_adduser_msg.txt -w yes
 
 #       -G additional groups (to put user in besides default group)
 #       -f user file (list of users and account parameters)
