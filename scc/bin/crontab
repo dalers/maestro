@@ -26,7 +26,6 @@ PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin
 
 #######
 # system backup (every Saturday @ 4:01am)
-# TODO BAD PRACTICE to backup live file system (at least sysbackup.sh stops Postgres first!)
 # 1       4       *       *       6       root    /root/bin/sysbackup.sh
 
 # synchronize to remote file share (every day @ 2:01am)

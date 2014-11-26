@@ -39,7 +39,7 @@ echo "----------------------------------------" >> /home/maestro/scc/work/rsync.
 echo ""                                                             >> /home/maestro/scc/work/rsync.log
 
 # build report
-echo "send_current_change_report: build email report"
+echo "send_current_change_report: build report"
 # heading
 echo "" >  /home/maestro/scc/work/current_changereport.txt
 echo "Do not reply, this address does not accept mail" >> /home/maestro/scc/work/current_changereport.txt
@@ -67,19 +67,13 @@ echo "Contact your Maestro administrator with questions or concerns." >> /home/m
 date >> /home/maestro/scc/work/current_changereport.txt
 echo "" >> /home/maestro/scc/work/current_changereport.txt
 
-#
 # send report
-#
 #echo "send_current_change_report: send email report..."
 #mail -s "Maestro Part and Document Changes" root@whizzer.local < /home/maestro/scc/work/current_changereport.txt
 #echo
 
-#
 # cleanup
-#
 #rm /home/maestro/scc/work/rsync*.log
-#echo
-
-# Cleanup
+echo
 
 exit 0
