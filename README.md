@@ -1,6 +1,6 @@
 **Maestro**<sup>TM</sup> is a cohesive enterprise model for exploring, evaluating and demonstrating business workflows using ERP and ERP-like systems, with an emphasis on processes related to parts, projects, material, issues and people. Maestro is based on a well-defined fictional going concern - the Swift Construction Company.
 
-Maestro uses the Swift Construction Company (the *SCC*) as a backdrop to explore design, manufacturing and sales processes, and to demonstrate how various teams can benefit from direct access to a variety of information, including parts, projects, material (serialized or otherwise controlled), issues and people.
+The Swift Construction Company (the *SCC*) provides the context for exploring design, manufacturing and sales processes, and to demonstrate the benefit to workers and teams of having shared immediate access to critical information, including parts, projects, material (serialized or otherwise controlled), issues and people.
 
 Maestro is an open source project, licensed according to the terms of the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/). This license encourages the return of derived works to the project to the benefit of the community.
 
