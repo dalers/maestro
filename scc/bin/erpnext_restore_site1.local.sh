@@ -6,11 +6,12 @@
 #
 
 # restore database
-# create backup of current database first?
-gunzip < yyyymmddhhmm.site1.local.sql.gza | mysql -u root -pVXjtffqUqoLbi508
+# create backup and drop database first
+gunzip < site1.local.sql.gza | mysql -u root -pbVUJVRiRBjNAc2mL
 
 # restore files
 cd /home/frappe/frappe-bench/sites/site1.local/public
-# create backup of current files first?
-rm files/*
-tar -xzf /root/yyyymmddhhmm.site1.local.files.gz
+mv files files.bak
+mkdir files
+tar -xzf /root/site1.local.files.tar.gz
+chown -R frappe:frappe files
