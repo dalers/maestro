@@ -1,7 +1,6 @@
 ## SCC Product Lifecycle Management (PLM) Data
 
-The SCC PLM data currently exists of part data for the SCC Aircraft
-Wireless product.
+SCC PLM data consists of the SCC Aircraft Wireless product.
 
 The Aircraft Wireless product lifecycle includes five design iterations.
 

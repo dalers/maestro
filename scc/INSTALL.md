@@ -1,41 +1,14 @@
-# Tryton Setup
+## Install Maestro Data in ERPNext
 
-## Create New Database
+Install ERPNext on your system following ERPNext documentation.
 
-1) Connect to the Tryton server and create a new database (e.g. "scc").
+### Initialize New Site
 
-2) Login to the new database as user "admin" (with password used to create the database). The Module Configuration Wizard will run automatically after login to configure the new database.
+Maestro data can be installed step by step in a new site.
 
-* Add user (e.g. "Dale Scott", login "dale"), optionally add permissions (you may need to update user permissions after installing modules, so this is optional at this point), 
-	* add Permissions: "Administration" (which will be the only permission group available)
-	* add Rule: Read, Write, Create, Delete, Model: View Search (which will be the only rule available available)
+#### New Install Wizard
 
-## Install Modules into Database
-
-1) Mark the following modules for install.
-
-_The modules must have already been installed on the server, this step installs them into a Tryton database._
-
-* dashboard
-* product
-* product-attribute
-* production
-* project
-* project-plan
-* purchase
-* sale
-* stock
-* stock-lot
-* stock-split
-
-2) Install the selected modules. There are two ways to perform the install.
-
-* Select *Launch Action* icon in the Modules menu bar and then _Perform Pending Installation/Upgrade_, or
-* Execute the _Perform Pending Installation/Upgrade_ Wizard from the main Tryton menu. 
-
-After the install/upgrade completes, the Module Configuration wizard runs and will query you to configure the installed modules.
-
-3) Create Company
+1) Define Company
 
 A company is a type of 'party'. To create the desired company, you need to select the party the new company will be associated with. Since there are no parties in the new database, you will have to create a party, then select it by the new company.
 
@@ -51,7 +24,7 @@ A company is a type of 'party'. To create the desired company, you need to selec
 * Language
 	* English
 
-4) Configure Company
+2) Configure Company
 
 * Enter Company > Currency
 	* US Dollar
@@ -60,7 +33,7 @@ A company is a type of 'party'. To create the desired company, you need to selec
 	* select the new company (e.g. Swift Construction Company)
 	* select _Add_
 
-5) Create Chart of Accounts
+3) Create Chart of Accounts
 
 * Company: Swift Construction Company
 * Account Template: Minimal Account Chart
@@ -68,28 +41,12 @@ A company is a type of 'party'. To create the desired company, you need to selec
 	* Default Receivable Account: Main Receivable
 	* Default Payable Account: Main Payable
 
-6) The Tryton menu needs reloading to show the menus for the newly installed modules. 
 
-* Follow menu: User > Menu Reload (Ctrl-T).
+#### Import Users
 
-## Load Users
+* Import users csv file
 
-### Import Users
-
-1) Login as admin
-
-2) Follow Menu Path: Administration > Users > Users. Access Toolbar: Import Data (Auto-Detect fields, CSV parameters: encoding Latin1),  -> scc/excel/tryton-users.csv
-
-Users will be imported with the new company set as their "Main Company". This is because during configuration of the new database, you set the Swift Construction Company as the default party for employees.
-
-_144 user records are imported in ~15 seconds with the server running in VirtualBox on a ThinkPad T61 laptop_
-
-#### To re-create import/tryton-users.csv
-
-* edit the "master" worksheet in workbook scc/excel/persons.xlsx
-* save the "tryton-users" worksheet in CSV format to scc/excel/tryton-users.csv
-
-### Configure Users
+##### Configure Users
 
 1) Tom Swift
 
@@ -171,7 +128,9 @@ _144 user records are imported in ~15 seconds with the server running in Virtual
 	* Sharing: User
 	* Administration: Settings
 
-## Enter Reference Data
+#### Import Items
+
+##### Enter Reference Data
 
 1) Define Additional Product Attributes
 
@@ -213,7 +172,7 @@ spool19300FT  spl19300FT  Length   5882.64  0.000169991704  0.01
 Notes
 - A UOM symbol has a maximum of 10 characters.
 
-## Import products
+##### Import Items
 
 1) Login as admin
 
@@ -230,7 +189,7 @@ To re-create scc-products.csv using concatenated name and detail as name:
 * delete all columns except those included in Tryton mapping
 * edit column titles according to Tryton mapping
 
-### Mapping from Parts&Vendors to Tryton
+**Mapping from Parts&Vendors to ERPNext**
 
 ```
 P&V                  -> Tryton
@@ -256,7 +215,8 @@ Keys
 Notes
 - PNSTATUS contains status value (i.e. "U", "R", or "O"), but could (should?) be fk to STATUSID in table STATUS (that is, if table STATUS existed). 
 
-### Create Bills of Materials (BoMs)
+
+#### Import BOMs
 
 1) Menu: Manufacturing / Product / xxx / Bill of Materials / Create
 
@@ -300,7 +260,26 @@ Notes
      \--- 90000018 WIRE,STRANDED,16AWG,YELLOW,POLY
 ```
 
-# Workflows
+#### Import Vendors
+
+#### Import Customers
+
+
+### Restore from Backup
+
+Maestro data can be restored to an existing ERPNext install (restoring from backup data to site1.local).
+
+* drop initial database created during ERPNext install
+* load Maestro database
+* restore Maestro files
+ 
+#### Restore Maestro ERPNExt Database
+
+#### Restore Maestro ERPNExt Files
+
+#### Restore Maestro System Users
+
+## Workflows
 
 *These workflows are included here temporarily for convenience, and will eventually be moved to one or more separate documents.*
 
@@ -309,7 +288,7 @@ The Swift Construction Company (SCC) manufactures a radio receiver called an  Ai
 The products (part numbers), customer (B&E) and supplier (Trilogy-Net) have been created. Two BoMs have been created, one for the finished Aircraft Wireless product (PN 10000003) and one for a spare parts kit (PN 60000001), which includes the electronics circuit board (PN 20000003).
 
 
-## Sales
+### Sales
 
 1) Create Customer
 
@@ -361,13 +340,13 @@ did not create custom stages for "Sales Department" as shown in book, however...
     profile for Jacab shows Default Sales Team = Sales Department - perhaps only when documents "pushed" from user?
 ```
 	
-## Purchasing
+### Purchasing
 
 1) Purchase product from supplier
 * buy ??? from ???
 * serialized!
 
-## Project Management
+### Project Management
 
 1) Import projects (import/projects.csv)
 
@@ -377,13 +356,13 @@ This workflow explores serialized stock in the context of a customer purchase. B
 
 Sometime later, Ed Bentley calls from B&E. He says he found a circuit board, but he doesn't know if it is the circuit board from the spares kit. Ed is not sure, but he thinks the original board might have failed and he swapped it with the one from the spare parts kit. Ed wants to know if the serial number on the board is the same as the board shipped in the spare parts kit he bought.
 
-## Serialized Stock Consumed by a Project
+### Serialized Stock Consumed by a Project
 
 Explore serial numbers in the context of a project. B&E Submarines plans to upgrade 5 of their submarines with Aircraft Wireless systems. A contract is negotiated between the SCC and B&E, and the SCC initiates a Project to capture all related activity (of which the physical receiver units are only one portion). Complete radio receivers PN 10000003 are manufactured, each with its own serial number, traceable to the serialized electronics circuit board within. The completed radio receivers are sold and delivered to B&E as part of the overall project.
 
 Sometime later, Ed Bentley calls from B&E. He has a circuit board in his hand again, and wants to know where the serial number came from. Ed asks if the circuit board was from one of the 5 receivers delivered as part of the upgrade project.
 
-## Create, sell, ship, and return a field spares kit
+### Create, sell, ship, and return a field spares kit
 
 * Create manufacturing order
 * Issue material to order (serialized PCA)
@@ -391,11 +370,11 @@ Sometime later, Ed Bentley calls from B&E. He has a circuit board in his hand ag
 * Return order from customer
 * Return material to stock (serialized PCA)
 
-## Issues
+### Issues
 
 1) Import issues (import/issues.csv)
 
-## ToDo
+### ToDo
 
 1) Create new workflow
 * RMA
