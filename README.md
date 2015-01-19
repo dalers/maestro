@@ -6,13 +6,7 @@ Maestro is an open source project, licensed according to the terms of the [Creat
 
 Getting Started
 ---------------
-Review the ERP-specific workflows in xxx-accepted/ (released) and xxx-proposed/ (proposed/draft). The numbering methodology is chronological.
-
-Proposing or Editing a Workflow
--------------------------------
-To propose a new or revised workflow:
-* fork this repo, create a branch, checkout that branch, add the new or modified workflow in `*xxx*-proposed/`, push the branch to Github, and send a pull request; or,
-* create a issue in the repository to start a discussion on Github.
+Review scc/README.md and scc/INSTALL.md.
 
 Issue Tracking
 --------------
