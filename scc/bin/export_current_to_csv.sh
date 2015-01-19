@@ -22,8 +22,8 @@
 #
 
 echo
-echo "export_current_to_csv: copy csv/ to csv.old/"
-cp -a /home/maestro/scc/csv/ /home/maestro/scc/csv.old/
+echo "export_current_to_csv: copy csv/* to csv.old/"
+cp -a /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 echo
 
 echo "export_current_to_csv: person spreadsheet - NOT exported"
