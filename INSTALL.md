@@ -87,7 +87,7 @@ ERPNext v4 on Centos 7.
 
 #### Configure MariaDB for remote access
 
-Configure MariaDB to allow remote access (not required for operation).
+Configure MariaDB to allow remote access if desired (only required for remote access directly to database).
 
     # mysql -uroot -p
     mysql > SELECT User, Host FROM mysql.user WHERE Host <> 'localhost';
