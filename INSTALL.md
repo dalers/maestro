@@ -1,140 +1,270 @@
-## Install Maestro Data in ERPNext
+## Create New System
 
-Install ERPNext on your system following ERPNext documentation.
+Create a new Centos 7 system, install maestro and software 
+pre-requisites, and finally install ERPNext. 
 
-### Initialize New Site
+### Install Centos 7
 
-Maestro data can be installed step by step in a new site.
+Install Centos v7 from the Centos v7 "Everything-DVD"
+    
+Use the "Infrastructure Server" profile and select the following 
+add-ons: 
+
+* E-mail server
+* File and Storage Server (CIFS...)
+* Directory Server
+
+Enable networking mode and enter a hostname (e.g. 
+whizzer.swiftconstructioncompany.net) 
+
+### Setup Maestro
+
+Clone the maestro project repository.
+
+    # cd /home
+    # git clone http://github.com/dalers/maestro maestro
+
+Create maestro data directories.
+
+    # cd /home/maestro/scc/bin
+    # git clone http://github.com/dalers/maestro maestro
+
+Create SCC System Users
+
+    # cd /home/maestro/scc/bin
+    # ./setup_adduser_centos.sh
+
+### Install mdbtools
+
+Utilities from the MDB Tools project are used to export product data 
+from the SCC Parts&Vendors database. The data will be loaded into 
+ERPNext. 
+
+Install mdbtools pre-requisites.
+
+    # yum install glib2-devel
+    # yum install txt2man
+    # yum install gnome-doc-utils
+
+Install mdbtools.
+
+    # cd /root/work
+    # git clone https://github.com/brianb/mdbtools.git mdbtools
+    # cd mdbtools
+    # autoreconf -i -f
+    # ./configure
+    # make
+    # make install
+
+The mdbtools programs are installed to /usr/local/bin/ and each have a 
+man page (for short help, use --help with a command). 
+
+* mdb-array
+* mdb-export
+* mdb-header
+* mdb-hexdump
+* mdb-parsecsv
+* mdb-prop
+* mdb-schema
+* mdb-sql
+* mdb-tables
+* mdb-ver
+
+### Install ERPNext
+
+Follow the ERPNext project "*[Easy 
+Way](https://github.com/frappe/bench/blob/master/README.md)*" to install 
+ERPNext v4 on Centos 7. 
+
+#### Configure firewalld
+
+    # firewall-cmd --zone=public --add-service=http  --permanent
+    # firewall-cmd --zone=public --add-service=https --permanent
+    # firewall-cmd --zone=public --add-service=mysql --permanent
+    # firewall-cmd --reload
+
+*firewalld can also be reloaded by "systemctl reload firewalld".*
+
+#### Configure MariaDB for remote access
+
+Configure MariaDB to allow remote access (not required for operation).
+
+    # mysql -uroot -p
+    mysql > SELECT User, Host FROM mysql.user WHERE Host <> 'localhost';
+    mysql > GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'see-frappe_passwords.txt' WITH GRANT OPTION;
+
+#### Access ERPNext
+
+Connect to the system from a web browser. You should see an ERPNext 
+login screen in your browser. 
+
+## Load Maestro SCC Data into ERPNext
+
+Maestro data can be loaded into ERPNext in several ways:
+
+1. manually (master data in spreadsheet form can be imported using csv)
+2. from backup (or a Maestro release)
+
+### Load Maestro SCC Data Manually
 
 #### New Install Wizard
 
-1) Define Company
+Login as Administrator using the password in /root/frappe_passwords.txt. 
+The New Install Wizard will run automatically. 
 
-A company is a type of 'party'. To create the desired company, you need to select the party the new company will be associated with. Since there are no parties in the new database, you will have to create a party, then select it by the new company.
-
-* Name
-	* Swift Construction Company
-* Addresses
-	* Name: Default
-	* Street: 1 Swift Way
-	* Zip: 13054
-	* City: Shopton
-	* Country: United States
-	* Subdivision: New York
-* Language
-	* English
-
-2) Configure Company
-
-* Enter Company > Currency
-	* US Dollar
-
-* On the Company > Employees > Party view
-	* select the new company (e.g. Swift Construction Company)
-	* select _Add_
-
-3) Create Chart of Accounts
-
-* Company: Swift Construction Company
-* Account Template: Minimal Account Chart
-* Create Default Properties
-	* Default Receivable Account: Main Receivable
-	* Default Payable Account: Main Payable
-
+* Language: english
+* System Manager
+    * First Name: Administrator
+    * Last Name: User
+    * Email Id: root@whizzer.swiftconstructioncompany.net
+    * Password: appleton
+- Country, Timezone and Currency
+    * Country: Canada
+    * Default Currency: CAD
+    * Time Zone: America/Edmonton
+- Organization
+    * Company Name: Swift Construction Co.
+    * Company Abbreviation: SCC
+    * Financial Year Start Date: 01-01-2015
+    * Financial Year End Date: 12-31-2015
+    * What does it do: Excellence in Innovation
+- Customers
+    * (none)
+- Vendors
+    * (none)
+- Product
+    * (none)
 
 #### Import Users
 
-* Import users csv file
+* Import users from a csv-format file.
 
-##### Configure Users
+#### Configure Users
+
+A user is assigned one or more security Roles, based on the access 
+needed to information and processes. 
+
+Default Roles in new ERPNext v4 system:
+
+* Accounts Manager
+* Accounts User
+* Analytics
+* Auditor
+* Blogger
+* Customer
+* Employee
+* Expense Approver
+* HR Manager
+* HR User
+* Leave Approver
+* Maintenance Manager
+* Maintenance User
+* Manufacturing Manager
+* Manufacturing User
+* Material Manager
+* Material Master Manager
+* Material User
+* Projects Manager
+* Projects User
+* Purchase Manager
+* Purchase Master Manager
+* Purchase User
+* Quality Manager
+* Report Manager
+* Sales Manager
+* Sales Master Manager
+* Sales User
+* Supplier
+* Support Manager
+* Support Team
+* System Manager
+* Website Manager
 
 1) Tom Swift
 
-* Preferences:
-	* Timezone: America/Edmonton
-* Access rights:
-	* Sales: Manager
-	* Project: Manager
-	* Knowledge: User
-	* Warehouse: Manager
-	* Manufacturing: Manager
-	* Accounting & Finance: Financial Manager
-	* Purchases: Manager
-	* Human Resources: Employee
-	* Sharing: User
-	* Administration: Settings
+* Personal Info
+	* First Name
+	* Last Name
+* Set Password
+* Display Settings
+* Short Bio
+* Roles
+	* All, except for Employee
+* Email Settings
+	* Email Signature
+* Security Settings
+	* User Type: System User
+* Third Party Authentication
 
 2) James Period
 
-* Preferences:
-	* Timezone: America/Edmonton
-* Access rights:
-	* Sales: Manager
-	* Project: Manager
-	* Knowledge: User
-	* Warehouse: Manager
-	* Manufacturing: Manager
-	* Accounting & Finance: Financial Manager
-	* Purchases: Manager
-	* Human Resources: Employee
-	* Sharing: User
-	* Administration: Settings
+* Personal Info
+	* First Name
+	* Last Name
+* Set Password
+* Display Settings
+* Short Bio
+* Roles
+	* All, except for Employee
+* Email Settings
+	* Email Signature
+* Security Settings
+	* User Type: System User
+* Third Party Authentication
 
 3) Miquel DeLazes
 
-* Preferences:
-	* Timezone: America/Edmonton
-* Access rights:
-	* Sales: Manager
-	* Project: Manager
-	* Knowledge: User
-	* Warehouse: Manager
-	* Manufacturing: Manager
-	* Accounting & Finance: Financial Manager
-	* Purchases: Manager
-	* Human Resources: Employee
-	* Sharing: User
-	* Administration: Settings
+* Personal Info
+	* First Name
+	* Last Name
+* Set Password
+* Display Settings
+* Short Bio
+* Roles
+	* All, except for Employee
+* Email Settings
+	* Email Signature
+* Security Settings
+	* User Type: System User
+* Third Party Authentication
 
 4) Ned Newton
 
-* Preferences:
-	* Timezone: America/Edmonton
-* Access rights:
-	* Sales: Manager
-	* Project: Manager
-	* Knowledge: User
-	* Warehouse: Manager
-	* Manufacturing: Manager
-	* Accounting & Finance: Financial Manager
-	* Purchases: Manager
-	* Human Resources: Employee
-	* Sharing: User
-	* Administration: Settings
+* Personal Info
+	* First Name
+	* Last Name
+* Set Password
+* Display Settings
+* Short Bio
+* Roles
+	* All, except for Employee
+* Email Settings
+	* Email Signature
+* Security Settings
+	* User Type: System User
+* Third Party Authentication
 
 5) Rad Sampson
 
-* Preferences:
-	* Timezone: America/Edmonton
-* Access rights:
-	* Sales: Manager
-	* Project: Manager
-	* Knowledge: User
-	* Warehouse: Manager
-	* Manufacturing: Manager
-	* Accounting & Finance: Financial Manager
-	* Purchases: Manager
-	* Human Resources: Employee
-	* Sharing: User
-	* Administration: Settings
+* Personal Info
+	* First Name
+	* Last Name
+* Set Password
+* Display Settings
+* Short Bio
+* Roles
+	* All, except for Employee
+* Email Settings
+	* Email Signature
+* Security Settings
+	* User Type: System User
+* Third Party Authentication
 
-#### Import Items
+#### Create Item Attributes
 
-##### Enter Reference Data
+Create required new Item attributes:
 
-1) Define Additional Product Attributes
-
-Create additional product attributes:
+TODO - must be updated.
 
 ```
 PNUser1       User1                          Char
@@ -157,9 +287,15 @@ PNReqBy       By                             Char
 PNDate        Date (dd-mm-yyyy)              Char
 ```
 
-2) Define Units of Measure
+#### Create Units of Measure
 
-One of the units in an "UOM Category" is assigned Factor and Rate both equal to 1, and the other units in the UOM Category are expressed in terms of that unit. For example, a meter (m) is a unit of length, and has factor and rate of 1. The other units of length (mile, kilometer, centimeter and millimeter) are expressed in terms of meters.
+TODO - must be updated.
+
+One of the units in an "UOM Category" is assigned Factor and Rate both 
+equal to 1, and the other units in the UOM Category are expressed in 
+terms of that unit. For example, a meter (m) is a unit of length, and 
+has factor and rate of 1. The other units of length (mile, kilometre, 
+centimetre and millimetre) are expressed in terms of meters. 
 
 ```
 Name          Symbol      UOM Cat  Factor   Rate            Rounding Precision
@@ -169,30 +305,27 @@ spool100FT    spl100FT    Length   30.48    0.032808398950  0.01
 spool19300FT  spl19300FT  Length   5882.64  0.000169991704  0.01
 ```
 
-Notes
-- A UOM symbol has a maximum of 10 characters.
+#### Load Items
 
-##### Import Items
+1) Login as Administrator
 
-1) Login as admin
+2) Menu: Stock > Item > List View > Import
 
-2) Menu: Product > Products, Toolbar: Import Data (Encoding: Latin1) -> tryton-import/scc-products.csv
+scc-products.csv is created using concatenated name and detail as name:
 
-To re-create scc-products.csv using concatenated name and detail as name:
-
-* export PN table from a Parts&Vendors(TM) database using mdbtools (pv_pn.csv)
+* export PN table from a P&V database using mdbtools (pv_pn.csv)
 * copy export from P&V PN table (e.g. scc/plm-scc-csv-5/pv_pn.csv)
 * add column PNTitleDetail =CONCATENATE(J2,IF(K2="","",CONCATENATE(" : ",K2)))
 * copy/paste PNTitleDetail column as text to replace formula
 * sort by PNTitleDetail
 * sort by PNID (or PNPartNumber?)
-* delete all columns except those included in Tryton mapping
-* edit column titles according to Tryton mapping
+* delete all columns except those included in attribute matrix
+* edit column titles according to attribute matrix
 
-**Mapping from Parts&Vendors to ERPNext**
+**Attribute Matrix**
 
 ```
-P&V                  -> Tryton
+P&V PN Field         -> ERPNExt Attribute
 -----------------------------------------------------------			
 PNID                 -> product-attribute PNID
 PNUNID               -> product-attribute PNUNID
@@ -213,21 +346,17 @@ Keys
 - PNTYPE (fk to table TYPE)
 
 Notes
-- PNSTATUS contains status value (i.e. "U", "R", or "O"), but could (should?) be fk to STATUSID in table STATUS (that is, if table STATUS existed). 
+* PNSTATUS contains status value (i.e. "U", "R", or "O"), but could 
+(should?) be fk to STATUSID in table STATUS (that is, if table STATUS 
+existed). 
 
+#### Load BOMs
 
-#### Import BOMs
-
-1) Menu: Manufacturing / Product / xxx / Bill of Materials / Create
+1) Menu: Manufacturing > Product > xxx > Bill of Materials > Create
 
 2) Create BoMs as per scc/plm/csv-5/pv_pl.csv
 
 ```
-60000001 ASSY,FIELD SPARES,AIRCRAFT WIRELESS
-|--- 90000012 EARPH,MONO,HI-Z,3.5MM Maplin LB25C
-|--- 20000003 PCA,AIRCRAFT WIRELESS Trilogy-Net SCC:20000003
-\--- 50000001 DOC,USER,AIRCRAFT WIRELESS
-
 10000003 ASSY,MKTG,AIRCRAFT WIRELESS
 |--- 90000012 EARPH,MONO,HI-Z,3.5MM
 |--- 50000001 DOC,USER,AIRCRAFT WIRELESS
@@ -258,142 +387,31 @@ Notes
      |--- 90000016 CONN,RING,16-22AWG,#4,RED
      |--- 90000017 WIRE,STRANDED,16AWG,GREEN,POLY
      \--- 90000018 WIRE,STRANDED,16AWG,YELLOW,POLY
+
+60000001 ASSY,FIELD SPARES,AIRCRAFT WIRELESS
+|--- 90000012 EARPH,MONO,HI-Z,3.5MM Maplin LB25C
+|--- 20000003 PCA,AIRCRAFT WIRELESS Trilogy-Net SCC:20000003
+\--- 50000001 DOC,USER,AIRCRAFT WIRELESS
 ```
 
-#### Import Vendors
+#### Load Vendors
 
-#### Import Customers
+Load vendors.
 
+#### Load Customers
 
-### Restore from Backup
+Load customers.
 
-Maestro data can be restored to an existing ERPNext install (restoring from backup data to site1.local).
+#### Load Projects
 
-* drop initial database created during ERPNext install
-* load Maestro database
-* restore Maestro files
+Load projects.
+
+### Load Maestro SCC Data from Backup
+
+Maestro data can be restored to an existing ERPNext install (restoring 
+from backup data to site1.local). 
+
+* drop site1.local database (created during ERPNext install)
+* load Maestro database (first re-creates database)
+* restore Maestro files and set ownership (frappe:frappe)
  
-#### Restore Maestro ERPNExt Database
-
-#### Restore Maestro ERPNExt Files
-
-#### Restore Maestro System Users
-
-## Workflows
-
-*These workflows are included here temporarily for convenience, and will eventually be moved to one or more separate documents.*
-
-The Swift Construction Company (SCC) manufactures a radio receiver called an  Aircraft Wireless.  The SCC buys an assembled electronics circuit board (Part Number 20000003) in lots of 10 from Trilogy-Net.  The circuit boards are used to manufacture Aircraft Wireless units (PN 10000003). When circuit boards from Trilogy-Net arrive at the SCC, they are inspected and, if acceptable, identified with a serial number and stored on a shelf. One of the SCC’s customers is B&E Submarines, who some time ago purchased an Aircraft Wireless system from the SCC to evaluate.
-
-The products (part numbers), customer (B&E) and supplier (Trilogy-Net) have been created. Two BoMs have been created, one for the finished Aircraft Wireless product (PN 10000003) and one for a spare parts kit (PN 60000001), which includes the electronics circuit board (PN 20000003).
-
-
-### Sales
-
-1) Create Customer
-
-```
-Sales / Customers / Create / Edward Bentley (B&E Submarines)
-  Sales & Purchases / Salesperson / Jacab Wood
-  Sales & Purchases / Sales Team / Sales Department
-```
-
-2) Create Sales Order
-* Create invoice, validate, print PDF
-* Leave invoice UNPAID PAID (do not "Register Payment")
-
-3) Create Opportunity
-
-```
-Settings / Users / Jacab Wood / Edit /
-  Preferences / Default Sales Team: Sales Department
-  Access Rights / Sales / Manager
-Sales / Customers / Edward Bentley / Edit / 
-  Sales & Purchases / Salesperson / Jacab Wood
-  Sales & Purchases / Sales Team / Sales Department
-Sales / Opportunities / Create
-  Subject: Airforce Trial
-    changed state to Proposition
-    logged a note, attached proposal (docx and pdf)
-      noted attaching files to note is essentially same as using Attachment
-      button, but leaves nice audit trail
-    scheduled call, marked done
-    updated expected revenue and risk percentage
-    change stage to negotiation
-    added Technical Approval to stages of the sale (kanban view)
-    change stage to Won
-    Create Quotation (book calls it "Make Quotation")
-      Quotation SO002
-    Left quotation as-is (did not convert to Sales Order)
-```
-	
-4) Create Lead
-
-```
-Sales / Leads / Create Fenwick Hosmer (Hosmer Engineering)
-  did not identify as customer
-  save
-did not create custom stages for "Sales Department" as shown in book, however...
-  Sales / Configuration / Sales Teams / Sales Department
-    why isn't Jacab Wood shown as Team Members?!?
-    could add manually but did not (unsure if need to and also implications of doing so)
-    profile for Jacab shows Default Sales Team = Sales Department - perhaps only when documents "pushed" from user?
-```
-	
-### Purchasing
-
-1) Purchase product from supplier
-* buy ??? from ???
-* serialized!
-
-### Project Management
-
-1) Import projects (import/projects.csv)
-
-## Serialized Stock Purchased by a Customer
-
-This workflow explores serialized stock in the context of a customer purchase. B&E Submarines desires to purchase a spare parts kit for the Aircraft Wireless unit they previously purchased. A serialized circuit board is used in the assembly of the spare parts kit (preferably a phantom-type BoM to make the parts in it visible), which is then sold and delivered to B&E.
-
-Sometime later, Ed Bentley calls from B&E. He says he found a circuit board, but he doesn't know if it is the circuit board from the spares kit. Ed is not sure, but he thinks the original board might have failed and he swapped it with the one from the spare parts kit. Ed wants to know if the serial number on the board is the same as the board shipped in the spare parts kit he bought.
-
-### Serialized Stock Consumed by a Project
-
-Explore serial numbers in the context of a project. B&E Submarines plans to upgrade 5 of their submarines with Aircraft Wireless systems. A contract is negotiated between the SCC and B&E, and the SCC initiates a Project to capture all related activity (of which the physical receiver units are only one portion). Complete radio receivers PN 10000003 are manufactured, each with its own serial number, traceable to the serialized electronics circuit board within. The completed radio receivers are sold and delivered to B&E as part of the overall project.
-
-Sometime later, Ed Bentley calls from B&E. He has a circuit board in his hand again, and wants to know where the serial number came from. Ed asks if the circuit board was from one of the 5 receivers delivered as part of the upgrade project.
-
-### Create, sell, ship, and return a field spares kit
-
-* Create manufacturing order
-* Issue material to order (serialized PCA)
-* Deliver order to customer
-* Return order from customer
-* Return material to stock (serialized PCA)
-
-### Issues
-
-1) Import issues (import/issues.csv)
-
-### ToDo
-
-1) Create new workflow
-* RMA
-* Re-verification test
-
-2) Add new Product Fields
-* Type (pv-pn.PNType)
-* Creation date (pv-pn.PNDate)
-* Designer (pv-pn.PNReqBy)			
-* Stock Location (pv-pn.PNUser9)
-* Stock Bin (pv-pn.PNUser10)
-* Title (pv-pn.PNTitle) ???
-* Detail (pv-pn.PNDetail) ???
-
-3) Import BoMs
-* pv_pl.csv
-
-4) Import product sources
-* pv_su.csv
-* pv_mfr.csv
-* pv_mfrpn.csv
-
