@@ -1,30 +1,30 @@
 ## SCC Product Lifecycle Management (PLM) Data
 
-The SCC PLM data currently exists of part data for the SCC Aircraft
-Wireless product.
+SCC PLM data consists of the SCC Aircraft Wireless product.
 
 The Aircraft Wireless product lifecycle includes five design iterations.
 
     Iteration                      Date
     -----------------------------------------
-    1  Release PCA                 2013-01-01
-    2  Revise PCB                  2013-01-02
+    1  Release prototype PCA       2013-01-01
+    2  Revise PCA (PCB)            2013-01-02
     3  Release Product             2013-01-03
-    4  Manufacturing Improvements  2013-01-04
-    5  Field Spares Kit            2013-01-05
+    4  Release Mfg Improvements    2013-01-04
+    5  Release Field Spares Kit    2013-01-05
 
 "Current" information for each iteration in the product life cycle of 
 the Aircraft Wireless has been captured, including documents related to 
 each part number. This allows the iterations to be "played back" in 
-sequence, as if occurring sequentially in time. 
+sequence, as if occurring sequentially in time. See [TODO SECTION] for
+details of each iteration.
 
 Directory and file timestamps conform to the iteration dates above. 
 Dates embedded in the content of a file (such as in a drawing title 
 block) conform when possible (some dates are automatically generated and 
 cannot easily be made to conform). Refer to the Maestro project Wiki for 
-more information on the changes made in each iteration. 
+more information on the changes made in each iteration.
 
-## Parts&Vendors(TM) databases
+## Parts&Vendors(TM) Database
 
 The data in each Parts&Vendors database is "current" as of a particular 
 iteration (e.g. pv-1.mdb for iteration 1, pv-2.mdb for iteration 2, 
@@ -37,7 +37,7 @@ utility from the mdbtools project, with one CSV file for each database
 table. The CSV files for each iteration are in separate directories 
 (e.g. csv-1/ for iteration 1, csv-2/ for iteration 2, etc.). 
 
-## File vaults
+## File Vault
 
 A part in a Parts&Vendors database may include references to supporting 
 documents located in a file system. In general, all parts in the SCC 
@@ -62,7 +62,7 @@ version in iteration 1 of the Aircraft Wireless product life cycle, and
 parts-3-nover/10000001/10000001_PBS.pdf is version 3  (to confirm, open
 the documents in a viewer and inspect the title blocks). 
 
-## Recreating a "current" condition of part documents
+## Re-create "Current" Part Documents
 
 Only files added or modified by an iteration are included in the 
 respective parts directory.

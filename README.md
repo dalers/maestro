@@ -1,18 +1,16 @@
-**Maestro**<sup>TM</sup> is a cohesive enterprise model for exploring, evaluating and demonstrating business workflows using ERP and ERP-like systems, with an emphasis on processes related to parts, projects, material, issues and people. Maestro is based on a well-defined fictional going concern - the Swift Construction Company.
+**Maestro**<sup>*TM*</sup> is a cohesive enterprise model for exploring, evaluating and demonstrating business workflows using ERP and ERP-like systems, with an emphasis on processes related to parts, projects, material, issues and people. Maestro is based on a well-defined fictional going concern - the Swift Construction Company.
 
-The Swift Construction Company (the *SCC*) provides the context for exploring design, manufacturing and sales processes, and to demonstrate the benefit to workers and teams of having shared immediate access to critical information, including parts, projects, material (serialized or otherwise controlled), issues and people.
+The Swift Construction Company (SCC) provides the context for exploring design, manufacturing and sales processes, and to demonstrate the benefit to workers and teams of having shared immediate access to critical information, including parts, projects, material (serialized or otherwise controlled), issues and people.
 
 Maestro is an open source project, licensed according to the terms of the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/). This license encourages the return of derived works to the project to the benefit of the community.
 
 Getting Started
 ---------------
-Review the ERP-specific workflows in xxx-accepted/ (released) and xxx-proposed/ (proposed/draft). The numbering methodology is chronological.
+Review the following:
 
-Proposing or Editing a Workflow
--------------------------------
-To propose a new or revised workflow:
-* fork this repo, create a branch, checkout that branch, add the new or modified workflow in `*xxx*-proposed/`, push the branch to Github, and send a pull request; or,
-* create a issue in the repository to start a discussion on Github.
+* INSTALL.md - describes installing Maestro and loading SCC master data (ERPNext v4 on Centos 7)
+* SCC.md - describes structure of SCC master data. 
+* WORKFLOWS.md - describes representative SCC workflows.
 
 Issue Tracking
 --------------
@@ -30,6 +28,8 @@ Legal
 -----
 Maestro source is copyright by its authors, as recorded in the maestro repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you agree to license your contribution according to the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/).
 
+Maestro is a trademark of Dale R. Scott (see [website](http://www.dalescott.net), [Github](https://github.com/dalers)). 
+
 Support
 -------
 Should you need help, try the following:
@@ -45,5 +45,3 @@ If you post an issue, try to include answers to the following questions:
 * Include as an example, the **simplest** sequence of operations that demonstrates the undesired or unanticipated behaviour.
 
 ---
-
-Maestro is a trademark of [Dale Scott](http://www.dalescott.net).
