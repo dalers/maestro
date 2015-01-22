@@ -114,7 +114,7 @@ echo "setup complete"
 #read -t 60 -p "setup complete - Press [Enter] to continue..." key
 
 echo
-echo "Iteration 1 (Prototype Release))"
+echo "Iteration 1 - Prototype Release"
 echo "========================================"
 
 echo "copy 'current' master data spreadsheets and csv exports"
@@ -176,7 +176,7 @@ cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/curre
 read -t 60 -p "completed iteration 1 (prototype release), press [Enter] to continue..." key
 
 echo
-echo "Iteration 2 (Revise PCB)"
+echo "Iteration 2 - Revise PCB"
 echo "========================================"
 
 echo "move 'current' csv to 'old' csv"
@@ -241,7 +241,7 @@ cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/curre
 read -t 60 -p "completed iteration 2 (revise PCB), press [Enter] to continue..." key
 
 echo
-echo "Iteration 3 (Product Release)"
+echo "Iteration 3 - Product Release"
 echo "========================================"
 
 echo "move 'current' csv to 'old' csv"
@@ -306,7 +306,7 @@ cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/curre
 read -t 60 -p "completed iteration 3 (product release), press [Enter] to continue..." key
 
 echo
-echo "Iteration 4 (Manufacturing Improvements)"
+echo "Iteration 4 - Manufacturing Improvements"
 echo "========================================"
 
 echo "move 'current' csv to 'old' csv"
@@ -371,7 +371,7 @@ cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/curre
 read -t 60 -p "completed iteration 4 (mfg improvements), press [Enter] to continue..." key
 
 echo
-echo "Iteration 5 (Field Service Support)"
+echo "Iteration 5 - Field Service Support"
 echo "========================================"
 
 echo "move 'current' csv to 'old' csv"
