@@ -14,66 +14,44 @@
 #      - rsync_current_files.sh and export_current_to_csv.sh MUST complete first
 #
 
-# find new/modified/deleted part numbers and create report lists
-echo "send_current_change_report: extract PN details from 'current' csv"
+# create a list with current part number details to compare later with previous list
+# (rsync has created a log file, which will be used to identify file changes)
+echo "send_current_change_report: extract and sort 'current' part number details."
 /home/maestro/maestro-repo/scc/bin/pndetails.py /home/maestro/scc/csv/pv_pn.csv /home/maestro/scc/csv/pv_pn_details.csv
 sort /home/maestro/scc/csv/pv_pn_details.csv  > /home/maestro/scc/csv/pv_pn_details_sort.csv
 
-echo "send_current_change_report: compare 'current' PN details to 'old' details"
-comm -23 /home/maestro/scc/csv/pv_pn_details_sort.csv /home/maestro/scc/csv.old/pv_pn_details_sort.csv > /home/maestro/scc/work/pv_pn_new.txt
-comm -13 /home/maestro/scc/csv/pv_pn_details_sort.csv /home/maestro/scc/csv.old/pv_pn_details_sort.csv > /home/maestro/scc/work/pv_pn_changed.txt
-
-# create summary of rsync changes and errors
-echo "send_current_change_report: create change summary reports"
-
-echo "Part Documents"     >  /home/maestro/scc/work/rsync.log
-echo "----------------------------------------" >> /home/maestro/scc/work/rsync.log
-cut -c 29- /home/maestro/scc/work/rsync-parts.log | grep '>f'      >> /home/maestro/scc/work/rsync.log
-cut -c 29- /home/maestro/scc/work/rsync-parts.log | grep error     >> /home/maestro/scc/work/rsync.log
-echo ""                                                            >> /home/maestro/scc/work/rsync.log
-                                                               
-echo "Material Documents" >> /home/maestro/scc/work/rsync.log
-echo "----------------------------------------" >> /home/maestro/scc/work/rsync.log
-#cut -c 29- /home/maestro/scc/work/rsync-material.log | grep '>f'   >> /home/maestro/scc/work/rsync.log
-#cut -c 29- /home/maestro/scc/work/rsync-material.log | grep error  >> /home/maestro/scc/work/rsync.log
-echo ""                                                             >> /home/maestro/scc/work/rsync.log
-
-# build report
-echo "send_current_change_report: build report"
-# heading
-echo "" >  /home/maestro/scc/work/current_changereport.txt
-echo "Do not reply, this address does not accept mail" >> /home/maestro/scc/work/current_changereport.txt
+# start new email report file and add heading
+echo "send_current_change_report: build email report"
+echo "Do not reply, the return address will not accept mail." > /home/maestro/scc/work/current_changereport.txt
 echo "" >> /home/maestro/scc/work/current_changereport.txt
 
-# body
-echo "New Part Numbers" >> /home/maestro/scc/work/current_changereport.txt
+# add part number changes to email report file
+echo "Part Numbers" >> /home/maestro/scc/work/current_changereport.txt
 echo "========================================" >> /home/maestro/scc/work/current_changereport.txt
-cat /home/maestro/scc/work/pv_pn_new.txt >> /home/maestro/scc/work/current_changereport.txt
-echo "" >> /home/maestro/scc/work/current_changereport.txt
+diff -u /home/maestro/scc/csv.old/pv_pn_details_sort.csv /home/maestro/scc/csv/pv_pn_details_sort.csv  >> /home/maestro/scc/work/current_changereport.txt
 
-echo "Modified and Deleted Part Numbers" >> /home/maestro/scc/work/current_changereport.txt
+# add document changes to email report file
+echo "" >> /home/maestro/scc/work/current_changereport.txt
+echo "Documents" >> /home/maestro/scc/work/current_changereport.txt
 echo "========================================" >> /home/maestro/scc/work/current_changereport.txt
-cat /home/maestro/scc/work/pv_pn_changed.txt >> /home/maestro/scc/work/current_changereport.txt
-echo "" >> /home/maestro/scc/work/current_changereport.txt
+cut -c 28- /home/maestro/scc/work/rsync-parts.log | grep '>f'  >> /home/maestro/scc/work/current_changereport.txt
+cut -c 28- /home/maestro/scc/work/rsync-parts.log | grep error >> /home/maestro/scc/work/current_changereport.txt
 
-echo "New and Modified Documents" >> /home/maestro/scc/work/current_changereport.txt
-echo "========================================" >> /home/maestro/scc/work/current_changereport.txt
-cat /home/maestro/scc/work/rsync.log >> /home/maestro/scc/work/current_changereport.txt
-echo "" >> /home/maestro/scc/work/current_changereport.txt
-
+# add footer to email report file
 echo "" >> /home/maestro/scc/work/current_changereport.txt
 echo "----------------------------------------" >> /home/maestro/scc/work/current_changereport.txt
 echo "Contact your Maestro administrator with questions or concerns." >> /home/maestro/scc/work/current_changereport.txt
 date >> /home/maestro/scc/work/current_changereport.txt
-echo "" >> /home/maestro/scc/work/current_changereport.txt
 
-# send report
-#echo "send_current_change_report: send email report..."
-#mail -s "Maestro Part and Document Changes" root@whizzer.local < /home/maestro/scc/work/current_changereport.txt
-#echo
+# clean up any EOL issues in report file (prevent mail client from misinterpreting file contents as binary data)
+echo "send_current_change_report: dos2unix report file..."
+dos2unix /home/maestro/scc/work/current_changereport.txt
+
+# mail report file in body of email
+echo "send_current_change_report: send email report..."
+mail -s "Maestro PLM Change Report" root@whizzer.swiftconstructioncompany.net < /home/maestro/scc/work/current_changereport.txt
 
 # cleanup
 #rm /home/maestro/scc/work/rsync*.log
-echo
 
 exit 0

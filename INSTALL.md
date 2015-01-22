@@ -1,3 +1,5 @@
+# Maestro Install
+
 ## Create New System
 
 Create a new Centos 7 system, install maestro and software 
@@ -7,7 +9,7 @@ pre-requisites, and finally install ERPNext.
 
 Install Centos v7 from the Centos v7 "Everything-DVD"
     
-Use the "Infrastructure Server" profile and select the following 
+Select the "Infrastructure Server" install profile with the following 
 add-ons: 
 
 * E-mail server
@@ -17,22 +19,12 @@ add-ons:
 Enable networking mode and enter a hostname (e.g. 
 whizzer.swiftconstructioncompany.net) 
 
-### Setup Maestro
+### Install dos2unix
 
-Clone the maestro project repository.
+Eventually anyone working in both Windows and Unix environments will
+need to convert a file of one end-of-line format to the other. 
 
-    # cd /home
-    # git clone http://github.com/dalers/maestro maestro
-
-Create maestro data directories.
-
-    # cd /home/maestro/scc/bin
-    # git clone http://github.com/dalers/maestro maestro
-
-Create SCC System Users
-
-    # cd /home/maestro/scc/bin
-    # ./setup_adduser_centos.sh
+    # yum install dos2unix
 
 ### Install mdbtools
 
@@ -96,7 +88,26 @@ Configure MariaDB to allow remote access if desired (only required for remote ac
 #### Access ERPNext
 
 Connect to the system from a web browser. You should see an ERPNext 
-login screen in your browser. 
+login screen in your browser. You do not need to login at this time (but
+if you did need to, the password is in /root/frappe_passwords.txt)
+
+### Setup Maestro
+
+Create maestro directory and clone maestro project repository.
+
+    # mkdir /home/maestro ; cd /home/maestro
+    # cd /home
+    # git clone http://github.com/dalers/maestro maestro
+
+Create maestro data directory.
+
+    # cd /home/maestro/scc/bin
+    # ./setup_file_share.sh
+
+Create SCC system users.
+
+    # cd /home/maestro/scc/bin
+    # ./setup_adduser_centos.sh
 
 ## Load Maestro SCC Data into ERPNext
 
