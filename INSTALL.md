@@ -85,7 +85,7 @@ Configure MariaDB to allow remote access if desired (only required for remote ac
     mysql > SELECT User, Host FROM mysql.user WHERE Host <> 'localhost';
     mysql > GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'see-frappe_passwords.txt' WITH GRANT OPTION;
 
-#### Access ERPNext
+#### Verify ERPNext is Live
 
 Connect to the system from a web browser. You should see an ERPNext 
 login screen in your browser. You do not need to login at this time (but
@@ -113,11 +113,10 @@ Create SCC system users.
 
 Maestro data can be loaded into ERPNext in several ways:
 
-1. manually (master data in spreadsheet form can be imported using csv)
-2. from backup (or a Maestro release)
+1. entering data manually by hand, importing bulk data from spreadsheets when possible
+2. restoring from a Maestro release or existing backup
 
-### Load Maestro SCC Data Manually
-
+### Load Data Manually
 #### New Install Wizard
 
 Login as Administrator using the password in /root/frappe_passwords.txt. 
