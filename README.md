@@ -1,6 +1,6 @@
-**Maestro**<sup>*TM*</sup> is a cohesive enterprise model for exploring, evaluating and demonstrating business workflows using ERP and ERP-like systems, with an emphasis on processes related to parts, projects, material, issues and people. Maestro is based on a well-defined fictional going concern - the Swift Construction Company.
+**Maestro**<sup>*TM*</sup> is a cohesive business model for exploring, evaluating and demonstrating workflows using ERP-like software, with an emphasis on parts, projects, material, issues and people. Maestro includes data and scripted procedures for working with specific ERP software, concentrating on [ERPNext](https://www.erpnext.com), a relatively new free and open source web-based ERP application. 
 
-The Swift Construction Company (SCC) provides the context for exploring design, manufacturing and sales processes, and to demonstrate the benefit to workers and teams of having shared immediate access to critical information, including parts, projects, material (serialized or otherwise controlled), issues and people.
+Maestro is based on a well-defined going concern - the fictional Swift Construction Compan (SCC). The SCC provides the context for exploring design, manufacturing and sales processes, and for demonstrating to others the benefits of shared immediate access to critical information, including parts, projects, material (including serialized and lot identified and controlled), issues and people.
 
 Maestro is an open source project, licensed according to the terms of the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/). This license encourages the return of derived works to the project to the benefit of the community.
 
@@ -8,9 +8,9 @@ Getting Started
 ---------------
 Review the following:
 
-* INSTALL.md - describes installing Maestro and loading SCC master data (ERPNext v4 on Centos 7)
+* INSTALL.md - install Maestro in ERPNext v4 on Centos 7.
 * SCC.md - describes structure of SCC master data. 
-* WORKFLOWS.md - describes representative SCC workflows.
+* WORKFLOWS.md - SCC workflow descriptions.
 
 Issue Tracking
 --------------
