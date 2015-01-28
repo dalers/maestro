@@ -2,7 +2,7 @@
 #
 # Setup file share
 #
-# - run as root
+# - run as root, /home/maestro/scc must exist
 # - ensure the username which will be accessing files in
 #   /home/maestro/scc/... has necessary privileges.
 #

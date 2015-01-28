@@ -11,28 +11,28 @@
 #
 
 # persons
-echo "export_current_to_csv: person spreadsheet - NOT exported"
-echo "  - using Z:\ods\issue.csv"
+echo "export_current_to_csv: persons - NOT exported"
+echo "  - using Z:\ods\person.csv"
 cp -af /home/maestro/scc/ods/person.csv /home/maestro/scc/csv/
 
 # issues
-echo "export_current_to_csv: issue spreadsheet - NOT exported"
+echo "export_current_to_csv: issues - NOT exported"
 echo "  - using Z:\ods\issue.csv"
 cp -af /home/maestro/scc/ods/issue.csv /home/maestro/scc/csv/
 
 # projects
-echo "export_current_to_csv: project spreadsheet - NOT exported"
-echo "  - using Z:\project\issue.csv"
+echo "export_current_to_csv: projects - NOT exported"
+echo "  - using Z:\ods\project.csv"
 cp /home/maestro/scc/ods/project.csv /home/maestro/scc/csv/
 
 # stock locations
-echo "export_current_to_csv: stock location spreadsheet - NOT exported"
-echo "  - using Z:\project\stock_location.csv"
+echo "export_current_to_csv: stock locations - NOT exported"
+echo "  - using Z:\ods\stock_location.csv"
 cp /home/maestro/scc/ods/stock_location.csv /home/maestro/scc/csv/
 
 # stock serial numbers
-echo "export_current_to_csv: stock serial number spreadsheet - NOT exported"
-echo "  - using Z:\project\stock_serial.csv"
+echo "export_current_to_csv: stock serial numbers - NOT exported"
+echo "  - using Z:\ods\stock_serial.csv"
 cp /home/maestro/scc/ods/stock_serial.csv /home/maestro/scc/csv/
 
 # part numbers and BOMs

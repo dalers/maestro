@@ -91,23 +91,55 @@ Connect to the system from a web browser. You should see an ERPNext
 login screen in your browser. You do not need to login at this time (but
 if you did need to, the password is in /root/frappe_passwords.txt)
 
-### Setup Maestro
+### Install Maestro
 
 Create maestro directory and clone maestro project repository.
 
     # mkdir /home/maestro ; cd /home/maestro
     # cd /home
-    # git clone http://github.com/dalers/maestro maestro
+    # git clone http://github.com/dalers/maestro maestro-repo
 
-Create maestro data directory.
+Create SCC Maestro data directory.
 
-    # cd /home/maestro/scc/bin
+    # cd /home/maestro/maestro-repo/scc/bin
     # ./setup_file_share.sh
 
 Create SCC system users.
 
     # cd /home/maestro/scc/bin
     # ./setup_adduser_centos.sh
+
+Restore SCC file iterations
+
+    # cd /home/maestro/scc/bin
+    # ./run_iterations.sh
+
+Configure cron job for daily reporting of new and modified PLM data.
+
+    # vi /etc/crontab
+
+    [root@hotstuff bin]# cat /etc/crontab
+    SHELL=/bin/bash
+    PATH=/sbin:/bin:/usr/sbin:/usr/bin
+    MAILTO=root
+    
+    # For details see man 4 crontabs
+    
+    # Example of job definition:
+    # .---------------- minute (0 - 59)
+    # |  .------------- hour (0 - 23)
+    # |  |  .---------- day of month (1 - 31)
+    # |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+    # |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+    # |  |  |  |  |
+    # *  *  *  *  * user-name  command to be executed
+    #
+    # epd2
+    #1      2       *       *       *       root    /home/maestro/maestro-repo/scc/bin/rsync_current_files_bhi.sh
+    20      2       *       *       *       root    /home/maestro/maestro-repo/scc/bin/export_current_to_csv.sh
+    30      2       *       *       *       root    /home/maestro/maestro-repo/scc/bin/send_current_change_report_bhi.sh
+
+*Currently only reporting of new and modified data is done automatically, but eventually new and modified data will also be imported automatically into ERPNext.*
 
 ## Load Maestro SCC Data into ERPNext
 
