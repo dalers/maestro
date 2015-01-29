@@ -11,11 +11,10 @@
 #   then copy modified file from source/
 # - files deleted in a source directory are not deleted from [parts|material].rsync/
 #
-# Schedule using cron in following order:
-#   1. rsync_current_files.sh
-#   2. export_current_to_csv.sh
-#   3. send_current_change_report.sh
-#      - rsync_current_files.sh and export_current_to_csv.sh MUST complete first
+# Schedule together in /etc/crontab:
+#   - rsync_current_files.sh
+#   - export_current_to_csv.sh
+#   - send_current_change_report.sh
 #
 
 #

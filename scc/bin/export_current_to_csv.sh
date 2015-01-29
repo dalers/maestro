@@ -1,8 +1,7 @@
 #!/bin/sh
 #
 # Copy 'current' CSV data to csv/
-# - programatically export csv from source to csv/ when possible
-# - copy csv manually-exported from spreadsheets to csv/
+# - obtain from source if possible (e.g. spreadsheet or other db)
 #
 # Schedule using cron in following order:
 #   1. rsync_current_files.sh

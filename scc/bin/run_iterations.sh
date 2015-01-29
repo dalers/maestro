@@ -118,7 +118,7 @@ echo "========================================"
 echo "create bootstrap files"
 # csv.old/pv_pn
 head -n 1 /home/maestro/maestro-repo/scc/csv-1/pv_pn.csv > /home/maestro/scc/csv.old/pv_pn.csv
-./pndetails.py /home/maestro/scc/csv.old/pv_pn.csv /home/maestro/scc/csv.old/pv_pn_details.csv
+./get_pv_pn_details.py /home/maestro/scc/csv.old/pv_pn.csv /home/maestro/scc/csv.old/pv_pn_details.csv
 sort /home/maestro/scc/csv.old/pv_pn_details.csv  > /home/maestro/scc/csv.old/pv_pn_details_sort.csv
 # csv.old/pv_pl
 head -n 1 /home/maestro/maestro-repo/scc/csv-1/pv_pl.csv > /home/maestro/scc/csv.old/pv_pl.csv
