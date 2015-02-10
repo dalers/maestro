@@ -11,8 +11,8 @@
 --   user does exist, CREATE USER will fail and script will be aborted (MySQL
 --   5.6.5+ supports "DROP USER IF EXISTS...").
 -- DROP USER 'maestro'@'localhost' ;
-CREATE USER 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer';
-GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+-- CREATE USER 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer';
+-- GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
 
 --
 -- create database (drop existing first)
@@ -20,7 +20,7 @@ GRANT USAGE ON * . * TO 'maestro'@'localhost' IDENTIFIED BY 'stratemeyer' WITH M
 
 DROP SCHEMA IF EXISTS `maestro` ;
 CREATE SCHEMA IF NOT EXISTS `maestro` DEFAULT CHARACTER SET latin1 ;
-GRANT ALL PRIVILEGES ON `maestro` . * TO 'maestro'@'localhost';
+-- GRANT ALL PRIVILEGES ON `maestro` . * TO 'maestro'@'localhost';
 
 USE `maestro` ;
 

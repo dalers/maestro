@@ -13,14 +13,14 @@ chmod a+rw ../../assets/
 chmod a+rw ../runtime/
 echo
 
-echo "Create dbms user and database..."
+echo "Create database..."
 # create_db.sql creates maestro user and database 
 # uncomment if user exists (create_db.sql will drop db if needed)
 #mysql -uroot -p --show-warnings --verbose -e "DROP USER maestro@localhost ;"
 # not required to drop db, create_db.sql will drop db if exists
 #mysql -uroot -p --show-warnings --verbose -e "DROP DATABASE maestro ;"
 
-mysql -uroot -p --show-warnings --verbose < ./create_db.sql
+mysql -uroot -pappleton --show-warnings --verbose < ./create_db.sql
 
 echo "Migrate database schema..."
 ../yiic migrate
