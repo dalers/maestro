@@ -1,8 +1,8 @@
 Maestro(TM) is a web-based application for design, manufacturing and sales teams to manage and share information related to parts, projects, material (simple, serialized, or lot controlled), issues and people. Maestro places "current" information under control in an environment of *Transparency with Trust*. Maestro can also be used to replace a Parts&Vendors(TM) system.
 
-A complete data set for the fictional Swift Construction Company (SCC) is included with Maestro. 
+Maesto includes a complete data set for the fictional Swift Construction Company (SCC). 
 
-The purpose of the [Maestro project](https://www.github.com/maestrobpm/maestro) is to create, as a community, the leading platform for integrating SME business processes. Maestro is in active development. For more information, see the [Maestro project wiki](https://github.com/maestrobpm/maestro/wiki) and experiment with your own use cases. Maestro is an open source project, using the permissive business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
+The purpose of the [Maestro project](https://github.com/dalers/maestro) is to create, as a community, the leading platform for integrating SME business processes. Maestro is in active development. For more information, see the [Maestro project wiki](https://github.com/dalers/maestro/wiki). Maestro is an open source project, using the permissive business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
 Getting Started
 ===============
@@ -30,7 +30,7 @@ Install Maestro.
 
 2) Confirm Yii system requirements are met using the "Yii Requirement Checker" application included in the Yii framework download.
 
-*Only the MySQL PDO extension is required.*
+*Only the MySQL PDO extension is used by Maestro.*
 
 Create a link in the /usr/local/www/ to the yii install directory (Maestro assumes the yii install directory is called "yii", and is in the same parent directory as Maestro).
 
@@ -94,8 +94,6 @@ If you want Parts&Vendors to be have access to the Maestro file vault, edit /usr
 ```
 
 7) Load the Swift Construction Company (SCC) data into Maestro. The load_demo.sh script loads a series of current data "iterations", and emails a change report for each iteration.
-
-*An iteration is when there is a significant change in the "current" data that Maestro is monitoring for control. This can be data in Parts&Vendors, in master data spreadsheets, or files in a remote file share monitored by Maestro.*
 
 ```
 > cd maestro/protected/data
