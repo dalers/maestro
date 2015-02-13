@@ -1,0 +1,25 @@
+# employee list for rmuser_scc.sh
+# - must be writable ONLY by root 
+#
+bjenks
+bswift
+barmstrong
+fmason
+gjackson
+hbaldwin
+hrandall
+jwood
+jperiod
+jhaddon
+jmorse
+jsharp
+mbaggert
+mnestor
+mdelazes
+mblair
+nnewton
+rsampson
+smalloy
+tswift
+wdamon
+wcrawford

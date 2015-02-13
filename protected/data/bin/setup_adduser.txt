@@ -1,0 +1,27 @@
+# employee list for adduser_scc.sh
+# - must be writable ONLY by root  
+#
+#name(login):uid:gid:class(login):change(password ageing):expire(account):gecos(full name, dpt/title):home_dir:shell:password
+#
+bjenks::::::Barcoe Jenks, Electronics Engineer::tcsh:appleton
+bswift::::::Barton Swift, President::tcsh:appleton
+barmstrong::::::Bub Armstrong, Mechanical Engineer::tcsh:appleton
+fmason::::::Frank Mason, Engineering Project Coordinator::tcsh:appleton
+gjackson::::::Garret Jackson, Production Planner::tcsh:appleton
+hbaldwin::::::Hank Baldwin, Lead Hand::tcsh:appleton
+hrandall::::::Helen Randall, AP Clerk::tcsh:appleton
+jwood::::::Jacab Wood, Sales Agent::tcsh:appleton
+jperiod::::::James Period, Director, Sales & Marketing::tcsh:appleton
+jhaddon::::::Jennie Haddon, Buyer::tcsh:appleton
+jmorse::::::Jennie Morse, AR Clerk::tcsh:appleton
+jsharp::::::John Sharp, Director, Prod Mgmt::tcsh:appleton
+mbaggert::::::Martha Baggert, Director, Human Resources::tcsh:appleton
+mnestor::::::Mary Nestor, Director, MIS-IT::tcsh:appleton
+mblair::::::Minnie Blair, Software Engineer::tcsh:appleton
+mdelazes::::::Miquel DeLazes, Director, Manufacturing::tcsh:appleton
+nnewton::::::Ned Newton, Chief Financial Officer::tcsh:appleton
+rsampson::::::Rad Sampson, Director, Quality::tcsh:appleton
+smalloy::::::Sarah Malloy, Receiver::tcsh:appleton
+tswift::::::Tom Swift, Director, Engineering::tcsh:appleton
+wdamon::::::Wakefield Damon, Technical Writer::tcsh:appleton
+wcrawford::::::William Crawford, Director, Legal::tcsh:appleton

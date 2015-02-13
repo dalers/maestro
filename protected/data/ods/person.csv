@@ -1,0 +1,86 @@
+Data Import Template,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Table:,User,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Notes:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Please do not change the template headings.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+First data column must be blank.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"If you are uploading new records, leave the ""name"" (ID) column blank.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"If you are uploading new records, ""Naming Series"" becomes mandatory, if present.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Only mandatory fields are necessary for new records. You can delete non-mandatory columns if you wish.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"For updating, you can update only selective columns.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+You can only upload upto 5000 records in one go. (may be less in some cases),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+DocType:,User,,,,,,,,,,,,,,,,,,,,,,,,,,,,~,DefaultValue,defaults,,~,UserRole,user_roles
+Column Labels:,ID,Email,First Name,User Type,Enabled,Middle Name (Optional),Last Name,Language,Timezone,New Password,User Image,Background Image,Background Style,Gender,Birth Date,Location,Bio,Email Signature,Login After,Login Before,Restrict IP,Last Login,Last IP,Facebook Username,Facebook User ID,Google User ID,Github User ID,Github Username,,ID,Key,Value,,ID,Role
+Column Name:,name,email,first_name,user_type,enabled,middle_name,last_name,language,time_zone,new_password,user_image,background_image,background_style,gender,birth_date,location,bio,email_signature,login_after,login_before,restrict_ip,last_login,last_ip,fb_username,fb_userid,google_userid,github_userid,github_username,~,name,defkey,defvalue,~,name,role
+Mandatory:,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,,Yes,Yes,No,,Yes,Yes
+Type:,Data (text),Data,Data,Select,Check,Data,Data,Select,Select,Password,Attach,Attach,Select,Select,Date,Data,Small Text,Small Text,Int,Int,Data,Read Only,Read Only,Data,Data,Data,Data,Data,,Data,Data,Text,,Data,Link
+Info:,,,,"One of: System User, Website User",0 or 1,,,One of: Loading...,,,,,"One of: Fill Screen, Tile","One of: Male, Female, Other",,,,,Integer,Integer,,,,,,,,,,Leave blank for new records,,,,Leave blank for new records,Valid Role
+Start entering data below this line,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,"""bjenks@whizzer.local""",bjenks@whizzer.local,Barcoe,System User,1,,Jenks,,,appleton,,,,,1959-01-01,Shopton,,"--
+Electronics Engineer
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""bswift@whizzer.local""",bswift@whizzer.local,Barton,System User,1,,Swift,,,appleton,,,,,1939-02-01,Shopton,,"--
+President
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""barmstrong@whizzer.local""",barmstrong@whizzer.local,Bub,System User,1,,Armstrong,,,appleton,,,,,1959-03-01,Shopton,,"--
+Mechanical Engineer
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""fmason@whizzer.local""",fmason@whizzer.local,Frank,System User,1,,Mason,,,appleton,,,,,1959-04-01,Shopton,,"--
+Engineering Project Coordinator
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""gjackson@whizzer.local""",gjackson@whizzer.local,Garret,System User,1,,Jackson,,,appleton,,,,,1959-05-01,Shopton,,"--
+Production Planner
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""hbaldwin@whizzer.local""",hbaldwin@whizzer.local,Hank,System User,1,,Baldwin,,,appleton,,,,,1959-06-01,Shopton,,"--
+Lead Hand
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""hrandall@whizzer.local""",hrandall@whizzer.local,Helen,System User,1,,Randall,,,appleton,,,,,1959-07-01,Shopton,,"--
+AP Clerk
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""jwood@whizzer.local""",jwood@whizzer.local,Jacab,System User,1,,Wood,,,appleton,,,,,1959-08-01,Shopton,,"--
+Sales Agent
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""jperiod@whizzer.local""",jperiod@whizzer.local,James,System User,1,,Period,,,appleton,,,,,1959-09-01,Shopton,,"--
+Director, Sales & Marketing
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""jhaddon@whizzer.local""",jhaddon@whizzer.local,Jennie,System User,1,,Haddon,,,appleton,,,,,1959-10-01,Shopton,,"--
+Buyer
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""jmorse@whizzer.local""",jmorse@whizzer.local,Jennie,System User,1,,Morse,,,appleton,,,,,1959-11-01,Shopton,,"--
+AR Clerk
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""jsharp@whizzer.local""",jsharp@whizzer.local,John,System User,1,,Sharp,,,appleton,,,,,1959-12-01,Shopton,,"--
+Director, Prod Mgmt
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""mbaggert@whizzer.local""",mbaggert@whizzer.local,Martha,System User,1,,Baggert,,,appleton,,,,,1935-01-01,Shopton,,"--
+Director, Human Resources
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""mnestor@whizzer.local""",mnestor@whizzer.local,Mary,System User,1,,Nestor,,,appleton,,,,,1965-03-14,Shopton,,"--
+Director, MIS-IT
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""mblair@whizzer.local""",mblair@whizzer.local,Minnie,System User,1,,Blair,,,appleton,,,,,1960-03-01,Shopton,,"--
+Software Engineer
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""mdelazes@whizzer.local""",mdelazes@whizzer.local,Miquel,System User,1,,DeLazes,,,appleton,,,,,1960-04-01,Shopton,,"--
+Director, Manufacturing
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""nnewton@whizzer.local""",nnewton@whizzer.local,Ned,System User,1,,Newton,,,appleton,,,,,1960-05-01,Shopton,,"--
+Chief Financial Officer
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""rsampson@whizzer.local""",rsampson@whizzer.local,Rad,System User,1,,Sampson,,,appleton,,,,,1937-06-01,Shopton,,"--
+Director, Quality
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""smalloy@whizzer.local""",smalloy@whizzer.local,Sarah,System User,1,,Malloy,,,appleton,,,,,1960-07-01,Shopton,,"--
+Receiver
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""tswift@whizzer.local""",tswift@whizzer.local,Tom,System User,1,,Swift,,,appleton,,,,,1959-11-25,Shopton,,"--
+Director, Engineering
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""wdamon@whizzer.local""",wdamon@whizzer.local,Wakefield,System User,1,,Damon,,,appleton,,,,,1960-09-01,Shopton,,"--
+Technical Writer
+Swift Construction Company",,,,,,,,,,,,,,,,,
+,"""wcrawford@whizzer.local""",wcrawford@whizzer.local,William,System User,1,,Crawford,,,appleton,,,,,1960-10-01,Shopton,,"--
+Director, Legal
+Swift Construction Company",,,,,,,,,,,,,,,,,

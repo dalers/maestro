@@ -1,0 +1,14 @@
+# EXCLUDE files for rsync
+#
+
+Thumbs.db
+
+*.bak
+*.~*
+*.err
+*.log
+*.tmp
+
+# Autodesk AutoCAD / Inventor
+*.dwl
+*.dwl2
