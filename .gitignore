@@ -1,0 +1,11 @@
+# NetBeans project data
+nbproject
+
+# temporary files
+*.bak
+
+# Yii framework
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
