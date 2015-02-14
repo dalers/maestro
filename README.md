@@ -1,8 +1,8 @@
-**Maestro**<sup>*TM*</sup> is a web-based application for design, manufacturing and sales teams to manage and share information related to parts, projects, material (simple, serialized, or lot controlled), issues and people. Maestro places "current" information under control in an environment of *Transparency with Trust*. Maestro can also be used to replace a Parts&Vendors(TM) system.
+**Maestro**<sup>*TM*</sup> is a web-based application for design, manufacturing and sales teams to manage and share information related to parts, projects, material (simple, serialized, or lot controlled), issues and people. Maestro implements a single-entry accounting system for material management, and integrates with your existing master spreadsheets. Document control is provided to access and manage product and business documents, such as work instructions and test procedures. Maestro can also integrate with an existing Parts&Vendors(TM) system, providing a future migration path for your data.
 
-Maestro is also a cohesive business model for exploring, evaluating and demonstrating business workflows, with an emphasis on parts, projects, material, issues and people. Maestro includes complete data for the fictional Swift Construction Company (SCC), including parts, projects, material (including serialized and lot identified and controlled), issues and people.
+Maestro includes complete data for the fictional Swift Construction Company (SCC), including parts, projects, material (including serialized and lot identified and controlled), issues and people.
 
-Maestro is developed as an open source project and uses the permissive business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause) for maximum flexibility of use to the Maestro community.
+Maestro is developed as an open source project and uses the permissive business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause) for maximum flexibility of use to the Maestro community. The goal of the Maestro project is to provide a superior integrated business management solution to small-to-medium enterprises (SME) for managing parts, projects, material, issues and people.
 
 Getting Started
 ---------------
@@ -10,7 +10,7 @@ Refer to the following documents:
 
 * INSTALL.md - install Maestro on a FreeBSD system
 * SCC.md - describes structure of SCC master data. 
-* WORKFLOWS.md - SCC workflow descriptions.
+* WORKFLOWS.md - describes SCC workflows.
 
 Issue Tracking
 --------------
@@ -63,3 +63,5 @@ If you post an issue to the issue tracker, please try to include answers to the 
 * Include as an example, the **simplest** sequence of operations that demonstrates the undesired or unanticipated behaviour.
 
 ---
+
+Maestro is a trademark of Dale R. Scott. Parts&Vendors(TM) is a trademark of [Trilogy Design](http://www.trilogydesign.com/)
