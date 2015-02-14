@@ -10,10 +10,7 @@ SET FOREIGN_KEY_CHECKS=0;
 
 TRUNCATE TABLE `tbl_issue`;
 TRUNCATE TABLE `tbl_person`;
-
 TRUNCATE TABLE `tbl_project`;
-TRUNCATE TABLE `tbl_project_activity`;
-
 TRUNCATE TABLE `tbl_stock_location`;
 TRUNCATE TABLE `tbl_stock_serial`;
 
