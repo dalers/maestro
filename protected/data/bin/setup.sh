@@ -5,12 +5,12 @@
 
 echo "Ensure shell scripts are executable..."
 chmod a+x ./*.sh
-chmod a+x ../yiic
+chmod a+x ../../yiic
 echo
 
 echo "Ensure web server has write permission to Yii runtime directories..."
-chmod a+rw ../../assets/
-chmod a+rw ../runtime/
+chmod a+rw ../../../assets/
+chmod a+rw ../../runtime/
 echo
 
 echo "Create database..."
@@ -23,7 +23,7 @@ echo "Create database..."
 mysql -uroot -pappleton --show-warnings --verbose < ./setup_create_db.sql
 
 echo "Migrate database schema..."
-../yiic migrate
+../../yiic migrate
 
 # uncomment to create maestro CIFS file share structure
 #rm -r /home/samba/maestro/*
