@@ -1,6 +1,10 @@
-**Maestro**<sup>*TM*</sup> is a web-based application for design, manufacturing and sales teams to manage and share information related to parts, projects, material (simple, serialized, or lot controlled), issues and people. Maestro implements a single-entry accounting system for material management, and integrates with your existing master spreadsheets. Document control is provided to access and manage product and business documents, such as work instructions and test procedures. Maestro can integrate with *Parts&Vendors*<sup>*TM*</sup>, providing a migration path for your data and new enterprise features.
+***Maestro***<sup>*TM*</sup> is a web-based ***ERP for Engineers***<sup><em>TM</em></sup>. Maestro supports design, manufacturing and sales teams by managing information in an environment of ***Transparency with Trust***<sup><em>TM</em></sup>.</p> 
 
-Maestro includes complete data for the fictional **Swift Construction Company** (the *SCC*), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people.
+Maestro controls information related to parts, projects, stock, issues and people. Taking inspiration from the popular *Parts&Vendors*<sup>*TM*</sup>, Maestro adds additional enterprise features and true multi-user operation.
+
+Maestro implements a single-entry accounting system for material management, and integrates with any existing master spreadsheets. Document control is provided to access and manage product and business documents, such as work instructions and test procedures.
+
+Maestro includes complete data for the fictional ***Swift Construction Company*** (the *SCC*), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people.
 
 Maestro is developed as an open source project and uses the permissive business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause) for maximum flexibility of use to the Maestro community. The goal of the Maestro project is to provide a superior integrated business management solution to small-to-medium enterprises (SME) for managing parts, projects, material, issues and people.
 
