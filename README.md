@@ -1,6 +1,6 @@
 ***Maestro***<sup>*TM*</sup> is a web-based ***ERP for Engineers***<sup><em>TM</em></sup>. Maestro supports design, manufacturing and sales teams by managing information in an environment of ***Transparency with Trust***<sup><em>TM</em></sup>.</p> 
 
-Maestro controls information related to parts, projects, stock, issues and people. Taking inspiration from the popular *Parts&Vendors*<sup>*TM*</sup>, Maestro adds additional enterprise features and true multi-user operation.
+Maestro controls information related to parts, projects, stock, issues and people. Drawing inspiration from the popular [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro can integrate with Parts&Vendors, adding additional enterprise features and true multi-user operation.
 
 Maestro implements a single-entry accounting system for material management, and integrates with any existing master spreadsheets. Document control is provided to access and manage product and business documents, such as work instructions and test procedures.
 
@@ -47,7 +47,7 @@ Legal
 -----
 Maestro source is copyright by its authors, as recorded in the maestro repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you agree to license your contribution according to the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/).
 
-Maestro is a trademark of Dale R. Scott, and made available for use according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
+Maestro, "ERP for Engineers", and "Transparency with Trust" are trademarks of Dale R. Scott, and made available for use according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).   
 
 Support
 -------
