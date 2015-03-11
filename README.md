@@ -4,7 +4,7 @@ Maestro controls information related to parts, projects, stock, issues and peopl
 
 Maestro implements a single-entry accounting system for material management, and integrates with any existing master spreadsheets. Document control is provided to access and manage product and business documents, such as work instructions and test procedures.
 
-Maestro includes complete data for the fictional ***Swift Construction Company*** (the *SCC*), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people.
+Maestro includes complete data for the fictional ***Swift Construction Company*** (the *SCC*), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people. A demo system is also available for evaulation ([swiftconstructioncompany.net](http://www.swiftconstructioncompany.net)). 
 
 Maestro is developed as an open source project and uses the permissive business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause) for maximum flexibility of use to the Maestro community. The goal of the Maestro project is to provide a superior integrated business management solution to small-to-medium enterprises (SME) for managing parts, projects, material, issues and people.
 
@@ -47,13 +47,17 @@ Legal
 -----
 Maestro source is copyright by its authors, as recorded in the maestro repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you agree to license your contribution according to the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/).
 
-Maestro, "ERP for Engineers", and "Transparency with Trust" are trademarks of Dale R. Scott, and made available for use according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).   
+Maestro, "ERP for Engineers", and "Transparency with Trust" are trademarks of Dale R. Scott, and made available for use according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
+
+Parts&Vendors(TM) is a trademark of [Trilogy Design](http://www.trilogydesign.com/)
+
 
 Support
 -------
 If you need help, please try the following:
 
 * Update your local repository.
+* Investigate related behavior in the [SCC Maestro demo system](http://www.swiftconstructioncompany.net)
 * Search the [Maestro issue tracker](https://github.com/dalers/maestro/issues)
 * Search the [Maestro project Wiki](https://github.com/dalers/maestro/wiki/).
 * Submit an issue to the [Maestro issue tracker](https://github.com/dalers/maestro/issues)
@@ -65,7 +69,3 @@ If you post an issue to the issue tracker, please try to include answers to the 
 * What is the version of Maestro you are using?
 * What target application and version are you are using?
 * Include as an example, the **simplest** sequence of operations that demonstrates the undesired or unanticipated behaviour.
-
----
-
-Maestro is a trademark of Dale R. Scott. Parts&Vendors(TM) is a trademark of [Trilogy Design](http://www.trilogydesign.com/)
