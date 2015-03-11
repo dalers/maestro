@@ -45,9 +45,9 @@ For more information, see the [Maestro project wiki](https://github.com/dalers/m
 
 Legal
 -----
-Maestro source is copyright by its authors, as recorded in the maestro repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you agree to license your contribution according to the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license](http://creativecommons.org/licenses/by-sa/4.0/).
+Maestro source is copyright by its authors, as recorded in the maestro repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you agree to license your contribution according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
-Maestro, "ERP for Engineers", and "Transparency with Trust" are trademarks of Dale R. Scott, and made available for use according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
+*Maestro*, *ERP for Engineers*, and *Transparency with Trust* are trademarks of Dale R. Scott, and made available for use according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
 
 Parts&Vendors(TM) is a trademark of [Trilogy Design](http://www.trilogydesign.com/)
 
