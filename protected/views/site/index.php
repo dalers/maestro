@@ -4,12 +4,10 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<p>Welcome to <b><em>Maestro</em></b><sup><em>TM</em></sup>, the Swift Construction Company's engineering ERP system.</p>
+<p>Maestro is <b><em>The ERP for Engineers</em></b><sup><em>TM</em></sup>, an open-source web-based ERP system providing <b><em>Transparency with Trust</em></b><sup><em>TM</em></sup> to design, manufacturing and support teams.</p>
 
-<p>Maestro is <b><em>The ERP for Engineers</em></b><sup><em>TM</em></sup>, a web-based ERP system for design, manufacturing and sales teams, managing information in an environment of <b><em>Transparency with Trust</em></b><sup><em>TM</em></sup>.</p>
+<p>Maestro manages information relating to projects, parts, stock, issues and people. Taking inspiration from <a href="http://www.trilogydesign.com/"><em>Parts&Vendors</em></a><sup><em>TM</em></sup>, Maestro adds enterprise features, single-entry accounting, and true multi-user operation. Maestro works cooperatively with <a href="http://www.ganttproject.biz/"><em>GanttProject</em></a> to provide a a Gantt-type user experience for project planning.</p>
 
-<p>Maestro controls information related to parts, projects, stock, issues and people. Maestro takes inspiration from  [<em>Parts&Vendors</em><sup><em>TM</em></sup>](http://www.trilogydesign.com/), adding enterprise features and true multi-user operation. Maestro also integrates with [<em>GanttProject</em>](http://www.ganttproject.biz/), for users that desire a traditional Gantt-based project management experience.</p>
+<p>Maestro also includes a complete data set for the  (fictional) <b><em>Swift Construction Company</em></b> (the <em>SCC</em>), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people. The system here has been loaded with SCC data, and is the demo site for the <a href="http://www.github.com/dalers/maestro/">Maestro development project</a>.</p>
 
-<p>Maestro includes complete data for the fictional <b><em>Swift Construction Company</em></b> (the <em>SCC</em>), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people.</p>
-
-<p>For more information, see the <a href="http://www.github.com/dalers/maestro/">Maestro development project on GitHub</a>.<p>
+<p>For more information on Maestro, see the <a href="http://www.github.com/dalers/maestro/">Maestro development project on GitHub</a>. <em>Maestro</em>, <em>The ERP for Engineers</em>, and <em>Transparency with Trust</em> are trademarks and used under license.</p>
