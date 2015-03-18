@@ -1,10 +1,10 @@
-***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>. Maestro is a web-based ERP system for design, manufacturing and sales teams, managing information in an environment of ***Transparency with Trust***<sup><em>TM</em></sup>. 
+***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>, an open-source web-based ERP system providing ***Transparency with Trust***<sup><em>TM</em></sup> to design, manufacturing and support teams.
 
-Maestro controls information related to parts, projects, stock, issues and people. Maestro takes inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), adding enterprise features and true multi-user operation. Maestro also integrates with [*GanttProject*<sup>*TM*</sup>](http://www.ganttproject.biz/), for users that desire a traditional Gantt-based project management experience.
+Maesto is in active development and likely *not* suitable for use at this time. Refer to the demo site for current functionality.
 
-Maestro implements a single-entry accounting system for material management, and integrates with any existing master spreadsheets. Document control is provided to access and manage product and business documents, such as work instructions and test procedures.
+Maestro manages information related to projects, parts, stock, issues and people. Taking inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro adds enterprise features, single-entry accounting, and true multi-user operation. Maestro works cooperatively with [*GanttProject*<sup>*TM*</sup>](http://www.ganttproject.biz/) to provide a Gantt-type user experience for project planning.
 
-Maestro includes complete data for the fictional ***Swift Construction Company*** (the *SCC*), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people. A demo system is also available for evaluation ([swiftconstructioncompany.net](http://www.swiftconstructioncompany.net)). 
+Maestro also includes a complete data set for the fictional ***Swift Construction Company*** (the *SCC*), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people, and a demo system is available ([swiftconstructioncompany.net](http://www.swiftconstructioncompany.net)). 
 
 Maestro is developed as an open source project and uses the permissive business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause) for maximum flexibility of use to the Maestro community. The goal of the Maestro project is to provide a superior integrated business management solution to small-to-medium enterprises (SME) for managing parts, projects, material, issues and people.
 
