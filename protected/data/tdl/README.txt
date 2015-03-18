@@ -1,6 +1,4 @@
-ToDoList was used initially to create issues for Maestro, although Issues
-have most recently been updated using Mantis itself, and todolist.tdl updated
-after the fact.
+ToDoList Maestro Issues Component
 
 * Create issues in ToDoList
 * Export from ToDoList to CSV

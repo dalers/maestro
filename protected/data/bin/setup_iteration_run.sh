@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Setup SCC data
-# - MUST run from /home/maestro/maestro-repo/scc/bin/
+# - MUST run from /usr/local/www/maestro/protected/data/bin/
 # - /home/maestro/scc/ MUST EXIST with r/w permission
 # - select either versioned or un-versioned document filenames
 # - select either part data from repo or regenerated (from P&V mdb using mdbtools)
@@ -16,48 +16,55 @@
 #   * restore bootstrap master data spreadsheets
 #   * restore Parts&Vendors(TM) database
 #   * restore current part documents
-#       - TODO fix this - does NOT support material/ and docs/ directories
 #   * run get_current_and_review.sh (normally run nightly by cron)
 #   * pause (operator must press [Enter] to continue)
 #
-# SCC repo structure
-# ------------------------
-#    /home/maestro/maestro-repo/scc/
-#    +-- csv[-n]/                 csv P&V + master data spreadsheet export iteration n (not used, csv re-created on-the-fly) 
-#    +-- docs[-n]/                ad-hoc documents (not specifically part or material-related)
-#    +-- ods/                     master data spreadsheet/csv
-#    +-- logo/                    artwork
-#    +-- parts/                   stub directory to create temp consolidated parts/ for developer convenience (.gitignore)
-#    +-- parts[-n]/               documents related to parts iteration n, document revision in filename
+# Repo Structure
+# ------------------------------------------
+# /usr/local/www/maestro/protected/data/
+#    +-- bin/                     command scripts
+#    +-- csv-1..5/                csv P&V + master data spreadsheet export iteration n (not used, csv re-created on-the-fly) 
+#    +-- doc/                     ad-hoc documents (not specifically part or material-related)
+#    +-- doc-logo/                maestro artwork
+#    +-- ldap/                    openldap-maestro-component files
+#    +-- mantis/                  mantis-maestro-component files
+#    +-- ods/                     master data spreadsheets with csv exports
+#    +-- parts/                   stub directory (create temp parts/ dir for developer convenience)
+#    +-- parts-1..5/              documents related to parts iteration n, document revision in filename
 #    |   +-- 10000001/
-#    |   |   \-- Doc.pdf          part document related to PN 10000001
-#    |   +-- 20000001/
-#    |   +-- 20000002/
+#    |   |   \-- 10000001_PBS-00.pdf  part documents by iteration, revision level IN filename
 #    |   ...
-#    +-- parts[-n]-nover/         documents related to parts iteration n, document revision NOT in filename
+#    +-- parts-1..5-nover/        part documents by iteration, revision level NOT in filename
+#    |   +-- 10000001/
+#    |   |   \-- 10000001_PBS.pdf part documents, filename includes revision level
+#    |   ...
 #    |-- material[-n]/            documents related to parts iteration n
 #    |   +...
 #    |-- pv/                      Parts&Vendors database iteration files
 #    |   +-- pv-1.mdb             iteration 1
 #    |   +-- pv-2.mdb
 #    |   +-- pv-3.mdb
-#    |   +-- pv-n.mdb
-#    \-- README.txt               readme for file share (MS format for access by MS Windows-type clients)
+#    |   +-- pv-4.mdb
+#    |   \-- pv-5.mdb
+#    |-- squirrelmail             squirrelmail-maestro-component files
+#    |-- tdl                      ToDoList-maestro-component files
+#    |-- web                      simple html Maestro web portal
+#    \-- wp                       wordperfect-maestro-component files
 #
-# SCC file share structure
-# ------------------------
-#    /home/maestro/scc/
-#    +-- ods/                     master data spreadsheet/csv
+# Fileshare Structure
+# ------------------------------------------
+# /home/maestro/scc/
 #    +-- csv/                     current P&V and master data spreadsheet csv export
 #    +-- csv.old/                 previous csv export
 #    +-- doc/                     current ad-hoc documents
-#    +-- docs.rsync/                  ad-hoc document file version history
-#    +-- parts/                   current part documents
-#    +-- parts.rsync/                 part document file version history
+#    +-- docs.rsync/              ad-hoc document file version history
 #    +-- material/                current material documents
-#    +-- material.rsync/              material document file version history
-#    +-- pv.mdb                   current Parts&Vendors database
-#    \-- README.txt               file share readme
+#    +-- material.rsync/          material document file version history
+#    +-- ods/                     master data spreadsheet/csv
+#    +-- parts/                   current part documents
+#    +-- parts.rsync/             part document file version history
+#    +-- pv/                      current Parts&Vendors database
+#    \-- work/                    work files (e.g. change report)
 #
 
 if test $# = 0
@@ -101,7 +108,7 @@ echo "run setup_fix_iteration_datetime.sh"
 ./setup_fix_iteration_datetime.sh
 
 echo "create 'null' files in csv.old/ (pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv)"
-head -n 1 /home/maestro/maestro-repo/scc/csv-1/pv_pn.csv > /home/maestro/scc/csv.old/pv_pn.csv
+head -n 1 ../csv-1/pv_pn.csv > /home/maestro/scc/csv.old/pv_pn.csv
 ./get_pv_pn_details.py /home/maestro/scc/csv.old/pv_pn.csv /home/maestro/scc/csv.old/pv_pn_details.csv
 # sorting doesn't accomplish anything but required bootstrap file does get created
 sort /home/maestro/scc/csv.old/pv_pn_details.csv  > /home/maestro/scc/csv.old/pv_pn_details_sort.csv

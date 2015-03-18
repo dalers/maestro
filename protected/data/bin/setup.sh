@@ -2,34 +2,31 @@
 #
 # Setup Maestro reference server environment
 #
+# Before running:
+# - create maestro db (maestro will use root access)
+# - create /home/maestro/scc
+#
 
-echo "Ensure shell scripts are executable..."
+echo "Set script files executable..."
 chmod a+x ./*.sh
 chmod a+x ../../yiic
 echo
 
-echo "Ensure web server has write permission to Yii runtime directories..."
+echo "Give web server write access to Yii runtime directories..."
 chmod a+rw ../../../assets/
 chmod a+rw ../../runtime/
 echo
 
-echo "Create database..."
-# setup_create_db.sql creates maestro user and database 
-# uncomment if user exists (setup_create_db.sql will drop db if needed)
-#mysql -uroot -p --show-warnings --verbose -e "DROP USER maestro@localhost ;"
-# not required to drop db, setup_create_db.sql will drop db if exists
-#mysql -uroot -p --show-warnings --verbose -e "DROP DATABASE maestro ;"
-
-mysql -uroot -pappleton --show-warnings --verbose < ./setup_create_db.sql
+echo "Load db with stored procedures..."
+mysql -uroot -pappleton --show-warnings maestro < ./setup_db_stored_procedure.sql
+echo
 
 echo "Migrate database schema..."
 ../../yiic migrate
+echo
 
-# uncomment to create maestro CIFS file share structure
-#rm -r /home/samba/maestro/*
-#mkdir /home/samba/maestro/csv/
-#mkdir /home/samba/maestro/csv.old/
-#mkdir /home/samba/maestro/work/
-#mkdir /home/samba/maestro/remotefs/
+echo "Setup data directory structure..."
+./setup_file_share.sh
+echo
 
 exit 0
