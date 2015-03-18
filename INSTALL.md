@@ -24,7 +24,7 @@ Maestro is a PHP web-based application based on the Yii framework (v1), and uses
 
 2) Confirm Yii system requirements are met using the "Yii Requirement Checker" application included in the Yii framework download.
 
-*Only the MySQL PDO extension is used by Maestro.*
+*Maestro requires only the MySQL PDO extension for its database connection.*
 
 Create a link in the /usr/local/www/ to the yii install directory (Maestro assumes the yii install directory is called "yii", and is in the same parent directory as Maestro).
 
