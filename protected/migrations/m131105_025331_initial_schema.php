@@ -9,18 +9,18 @@ class m131105_025331_initial_schema extends CDbMigration
 			'id' => 'pk',
             'project_id' => 'integer',
 			
-            'name' => 'string',
-            'begin_date' => 'string',
-            'end_date' => 'string',
-            'duration' => 'string',
-            'completion' => 'string',
-            'coordinator' => 'string',
-            'predecessors' => 'string',
-            'outline_number' => 'string',
-            'cost' => 'string',
-            'web_link' => 'string',
-            'resources' => 'string',
-            'notes' => 'string',
+			'name' => 'string',
+			'begin_date' => 'string',
+			'end_date' => 'string',
+			'duration' => 'string',
+			'completion' => 'string',
+			'coordinator' => 'string',
+			'predecessors' => 'string',
+			'outline_number' => 'string',
+			'cost' => 'string',
+			'web_link' => 'string',
+			'resources' => 'string',
+			'notes' => 'string',
 
 			//audit fields
 			'create_time' => 'datetime',
@@ -55,18 +55,17 @@ class m131105_025331_initial_schema extends CDbMigration
 		//issue table
 		$this->createTable('tbl_issue', array(
 			'id' => 'pk',
-            'type' => 'string',
-            'owner' => 'string',
-			'requestor' => 'string',
-            'status' => 'string',
+			'name' => 'string NOT NULL',
 			'description' => 'text',
-
-			//foreign keys
-			'part_id' => 'integer', //one part number per issue
-			'project_id' => 'integer', //one project per issue
-			'stock_id' => 'integer', //one serial number per issue
+			
+			//relationships
+			'part_id' => 'integer', //limitation one part number per issue
+			'project_id' =>'integer DEFAULT NULL', //limitation issues are related to one-and-only-one project
+            'type_id' => 'integer DEFAULT NULL', //defined in issue model
+            'status_id' => 'integer DEFAULT NULL', //defined in issue model
+			'stock_id' => 'integer', //limitation one stock number per issue (qty, serial number, batch) 
 			'owner_id' => 'integer', //one owner per issue
-            
+
 			//audit fields
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
@@ -186,7 +185,7 @@ class m131105_025331_initial_schema extends CDbMigration
 
 		//person table
 		$this->createTable('tbl_person', array(
-			'id' => 'pk',  //not imported
+			'id' => 'pk',
 			'username' => 'string NOT NULL', //network login id
 			'status' => 'integer', //e.g. 0=inactive, 1=active
 			'password' => 'string NOT NULL',
@@ -196,8 +195,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'fname' => 'string', //e.g. "Swift"
 			'initial' => 'string', //e.g. "TS"
 
-            //foreign keys
-			'profile_id' => 'integer',
+            //relationships
+			'profile_id' => 'integer DEFAULT NULL',
 			
 			//audit fields
 			'last_login_time' => 'datetime DEFAULT NULL',
@@ -210,30 +209,37 @@ class m131105_025331_initial_schema extends CDbMigration
 		//project table
 		$this->createTable('tbl_project', array(
 			'id' => 'pk',
-			'name' => 'string', //e.g. "Aircraft Wireless"
-			'description' => 'text', //e.g. "Preliminary evaluation and sea trial"
-			'type' => 'string', //e.g. "Research"
-			'status' => 'string', //e.g. NOTACTIVE, ACTIVE...	
+			'name' => 'string NOT NULL', //e.g. "Aircraft Wireless"
+			'description' => 'text NOT NULL', //e.g. "Preliminary evaluation and sea trial"
 
-            //foreign keys
+			'status_id' => 'integer', //define in model: Active, Not-Active	
+			'type_id' => 'integer', //define in model: "Research", "Continuous Improvement"...
+			'phase_id' => 'integer', //define in model: NOTACTIVE, ACTIVE
             'customer_id' => 'integer', //e.g. "B&E Submarines"
 			
 			//audit fields
-			'create_time' => 'datetime',
-			'create_user_id' => 'integer',
-			'update_time' => 'datetime',
-			'update_user_id' => 'integer',
+			'create_time' => 'datetime DEFAULT NULL',
+			'create_user_id' => 'integer DEFAULT NULL',
+			'update_time' => 'datetime DEFAULT NULL',
+			'update_user_id' => 'integer DEFAULT NULL',
 		), 'ENGINE = InnoDB');
-						
+
+		//project_person_assignment - assignment table for many-to-many projects to persons
+		$this->createTable('tbl_project_person_assignment', array(
+			'project_id' => 'int(11) DEFAULT NULL',
+			'person_id' => 'int(11) DEFAULT NULL',
+			'PRIMARY KEY (`project_id`,`person_id`)',
+		 ), 'ENGINE=InnoDB');
+		
 		//stock table (serial or lot identified stock)
 		$this->createTable('tbl_stock', array(
 			'id' => 'pk', //not included in source csv
 			'serial_number' => 'string', //e.g. A1234, 1234B, A-1234...
 			'description' => 'string', //e.g. "Aircraft Wireless"
-			'status' => 'string', //e.g. ACTIVE, DESTROYED...
-			'part_version' => 'integer'
+			'status_id' => 'string', //define in model: Active, Not-Active
+			'part_version' => 'integer',
 
-            //foreign keys
+            //relationships
 			'part_id' => 'integer',
 		), 'ENGINE=InnoDB');
 		
@@ -669,6 +675,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_project_to_customer", "tbl_project", "customer_id", "tbl_customer", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+
+        //project_person_assignment
+		$this->addForeignKey("fk_project_to_person", "tbl_project_person_assignment", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_person_to_project", "tbl_project_person_assignment", "user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		
 		//stock
 		$this->addForeignKey("fk_stock_to_part", "tbl_stock", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
@@ -716,6 +726,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_part');        
 		$this->dropTable('tbl_person');
 		$this->dropTable('tbl_project');
+		$this->dropTable('tbl_project_person_assignment');
 		$this->dropTable('tbl_stock');
 		$this->dropTable('tbl_stock_location');
 
