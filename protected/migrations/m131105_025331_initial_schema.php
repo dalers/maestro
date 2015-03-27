@@ -7,7 +7,6 @@ class m131105_025331_initial_schema extends CDbMigration
 		//activity table (project activities)
 		$this->createTable('tbl_activity', array(
 			'id' => 'pk',
-			'project_id' => 'integer',
 			
 			'name' => 'string',
 			'begin_date' => 'string',
@@ -22,44 +21,26 @@ class m131105_025331_initial_schema extends CDbMigration
 			'resources' => 'string',
 			'notes' => 'string',
 
-			//audit fields
+			'project_id' => 'integer',
+
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
 			'update_time' => 'datetime',
 			'update_user_id' => 'integer',
 		), 'ENGINE = InnoDB');
-						
-		//album table (file albums)
-		$this->createTable('tbl_album', array(
+
+		//currency table (origin parts&vendors CUR table)
+		//currencies with print symbol, formatting and exchange rate
+		$this->createTable('tbl_currency', array(
 			'id' => 'pk',
-			'name' => 'string',
-			'tags' => 'string',
-			'owner_id' => 'integer',
-			'shareable' => 'boolean',
+			'CURCurrencyName' => 'VARCHAR(50)', 
+			'CURExchangeRate' => 'DOUBLE NULL DEFAULT 0',
+			'CURCurrencyChar' => 'VARCHAR(4)', 
+			'CURFormat' => 'VARCHAR(35)', 
+			'CURFormatExt' => 'VARCHAR(35)', 
+		), 'ENGINE=InnoDB'); 
 
-			//audit fields
-			'create_time' => 'datetime',
-			'create_user_id' => 'integer',
-			'update_time' => 'datetime',
-			'update_user_id' => 'integer',
-		), 'ENGINE=InnoDB');
-		
-		//comment table (file albums)
-		$this->createTable('tbl_comment', array(
-			'id' => 'pk', //not imported from csv
-			'content' => 'text',
-			'status' => 'string',
-
-			'file_id' => 'integer',
-            
-			//audit fields
-			'create_time' => 'datetime',
-			'create_user_id' => 'integer',
-			'update_time' => 'datetime',
-			'update_user_id' => 'integer',
-		), 'ENGINE=InnoDB');
-		
-		//customer table (based on parts&vendors CU/pv_cu)
+		//customer table (origin parts&vendors CU table)
 		$this->createTable('tbl_customer', array(
 			'id' => 'pk',
 			'CUCustomer' => 'VARCHAR(255)', 
@@ -82,15 +63,21 @@ class m131105_025331_initial_schema extends CDbMigration
 			'CUNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', 
 		), 'ENGINE=InnoDB'); 
 
-		//file table  (based on parts&vendors FIL/pv_fil)
+		//file table (origin parts&vendors FIL table)
 		$this->createTable('tbl_file', array(
 			'id' => 'pk',
-			'FILPNID' => 'INTEGER DEFAULT 0',
 			'FILPNPartNumber' => 'VARCHAR(50)', 
 			'FILFilePath' => 'VARCHAR(255)',
 			'FILFileName' => 'VARCHAR(255)',
 			'FILView' => 'TINYINT(1) DEFAULT 0',
 			'FILNotes' => 'VARCHAR(50)', 
+			
+			'part_id' => 'integer DEFAULT NULL', //limitation: one part number reference per file
+			
+			'create_time' => 'datetime',
+			'create_user_id' => 'integer',
+			'update_time' => 'datetime',
+			'update_user_id' => 'integer',
 		), 'ENGINE=InnoDB');        
 
 		//issue table
@@ -99,29 +86,39 @@ class m131105_025331_initial_schema extends CDbMigration
 			'name' => 'string NOT NULL',
 			'description' => 'text',
 			
-			//relationships
-			'part_id' => 'integer', //limitation one part number per issue
-			'project_id' =>'integer DEFAULT NULL', //limitation issues are related to one-and-only-one project
+			'part_id' => 'integer', //limitation: one part number per issue
+			'project_id' =>'integer DEFAULT NULL', //limitation: one project per issue
 			'type_id' => 'integer DEFAULT NULL', //defined in issue model
 			'status_id' => 'integer DEFAULT NULL', //defined in issue model
-			'stock_id' => 'integer', //limitation one stock number per issue (qty, serial number, batch) 
-			'owner_id' => 'integer', //one owner per issue
+			'stock_id' => 'integer', //limitation: one stock id per issue (e.g. serial number or batch/lot number) 
+			'owner_id' => 'integer', //constraint: one owner per issue
 
-			//audit fields
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
 			'update_time' => 'datetime',
 			'update_user_id' => 'integer',
 		), 'ENGINE=InnoDB');
 
-		//option table (file album options)
-		$this->createTable('tbl_option', array(
+		//manufacturer table (origin parts&vendors MFR table)
+		$this->createTable('tbl_manufacturer', array(
 			'id' => 'pk',
-			'option_name' => 'string',
-			'option_value' => 'string',
-			'sort_order' => 'integer',
-		), 'ENGINE=InnoDB');
-				
+			'MFRMfrName' => 'VARCHAR(50) NOT NULL', 
+			'MFRAddress' => 'VARCHAR(255)', 
+			'MFRCountry' => 'VARCHAR(50)', 
+			'MFRContact1' => 'VARCHAR(50)', 
+			'MFRContact2' => 'VARCHAR(50)', 
+			'MFRPhone1' => 'VARCHAR(20)', 
+			'MFRPhone2' => 'VARCHAR(20)', 
+			'MFRFax' => 'VARCHAR(20)', 
+			'MFRWeb' => 'VARCHAR(255)',
+			'MFRNotes' => 'LONGTEXT', 
+			'MFRCode' => 'VARCHAR(20)', 
+			'MFREMail1' => 'VARCHAR(50)', 
+			'MFREMail2' => 'VARCHAR(50)', 
+			'MFRNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+
+
 		//order table
 		$this->createTable('tbl_order', array(
 			'id' => 'pk',
@@ -129,9 +126,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'type' => 'string',
 			'status' => 'string',
 			'project_id' => 'integer',
-			'parts_list_id' => 'integer', //to pre-populate order from part number parts list
+			'part_id' => 'integer', //record of origin if parts list
 			
-			//audit fields
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'integer DEFAULT NULL',
 			'update_time' => 'datetime DEFAULT NULL',
@@ -146,27 +142,26 @@ class m131105_025331_initial_schema extends CDbMigration
 			'desired_qty' => 'integer default 0',
 			'shipped_qty' => 'integer default 0',
 			
-			//audit fields
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
 			'update_time' => 'datetime DEFAULT NULL',
 			'update_user_id' => 'int(11) DEFAULT NULL',
 		), 'ENGINE=InnoDB');
 		
-		//order_item_to_stock table
-		$this->createTable('tbl_order_item_to_stock', array(
+		//order_item_stock_asignment table
+		$this->createTable('tbl_order_item_stock_assignment', array(
 			'id' => 'pk',
+
 			'order_item_id' => 'integer',
 			'stock_id' => 'integer',
 			
-			//audit fields
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
 			'update_time' => 'datetime DEFAULT NULL',
 			'update_user_id' => 'int(11) DEFAULT NULL',
 		), 'ENGINE=InnoDB');
 		
-		//part table (based on parts&vendors PN/pv_pn)
+		//part table (origin parts&vendors PN table)
 		$this->createTable('tbl_part', array(
 			'id' => 'pk',
 			'PNIDToLNK' => 'INTEGER',
@@ -220,23 +215,55 @@ class m131105_025331_initial_schema extends CDbMigration
 			'iteration_number' => 'integer',
 			'is_current_iteration' => 'boolean',
 
-			//foreign keys
 			'type_id' => 'integer', //PNType -> pv_type
 			'stock_location_id' => 'integer', //PNUser9 -> stock_location
 			'requester_id' => 'integer', //PNReqBy -> person
 
-			//audit fields
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
 			'update_time' => 'datetime',
 			'update_user_id' => 'integer',			
 		), 'ENGINE=InnoDB');
 
+		//part_cost table (origin parts&vendors COST table)
+		//cost at "buy-level" from a source for a part
+		$this->createTable('tbl_part_cost', array(
+			'id' => 'pk',
+			'COSTLNKID' => 'INTEGER NOT NULL', 
+			'COSTAtQty' => 'FLOAT NULL DEFAULT 1', 
+			'COSTLeadtime' => 'INTEGER DEFAULT 0', 
+			'COSTCost' => 'DOUBLE NULL DEFAULT 0', 
+		), 'ENGINE=InnoDB'); 
+
+		//part_list table (origin parts&vendors PL table)
+		//parts-lists links and related data
+		$this->createTable('tbl_part_list', array(
+			'id' => 'pk',
+			'PLListID' => 'INTEGER NOT NULL DEFAULT 0',
+			'PLPartID' => 'INTEGER NOT NULL DEFAULT 0',
+			'PLItem' => 'INTEGER DEFAULT 0',
+			'PLQty' => 'VARCHAR(10)',
+			'PLRefMemo' => 'LONGTEXT',
+			'PLRefText' => 'VARCHAR(255)',
+			'PLAssyOrder' => 'FLOAT NULL',
+			'PLAssySpec' => 'VARCHAR(255)',
+			'PLMFRPNID' => 'INTEGER',
+			'PLMFRID' => 'INTEGER',
+			'PLSUID' => 'INTEGER',
+			'PLLNKID' => 'INTEGER',
+		), 'ENGINE=InnoDB');        
+
+		//part_type table (origin parts&vendors TYPE table)
+		//part type lookup (AW, CAT, DOC, DWG, PL, PS)
+		$this->createTable('tbl_part_type', array(
+			'id' => 'pk',
+			'TYPEType' => 'VARCHAR(6)',
+		), 'ENGINE=InnoDB');  
+		
 		//person table
 		$this->createTable('tbl_person', array(
 			'id' => 'pk',
 			'username' => 'string NOT NULL', //network login id
-			'status' => 'integer', //e.g. 0=inactive, 1=active
 			'password' => 'string NOT NULL',
 			'email' => 'string',
 			'nick' => 'string',
@@ -244,10 +271,9 @@ class m131105_025331_initial_schema extends CDbMigration
 			'fname' => 'string', //e.g. "Swift"
 			'initial' => 'string', //e.g. "TS"
 
-			//relationships
+			'status_id' => 'integer DEFAULT NULL', //e.g. 0=Not-Active, 1=Active
 			'profile_id' => 'integer DEFAULT NULL',
 			
-			//audit fields
 			'last_login_time' => 'datetime DEFAULT NULL',
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
@@ -266,7 +292,6 @@ class m131105_025331_initial_schema extends CDbMigration
 			'phase_id' => 'integer', //define in model: NOTACTIVE, ACTIVE
 			'customer_id' => 'integer', //e.g. "B&E Submarines"
 			
-			//audit fields
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'integer DEFAULT NULL',
 			'update_time' => 'datetime DEFAULT NULL',
@@ -302,16 +327,58 @@ class m131105_025331_initial_schema extends CDbMigration
 			'sublocation_max' => 'integer',
 		), 'ENGINE=InnoDB');        
 
-		//tag table (file albums)
-		$this->createTable('tbl_tag', array(
+		//supplier table (origin parts&vendors SU table)
+		//supplier (vendor) master data
+		$this->createTable('tbl_supplier', array(
 			'id' => 'pk',
-			'name' => 'string',
-			'frequency' => 'integer',
-		), 'ENGINE=InnoDB');
-		
+			'SUSupplier' => 'VARCHAR(50) UNIQUE NOT NULL',
+			'SUAddress' => 'VARCHAR(255)',
+			'SUCountry' => 'VARCHAR(50)',
+			'SUPhone1' => 'VARCHAR(20)',
+			'SUPhone2' => 'VARCHAR(20)',
+			'SUFAX' => 'VARCHAR(20)',
+			'SUWeb' => 'VARCHAR(255)',
+			'SUContact1' => 'VARCHAR(50)',
+			'SUContact2' => 'VARCHAR(50)',
+			'SUDateLast' => 'DATETIME',
+			'SUFollowup' => 'TINYINT(1) DEFAULT 0',
+			'SUNotes' => 'LONGTEXT',
+			'SUCode' => 'VARCHAR(20)',
+			'SUAccount' => 'VARCHAR(20)',
+			'SUTerms' => 'VARCHAR(20)',
+			'SUFedTaxID' => 'VARCHAR(20)',
+			'SUStateTaxID' => 'VARCHAR(20)',
+			'SUEMail1' => 'VARCHAR(50)', 
+			'SUEMail2' => 'VARCHAR(50)', 
+			'SUCurDedExRate' => 'TINYINT(1) DEFAULT 0', 
+			'SUCurExRate' => 'DOUBLE NULL DEFAULT 0', 
+			'SUCURID' => 'INTEGER DEFAULT 1', 
+			'SUCurReverse' => 'TINYINT(1) DEFAULT 0', 
+			'SUNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+
+		//supplier_manufacturer_assignment table (origin parts&vendors LIN table)
+		//many-to-many suppliers-to-manufacturers
+		$this->createTable('tbl_supplier_manufacturer_assignment', array(
+			'id' => 'pk',
+			'LINSUID' => 'INTEGER NOT NULL DEFAULT 0', 
+			'LINMFRID' => 'INTEGER NOT NULL DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+
+		//unit table
+		//units of measure
+		$this->createTable('tbl_unit', array(
+			'id' => 'pk',
+			'UNUseUnits' => 'VARCHAR(20) NOT NULL', 
+			'UNPurchUnits' => 'VARCHAR(20) NOT NULL', 
+			'UNConvUnits' => 'FLOAT NULL NOT NULL DEFAULT 1',
+		), 'ENGINE=InnoDB');  
+
 		//parts and vendors tables
-		//pv_al table
-		//possibly used for managing client jobs (no data expected from PV6SE)
+		//tables specific to PV6EX or PV6ECO, or not yet fully understood
+		//
+		//pv_al table (PV6EX, PV6ECO)
+		//for managing client jobs
 		$this->createTable('tbl_pv_al', array(
 			'id' => 'pk',
 			'ALPNID' => 'INTEGER DEFAULT 0', 
@@ -324,52 +391,36 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB'); 
 
 		//pv_cnv table
-		//possibly used to convert one part to another
+		//convert unit of measure? convert PO to RFQ?
 		$this->createTable('tbl_pv_cnv', array(
 			'id' => 'pk',
 			'CNVLNKID' => 'INTEGER NOT NULL DEFAULT 0', 
 		), 'ENGINE=InnoDB'); 
 
 		//pv_cost table
-		//buy-level part cost for each source for a part (aka "price breaks")
-		$this->createTable('tbl_pv_cost', array(
-			'id' => 'pk',
-			'COSTLNKID' => 'INTEGER NOT NULL', 
-			'COSTAtQty' => 'FLOAT NULL DEFAULT 1', 
-			'COSTLeadtime' => 'INTEGER DEFAULT 0', 
-			'COSTCost' => 'DOUBLE NULL DEFAULT 0', 
-		), 'ENGINE=InnoDB'); 
+		//refactored to part_cost table
 
 		//pv_cu table
-		//customers (no data expected from PV6SE)
 		//refactored to customer table
 
 		//pv_cur table
-		//currencies with print symbol, formatting and exchange rate
-		$this->createTable('tbl_pv_cur', array(
-			'id' => 'pk',
-			'CURCurrencyName' => 'VARCHAR(50)', 
-			'CURExchangeRate' => 'DOUBLE NULL DEFAULT 0',
-			'CURCurrencyChar' => 'VARCHAR(4)', 
-			'CURFormat' => 'VARCHAR(35)', 
-			'CURFormatExt' => 'VARCHAR(35)', 
-		), 'ENGINE=InnoDB'); 
+		//refactored to currency table
 
-		//pv_dept table
-		//eco sign-off departments (only if PV6ECO, and schema is installed)
+		//pv_dept table (PV6ECO - if schema installed)
+		//eco sign-off departments
 
-		//pv_eco table
-		//eco master data (only if PV6ECO, and schema is installed)
+		//pv_eco table (PV6ECO - if schema installed)
+		//eco master data
 
 		//pv_fil table
 		//file paths or urls linked to part numbers
 		//refactored to file table
 
-		//pv_grp table
-		//user permission groups (only if PV6EX or PV6ECO, and schema is installed)
+		//pv_grp table (PV6EX, PV6ECO - if schema installed)
+		//user permission groups
 		
 		//pv_hist table
-		//history trail for bulk inventory adjustments
+		//history of bulk inventory adjustments
 		$this->createTable('tbl_pv_hist', array(
 			'id' => 'pk',
 			'HISTWho' => 'VARCHAR(20)', 
@@ -401,8 +452,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'GPREFText10' => 'VARCHAR(50)', 
 		), 'ENGINE=InnoDB');  
 		
-		//pv_job table
-		//job master data for customer jobs (no data expected from PV6SE)
+		//pv_job table (PV6EX, PV6ECO)
+		//job master data for customer jobs
 		$this->createTable('tbl_pv_job', array(
 			'id' => 'pk',
 			'JOBNumber' => 'VARCHAR(50)', 
@@ -433,12 +484,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//pv_lin table
-		//line-card links between vendor and manufacturer
-		$this->createTable('tbl_pv_lin', array(
-			'id' => 'pk',
-			'LINSUID' => 'INTEGER NOT NULL DEFAULT 0', 
-			'LINMFRID' => 'INTEGER NOT NULL DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
+		//refactored to supplier_manufacturer_assignment table
 
 		//pv_lnk table
 		//part source links and related data and relationships
@@ -465,8 +511,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'LNKRoHSNote' => 'VARCHAR(255)', 
 		), 'ENGINE=InnoDB');  
 
-		//pv_mf table
-		//part made-from relationships (no data expected from PV6SE)
+		//pv_mf table (PV6EX, PV6ECO)
+		//part made-from relationships
 		$this->createTable('tbl_pv_mf', array(
 			'id' => 'pk',
 			'MFPNIDParent' => 'INTEGER DEFAULT 0', 
@@ -475,32 +521,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//pv_mfr table
-		//manufacturer master data
-		$this->createTable('tbl_pv_mfr', array(
-			'id' => 'pk',
-			'MFRMfrName' => 'VARCHAR(50) NOT NULL', 
-			'MFRAddress' => 'VARCHAR(255)', 
-			'MFRCountry' => 'VARCHAR(50)', 
-			'MFRContact1' => 'VARCHAR(50)', 
-			'MFRContact2' => 'VARCHAR(50)', 
-			'MFRPhone1' => 'VARCHAR(20)', 
-			'MFRPhone2' => 'VARCHAR(20)', 
-			'MFRFax' => 'VARCHAR(20)', 
-			'MFRWeb' => 'VARCHAR(255)',
-			'MFRNotes' => 'LONGTEXT', 
-			'MFRCode' => 'VARCHAR(20)', 
-			'MFREMail1' => 'VARCHAR(50)', 
-			'MFREMail2' => 'VARCHAR(50)', 
-			'MFRNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
+		//refactored to manufacturer table
 
 		//pv_mfrpn table
-		//manufacturers part number links
-		$this->createTable('tbl_pv_mfrpn', array(
-			'id' => 'pk',
-			'MFRPNMFRID' => 'INTEGER DEFAULT 0', 
-			'MFRPNPart' => 'VARCHAR(50)', 
-		), 'ENGINE=InnoDB');  
+		//refactored to manufacturer_part table
 
 		//pv_org table
 		//user organization details
@@ -517,22 +541,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//pv_pl table
-		//parts-lists links and related data
-		$this->createTable('tbl_pv_pl', array(
-			'id' => 'pk',
-			'PLListID' => 'INTEGER NOT NULL DEFAULT 0',
-			'PLPartID' => 'INTEGER NOT NULL DEFAULT 0',
-			'PLItem' => 'INTEGER DEFAULT 0',
-			'PLQty' => 'VARCHAR(10)',
-			'PLRefMemo' => 'LONGTEXT',
-			'PLRefText' => 'VARCHAR(255)',
-			'PLAssyOrder' => 'FLOAT NULL',
-			'PLAssySpec' => 'VARCHAR(255)',
-			'PLMFRPNID' => 'INTEGER',
-			'PLMFRID' => 'INTEGER',
-			'PLSUID' => 'INTEGER',
-			'PLLNKID' => 'INTEGER',
-		), 'ENGINE=InnoDB');        
+		//refactored to part_list table
 
 		//pv_pll table
 		//assembly index for purchase and kitting lists
@@ -547,11 +556,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');        
 
 		//pv_pn table
-		//part master
 		//refactored to part table
 
-		//pv_po table
-		//line items on RFQs and POs (no data expected from PV6SE)
+		//pv_po table (PV6EX, PV6ECO)
+		//line items on RFQs and POs
 		$this->createTable('tbl_pv_po', array(
 			'id' => 'pk',
 			'POPOMID' => 'INTEGER DEFAULT 0', 
@@ -581,8 +589,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'POTax2' => 'DOUBLE NULL DEFAULT 0', 
 		), 'ENGINE=InnoDB');  
 
-		//pv_pod table
-		//purchase order data included in PO line item (no data expected from PV6SE)		
+		//pv_pod table (PV6EX, PV6ECO)
+		//purchase order data included in PO line item
 		$this->createTable('tbl_pv_pod', array(
 			'id' => 'pk',
 			'PODField' => 'VARCHAR(50)', 
@@ -598,8 +606,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PODUseCaptionJOB' => 'TINYINT(1) DEFAULT 0', 
 		), 'ENGINE=InnoDB');  
 
-		//pv_pom table
-		//purchase order and RFQ master data (no data expected from PV6SE)
+		//pv_pom table (PV6EX, PV6ECO)
+		//purchase order and RFQ master data
 		$this->createTable('tbl_pv_pom', array(
 			'id' => 'pk',
 			'POMNumber' => 'VARCHAR(20) NOT NULL', 
@@ -635,7 +643,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'POMDateReqDate' => 'DATETIME', 
 		), 'ENGINE=InnoDB');  
 
-		//pv_rpx table
+		//pv_rpx table (PV6EX, PV6ECO)
 		//global report layouts
 		$this->createTable('tbl_pv_rpx', array(
 			'id' => 'pk',
@@ -646,7 +654,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'RPXPrimary' => 'TINYINT(1) DEFAULT 0', 
 		), 'ENGINE=InnoDB');  
 
-		//pv_ship table
+		//pv_ship table (PV6EX, PV6ECO)
 		//shipping methods for reference by POs
 		$this->createTable('tbl_pv_ship', array(
 			'id' => 'pk',
@@ -654,37 +662,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//pv_su table
-		//vendor (supplier) master data
-		$this->createTable('tbl_pv_su', array(
-			'id' => 'pk',
-			'SUSupplier' => 'VARCHAR(50) UNIQUE NOT NULL',
-			'SUAddress' => 'VARCHAR(255)',
-			'SUCountry' => 'VARCHAR(50)',
-			'SUPhone1' => 'VARCHAR(20)',
-			'SUPhone2' => 'VARCHAR(20)',
-			'SUFAX' => 'VARCHAR(20)',
-			'SUWeb' => 'VARCHAR(255)',
-			'SUContact1' => 'VARCHAR(50)',
-			'SUContact2' => 'VARCHAR(50)',
-			'SUDateLast' => 'DATETIME',
-			'SUFollowup' => 'TINYINT(1) DEFAULT 0',
-			'SUNotes' => 'LONGTEXT',
-			'SUCode' => 'VARCHAR(20)',
-			'SUAccount' => 'VARCHAR(20)',
-			'SUTerms' => 'VARCHAR(20)',
-			'SUFedTaxID' => 'VARCHAR(20)',
-			'SUStateTaxID' => 'VARCHAR(20)',
-			'SUEMail1' => 'VARCHAR(50)', 
-			'SUEMail2' => 'VARCHAR(50)', 
-			'SUCurDedExRate' => 'TINYINT(1) DEFAULT 0', 
-			'SUCurExRate' => 'DOUBLE NULL DEFAULT 0', 
-			'SUCURID' => 'INTEGER DEFAULT 1', 
-			'SUCurReverse' => 'TINYINT(1) DEFAULT 0', 
-			'SUNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
+		//refactored to supplier table
 
-		//pv_task
-		//line items for jobs (no data expected from PV6SE)		
+		//pv_task (PV6EX, PV6ECO)	
+		//line items for jobs	
 		$this->createTable('tbl_pv_task', array(
 			'id' => 'pk',
 			'TASKJOBID' => 'INTEGER DEFAULT 0', 
@@ -708,100 +689,90 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//pv_type table
-		//part type lookup (AW, CAT, DOC, DWG, PL, PS)
-		$this->createTable('tbl_pv_type', array(
-			'id' => 'pk',
-			'TYPEType' => 'VARCHAR(6)',
-		), 'ENGINE=InnoDB');  
+		//refactored to part_type table
 
 		//pv_un table
-		//units of measure
-		$this->createTable('tbl_pv_un', array(
-			'id' => 'pk',
-			'UNUseUnits' => 'VARCHAR(20) NOT NULL', 
-			'UNPurchUnits' => 'VARCHAR(20) NOT NULL', 
-			'UNConvUnits' => 'FLOAT NULL NOT NULL DEFAULT 1',
-		), 'ENGINE=InnoDB');  
+		//refactored to unit table
 
 		//foreign keys
 		//activity
-		$this->addForeignKey("fk_activity_to_project", "tbl_activity", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_activity_to_project", "tbl_activity", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
 		
+		//file
+		//$this->addForeignKey("fk_file_to_part", "tbl_file", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
+
 		//issue
-		$this->addForeignKey("fk_issue_to_part", "tbl_issue", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_project", "tbl_issue", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_stock", "tbl_issue", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_owner", "tbl_issue", "owner_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_issue_to_part", "tbl_issue", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_issue_to_project", "tbl_issue", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_issue_to_stock", "tbl_issue", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_issue_to_owner", "tbl_issue", "owner_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
 		//order
-		$this->addForeignKey("fk_order_to_project", "tbl_order", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_to_parts_list", "tbl_order", "parts_list_id", "tbl_part", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_to_create_user", "tbl_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_to_update_user", "tbl_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_to_project", "tbl_order", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_to_parts_list", "tbl_order", "parts_list_id", "tbl_part", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_to_create_user", "tbl_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_to_update_user", "tbl_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
 		//order_item
-		$this->addForeignKey("fk_order_item_to_order", "tbl_order_item", "order_id", "tbl_order", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_part", "tbl_order_item", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_create_user", "tbl_order_item", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_update_user", "tbl_order_item", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_item_to_order", "tbl_order_item", "order_id", "tbl_order", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_item_to_part", "tbl_order_item", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_item_to_create_user", "tbl_order_item", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_item_to_update_user", "tbl_order_item", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 
 		//order_item_to_stock
-		$this->addForeignKey("fk_order_item_to_stock_to_order_item", "tbl_order_item_to_stock", "order_item_id", "tbl_order_item", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_stock_to_stock", "tbl_order_item_to_stock", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_stock_to_create_user", "tbl_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_stock_to_update_user", "tbl_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_item_to_stock_to_order_item", "tbl_order_item_to_stock", "order_item_id", "tbl_order_item", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_item_to_stock_to_stock", "tbl_order_item_to_stock", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_item_to_stock_to_create_user", "tbl_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_order_item_to_stock_to_update_user", "tbl_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 
 		//part
-		$this->addForeignKey("fk_part_to_units", "tbl_part", "PNUNID", "tbl_pv_un", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_tab_parent", "tbl_part", "PNTabParentID", "tbl_part", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_type", "tbl_part", "type_id", "tbl_pv_type", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_stock_location", "tbl_part", "stock_location_id", "tbl_stock_location", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_requestor", "tbl_part", "requester_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_create_user", "tbl_part", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_update_user", "tbl_part", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_part_to_units", "tbl_part", "PNUNID", "tbl_pv_un", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_part_to_tab_parent", "tbl_part", "PNTabParentID", "tbl_part", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_part_to_type", "tbl_part", "type_id", "tbl_pv_type", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_part_to_stock_location", "tbl_part", "stock_location_id", "tbl_stock_location", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_part_to_requestor", "tbl_part", "requester_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_part_to_create_user", "tbl_part", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_part_to_update_user", "tbl_part", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 
         //project
-		$this->addForeignKey("fk_project_to_customer", "tbl_project", "customer_id", "tbl_customer", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_project_to_customer", "tbl_project", "customer_id", "tbl_customer", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 
         //project_person_assignment
-		$this->addForeignKey("fk_project_to_person", "tbl_project_person_assignment", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_person_to_project", "tbl_project_person_assignment", "person_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_project_to_person", "tbl_project_person_assignment", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_person_to_project", "tbl_project_person_assignment", "person_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
 		//stock
 		$this->addForeignKey("fk_stock_to_part", "tbl_stock", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 
 		//parts and vendors tables
-		//pv_fil
-		$this->addForeignKey("fk_pv_fil_part", "tbl_file", "FILPNID", "tbl_part", "id", "CASCADE", "RESTRICT");
-
 		//pv_lin
-		$this->addForeignKey("fk_pv_lin_supplier", "tbl_pv_lin", "LINSUID", "tbl_pv_lin", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_lin_mfr", "tbl_pv_lin", "LINMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_lin_supplier", "tbl_pv_lin", "LINSUID", "tbl_pv_lin", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_lin_mfr", "tbl_pv_lin", "LINMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
 
 		//pv_lnk
-		$this->addForeignKey("fk_pv_lnk_supplier", "tbl_pv_lnk", "LNKSUID", "tbl_pv_su", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_lnk_mfr_part", "tbl_pv_lnk", "LNKMFRPNID", "tbl_pv_mfrpn", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_lnk_mfr", "tbl_pv_lnk", "LNKMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_lnk_units", "tbl_pv_lnk", "LNKUNID", "tbl_pv_un", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_lnk_part", "tbl_pv_lnk", "LNKPNID", "tbl_part", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_lnk_supplier", "tbl_pv_lnk", "LNKSUID", "tbl_pv_su", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_lnk_mfr_part", "tbl_pv_lnk", "LNKMFRPNID", "tbl_pv_mfrpn", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_lnk_mfr", "tbl_pv_lnk", "LNKMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_lnk_units", "tbl_pv_lnk", "LNKUNID", "tbl_pv_un", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_lnk_part", "tbl_pv_lnk", "LNKPNID", "tbl_part", "id", "CASCADE", "RESTRICT");
 		
 		//pv_mfrpn
-		$this->addForeignKey("fk_pv_mfrpn_mfr", "tbl_pv_mfrpn", "MFRPNMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_mfrpn_mfr", "tbl_pv_mfrpn", "MFRPNMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
 
 		//pv_pl
-		$this->addForeignKey("fk_pv_pl_pn_parent", "tbl_pv_pl", "PLListID", "tbl_part", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_pl_pn_child", "tbl_pv_pl", "PLPartID", "tbl_part", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_pl_mfrpn", "tbl_pv_pl", "PLMFRPNID", "tbl_pv_mfrpn", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_pl_mfr", "tbl_pv_pl", "PLMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_pl_su", "tbl_pv_pl", "PLSUID", "tbl_pv_su", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_pv_pl_lnk", "tbl_pv_pl", "PLLNKID", "tbl_pv_lnk", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_pl_pn_parent", "tbl_pv_pl", "PLListID", "tbl_part", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_pl_pn_child", "tbl_pv_pl", "PLPartID", "tbl_part", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_pl_mfrpn", "tbl_pv_pl", "PLMFRPNID", "tbl_pv_mfrpn", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_pl_mfr", "tbl_pv_pl", "PLMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_pl_su", "tbl_pv_pl", "PLSUID", "tbl_pv_su", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_pl_lnk", "tbl_pv_pl", "PLLNKID", "tbl_pv_lnk", "id", "CASCADE", "RESTRICT");
 
 		//pv_su
-		$this->addForeignKey("fk_pv_su_currency", "tbl_pv_su", "SUCURID", "tbl_pv_cur", "id", "CASCADE", "RESTRICT");
+		//$this->addForeignKey("fk_pv_su_currency", "tbl_pv_su", "SUCURID", "tbl_pv_cur", "id", "CASCADE", "RESTRICT");
 	}
 
 	public function down()
@@ -809,40 +780,44 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->execute("SET foreign_key_checks = 0;");
 
 		$this->dropTable('tbl_activity');
-		$this->dropTable('tbl_album');
-		$this->dropTable('tbl_comment');
+		$this->dropTable('tbl_currency');
 		$this->dropTable('tbl_customer');
-		$this->dropTable('tbl_issue');
 		$this->dropTable('tbl_file');
-		$this->dropTable('tbl_option');
+		$this->dropTable('tbl_issue');
+		$this->dropTable('tbl_manufacturer');
 		$this->dropTable('tbl_order');
 		$this->dropTable('tbl_order_item');
-		$this->dropTable('tbl_order_item_to_stock');        
-		$this->dropTable('tbl_part');        
+		$this->dropTable('tbl_order_item_stock_assignment');
+		$this->dropTable('tbl_part');   
+		$this->dropTable('tbl_part_cost');
+		$this->dropTable('tbl_part_list');
+		$this->dropTable('tbl_part_type');
 		$this->dropTable('tbl_person');
 		$this->dropTable('tbl_project');
 		$this->dropTable('tbl_project_person_assignment');
 		$this->dropTable('tbl_stock');
 		$this->dropTable('tbl_stock_location');
-		$this->dropTable('tbl_tag');        
-        
+		$this->dropTable('tbl_supplier');
+		$this->dropTable('tbl_supplier_manufacturer_assignment');
+		$this->dropTable('tbl_unit');
+
 		//parts and vendors
 		$this->dropTable('tbl_pv_al');
 		$this->dropTable('tbl_pv_cnv');
-		$this->dropTable('tbl_pv_cost');
+		//$this->dropTable('tbl_pv_cost');
 		//$this->dropTable('tbl_pv_cu');
-		$this->dropTable('tbl_pv_cur');
+		//$this->dropTable('tbl_pv_cur');
 		//$this->dropTable('tbl_pv_fil');
 		$this->dropTable('tbl_pv_hist');
 		$this->dropTable('tbl_pv_hpref');
 		$this->dropTable('tbl_pv_job');
-		$this->dropTable('tbl_pv_lin');
+		//$this->dropTable('tbl_pv_lin');
 		$this->dropTable('tbl_pv_lnk');
 		$this->dropTable('tbl_pv_mf');
-		$this->dropTable('tbl_pv_mfr');
-		$this->dropTable('tbl_pv_mfrpn');
+		//$this->dropTable('tbl_pv_mfr');
+		//$this->dropTable('tbl_pv_mfrpn');
 		$this->dropTable('tbl_pv_org');
-		$this->dropTable('tbl_pv_pl');
+		//$this->dropTable('tbl_pv_pl');
 		$this->dropTable('tbl_pv_pll');
 		//$this->dropTable('tbl_pv_pn');
 		$this->dropTable('tbl_pv_po');
@@ -850,10 +825,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_pv_pom');
 		$this->dropTable('tbl_pv_rpx');
 		$this->dropTable('tbl_pv_ship');
-		$this->dropTable('tbl_pv_su');
+		//$this->dropTable('tbl_pv_su');
 		$this->dropTable('tbl_pv_task');
-		$this->dropTable('tbl_pv_type');
-		$this->dropTable('tbl_pv_un');
+		//$this->dropTable('tbl_pv_type');
+		//$this->dropTable('tbl_pv_un');
 		
 		$this->execute("SET foreign_key_checks = 0;");
 	}

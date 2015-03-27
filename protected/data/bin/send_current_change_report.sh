@@ -59,6 +59,6 @@ mail -s "Maestro Change Report" root@whizzer.swiftconstructioncompany.net < /hom
 # cleanup
 #rm /home/maestro/scc/work/rsync*.log
 # preserve change report
-cp /home/epd2/bhi/work/current_changereport.txt /home/epd2/bhi/work/changereport-`date +%Y%m%d%S`.txt
+cp /home/maestro/scc/work/current_changereport.txt /home/maestro/scc/work/changereport-`date +%Y%m%d%S`.txt
 
 exit 0

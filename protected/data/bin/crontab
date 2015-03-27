@@ -25,11 +25,23 @@ PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin
 1,31	0-5	*	*	*	root	adjkerntz -a
 
 #######
-# system backup (every Saturday @ 4:01am)
-# 1       4       *       *       6       root    /root/bin/sysbackup.sh
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+# system backup
+# TODO not safe to backup live fs
+1       4       *       *       *       root    /usr/local/www/maestro/protected/data/bin/backup_system.sh
 
-# synchronize to remote file share (every day @ 2:01am)
-#1	2	*	*	*	root	/usr/local/maestro/bin/rsync_current_files.sh
-#25	2	*	*	*	root	/usr/local/maestro/bin/export_current_to_csv.sh
-#30	2	*	*	*	root	/usr/local/maestro/bin/send_current_change_report.sh
+# maestro backup (databases and files)
+1       3       *       *       *       root    /usr/local/www/maestro/protected/data/bin/backup_epd2.sh
 
+# maestro periodic get current and report
+#1      2       *       *       *       root    /usr/local/www/maestro/protected/data/bin/rsync_current_files.sh
+20      2       *       *       *       root    /usr/local/www/maestro/protected/data/bin/export_current_to_csv.sh
+30      2       *       *       *       root    /usr/local/www/maestro/protected/data/bin/send_current_change_report.sh
+40      2       *       *       *       root    /usr/local/www/maestro/protected/data/bin/load_current_from_csv.sh

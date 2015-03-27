@@ -8,26 +8,31 @@
 #
 
 rm -r /home/maestro/scc/*
+
+# csv, current and previous
 mkdir /home/maestro/scc/csv/
 mkdir /home/maestro/scc/csv.old/
-mkdir /home/maestro/scc/ods/
-mkdir /home/maestro/scc/pv/
-mkdir /home/maestro/scc/work/
 
 # ad-hoc documents
 mkdir /home/maestro/scc/docs
-# rsync document directory (preserves original files if overwritten with updated content)
 mkdir /home/maestro/scc/docs.rsync
 
 # material documents
 mkdir /home/maestro/scc/material/
-# rsync document directory (preserves original files if overwritten with updated content)
 mkdir /home/maestro/scc/material.rsync/
+
+# master spreadsheets
+mkdir /home/maestro/scc/ods/
 
 # part documents
 mkdir /home/maestro/scc/parts
-# rsync document directory (preserves original files if overwritten with updated content)
 mkdir /home/maestro/scc/parts.rsync
+
+# parts&vendors database
+mkdir /home/maestro/scc/pv/
+
+# working directory (for processing iterations)
+mkdir /home/maestro/scc/work/
 
 # make directories that will be written to from remote MS Windows clients read/write
 # - MAKE files read/write if necessary when copied (e.g. pv/pv.mdb)

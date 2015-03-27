@@ -3,8 +3,7 @@
 # Delete all parts/ directories
 # Copy all parts-x/ to parts/
 #
-# cd .../maestro/bin/
-# ./parts_all.sh
+# Execute from bin/
 #
 
 rm -r  ../parts/[1,2,3,,4,5,6,7,8,9]*

@@ -1,7 +1,8 @@
-#!/usr/bin/env python2
+#!/usr/local/bin/python2
 #
-# Get details from pv_pn.csv (e.g. Part Number, Title, Detail)
-#   Reads from file1, writes to file2
+# Get details from pv_pn.csv
+# Usage: get_pv_pn_details.py path/pv_pn.csv path/pv_pn_details.csv 
+# - reads from arg1/file1, writes to arg2/file2
 #
 # Note on shebang:
 #   #!/usr/bin/env python    - use first python in user path - most portable (unless no "python" as default on FreeBSD)
@@ -20,6 +21,7 @@ ofile = open(sys.argv[2], "wb") # open output csv file
 writer = csv.writer(ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
 for PNID,PNIDToLNK,PNUNID,PNTabParentID,PNPrefix,PNPartNumber,PNSuffix,PNType,PNRevision,PNTitle,PNDetail,PNStatus,PNReqBy,PNNotes,PNUser1,PNUser2,PNUser3,PNUser4,PNUser5,PNUser6,PNUser7,PNUser8,PNUser9,PNUser10,PNDate,PNTab,PNControlled,PNAux1,PNQty,PNQty2,PNCostChanged,PNParentCost,PNExpandList,PNAssyCostOption,PNInclAssyOnPurchList,PNMadeFrom,PNMinStockQty,PNOrderToMaintain,PNOnECO,PNOverKit,PNOverKitQty,PNOverKitBy,PNOverKitFor,PNCurrentCost,PNLastRollupCost,PNUSRID,PNUserLock in reader:
+#	writer.writerow([PNPartNumber])
 	writer.writerow([PNPartNumber, PNTitle, PNDetail])
  
 ifile.close()
