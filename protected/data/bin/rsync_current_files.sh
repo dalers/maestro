@@ -24,7 +24,7 @@
 echo "rsync_current_files: delete old rsync part log file"
 rm /home/maestro/scc/work/rsync-parts.log
 echo "rsync_current_files: rsync 'current' part documents"
-/usr/bin/rsync -a --itemize-changes --include-from=/home/maestro/maestro-repo/scc/bin/rsync_include --exclude-from=/home/maestro/maestro-repo/scc/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/maestro/scc/work/rsync-parts.log" /home/maestro/scc/parts/ /home/maestro/scc/parts.rsync > /dev/null
+/usr/local/bin/rsync -a --itemize-changes --include-from=/usr/local/www/maestro/protected/data/bin/rsync_include --exclude-from=/usr/local/www/maestro/protected/data/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/maestro/scc/work/rsync-parts.log" /home/maestro/scc/parts/ /home/maestro/scc/parts.rsync > /dev/null
 
 #
 # material
@@ -32,6 +32,6 @@ echo "rsync_current_files: rsync 'current' part documents"
 #echo "rsync_current_files: delete old rsync material log file"
 #rm /home/maestro/scc/work/rsync-material.log
 #echo "rsync_current_files: rsync 'current' material documents"
-#/usr/bin/rsync -a --itemize-changes --include-from=/home/maestro/maestro-repo/scc/bin/rsync_include --exclude-from=/home/maestro/maestro-repo/scc/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/maestro/scc/work/rsync-material.log" /home/maestro/scc/material/ /home/maestro/scc/material.rsync > /dev/null
+#/usr/local/bin/rsync -a --itemize-changes --include-from=/usr/local/www/maestro/protected/data/bin/ --exclude-from=/usr/local/www/maestro/protected/data/bin/rsync_exclude --backup --suffix=-`date +%FT%H%M%S` --log-file="/home/maestro/scc/work/rsync-material.log" /home/maestro/scc/material/ /home/maestro/scc/material.rsync > /dev/null
 
 exit 0
