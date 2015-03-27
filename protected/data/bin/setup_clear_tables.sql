@@ -27,7 +27,7 @@ TRUNCATE TABLE `tbl_project_person_assignment`;
 TRUNCATE TABLE `tbl_stock`;
 TRUNCATE TABLE `tbl_stock_location`;
 TRUNCATE TABLE `tbl_supplier`;
-TRUNCATE TABLE `tbl_supplier_manufacturing_assignment`;
+TRUNCATE TABLE `tbl_supplier_manufacturer_assignment`;
 TRUNCATE TABLE `tbl_unit`;
 
 -- parts&vendors
