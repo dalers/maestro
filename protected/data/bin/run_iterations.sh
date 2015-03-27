@@ -1,27 +1,27 @@
 #!/bin/sh
 #
-# "run" Aircraft Wireless PLM iterations sequentially
+# "run" Aircraft Wireless PLM iterations
 # - run from /home/maestro/maestro-repo/scc/bin/
 # - /home/maestro/ MUST exist with r/w permission
 # - select either versioned or un-versioned document filenames
-# - select csv data from repo or exported live
+# - select csv data from repo or exported live via mdbtools
 #
-# Process Aircraft Wireless PLM iterations in order
+# TODO fix script to copy master spreadsheet csv to csv/ if NOMDBTOOLS
 #
-# Description
-# ------------------------------------------
 # Steps through successive iterations of data as if processed in real
 # time (e.g. as if scheduled nightly using cron with one iteration per
 # day).
 #
 # For each iteration:
-#
-#   * csv/ -> csv.old/
-#   * restore current csv from master spreadsheets and parts&vendors
-#   * restore Parts&Vendors(TM) database
-#   * restore current part documents
-#   * load current data into Maestro
-#   * send change report
+#   - copy csv/* -> csv.old/ (except for initial iteration)
+#   - restore 'current' master spreadsheets and csv files
+#   - restore 'current' part documents
+#   - restore 'current' parts&vendors database
+#   - restore and/or re-generate 'current' csv files (export_current_to_csv.sh)
+#       !!! master spreadsheet csv is restored ONLY if MDBTOOLS
+#   - control 'current' part files (rsync_current_files.sh)
+#   - send change report (send_current_change_report.sh)
+#   - TODO load 'current' into maestro db
 #
 # SCC data structure in Maestro git repo
 # ------------------------
@@ -109,7 +109,7 @@ echo "run setup_fix_iteration_datetime.sh"
 ./setup_fix_iteration_datetime.sh
 
 echo "create 'null' files in csv.old/ (pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv)"
-head -n 1 ../csv-1/pv_pn.csv > /home/maestro/scc/csv.old/pv_pn.csv
+head -n 1 ../csv-pv-1/pv_pn.csv > /home/maestro/scc/csv.old/pv_pn.csv
 ./get_pv_pn_details.py /home/maestro/scc/csv.old/pv_pn.csv /home/maestro/scc/csv.old/pv_pn_details.csv
 # sorting doesn't accomplish anything but required bootstrap file does get created
 sort /home/maestro/scc/csv.old/pv_pn_details.csv  > /home/maestro/scc/csv.old/pv_pn_details_sort.csv
@@ -122,6 +122,10 @@ read -t 60 -p "setup complete - Press [Enter] to continue..." key
 echo
 echo "Iteration 1 - Prototype Release"
 echo "========================================"
+
+# not on initial iteration
+#echo "move 'current' csv to 'old' csv"
+#cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
 echo "copy 'current' master data spreadsheets and csv exports"
 # -a archive mode preserves file times
@@ -147,7 +151,7 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' Parts&Vendors(TM) database"
+echo "copy 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-1.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
@@ -157,7 +161,7 @@ chmod ugo+rw /home/maestro/scc/pv/*
 if test $mdbtools = "NOMDBTOOLS"
 then
 	echo "copy 'current' CSV files from repo"
-	cp ../csv-1/* /home/maestro/scc/csv/
+	cp ../csv-pv-1/* /home/maestro/scc/csv/
 elif test $mdbtools = "MDBTOOLS"
 then
 	echo "copy 'current' CSV files by re-generating"
@@ -178,6 +182,9 @@ echo "run send_current_change_report.sh"
 
 echo "preserve change report"
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-1.txt
+
+#echo "load_current_from_csv.sh"
+#./load_current_from_csv.sh
 
 echo
 read -t 60 -p "iteration 1 complete - Press [Enter] to continue..." key
@@ -213,7 +220,7 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' Parts&Vendors(TM) database"
+echo "copy 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-2.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
@@ -223,7 +230,7 @@ chmod ugo+rw /home/maestro/scc/pv/*
 if test $mdbtools = "NOMDBTOOLS"
 then
 	echo "copy 'current' CSV files from repo"
-	cp ../csv-2/* /home/maestro/scc/csv/
+	cp ../csv-pv-2/* /home/maestro/scc/csv/
 elif test $mdbtools = "MDBTOOLS"
 then
 	echo "copy 'current' CSV files by re-generating"
@@ -244,6 +251,9 @@ echo "run send_current_change_report.sh"
 
 echo "preserve change report"
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-2.txt
+
+#echo "load_current_from_csv.sh"
+#./load_current_from_csv.sh
 
 echo
 read -t 60 -p "iteration 2 complete - Press [Enter] to continue..." key
@@ -279,7 +289,7 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' Parts&Vendors(TM) database"
+echo "copy 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-3.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
@@ -289,7 +299,7 @@ chmod ugo+rw /home/maestro/scc/pv/*
 if test $mdbtools = "NOMDBTOOLS"
 then
 	echo "copy 'current' CSV files from repo"
-	cp ../csv-3/* /home/maestro/scc/csv/
+	cp ../csv-pv-3/* /home/maestro/scc/csv/
 elif test $mdbtools = "MDBTOOLS"
 then
 	echo "copy 'current' CSV files by re-generating"
@@ -310,6 +320,9 @@ echo "run send_current_change_report.sh"
 
 echo "preserve change report"
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-3.txt
+
+#echo "load_current_from_csv.sh"
+#./load_current_from_csv.sh
 
 echo
 read -t 60 -p "iteration 3 complete - Press [Enter] to continue..." key
@@ -345,7 +358,7 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' Parts&Vendors(TM) database"
+echo "copy 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-4.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
@@ -355,7 +368,7 @@ chmod ugo+rw /home/maestro/scc/pv/*
 if test $mdbtools = "NOMDBTOOLS"
 then
 	echo "copy 'current' CSV files from repo"
-	cp ../csv-4/* /home/maestro/scc/csv/
+	cp ../csv-pv-4/* /home/maestro/scc/csv/
 elif test $mdbtools = "MDBTOOLS"
 then
 	echo "copy 'current' CSV files by re-generating"
@@ -376,6 +389,9 @@ echo "run send_current_change_report.sh"
 
 echo "preserve change report"
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-4.txt
+
+#echo "load_current_from_csv.sh"
+#./load_current_from_csv.sh
 
 echo
 read -t 60 -p "iteration 4 complete - Press [Enter] to continue..." key
@@ -411,7 +427,7 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' Parts&Vendors(TM) database"
+echo "copy 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-5.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
@@ -421,7 +437,7 @@ chmod ugo+rw /home/maestro/scc/pv/*
 if test $mdbtools = "NOMDBTOOLS"
 then
 	echo "copy 'current' CSV files from repo"
-	cp ../csv-5/* /home/maestro/scc/csv/
+	cp ../csv-pv-5/* /home/maestro/scc/csv/
 elif test $mdbtools = "MDBTOOLS"
 then
 	echo "copy 'current' CSV files by re-generating"
@@ -443,11 +459,14 @@ echo "run send_current_change_report.sh"
 echo "preserve change report"
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-5.txt
 
+#echo "load_current_from_csv.sh"
+#./load_current_from_csv.sh
+
 echo
 echo "iteration 5 complete"
 
 echo
-echo "Cleanup"
+echo "Clean-up"
 echo "========================================"
 
 echo

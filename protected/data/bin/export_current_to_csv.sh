@@ -3,10 +3,11 @@
 # Copy 'current' CSV data to csv/
 # - obtain from source if possible (e.g. spreadsheet or other db)
 #
-# Schedule using cron in following order:
-#   1. rsync_current_files.sh
-#   2. export_current_to_csv.sh
-#   3. send_current_change_report.sh
+# Schedule in /etc/crontab:
+#   - rsync_current_files.sh
+#   - export_current_to_csv.sh
+#   - send_current_change_report.sh
+#   - load_current_from_csv.sh
 #
 
 # persons

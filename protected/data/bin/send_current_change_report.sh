@@ -2,10 +2,11 @@
 #
 # Create and mail change report for part numbers, files and projects
 #
-# Schedule using cron in following order:
-#   1. rsync_current_files.sh
-#   2. export_current_to_csv.sh
-#   3. send_current_change_report.sh
+# Schedule in /etc/crontab:
+#   - rsync_current_files.sh
+#   - export_current_to_csv.sh
+#   - send_current_change_report.sh
+#   - load_current_from_csv.sh
 #
 
 # find current part numbers and sort

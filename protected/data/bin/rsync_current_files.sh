@@ -11,10 +11,11 @@
 #   then copy modified file from source/
 # - files deleted in a source directory are not deleted from [parts|material].rsync/
 #
-# Schedule together in /etc/crontab:
+# Schedule in /etc/crontab:
 #   - rsync_current_files.sh
 #   - export_current_to_csv.sh
 #   - send_current_change_report.sh
+#   - load_current_from_csv.sh
 #
 
 #
