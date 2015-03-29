@@ -1,6 +1,14 @@
 #!/bin/sh
 #
-# Setup ldap directory
+# Setup ldap (OpenLDAP) directory
+#
+# OpenLDAP directory manager (/usr/local/etc/openldap/slapd.conf)
+#   Login DN: cn=Manager,dc=root,dc=org
+#   Password: appleton
+#
+# SCC users (for example)
+#   Login DN: cn=Helen Randall,ou=People,dc=root,dc=org
+#   Password: appleton
 #
 # ldapadd
 # -v    be verbose
@@ -11,27 +19,16 @@
 # -f    read entry modification from file
 #
 
-# create domain and manager
-ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /usr/local/maestro/scc/ldap/domainmgr.ldif
+# add domain and manager to new OpenLDAP directory
+ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /usr/local/www/maestro/protected/data/openldap/domainmgr.ldif
 
-# create organizational unit
-ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /usr/local/maestro/scc/ldap/people.ldif
+# add organizational unit to OpenLDAP directory
+ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /usr/local/www/maestro/protected/data/openldap/people.ldif
 
-# convert csv export from people master spreadsheet to ldif format
-#
-# TODO refactor including with setup.sh
-#  source:  /home/samba/scc/csv/person-ldap.csv
-#  target:  /home/samba/scc/csv/person-ldap.csv
-#
-csv2ldif2.pl -b 'ou=People,dc=root,dc=org' < /usr/local/maestro/scc/ods/person-ldap.csv > /usr/local/maestro/scc/ldap/person-ldap.csv.ldif
+# convert master person spreadsheet csv to ldif
+/usr/local/www/maestro/protected/data/bin/csv2ldif2.pl -b 'ou=People,dc=root,dc=org' < /home/maestro/scc/ods/person-ldap.csv > /home/maestro/scc/ods/person-ldap.csv.ldif
 
-# MANUALLY add attribute "uid: admin" to "dn: cn=Administrator User,ou=People,dc=root,dc=org" entry
-# SAVE-AS person-ldap.csv.edit1-admin.ldif
-# TODO fix this
-
-# add scc users
-#ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /usr/local/maestro/scc/ldap/person-ldap.csv.ldif
-# use edited file
-ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /usr/local/maestro/scc/ldap/person-ldap.csv.edit1-admin.ldif
+# add users to OpenLDAP directory
+ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /home/maestro/scc/ods/person-ldap.csv.ldif
 
 exit 0
