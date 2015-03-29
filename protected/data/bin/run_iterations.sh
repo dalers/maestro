@@ -73,23 +73,17 @@ if test $# = 0
 then
     echo
     echo "  ERROR: no arguments"
-    echo "  Usage: $0 [ VER | NOVER ]  { MDBTOOLS }" 1>&2
+    echo "  Usage: $0 [ VER | NOVER ]" 1>&2
     echo
     exit 1
 elif test $# = 1
 then
     version=$1
-    mdbtools="NOMDBTOOLS"
-    echo "Using '$version' documents and '$mdbtools'"
-elif test $# = 2
-then
-    version=$1
-    mdbtools=$2
-    echo "Using '$version' documents and '$mdbtools'"
+    echo "Using '$version' documents"
 else
     echo
     echo "  ERROR: too many arguments"
-    echo "  Usage: $0 [ VER | NOVER ]  { MDBTOOLS }" 1>&2
+    echo "  Usage: $0 [ VER | NOVER ]" 1>&2
     echo
     exit 1
 fi
@@ -123,25 +117,20 @@ echo
 echo "Iteration 1 - Prototype Release"
 echo "========================================"
 
-# not on initial iteration
-#echo "move 'current' csv to 'old' csv"
-#cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
+# don't "cp csv csv.old" on initial iteration
 
-echo "copy 'current' master data spreadsheets and csv exports"
-# -a archive mode preserves file times
-# no iterations for master data spreadsheets
-cp -a ../ods/* /home/maestro/scc/ods/
-#chown -R nobody:wheel /home/maestro/scc/ods/
-chmod ugo+rw /home/maestro/scc/ods/*
+# restore master spreadsheets with csv
+echo "restore 'current' master spreadsheets and csv"
+cp ../ods/* /home/maestro/scc/ods
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "copy versioned 'current' part documents"
+	echo "restore versioned 'current' part documents"
 	cp -a ../parts-1/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "copy un-versioned 'current' part documents"
+	echo "restore un-versioned 'current' part documents"
 	cp -a ../parts-1-nover/* /home/maestro/scc/parts/
 else
 	echo "ERROR: invalid [ VER | NOVER ]"
@@ -151,26 +140,14 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' parts&vendors database"
+echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-1.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
-# copy 'current' CSV files to fileshare
-if test $mdbtools = "NOMDBTOOLS"
-then
-	echo "copy 'current' CSV files from repo"
-	cp ../csv-pv-1/* /home/maestro/scc/csv/
-elif test $mdbtools = "MDBTOOLS"
-then
-	echo "copy 'current' CSV files by re-generating"
-	./export_current_to_csv.sh
-else
-	echo "ERROR: invalid { MDBTOOLS }"
-	echo
-	exit 1
-fi
+echo "run export_current_to_csv.sh"
+./export_current_to_csv.sh
 #chown -R nobody:wheel /home/maestro/scc/csv/
 chmod -R ugo+rw       /home/maestro/scc/csv/
 
@@ -179,8 +156,7 @@ echo "run rsync_current_files.sh"
 
 echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
-
-echo "preserve change report"
+# preserve change report
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-1.txt
 
 #echo "load_current_from_csv.sh"
@@ -196,21 +172,18 @@ echo "========================================"
 echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
-echo "copy 'current' master data spreadsheets and csv exports"
-# -a archive mode preserves file times
-# no iterations for master data spreadsheets
-cp -a ../ods/* /home/maestro/scc/ods/
-#chown -R nobody:wheel /home/maestro/scc/ods/
-chmod ugo+rw /home/maestro/scc/ods/*
+# restore master spreadsheets with csv
+echo "restore 'current' master spreadsheets and csv"
+cp ../ods/* /home/maestro/scc/ods
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "copy versioned 'current' part documents"
+	echo "restore versioned 'current' part documents"
 	cp -a ../parts-2/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "copy un-versioned 'current' part documents"
+	echo "restore un-versioned 'current' part documents"
 	cp -a ../parts-2-nover/* /home/maestro/scc/parts/
 else
 	echo "ERROR: invalid [ VER | NOVER ]"
@@ -220,26 +193,14 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' parts&vendors database"
+echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-2.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
-# copy 'current' CSV files to fileshare
-if test $mdbtools = "NOMDBTOOLS"
-then
-	echo "copy 'current' CSV files from repo"
-	cp ../csv-pv-2/* /home/maestro/scc/csv/
-elif test $mdbtools = "MDBTOOLS"
-then
-	echo "copy 'current' CSV files by re-generating"
-	./export_current_to_csv.sh
-else
-	echo "ERROR: invalid { MDBTOOLS }"
-	echo
-	exit 1
-fi
+echo "run export_current_to_csv.sh"
+./export_current_to_csv.sh
 #chown -R nobody:wheel /home/maestro/scc/csv/
 chmod -R ugo+rw       /home/maestro/scc/csv/
 
@@ -248,8 +209,7 @@ echo "run rsync_current_files.sh"
 
 echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
-
-echo "preserve change report"
+# preserve change report
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-2.txt
 
 #echo "load_current_from_csv.sh"
@@ -262,24 +222,21 @@ echo
 echo "Iteration 3 - Product Release"
 echo "========================================"
 
+# restore master spreadsheets with csv
+echo "restore 'current' master spreadsheets and csv"
+cp ../ods/* /home/maestro/scc/ods
+
 echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
-
-echo "copy 'current' master data spreadsheets and csv exports"
-# -a archive mode preserves file times
-# no iterations for master data spreadsheets
-cp -a ../ods/* /home/maestro/scc/ods/
-#chown -R nobody:wheel /home/maestro/scc/ods/
-chmod ugo+rw /home/maestro/scc/ods/*
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "copy versioned 'current' part documents"
+	echo "restore versioned 'current' part documents"
 	cp -a ../parts-3/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "copy un-versioned 'current' part documents"
+	echo "restore un-versioned 'current' part documents"
 	cp -a ../parts-3-nover/* /home/maestro/scc/parts/
 else
 	echo "ERROR: invalid [ VER | NOVER ]"
@@ -289,26 +246,14 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' parts&vendors database"
+echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-3.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
-# copy 'current' CSV files to fileshare
-if test $mdbtools = "NOMDBTOOLS"
-then
-	echo "copy 'current' CSV files from repo"
-	cp ../csv-pv-3/* /home/maestro/scc/csv/
-elif test $mdbtools = "MDBTOOLS"
-then
-	echo "copy 'current' CSV files by re-generating"
-	./export_current_to_csv.sh
-else
-	echo "ERROR: invalid { MDBTOOLS }"
-	echo
-	exit 1
-fi
+echo "run export_current_to_csv.sh"
+./export_current_to_csv.sh
 #chown -R nobody:wheel /home/maestro/scc/csv/
 chmod -R ugo+rw       /home/maestro/scc/csv/
 
@@ -317,8 +262,7 @@ echo "run rsync_current_files.sh"
 
 echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
-
-echo "preserve change report"
+# preserve change report
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-3.txt
 
 #echo "load_current_from_csv.sh"
@@ -334,21 +278,18 @@ echo "========================================"
 echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
-echo "copy 'current' master data spreadsheets and csv exports"
-# -a archive mode preserves file times
-# no iterations for master data spreadsheets
-cp -a ../ods/* /home/maestro/scc/ods/
-#chown -R nobody:wheel /home/maestro/scc/ods/
-chmod ugo+rw /home/maestro/scc/ods/*
+# restore master spreadsheets with csv
+echo "restore 'current' master spreadsheets and csv"
+cp ../ods/* /home/maestro/scc/ods
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "copy versioned 'current' part documents"
+	echo "restore versioned 'current' part documents"
 	cp -a ../parts-4/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "copy un-versioned 'current' part documents"
+	echo "restore un-versioned 'current' part documents"
 	cp -a ../parts-4-nover/* /home/maestro/scc/parts/
 else
 	echo "ERROR: invalid [ VER | NOVER ]"
@@ -358,26 +299,14 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' parts&vendors database"
+echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-4.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
-# copy 'current' CSV files to fileshare
-if test $mdbtools = "NOMDBTOOLS"
-then
-	echo "copy 'current' CSV files from repo"
-	cp ../csv-pv-4/* /home/maestro/scc/csv/
-elif test $mdbtools = "MDBTOOLS"
-then
-	echo "copy 'current' CSV files by re-generating"
-	./export_current_to_csv.sh
-else
-	echo "ERROR: invalid { MDBTOOLS }"
-	echo
-	exit 1
-fi
+echo "run export_current_to_csv.sh"
+./export_current_to_csv.sh
 #chown -R nobody:wheel /home/maestro/scc/csv/
 chmod -R ugo+rw       /home/maestro/scc/csv/
 
@@ -386,8 +315,7 @@ echo "run rsync_current_files.sh"
 
 echo "run send_current_change_report.sh"
 ./send_current_change_report.sh
-
-echo "preserve change report"
+# preserve change report
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-4.txt
 
 #echo "load_current_from_csv.sh"
@@ -403,21 +331,18 @@ echo "========================================"
 echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
-echo "copy 'current' master data spreadsheets and csv exports"
-# -a archive mode preserves file times
-# no iterations for master data spreadsheets
-cp -a ../ods/* /home/maestro/scc/ods/
-#chown -R nobody:wheel /home/maestro/scc/ods/
-chmod ugo+rw /home/maestro/scc/ods/*
+# restore master spreadsheets with csv
+echo "restore 'current' master spreadsheets and csv"
+cp ../ods/* /home/maestro/scc/ods
 
-# copy 'current' part documents to fileshare
+# restore 'current' part documents to fileshare
 if test $version = "VER"
 then
-	echo "copy versioned 'current' part documents"
+	echo "restore versioned 'current' part documents"
 	cp -a ../parts-5/* /home/maestro/scc/parts/
 elif test $version = "NOVER"
 then
-	echo "copy un-versioned 'current' part documents"
+	echo "restore un-versioned 'current' part documents"
 	cp -a ../parts-5-nover/* /home/maestro/scc/parts/
 else
 	echo "ERROR: invalid [ VER | NOVER ]"
@@ -427,26 +352,14 @@ fi
 #chown -R nobody:wheel /home/maestro/scc/parts/
 chmod -R ugo+rw       /home/maestro/scc/parts/
 
-echo "copy 'current' parts&vendors database"
+echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
 cp -a ../pv/pv-5.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
-# copy 'current' CSV files to fileshare
-if test $mdbtools = "NOMDBTOOLS"
-then
-	echo "copy 'current' CSV files from repo"
-	cp ../csv-pv-5/* /home/maestro/scc/csv/
-elif test $mdbtools = "MDBTOOLS"
-then
-	echo "copy 'current' CSV files by re-generating"
-	./export_current_to_csv.sh
-else
-	echo "ERROR: invalid { MDBTOOLS }"
-	echo
-	exit 1
-fi
+echo "run export_current_to_csv.sh"
+./export_current_to_csv.sh
 #chown -R nobody:wheel /home/maestro/scc/csv/
 chmod -R ugo+rw       /home/maestro/scc/csv/
 

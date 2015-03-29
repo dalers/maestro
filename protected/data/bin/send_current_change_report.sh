@@ -50,12 +50,12 @@ echo "Contact your Maestro administrator with questions or concerns." >> /home/m
 date >> /home/maestro/scc/work/current_changereport.txt
 
 # clean up any EOL issues in report file (prevent mail client from misinterpreting file contents as binary data)
-echo "send_current_change_report: dos2unix report file..."
+echo "send_current_change_report: force unix EOL..."
 /usr/local/bin/flip -u /home/maestro/scc/work/current_changereport.txt
 
 # mail report file in body of email
 echo "send_current_change_report: send email report..."
-mail -s "Maestro Change Report" root@whizzer.swiftconstructioncompany.net < /home/maestro/scc/work/current_changereport.txt
+mail -s "Maestro Change Report" admin@swiftconstructioncompany.net < /home/maestro/scc/work/current_changereport.txt
 
 # cleanup
 #rm /home/maestro/scc/work/rsync*.log
