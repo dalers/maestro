@@ -22,7 +22,7 @@ return array(
 	),
 
 	'modules'=>array(
-		// uncomment the following to enable the Gii tool
+		//comment the following to disable the Gii tool
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>false,
@@ -39,8 +39,7 @@ return array(
 			'allowAutoLogin'=>true,
 			'class'=>'WebUser',
 		),
-		// uncomment the following to enable URLs in path-format
-		
+		//comment the following to disable URLs in path-format
 		'urlManager'=>array(
             'caseSensitive' => true,
 			'urlFormat'=>'path',
@@ -50,7 +49,6 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=maestro',
 			'emulatePrepare' => true,
@@ -69,12 +67,10 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning, info, trace',
 				),
-				// uncomment the following to show log messages on web pages
-				/*
+				//comment the following to not show log messages on web pages
 				array(
 					'class'=>'CWebLogRoute',
 				),
-				*/
 			),
 		),
         'ePdf' => array(
@@ -120,7 +116,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail'=>'admin@swiftconstructioncompany.net',
         'pagesize' => 30,
         'partListPageSize' => 20,
         'PDFconverter' => 3, // 1 - wkhtmltopdf, 2 - mpdf, 3 - html2pdf
