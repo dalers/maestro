@@ -37,30 +37,27 @@ Create a link in the /usr/local/www/ to the yii install directory (Maestro assum
 
 ```
 > cd /usr/local/www/
-> git clone git://github.com/dalers/maestro-yii maestro
+> git clone git://github.com/dalers/maestro maestro
 ```
 
 4) Create a maestro.conf file and restart Apache.
 
 ```
-> vi /usr/local/etc/apache22/Includes/maestro.conf
+> vi /usr/local/etc/apache24/Includes/maestro.conf
 
-Alias /maestro "/usr/local/www/maestro/"
+Alias /maestro "/usr/local/www/maestro"
 
-<Directory "/usr/local/www/maestro/">
-    Options none
-    AllowOverride Limit
-
-    Order Deny,Allow
-    Allow from all
+<Directory "/usr/local/www/maestro">
+    Require all granted
 </Directory>
 
-> /usr/local/etc/rc.d/apache22 restart
+
+> service apache24 restart
 ```
 
 *This is not necessarily secure, but it's a place to start.*
 
-5) Edit the MySQL root password in maestro/protected/data/setup.sh for your environment and execute setup.sh. This sets required directory and file permissions, creates the "maestro" database, and migrates the database to the current schema.
+5) Execute /usr/local/www/maestro/protected/data/bin/setup.sh to create standard directories and set permissions, etc. Review the script and edit if desired for your environment.
 
 ```
 > ./setup.sh
@@ -87,17 +84,17 @@ If you want Parts&Vendors to be have access to the Maestro file vault, edit /usr
     read only = no
 ```
 
-7) Load the Swift Construction Company (SCC) data into Maestro. The load_demo.sh script loads a series of current data "iterations", and emails a change report for each iteration.
+7) Load the Swift Construction Company (SCC) data into Maestro. The run_iterations.sh script successively loads the PLM "iterations" and emails a change report for each iteration.
 
 ```
-> cd maestro/protected/data
-> ./load_demo.sh
+> cd maestro/protected/data/bin
+> ./run_iterations.sh
 ```
 
 8) Skip to the next step if you you ran ./load_demo.sh in the last step. If not (assuming you want to load the most recent copy of the SCC database data only and not any SCC files), load the Maestro database directly with the most recent SCC data.
 
 ```
-> mysql -uroot -pappleton --local-infile=1 --show-warnings --verbose < ./load_demo-1.2.0.sql
+> mysql -uroot -pappleton --local-infile=1 --show-warnings --verbose < /usr/local/www/maestro/protected/data/sql/demo-1.2.0.sql
 ```
 
 9) You should now be able to access Maestro and login (e.g. [localhost/maestro](http://localhost/maestro)).

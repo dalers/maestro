@@ -1,3 +1,5 @@
+Maestro
+=======
 ***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>, an open-source web-based ERP system providing ***Transparency with Trust***<sup><em>TM</em></sup> to design, manufacturing and support teams.
 
 Maesto is in active development and likely *not* suitable for use at this time. Refer to the demo site for current functionality.
@@ -12,9 +14,9 @@ Getting Started
 ---------------
 Refer to the following documents:
 
-* INSTALL.md - install Maestro on a FreeBSD system
-* SCC.md - describes structure of SCC master data. 
-* WORKFLOWS.md - describes SCC workflows.
+* [INSTALL.md](https://github.com/dalers/maestro/blob/master/INSTALL.md) - installation procedure (FreeBSD)
+* [SCC.md](https://github.com/dalers/maestro/blob/master/SCC.md) - describes structure of SCC master data
+* [WORKFLOWS.md](https://github.com/dalers/maestro/blob/master/WORKFLOWS.md) - describes SCC workflows
 
 Issue Tracking
 --------------
