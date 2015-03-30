@@ -40,8 +40,8 @@
 --IGNORE 1 LINES
 --	(<list of comman-separated destination column names for each column in csv, make @columnname to assign to variable (and potentially not use)>)
 --SET
---	foo_id = nullif(@fool_id, 'NULL'),  -- if foo_id column in csv has NULL spelled out in letters
---	datebar = nullif(@datebar, 'NULL'); --  or datebar column has NULL spelled out in letters, or other individual special case
+--	foo_id = nullif(@fool_id, 'NULL'),  -- e.g. if foo_id column in csv has NULL spelled out in letters
+--	datebar = nullif(@datebar, 'NULL'); --  or e.g. if datebar column has NULL spelled out in letters (or other individual special case)
 --
 -- CASE 2 - csv created by mdb-export on unix
 --
@@ -81,8 +81,8 @@ SET foreign_key_checks = 0;
 SET unique_checks = 0;
 
 -- activity - GanttProject CSV 
--- Windows EOL (assuming always from Windows GanttProject client)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/activity.csv'
+-- Windows EOL (assuming always created by Windows GanttProject client)
+LOAD DATA INFILE '/home/maestro/scc/csv/project.csv'
 INTO TABLE maestro.tbl_activity
 CHARACTER SET ascii
 FIELDS
@@ -92,12 +92,12 @@ FIELDS
 LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(name,begin_date,end_date,duration,completion,coordinator,predecessors,outline_number,cost,web_link,resources,notes,project_id,create_time,create_user_id,update_time,update_user_id)
-SET id = NULL;
+(id,name,begin_date,end_date,duration,completion,coordinator,predecessors,outline_number,cost,web_link,resources,notes,project_id,create_time,create_user_id,update_time,update_user_id)
+SET project_id = NULL;
 
 -- issue spreadsheet
 -- use Windows EOL (CSV created by Excel)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/issue.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/issue.csv'
 INTO TABLE maestro.tbl_issue
 CHARACTER SET ascii
 FIELDS
@@ -112,7 +112,7 @@ SET id = NULL;
 
 -- person spreadsheet
 -- use Windows EOL (CSV created by Excel)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/person.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/person.csv'
 INTO TABLE maestro.tbl_person
 CHARACTER SET ascii
 FIELDS
@@ -127,7 +127,7 @@ SET id = NULL;
 
 -- project spreadsheet
 -- use Windows EOL (CSV created by Excel)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/project.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/project.csv'
 INTO TABLE maestro.tbl_project
 CHARACTER SET ascii
 FIELDS
@@ -142,7 +142,7 @@ SET id = NULL;
 
 -- stock_serial spreadsheet
 -- use Windows EOL (CSV created by Excel)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/stock_serial.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/stock_serial.csv'
 INTO TABLE maestro.tbl_stock_serial
 CHARACTER SET ascii
 FIELDS
@@ -157,7 +157,7 @@ SET id = NULL;
 
 -- stock_location spreadsheet
 -- use Windows EOL (CSV created by Excel)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/stock_location.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/stock_location.csv'
 INTO TABLE maestro.tbl_stock_location
 CHARACTER SET ascii
 FIELDS
@@ -175,7 +175,7 @@ SET id = NULL;
 -- pv_al
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_al.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_al.csv'
 INTO TABLE maestro.tbl_pv_al
 CHARACTER SET ascii
 FIELDS
@@ -190,7 +190,7 @@ IGNORE 1 LINES
 -- pv_cnv
 -- typically no data
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_cnv.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_cnv.csv'
 INTO TABLE maestro.tbl_pv_cnv
 CHARACTER SET ascii
 FIELDS
@@ -204,7 +204,7 @@ IGNORE 1 LINES
 
 -- pv_cost
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_cost.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_cost.csv'
 INTO TABLE maestro.tbl_pv_cost
 CHARACTER SET ascii
 FIELDS
@@ -219,7 +219,7 @@ IGNORE 1 LINES
 -- pv_cu
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_cu.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_cu.csv'
 INTO TABLE maestro.tbl_pv_cu
 CHARACTER SET ascii
 FIELDS
@@ -233,7 +233,7 @@ IGNORE 1 LINES
 
 -- pv_cur
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_cur.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_cur.csv'
 INTO TABLE maestro.tbl_pv_cur
 CHARACTER SET ascii
 FIELDS
@@ -247,7 +247,7 @@ IGNORE 1 LINES
 
 -- pv_fil
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_fil.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_fil.csv'
 INTO TABLE maestro.tbl_pv_fil
 CHARACTER SET ascii
 FIELDS
@@ -262,7 +262,7 @@ IGNORE 1 LINES
 -- pv_hist
 -- no data expected if part quantities are not managed
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_hist.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_hist.csv'
 INTO TABLE maestro.tbl_pv_hist
 CHARACTER SET ascii
 FIELDS
@@ -276,7 +276,7 @@ IGNORE 1 LINES
 
 -- pv_hpref
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_hpref.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_hpref.csv'
 INTO TABLE maestro.tbl_pv_hpref
 CHARACTER SET ascii
 FIELDS
@@ -291,7 +291,7 @@ IGNORE 1 LINES
 -- pv_job
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_job.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_job.csv'
 INTO TABLE maestro.tbl_pv_job
 CHARACTER SET ascii
 FIELDS
@@ -305,7 +305,7 @@ IGNORE 1 LINES
 
 -- pv_lin
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_lin.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_lin.csv'
 INTO TABLE maestro.tbl_pv_lin
 CHARACTER SET ascii
 FIELDS
@@ -319,7 +319,7 @@ IGNORE 1 LINES
 
 -- pv_lnk
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_lnk.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_lnk.csv'
 INTO TABLE maestro.tbl_pv_lnk
 CHARACTER SET ascii
 FIELDS
@@ -335,7 +335,7 @@ LNKRoHSNote);
 -- pv_mf
 -- no data expected when importing from PV6SE (or if PVEX/ECO and no made-from parts)
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_mf.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_mf.csv'
 INTO TABLE maestro.tbl_pv_mf
 CHARACTER SET ascii
 FIELDS
@@ -349,7 +349,7 @@ IGNORE 1 LINES
 
 -- pv_mfr
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_mfr.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_mfr.csv'
 INTO TABLE maestro.tbl_pv_mfr
 CHARACTER SET ascii
 FIELDS
@@ -363,7 +363,7 @@ IGNORE 1 LINES
 
 -- pv_mfrpn
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_mfrpn.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_mfrpn.csv'
 INTO TABLE maestro.tbl_pv_mfrpn
 CHARACTER SET ascii
 FIELDS
@@ -377,7 +377,7 @@ IGNORE 1 LINES
 
 -- pv_org
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_org.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_org.csv'
 INTO TABLE maestro.tbl_pv_org
 CHARACTER SET ascii
 FIELDS
@@ -391,7 +391,7 @@ IGNORE 1 LINES
 
 -- pv_pl
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_pl.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_pl.csv'
 INTO TABLE maestro.tbl_pv_pl
 CHARACTER SET ascii
 FIELDS
@@ -405,7 +405,7 @@ IGNORE 1 LINES
 
 -- pv_pll
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_pll.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_pll.csv'
 INTO TABLE maestro.tbl_pv_pll
 CHARACTER SET ascii
 FIELDS
@@ -419,7 +419,7 @@ IGNORE 1 LINES
 
 -- pv_pn
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_pn.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_pn.csv'
 INTO TABLE maestro.tbl_pv_pn
 CHARACTER SET ascii
 FIELDS
@@ -434,7 +434,7 @@ IGNORE 1 LINES
 -- pv_po
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_po.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_po.csv'
 INTO TABLE maestro.tbl_pv_po
 CHARACTER SET ascii
 FIELDS
@@ -448,7 +448,7 @@ IGNORE 1 LINES
 
 -- pv_pod
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_pod.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_pod.csv'
 INTO TABLE maestro.tbl_pv_pod
 CHARACTER SET ascii
 FIELDS
@@ -463,7 +463,7 @@ IGNORE 1 LINES
 -- pv_pom
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_pom.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_pom.csv'
 INTO TABLE maestro.tbl_pv_pom
 CHARACTER SET ascii
 FIELDS
@@ -478,7 +478,7 @@ IGNORE 1 LINES
 -- pv_rpx
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_rpx.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_rpx.csv'
 INTO TABLE maestro.tbl_pv_rpx
 CHARACTER SET ascii
 FIELDS
@@ -492,7 +492,7 @@ IGNORE 1 LINES
 
 -- pv_ship
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_ship.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_ship.csv'
 INTO TABLE maestro.tbl_pv_ship
 CHARACTER SET ascii
 FIELDS
@@ -506,7 +506,7 @@ IGNORE 1 LINES
 
 -- pv_su
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_su.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_su.csv'
 INTO TABLE maestro.tbl_pv_su
 CHARACTER SET ascii
 FIELDS
@@ -521,7 +521,7 @@ IGNORE 1 LINES
 -- pv_task
 -- no data expected when importing from PV6SE
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_task.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_task.csv'
 INTO TABLE maestro.tbl_pv_task
 CHARACTER SET ascii
 FIELDS
@@ -535,7 +535,7 @@ IGNORE 1 LINES
 
 -- pv_type
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_type.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_type.csv'
 INTO TABLE maestro.tbl_pv_type
 CHARACTER SET ascii
 FIELDS
@@ -549,7 +549,7 @@ IGNORE 1 LINES
 
 -- pv_un
 -- use Unix EOL (created by mdbtools)
-LOAD DATA INFILE '/usr/home/samba/maestro/csv/pv_un.csv'
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_un.csv'
 INTO TABLE maestro.tbl_pv_un
 CHARACTER SET ascii
 FIELDS
