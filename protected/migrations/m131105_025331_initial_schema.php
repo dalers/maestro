@@ -9,16 +9,16 @@ class m131105_025331_initial_schema extends CDbMigration
 			'id' => 'pk',
 			
 			'name' => 'string',
-			'begin_date' => 'string',
-			'end_date' => 'string',
-			'duration' => 'string',
-			'completion' => 'string',
-			'coordinator' => 'string',
-			'predecessors' => 'string',
+			'begin_date' => 'string', TODO change to datetime, need to convert m/d/y in csv to yyyy/mm/dd
+			'end_date' => 'string', TODO change to datetime, need to convert m/d/y in csv to yyyy/mm/dd
+			'duration' => 'string', TODO change to integer (integer work units)
+			'completion' => 'string', TODO change to integer (integer percentage)
+			'coordinator' => 'string', TODO change to fk coordinator_id -> person.id
+			'predecessors' => 'string', TODO deserialize and store in (new) tbl_activity_predessor_assignment
 			'outline_number' => 'string',
-			'cost' => 'string',
+			'cost' => 'string', TODO change to float (or currency)
 			'web_link' => 'string',
-			'resources' => 'string',
+			'resources' => 'string', TODO deserialize and store in (new) tbl_activity_resources_assignment
 			'notes' => 'string',
 
 			'project_id' => 'integer',
@@ -820,6 +820,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_part');   
 		$this->dropTable('tbl_part_cost');
 		$this->dropTable('tbl_part_list');
+		$this->dropTable('tbl_part_source_assignment');
 		$this->dropTable('tbl_part_type');
 		$this->dropTable('tbl_person');
 		$this->dropTable('tbl_project');
