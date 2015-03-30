@@ -27,8 +27,7 @@
 # ------------------------
 #    /usr/local/www/maestro/protected/data
 #    +-- bin/                     shell scripts and referenced sql scripts
-#    +-- csv-pv-1..5/             iteration parts&vendors csv
-#    +-- doc/                     scc ad-hoc documents (not specifically part or material-related)
+git st#    +-- doc/                     scc ad-hoc documents (not specifically part or material-related)
 #    +-- doc-logo/                scc logo graphics
 #    +-- ldap/                    OpenLDAP related files
 #    +-- mantis/                  Mantis Bugtracker related files
