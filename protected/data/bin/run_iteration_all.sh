@@ -27,9 +27,10 @@
 # ------------------------
 #    /usr/local/www/maestro/protected/data
 #    +-- bin/                     shell scripts and referenced sql scripts
-git st#    +-- doc/                     scc ad-hoc documents (not specifically part or material-related)
+#    +-- doc/                     scc ad-hoc documents (not specifically part or material-related)
 #    +-- doc-logo/                scc logo graphics
 #    +-- ldap/                    OpenLDAP related files
+#    +-- ganttproject/            GanttProject project-planning-related files
 #    +-- mantis/                  Mantis Bugtracker related files
 #    +-- ods/                     master data spreadsheets with export csv
 #    +-- parts/                   stub directory to create temp consolidated parts/ for developer convenience (.gitignore)
@@ -119,8 +120,16 @@ echo "========================================"
 # don't "cp csv csv.old" on initial iteration
 
 # restore master spreadsheets with csv
-echo "restore 'current' master spreadsheets and csv"
+echo "restore 'current' master spreadsheets with csv"
 cp ../ods/* /home/maestro/scc/ods
+
+# restore GanttProject project file with csv
+echo "restore 'current' GanttProject file with csv"
+cp ../ganttproject/project.gan /home/maestro/scc/ods
+# hack for development until PhpProject interface to xml is working
+# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
+#cp ../ganttproject/project.csv /home/maestro/scc/ods
+cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
@@ -175,6 +184,14 @@ cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 echo "restore 'current' master spreadsheets and csv"
 cp ../ods/* /home/maestro/scc/ods
 
+# restore GanttProject project file with csv
+echo "restore 'current' GanttProject file with csv"
+cp ../ganttproject/project.gan /home/maestro/scc/ods
+# hack for development until PhpProject interface to xml is working
+# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
+#cp ../ganttproject/project.csv /home/maestro/scc/ods
+cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
+
 # copy 'current' part documents to fileshare
 if test $version = "VER"
 then
@@ -227,6 +244,14 @@ cp ../ods/* /home/maestro/scc/ods
 
 echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
+
+# restore GanttProject project file with csv
+echo "restore 'current' GanttProject file with csv"
+cp ../ganttproject/project.gan /home/maestro/scc/ods
+# hack for development until PhpProject interface to xml is working
+# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
+#cp ../ganttproject/project.csv /home/maestro/scc/ods
+cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
@@ -281,6 +306,14 @@ cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 echo "restore 'current' master spreadsheets and csv"
 cp ../ods/* /home/maestro/scc/ods
 
+# restore GanttProject project file with csv
+echo "restore 'current' GanttProject file with csv"
+cp ../ganttproject/project.gan /home/maestro/scc/ods
+# hack for development until PhpProject interface to xml is working
+# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
+#cp ../ganttproject/project.csv /home/maestro/scc/ods
+cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
+
 # copy 'current' part documents to fileshare
 if test $version = "VER"
 then
@@ -333,6 +366,14 @@ cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 # restore master spreadsheets with csv
 echo "restore 'current' master spreadsheets and csv"
 cp ../ods/* /home/maestro/scc/ods
+
+# restore GanttProject project file with csv
+echo "restore 'current' GanttProject file with csv"
+cp ../ganttproject/project.gan /home/maestro/scc/ods
+# hack for development until PhpProject interface to xml is working
+# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
+#cp ../ganttproject/project.csv /home/maestro/scc/ods
+cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
 
 # restore 'current' part documents to fileshare
 if test $version = "VER"

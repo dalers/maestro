@@ -36,7 +36,7 @@ echo "  - using scc\ods\stock_serial.csv"
 cp /home/maestro/scc/ods/stock_serial.csv /home/maestro/scc/csv/
 
 # part numbers and BOMs
-echo "export_current_to_csv: exporting from Parts&Vendors database"
+echo "export_current_to_csv: exporting from parts&vendors"
 /usr/local/bin/mdb-export -D "%F" /home/maestro/scc/pv/pv.mdb AL    > /home/maestro/scc/csv/pv_al.csv
 /usr/local/bin/mdb-export -D "%F" /home/maestro/scc/pv/pv.mdb CNV   > /home/maestro/scc/csv/pv_cnv.csv
 /usr/local/bin/mdb-export -D "%F" /home/maestro/scc/pv/pv.mdb COST  > /home/maestro/scc/csv/pv_cost.csv
