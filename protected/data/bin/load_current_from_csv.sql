@@ -1,20 +1,99 @@
 -- load current data from csv
 --
+-- This script functions as the front-line ETL layer, connecting the record fields in csv
+-- import files to object attributes in Maestro. While essentially writing csv fields to
+-- object attributes, the script is actually writing directly to database rows and columns,
+-- bypassing the ORM.
+--
 -- HARDCODED file paths
 -- > mysql -uroot -p --local-infile=1 --show-warnings --verbose < /path/to/load_current_from_csv.sql
 --
--- csv files published from spreadsheets (all but pv_*)
---   - Win EOL
---   - do not contain pk field
--- csv files from mdbtools (pv_*)
---   - unix EOL
---   - pk field being imported from P&V re-used as pk
+-- import from csv files in /home/maestro/csv/
+--   if from 
+--   Windows File/SaveAs
+--     - Win EOL
+--     - currently do not include id (pk)
+--   mdbtools (mdb-export)
+--     - unix EOL, comma delimited
+--     - table id maintained (pk) if referenced in foreign key relationship
+--
+-- Table by Table Structure
+-- --------------------------------------------------------
+-- [table name]
+-- [Unix EOL, tab delimited]
+--
+-- CSV                  [TABLE]
+-- -----------------------------------------------
+-- [csv field name]     [Maestro table column name], comment if used, if used as pk, ...
+-- ...
+--
+-- CASE 1 - csv created by mysql client on unix (i.e. unix to unix)
+--
+--LOAD DATA INFILE '/home/maestro/scc/csv/filename.csv'
+--INTO TABLE epd2.tbl_maestro_table_name
+--CHARACTER SET LATIN1
+--
+--FIELDS
+--	TERMINATED BY '\t'
+--LINES
+--	TERMINATED BY '\n'
+--IGNORE 1 LINES
+--	(<list of comman-separated destination column names for each column in csv, make @columnname to assign to variable (and potentially not use)>)
+--SET
+--	foo_id = nullif(@fool_id, 'NULL'),  -- if foo_id column in csv has NULL spelled out in letters
+--	datebar = nullif(@datebar, 'NULL'); --  or datebar column has NULL spelled out in letters, or other individual special case
+--
+-- CASE 2 - csv created by mdb-export on unix
+--
+--LOAD DATA INFILE '/home/maestro/scc/pv_pn.csv'
+--INTO TABLE maestro.tbl_part
+--CHARACTER SET ascii
+--FIELDS
+--	TERMINATED BY ','
+--	OPTIONALLY ENCLOSED BY '"'
+--	ESCAPED BY '"'
+--LINES
+--	TERMINATED BY '\n'
+--IGNORE 1 LINES
+--(id,PNIDToLNK,PNUNID,PNTabParentID,PNPrefix,PNPartNumber,PNSuffix,PNType,PNRevision,PNTitle,PNDetail,PNStatus,PNReqBy,PNNotes,PNUser1,PNUser2,PNUser3,PNUser4,PNUser5,PNUser6,PNUser7,PNUser8,PNUser9,PNUser10,PNDate,PNTab,PNControlled,PNAux1,PNQty,PNQty2,PNCostChanged,PNParentCost,PNExpandList,PNAssyCostOption,PNInclAssyOnPurchList,PNMadeFrom,PNMinStockQty,PNOrderToMaintain,PNOnECO,PNOverKit,PNOverKitQty,PNOverKitBy,PNOverKitFor,PNCurrentCost,PNLastRollupCost,PNUSRID,PNUserLock);
+--
+-- CASE 3 - csv created by Windows client
+--
+-- stock_serial spreadsheet
+-- use Windows EOL (CSV created by Excel)
+--LOAD DATA INFILE '/home/maestro/scc/csv/stock_serial.csv'
+--INTO TABLE maestro.tbl_stock_serial
+--CHARACTER SET ascii
+--FIELDS
+--	TERMINATED BY ','
+--	OPTIONALLY ENCLOSED BY '"'
+--	ESCAPED BY '"'
+--LINES
+--	TERMINATED BY '\r\n'
+--IGNORE 1 LINES
+--(serial_number,part_number,description,version,status)
+--SET id = NULL;
 --
 
--- disable foreign key constraint check during data import
+-- foreign key constraints must be disabled during import
 SET foreign_key_checks = 0;
--- improve speed of import
+-- save time, anything unique is guaranteed to be unique in import
 SET unique_checks = 0;
+
+-- activity - GanttProject CSV 
+-- Windows EOL (assuming always from Windows GanttProject client)
+LOAD DATA INFILE '/usr/home/samba/maestro/csv/activity.csv'
+INTO TABLE maestro.tbl_activity
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(name,begin_date,end_date,duration,completion,coordinator,predecessors,outline_number,cost,web_link,resources,notes,project_id,create_time,create_user_id,update_time,update_user_id)
+SET id = NULL;
 
 -- issue spreadsheet
 -- use Windows EOL (CSV created by Excel)
