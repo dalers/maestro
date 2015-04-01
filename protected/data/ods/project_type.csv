@@ -1,0 +1,4 @@
+id,name,description
+0,DEV,"Development project, leading directly to a product or service"
+1,RES,"Research project, investigation of some fundamental principle, intended for application to product development sometime in the future. Proof-of-concept prototypes may be produced."
+2,INFRA,Project related to SCC infrastructure (e.g. Maestro implementation)

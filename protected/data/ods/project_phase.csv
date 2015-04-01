@@ -1,0 +1,7 @@
+id,name,description
+0,Idea,An idea is found to have sufficient merit to justify formal investigation.
+1,Product,"The idea is developed into a set of product requirements and specifications, market demand is quantified, a preliminary development project is scoped and costed, and the business justification for the product is refined and documented."
+2,Design,A design is completed meeting the new product requirements. Prototypes are typically produced and tested by the project team to mitigate risk.
+3,Test,Prototypes based on the final design are evaluated against the design requirements (verification testing) and against user or customer expectations (validation testing)
+4,Pilot,"All processes involved in producing the product and bringing it to market are tested in a controlled environment. Processes evaluated during Pilot include the raw material supply chain, the various production processes, as well as sales and shipping. After the project has passed the Pilot gate, the product is in normal production."
+5,Termination,"All processes involved in producing and bringing the product to market are reviewed for impact, and then terminated in a controlled manner. The project team is released and the project closed."
