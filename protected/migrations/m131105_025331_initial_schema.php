@@ -4,23 +4,21 @@ class m131105_025331_initial_schema extends CDbMigration
 {
 	public function up()
 	{
-		//activity table (project activities)
+		//activity table
 		$this->createTable('tbl_activity', array(
 			'id' => 'pk',
 			
 			'name' => 'string',
-			'begin_date' => 'string', //TODO change to datetime, need to convert m/d/y in csv to yyyy/mm/dd
-			'end_date' => 'string', //TODO change to datetime, need to convert m/d/y in csv to yyyy/mm/dd
-			'duration' => 'string', //TODO change to integer (integer work units)
-			'completion' => 'string', //TODO change to integer (integer percentage)
-			'coordinator' => 'string', //TODO change to fk coordinator_id -> person.id
-			'predecessors' => 'string', //TODO de-serialize and store in (new) tbl_activity_predessor_assignment
-			'outline_number' => 'string',
-			'cost' => 'string', //TODO change to float (or currency)
+			'begin_date' => 'datetime',
+			'end_date' => 'datetime',
+			'duration' => 'integer', //in work units
+			'completion' => 'float', //percentage of activity completed
+			'outline_number' => 'string', //e.g. WBS code
+			'cost' => 'float', //$$$s
 			'web_link' => 'string',
-			'resources' => 'string', //TODO de-serialize and store in (new) tbl_activity_resources_assignment
 			'notes' => 'string',
 
+			'coordinator_id' => 'integer',
 			'project_id' => 'integer',
 
 			'create_time' => 'datetime',
@@ -28,6 +26,30 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_time' => 'datetime',
 			'update_user_id' => 'integer',
 		), 'ENGINE = InnoDB');
+
+		//activity_part_assignment table (equipment)
+		//many-to-many activities-to-parts
+		$this->createTable('tbl_activity_part_assignment', array(
+			'activity_id' => 'integer DEFAULT NULL',
+			'part_id' => 'integer DEFAULT NULL',
+			'PRIMARY KEY (`activity_id`,`part_id`)',
+		), 'ENGINE=InnoDB');
+
+		//activity_predecessor_assignment table
+		//many-to-many activities-to-predecessors
+		$this->createTable('tbl_activity_predecessor_assignment', array(
+			'activity_id' => 'integer DEFAULT NULL',
+			'predecessor_id' => 'integer DEFAULT NULL',
+			'PRIMARY KEY (`activity_id`,`predecessor_id`)',
+		), 'ENGINE=InnoDB');
+
+		//activity_resource_assignment table (human resource)
+		//many-to-many activities-to-resources
+		$this->createTable('tbl_activity_resource_assignment', array(
+			'activity_id' => 'integer DEFAULT NULL',
+			'resource_id' => 'integer DEFAULT NULL',
+			'PRIMARY KEY (`activity_id`,`resource_id`)',
+		), 'ENGINE=InnoDB');
 
 		//currency table (origin parts&vendors CUR table)
 		//currencies with print symbol, formatting and exchange rate
@@ -313,9 +335,11 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->createTable('tbl_project', array(
 			'id' => 'pk',
 			'name' => 'string NOT NULL', //e.g. "Aircraft Wireless"
+			'code' => 'string NOT NULL', //e.g. "P2015-003"
 			'description' => 'text NOT NULL', //e.g. "Preliminary evaluation and sea trial"
 
-			'customer_id' => 'integer', //e.g. "B&E Submarines"
+			'customer_id' => 'integer', //SCC customer
+			'owner_id' => 'integer', //SCC project owner
 			'phase_id' => 'integer', //define in model: [NOTACTIVE | ACTIVE], not fk
 			'status_id' => 'integer', //define in model [Active | Not-Active], not fk
 			'type_id' => 'integer', //define in model: [Research | Continuous Imprvmnt..], not fk
@@ -705,6 +729,18 @@ class m131105_025331_initial_schema extends CDbMigration
 		//activity
 		$this->addForeignKey("fk_activity_to_project", "tbl_activity", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
 		
+        //activity_part_assignment
+		$this->addForeignKey("fk_activity_to_part", "tbl_activity_part_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_activity", "tbl_activity_part_assignment", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
+		
+        //activity_predecessor_assignment
+		$this->addForeignKey("fk_activity_to_predecessor", "tbl_activity_predecessor_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_predecessor_to_activity", "tbl_activity_predecessor_assignment", "predecessor_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
+		
+        //activity_resource_assignment
+		$this->addForeignKey("fk_activity_to_resource", "tbl_activity_resource_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_resource_to_activity", "tbl_activity_resource_assignment", "resource_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		
 		//file
 		$this->addForeignKey("fk_file_to_part", "tbl_file", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 
@@ -807,6 +843,9 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->execute("SET foreign_key_checks = 0;");
 
 		$this->dropTable('tbl_activity');
+		$this->dropTable('tbl_activity_part_assignment');
+		$this->dropTable('tbl_activity_predecessor_assignment');		
+		$this->dropTable('tbl_activity_resource_assignment');		
 		$this->dropTable('tbl_currency');
 		$this->dropTable('tbl_customer');
 		$this->dropTable('tbl_file');
