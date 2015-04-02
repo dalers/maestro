@@ -11,8 +11,7 @@ Vendors (account info), Customers (account info), and Jobs
 sets over-kitting and minimum stocking quantities.",4,,,,,,,,X,,,,,X,X,X,,X,X,,X
 5,PurchRcv,"Issuing RFQs, entering part costs, assembly costing, issuing
 POs, receiving goods into stock, assigning stock locations.",5,,,,,X,X,,X,,,X,X,,X,X,,X,X,,X
-6,RelCtrl,"Changes part Status to Released when part is deemed
-“released”. Upon a change request, archives current revision
+6,RelCtrl,"Changes part Status to Released when part is released. Upon a change request, archives current revision
 BOM and changes Status to Unreleased with new rev level.",6,,X,,,,,,X,,,,,,,,,X,X,,X
 7,Sales,"Creates and maintains appropriate customer data (contact,
 addresses, etc.), creates and maintains appropriate job data
