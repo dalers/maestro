@@ -1,0 +1,5 @@
+id,CUCustomer,CUAddress,CUShipAddress,CUPhone1,CUPhone2,CUContact1,CUContact2,CUFax,CUEmail1,CUEmail2,CUNotes,CUWeb,CUCode,CUAccount,CUTerms,CUFedTaxID,CUStateTaxID,CUNoPhonePrefix
+0,B&E Submarines,"Penn's Landing, 211 South Columbus Blvd. & Walnut St., Philadelphia, PA 19106, USA",,+1 (215) 568-1282,,Edward Bentley,,,bentley@besub.local,,,http://www.wikipedia.org/wiki/Submarine,,,,,,
+1,Hosmer Engineering,"1700 West Montgomery Avenue, Philadelphia, PA 19121, USA ",,+1 (215) 861-6400,,Fenwick Hosmer,,,hosmer@hosmer.local,,,http://en.wikipedia.org/wiki/Aviation,,,,,,
+2,Titus Bro. Construction Co.,"26-15 Ulmer Street College Point, NY 11354, USA",,+1 (718) 762-0175 ,,Job Titus,,,job@titusbros.local,,,http://www.wikipedia.org/wiki/Tunnel,,,,,,
+3,Universal Flying Machine Company,"One Charles Lindbergh Blvd., Garden City, NY 11530, USA ",,+1 (516) 739-1051,,Peton Gale,,,pgale@ufmc.local,,,http://en.wikipedia.org/wiki/Avionics,,,,,,
