@@ -335,12 +335,14 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->createTable('tbl_project', array(
 			'id' => 'pk',
 			'name' => 'string NOT NULL', //e.g. "Aircraft Wireless"
-			'description' => 'text NOT NULL', //e.g. "Preliminary evaluation and sea trial"
+			'code' => 'string NOT NULL', //e.g. "P2015-001"
+			'description' => 'text NOT NULL', //e.g. "New smaller wireless for 2-seaters"
 
-			'customer_id' => 'integer', //e.g. "B&E Submarines"
-			'phase_id' => 'integer', //define in model: [NOTACTIVE | ACTIVE], not fk
-			'status_id' => 'integer', //define in model [Active | Not-Active], not fk
-			'type_id' => 'integer', //define in model: [Research | Continuous Imprvmnt..], not fk
+			'customer_id' => 'integer', //customer in case of a customer-directed project
+			'owner_id' => 'integer', //primary scc stakeholder/benefactor
+			'phase_id' => 'integer', //[IDEA|PRODUCT|DESIGN|TEST|PILOT|TERMINATION] (defined in model, not fk)
+			'status_id' => 'integer', //[ACTIVE|NOTACTIVE] (defined in model, not fk)
+			'type_id' => 'integer', //[DEV|RSRCH|CI|INFRA..] (defined in model, not fk)
 			
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'integer DEFAULT NULL',
