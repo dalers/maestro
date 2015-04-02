@@ -3,6 +3,8 @@
 #
 #name(login):uid:gid:class(login):change(password ageing):expire(account):gecos(full name, dpt/title):home_dir:shell:password
 #
+admin::::::Admin User, ::tcsh:admin
+demo::::::Demo User, ::tcsh:demo
 bjenks::::::Barcoe Jenks, Electronics Engineer::tcsh:appleton
 bswift::::::Barton Swift, President::tcsh:appleton
 barmstrong::::::Bub Armstrong, Mechanical Engineer::tcsh:appleton

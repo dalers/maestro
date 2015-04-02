@@ -1,6 +1,8 @@
 # employee list for rmuser_scc.sh
 # - must be writable ONLY by root 
 #
+admin
+demo
 bjenks
 bswift
 barmstrong
@@ -15,8 +17,8 @@ jmorse
 jsharp
 mbaggert
 mnestor
-mdelazes
 mblair
+mdelazes
 nnewton
 rsampson
 smalloy
