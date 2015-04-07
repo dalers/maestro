@@ -162,7 +162,7 @@ LINES
 IGNORE 1 LINES
 (id,CURCurrencyName,CURExchangeRate,CURCurrencyChar,CURFormat,CURFormatExt);
 
--- customer (origin parts&vendors CU table)
+-- customer (origin parts&vendors CU table, but using customer spreadsheet)
 -- Windows EOL
 -- LOAD DATA INFILE '/home/maestro/scc/csv/customer.csv'
 -- INTO TABLE maestro.tbl_customer
@@ -175,6 +175,20 @@ IGNORE 1 LINES
 -- 	TERMINATED BY '\r\n'
 -- IGNORE 1 LINES
 -- (id,CUCustomer,CUAddress,CUShipAddress,CUPhone1,CUPhone2,CUContact1,CUContact2,CUFax,CUEmail1,CUEmail2,CUNotes,CUWeb,CUCode,CUAccount,CUTerms,CUFedTaxID,CUStateTaxID,CUNoPhonePrefix);
+
+-- customer (origin parts&vendors CU table)
+-- Unix EOL (parts&vendors)
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_cu.csv'
+INTO TABLE maestro.tbl_customer
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\n'
+IGNORE 1 LINES
+(id,CUCustomer,CUAddress,CUShipAddress,CUPhone1,CUPhone2,CUContact1,CUContact2,CUFax,CUEmail1,CUEmail2,CUNotes,CUWeb,CUCode,CUAccount,CUTerms,CUFedTaxID,CUStateTaxID,CUNoPhonePrefix);
 
 -- file (origin parts&vendors FIL table)
 -- Unix EOL
@@ -322,8 +336,7 @@ FIELDS
 LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(username,password,email,nick,lname,fname,initial,status_id,profile_id)
-SET id = NULL;
+(id,username,password,email,nick,lname,fname,initial,status_id,profile_id);
 
 -- project (GanttProject -> csv -> project.ods -> csv)
 -- Windows EOL

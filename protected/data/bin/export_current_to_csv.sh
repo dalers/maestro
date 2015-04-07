@@ -1,7 +1,6 @@
 #!/bin/sh
 #
-# Copy 'current' CSV data to csv/
-# - obtain from source if possible (e.g. spreadsheet or other db)
+# Export or copy 'current' data to csv/
 #
 # Schedule in /etc/crontab:
 #   - rsync_current_files.sh
@@ -10,33 +9,39 @@
 #   - load_current_from_csv.sh
 #
 
-# persons
-echo "export_current_to_csv: persons - NOT exported"
-echo "  - using scc\ods\person.csv"
-cp -af /home/maestro/scc/ods/person.csv /home/maestro/scc/csv/
+# customers
+echo "export_current_to_csv: customers"
+echo "  - using parts&vendors"
+cp -af /home/maestro/scc/ods/issue.csv /home/maestro/scc/csv/
 
 # issues
-echo "export_current_to_csv: issues - NOT exported"
+echo "export_current_to_csv: issues"
 echo "  - using scc\ods\issue.csv"
 cp -af /home/maestro/scc/ods/issue.csv /home/maestro/scc/csv/
 
+# persons
+echo "export_current_to_csv: persons"
+echo "  - using scc\ods\person*.csv"
+cp -af /home/maestro/scc/ods/person.csv /home/maestro/scc/csv/
+
 # projects
-echo "export_current_to_csv: projects - NOT exported"
-echo "  - using scc\ods\project.csv"
-cp /home/maestro/scc/ods/project.csv /home/maestro/scc/csv/
+echo "export_current_to_csv: projects"
+echo "  - using scc\ods\project*.csv, activity*.csv"
+cp -af /home/maestro/scc/ods/project*.csv /home/maestro/scc/csv/
+cp -af /home/maestro/scc/ods/activity*.csv /home/maestro/scc/csv/
+
+# stock
+echo "export_current_to_csv: stock"
+echo "  - using scc\ods\stock.csv"
+cp /home/maestro/scc/ods/stock.csv /home/maestro/scc/csv/
 
 # stock locations
-echo "export_current_to_csv: stock locations - NOT exported"
+echo "export_current_to_csv: stock locations"
 echo "  - using scc\ods\stock_location.csv"
 cp /home/maestro/scc/ods/stock_location.csv /home/maestro/scc/csv/
 
-# stock serial numbers
-echo "export_current_to_csv: stock serial numbers - NOT exported"
-echo "  - using scc\ods\stock_serial.csv"
-cp /home/maestro/scc/ods/stock_serial.csv /home/maestro/scc/csv/
-
-# part numbers and BOMs
-echo "export_current_to_csv: exporting from parts&vendors"
+# export tables from parts&vendors
+echo "export_current_to_csv: parts&vendors"
 /usr/local/bin/mdb-export -D "%F" /home/maestro/scc/pv/pv.mdb AL    > /home/maestro/scc/csv/pv_al.csv
 /usr/local/bin/mdb-export -D "%F" /home/maestro/scc/pv/pv.mdb CNV   > /home/maestro/scc/csv/pv_cnv.csv
 /usr/local/bin/mdb-export -D "%F" /home/maestro/scc/pv/pv.mdb COST  > /home/maestro/scc/csv/pv_cost.csv

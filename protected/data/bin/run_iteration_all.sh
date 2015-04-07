@@ -79,7 +79,6 @@ then
 elif test $# = 1
 then
     version=$1
-    echo "Using '$version' documents"
 else
     echo
     echo "  ERROR: too many arguments"
@@ -89,26 +88,17 @@ else
 fi
 
 echo
+echo "Using '$version' documents"
+    
+echo
 echo "Setup"
 echo "======================================="
 
 echo "run setup_file_share.sh (delete/re-create /home/maestro/scc/...)"
 ./setup_file_share.sh
 
-echo "This directory is used by Maestro" > /home/maestro/scc/README.txt
-# ensure README has Windows-type EOL
-flip -m /home/maestro/scc/README.txt
-
 echo "run setup_fix_iteration_datetime.sh"
 ./setup_fix_iteration_datetime.sh
-
-echo "create 'null' files in csv.old/ (pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv)"
-head -n 1 ../csv-pv-1/pv_pn.csv > /home/maestro/scc/csv.old/pv_pn.csv
-./get_pv_pn_details.py /home/maestro/scc/csv.old/pv_pn.csv /home/maestro/scc/csv.old/pv_pn_details.csv
-# sorting doesn't accomplish anything but required bootstrap file does get created
-sort /home/maestro/scc/csv.old/pv_pn_details.csv  > /home/maestro/scc/csv.old/pv_pn_details_sort.csv
-#chown -R nobody:wheel /home/maestro/scc/csv.old/
-chmod ugo+rw /home/maestro/scc/csv.old/*
 
 echo
 read -t 60 -p "setup complete - Press [Enter] to continue..." key
@@ -123,15 +113,12 @@ echo "========================================"
 echo "restore 'current' master spreadsheets with csv"
 cp ../ods/* /home/maestro/scc/ods
 
-# restore GanttProject project file with csv
-echo "restore 'current' GanttProject file with csv"
+# restore GanttProject project file
+# (although using project.ods until PhpProject interface to project.gan file is working)
+echo "restore 'current' GanttProject file"
 cp ../ganttproject/project.gan /home/maestro/scc/ods
-# hack for development until PhpProject interface to xml is working
-# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
-#cp ../ganttproject/project.csv /home/maestro/scc/ods
-cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
 
-# copy 'current' part documents to fileshare
+# restore 'current' part documents to fileshare
 if test $version = "VER"
 then
 	echo "restore versioned 'current' part documents"
@@ -159,6 +146,14 @@ echo "run export_current_to_csv.sh"
 #chown -R nobody:wheel /home/maestro/scc/csv/
 chmod -R ugo+rw       /home/maestro/scc/csv/
 
+echo "bootstrap csv.old (pv_pn.csv, pv_pn_details.csv, pv_pn_details_sort.csv)"
+head -n 1 /home/maestro/scc/csv/pv_pn.csv > /home/maestro/scc/csv.old/pv_pn.csv
+./get_pv_pn_details.py /home/maestro/scc/csv.old/pv_pn.csv /home/maestro/scc/csv.old/pv_pn_details.csv
+# sorting doesn't accomplish anything but required bootstrap file does get created
+sort /home/maestro/scc/csv.old/pv_pn_details.csv  > /home/maestro/scc/csv.old/pv_pn_details_sort.csv
+#chown -R nobody:wheel /home/maestro/scc/csv.old/
+chmod ugo+rw /home/maestro/scc/csv.old/*
+
 echo "run rsync_current_files.sh"
 ./rsync_current_files.sh
 
@@ -167,8 +162,8 @@ echo "run send_current_change_report.sh"
 # preserve change report
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-1.txt
 
-#echo "load_current_from_csv.sh"
-#./load_current_from_csv.sh
+echo "load_current_from_csv.sh"
+./load_current_from_csv.sh
 
 echo
 read -t 60 -p "iteration 1 complete - Press [Enter] to continue..." key
@@ -181,16 +176,13 @@ echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
 # restore master spreadsheets with csv
-echo "restore 'current' master spreadsheets and csv"
+echo "restore 'current' master spreadsheets with csv"
 cp ../ods/* /home/maestro/scc/ods
 
 # restore GanttProject project file with csv
-echo "restore 'current' GanttProject file with csv"
+# (although using project.ods until PhpProject interface to project.gan file is working)
+echo "restore 'current' GanttProject file"
 cp ../ganttproject/project.gan /home/maestro/scc/ods
-# hack for development until PhpProject interface to xml is working
-# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
-#cp ../ganttproject/project.csv /home/maestro/scc/ods
-cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
@@ -228,8 +220,8 @@ echo "run send_current_change_report.sh"
 # preserve change report
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-2.txt
 
-#echo "load_current_from_csv.sh"
-#./load_current_from_csv.sh
+echo "load_current_from_csv.sh"
+./load_current_from_csv.sh
 
 echo
 read -t 60 -p "iteration 2 complete - Press [Enter] to continue..." key
@@ -238,20 +230,17 @@ echo
 echo "Iteration 3 - Product Release"
 echo "========================================"
 
-# restore master spreadsheets with csv
-echo "restore 'current' master spreadsheets and csv"
-cp ../ods/* /home/maestro/scc/ods
-
 echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
+# restore master spreadsheets with csv
+echo "restore 'current' master spreadsheets with csv"
+cp ../ods/* /home/maestro/scc/ods
+
 # restore GanttProject project file with csv
-echo "restore 'current' GanttProject file with csv"
+# (although using project.ods until PhpProject interface to project.gan file is working)
+echo "restore 'current' GanttProject file"
 cp ../ganttproject/project.gan /home/maestro/scc/ods
-# hack for development until PhpProject interface to xml is working
-# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
-#cp ../ganttproject/project.csv /home/maestro/scc/ods
-cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
@@ -289,8 +278,8 @@ echo "run send_current_change_report.sh"
 # preserve change report
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-3.txt
 
-#echo "load_current_from_csv.sh"
-#./load_current_from_csv.sh
+echo "load_current_from_csv.sh"
+./load_current_from_csv.sh
 
 echo
 read -t 60 -p "iteration 3 complete - Press [Enter] to continue..." key
@@ -303,16 +292,13 @@ echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
 # restore master spreadsheets with csv
-echo "restore 'current' master spreadsheets and csv"
+echo "restore 'current' master spreadsheets with csv"
 cp ../ods/* /home/maestro/scc/ods
 
 # restore GanttProject project file with csv
-echo "restore 'current' GanttProject file with csv"
+# (although using project.ods until PhpProject interface to project.gan file is working)
+echo "restore 'current' GanttProject file"
 cp ../ganttproject/project.gan /home/maestro/scc/ods
-# hack for development until PhpProject interface to xml is working
-# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
-#cp ../ganttproject/project.csv /home/maestro/scc/ods
-cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
@@ -350,8 +336,8 @@ echo "run send_current_change_report.sh"
 # preserve change report
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-4.txt
 
-#echo "load_current_from_csv.sh"
-#./load_current_from_csv.sh
+echo "load_current_from_csv.sh"
+./load_current_from_csv.sh
 
 echo
 read -t 60 -p "iteration 4 complete - Press [Enter] to continue..." key
@@ -364,16 +350,13 @@ echo "move 'current' csv to 'old' csv"
 cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
 # restore master spreadsheets with csv
-echo "restore 'current' master spreadsheets and csv"
+echo "restore 'current' master spreadsheets with csv"
 cp ../ods/* /home/maestro/scc/ods
 
 # restore GanttProject project file with csv
-echo "restore 'current' GanttProject file with csv"
+# (although using project.ods until PhpProject interface to project.gan file is working)
+echo "restore 'current' GanttProject file"
 cp ../ganttproject/project.gan /home/maestro/scc/ods
-# hack for development until PhpProject interface to xml is working
-# manually edit GanttProject "export-as-csv" and delete resources (giving activities only)
-#cp ../ganttproject/project.csv /home/maestro/scc/ods
-cp ../ganttproject/project-activity.csv /home/maestro/scc/ods/project.csv
 
 # restore 'current' part documents to fileshare
 if test $version = "VER"
@@ -412,8 +395,8 @@ echo "run send_current_change_report.sh"
 echo "preserve change report"
 cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-5.txt
 
-#echo "load_current_from_csv.sh"
-#./load_current_from_csv.sh
+echo "load_current_from_csv.sh"
+./load_current_from_csv.sh
 
 echo
 echo "iteration 5 complete"
