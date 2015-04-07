@@ -28,7 +28,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE = InnoDB');
 
 		//activity_part_assignment table (equipment)
-		//many-to-many activities-to-parts
+		//many-to-many activity-to-part
 		$this->createTable('tbl_activity_part_assignment', array(
 			'activity_id' => 'integer DEFAULT NULL',
 			'part_id' => 'integer DEFAULT NULL',
@@ -36,7 +36,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');
 
 		//activity_predecessor_assignment table
-		//many-to-many activities-to-predecessors
+		//many-to-many activity-to-predecessor
 		$this->createTable('tbl_activity_predecessor_assignment', array(
 			'activity_id' => 'integer DEFAULT NULL',
 			'predecessor_id' => 'integer DEFAULT NULL',
@@ -44,11 +44,19 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');
 
 		//activity_resource_assignment table (human resource)
-		//many-to-many activities-to-resources
+		//many-to-many activity-to-resource
 		$this->createTable('tbl_activity_resource_assignment', array(
 			'activity_id' => 'integer DEFAULT NULL',
 			'resource_id' => 'integer DEFAULT NULL',
 			'PRIMARY KEY (`activity_id`,`resource_id`)',
+		), 'ENGINE=InnoDB');
+
+		//activity_stock_assignment table (equipment)
+		//many-to-many activity-to-stock
+		$this->createTable('tbl_activity_stock_assignment', array(
+			'activity_id' => 'integer DEFAULT NULL',
+			'stock_id' => 'integer DEFAULT NULL',
+			'PRIMARY KEY (`activity_id`,`stock_id`)',
 		), 'ENGINE=InnoDB');
 
 		//currency table (origin parts&vendors CUR table)
@@ -304,7 +312,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//part_type table (origin parts&vendors TYPE table)
-		//part type lookup (AW, CAT, DOC, DWG, PL, PS)
+		//part type lookup
 		$this->createTable('tbl_part_type', array(
 			'id' => 'pk',
 			'TYPEType' => 'VARCHAR(6)',
@@ -362,11 +370,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->createTable('tbl_stock', array(
 			'id' => 'pk', //not included in source csv
 			'serial_number' => 'string', //e.g. A1234, 1234B, A-1234...
-			'description' => 'string', //e.g. "Aircraft Wireless"
-			'part_version' => 'integer',
+			'version' => 'string',
 
 			'part_id' => 'integer',
-			'status_id' => 'string', //define in model [Active | Not-Active], not fk
+			'status_id' => 'integer DEFAULT NULL', //defined in stock model
 		), 'ENGINE=InnoDB');
 		
 		//stock location table
@@ -426,7 +433,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'UNConvUnits' => 'FLOAT NULL NOT NULL DEFAULT 1',
 		), 'ENGINE=InnoDB');  
 
-		//parts and vendors tables
+		//parts&vendors
 		//tables specific to PV6EX or PV6ECO, or not yet fully understood
 		//
 		//pv_al table (PV6EX, PV6ECO)
@@ -741,6 +748,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_activity_to_resource", "tbl_activity_resource_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_resource_to_activity", "tbl_activity_resource_assignment", "resource_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
+        //activity_stock_assignment
+		$this->addForeignKey("fk_activity_to_stock", "tbl_activity_stock_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_stock_to_activity", "tbl_activity_stock_assignment", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
+		
 		//file
 		$this->addForeignKey("fk_file_to_part", "tbl_file", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 
@@ -846,6 +857,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_activity_part_assignment');
 		$this->dropTable('tbl_activity_predecessor_assignment');		
 		$this->dropTable('tbl_activity_resource_assignment');		
+		$this->dropTable('tbl_activity_stock_assignment');		
 		$this->dropTable('tbl_currency');
 		$this->dropTable('tbl_customer');
 		$this->dropTable('tbl_file');
