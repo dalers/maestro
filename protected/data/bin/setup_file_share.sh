@@ -9,6 +9,10 @@
 
 rm -r /home/maestro/scc/*
 
+echo "This directory is used by Maestro" > /home/maestro/scc/README.txt
+# convert to Windows-type cr/lf EOL
+flip -m /home/maestro/scc/README.txt
+
 # csv, current and previous
 mkdir /home/maestro/scc/csv/
 mkdir /home/maestro/scc/csv.old/
@@ -31,7 +35,7 @@ mkdir /home/maestro/scc/parts.rsync
 # parts&vendors database
 mkdir /home/maestro/scc/pv/
 
-# working directory (for processing iterations)
+# working directory for processing iterations
 mkdir /home/maestro/scc/work/
 
 # make directories that will be written to from remote MS Windows clients read/write
