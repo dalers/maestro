@@ -757,7 +757,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		//foreign keys
 		//
 		//activity
+		$this->addForeignKey("fk_activity_to_coordinator", "tbl_activity", "coordinator_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_activity_to_project", "tbl_activity", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_activity_to_create_user", "tbl_activity", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_activity_to_update_user", "tbl_activity", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
         //activity_part_assignment
 		$this->addForeignKey("fk_activity_to_part", "tbl_activity_part_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
@@ -822,10 +825,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_pv_lnk_part", "tbl_part_source_assignment", "LNKPNID", "tbl_part", "id", "CASCADE", "RESTRICT");
 		
 		//project
-		$this->addForeignKey("fk_project_to_creator", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_project_to_customer", "tbl_project", "customer_id", "tbl_customer", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_project_to_owner", "tbl_project", "owner_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_project_to_updater", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 
         //project_person_assignment
 		$this->addForeignKey("fk_project_to_person", "tbl_project_person_assignment", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
