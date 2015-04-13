@@ -80,6 +80,11 @@ SET unique_checks = 0;
 
 -- activity (GanttProject -> csv -> project.ods -> csv)
 -- Windows EOL
+--
+-- !?! FIRST RECORD FROM CSV DOES NOT LOAD USING FOLLOWING
+--     INSTEAD, DATA MANUALLY LOADED FROM CSV USING ADMINER
+--     ON SERVER, THEN EXPORTED AS SQL INSERT AND COPIED BELOW
+--
 -- LOAD DATA INFILE '/home/maestro/scc/csv/activity.csv'
 -- INTO TABLE maestro.tbl_activity
 -- CHARACTER SET ascii
@@ -120,6 +125,11 @@ INSERT INTO `tbl_activity` (`id`, `name`, `begin_date`, `end_date`, `duration`, 
 
 -- activity_predecessor_assignment (GanttProject -> csv -> project.ods -> csv)
 -- Windows EOL
+--
+-- !?! FIRST RECORD FROM CSV DOES NOT LOAD USING FOLLOWING
+--     INSTEAD, DATA MANUALLY LOADED FROM CSV USING ADMINER
+--     ON SERVER, THEN EXPORTED AS SQL INSERT AND COPIED BELOW
+--
 -- LOAD DATA INFILE '/home/maestro/scc/csv/activity_predecessor_assignment.csv'
 -- INTO TABLE maestro.tbl_activity_predecessor_assignment
 -- CHARACTER SET ascii
@@ -145,6 +155,11 @@ INSERT INTO `tbl_activity_predecessor_assignment` (`activity_id`, `predecessor_i
 
 -- activity_resource_assignment (GanttProject -> csv -> project.ods -> csv)
 -- Windows EOL
+--
+-- !?! FIRST RECORD FROM CSV DOES NOT LOAD USING FOLLOWING
+--     INSTEAD, DATA MANUALLY LOADED FROM CSV USING ADMINER
+--     ON SERVER, THEN EXPORTED AS SQL INSERT AND COPIED BELOW
+--
 -- LOAD DATA INFILE '/home/maestro/scc/csv/activity_resource_assignment.csv'
 -- INTO TABLE maestro.tbl_activity_resource_assignment
 -- CHARACTER SET ascii
@@ -271,7 +286,14 @@ FIELDS
 LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(id, name,description,part_id,project_id,type_id,status_id,owner_id,create_time,create_user_id,update_time,update_user_id);
+(id,name,description,@part_id,@project_id,@type_id,status_id,stock_id,owner_id,create_time,create_user_id,update_time,update_user_id)
+SET
+    part_id    = nullif(@part_id, ''),
+    project_id = nullif(@project_id, ''),
+    type_id    = nullif(@type_id, ''),
+    status_id  = nullif(@status_id, ''),
+    stock_id   = nullif(@stock_id, ''),
+    owner_id   = nullif(@owner_id, '');
 
 -- manufacturer (origin parts&vendors MFR table)
 -- Unix EOL
@@ -348,7 +370,12 @@ FIELDS
 LINES
 	TERMINATED BY '\n'
 IGNORE 1 LINES
-(id,PLListID,PLPartID,PLItem,PLQty,PLRefMemo,PLRefText,PLAssyOrder,PLAssySpec,PLMFRPNID,PLMFRID,PLSUID,PLLNKID);
+    (id,PLListID,PLPartID,PLItem,PLQty,PLRefMemo,PLRefText,PLAssyOrder,PLAssySpec,@PLMFRPNID,@PLMFRID,@PLSUID,@PLLNKID)
+SET
+    PLMFRPNID = nullif(@PLMFRPNID, ''),
+    PLMFRID   = nullif(@PLMFRID, ''),
+    PLSUID    = nullif(@PLSUID, ''),
+    PLLNKID   = nullif(@PLLNKID, '');
 
 -- part_source_assignment (origin parts&vendors LNK table)
 -- Unix EOL
