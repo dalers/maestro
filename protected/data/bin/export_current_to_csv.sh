@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Export or copy 'current' data to csv/
+# Export (or copy) 'current' data to csv/
 #
 # Schedule in /etc/crontab:
 #   - rsync_current_files.sh
@@ -12,7 +12,8 @@
 # customers
 echo "export_current_to_csv: customers"
 echo "  - using parts&vendors"
-cp -af /home/maestro/scc/ods/issue.csv /home/maestro/scc/csv/
+#echo "  - using scc\ods\customer.csv"
+#cp -af /home/maestro/scc/ods/customer.csv /home/maestro/scc/csv/
 
 # issues
 echo "export_current_to_csv: issues"
@@ -21,7 +22,7 @@ cp -af /home/maestro/scc/ods/issue.csv /home/maestro/scc/csv/
 
 # persons
 echo "export_current_to_csv: persons"
-echo "  - using scc\ods\person*.csv"
+echo "  - using scc\ods\person.csv"
 cp -af /home/maestro/scc/ods/person.csv /home/maestro/scc/csv/
 
 # projects
