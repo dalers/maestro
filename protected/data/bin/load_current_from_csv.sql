@@ -25,7 +25,7 @@
 -- [csv field name]     [Maestro table column name], comment if used, if used as pk, ...
 -- ...
 --
--- CASE 1 - csv created by mysql client on unix (i.e. unix to unix)
+-- CASE 1 - csv created by mysql on unix
 --
 -- LOAD DATA INFILE '/home/maestro/scc/csv/filename.csv'
 -- INTO TABLE epd2.tbl_maestro_table_name
@@ -55,7 +55,7 @@
 -- IGNORE 1 LINES
 -- (id,PNIDToLNK,PNUNID,PNTabParentID,PNPrefix,PNPartNumber,PNSuffix,PNType,PNRevision,PNTitle,PNDetail,PNStatus,PNReqBy,PNNotes,PNUser1,PNUser2,PNUser3,PNUser4,PNUser5,PNUser6,PNUser7,PNUser8,PNUser9,PNUser10,PNDate,PNTab,PNControlled,PNAux1,PNQty,PNQty2,PNCostChanged,PNParentCost,PNExpandList,PNAssyCostOption,PNInclAssyOnPurchList,PNMadeFrom,PNMinStockQty,PNOrderToMaintain,PNOnECO,PNOverKit,PNOverKitQty,PNOverKitBy,PNOverKitFor,PNCurrentCost,PNLastRollupCost,PNUSRID,PNUserLock);
 --
--- CASE 3 - csv created by Windows client
+-- CASE 3 - csv created by Excel on Windows
 --
 -- stock_serial spreadsheet
 -- use Windows EOL (CSV created by Excel)
@@ -78,33 +78,21 @@ SET foreign_key_checks = 0;
 -- save time, anything unique is guaranteed to be unique in import
 SET unique_checks = 0;
 
--- activity (GanttProject -> csv -> project.ods -> csv)
+-- activity (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
--- LOAD DATA INFILE '/home/maestro/scc/csv/activity.csv'
--- INTO TABLE maestro.tbl_activity
--- CHARACTER SET ascii
--- FIELDS
--- 	TERMINATED BY ','
--- 	OPTIONALLY ENCLOSED BY '"'
--- 	ESCAPED BY '"'
--- LINES
--- 	TERMINATED BY '\r\n'
--- IGNORE 1 LINES
--- (id,name,begin_date,end_date,duration,completion,outline_number,cost,web_link,notes,coordinator_id,project_id,create_time,create_user_id,update_time,update_user_id);
+LOAD DATA INFILE '/home/maestro/scc/csv/activity.csv'
+INTO TABLE maestro.tbl_activity
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(id,name,begin_date,end_date,duration,completion,outline_number,cost,web_link,notes,coordinator_id,project_id,create_time,create_user_id,update_time,update_user_id);
 
-INSERT INTO `tbl_activity` (`id`, `name`, `begin_date`, `end_date`, `duration`, `completion`, `outline_number`, `cost`, `web_link`, `notes`, `coordinator_id`, `project_id`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
-(1,	'prototype 1',	'2015-01-01 00:00:00',	'2015-01-28 00:00:00',	20,	100,	'1.1',	280,	NULL,	'Release of PN 20000004 Rev 00 Parts List with child parts and assemblies for building a small number of prototype units. Assembly includes an earphone, wire for a stubby antenna and preliminary user manual, but no enclosure. Manufacturing process document',	6,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(2,	'design gate 1',	'2015-01-29 00:00:00',	'2015-01-29 00:00:00',	0,	0,	'1.2',	0,	NULL,	NULL,	20,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(3,	'prototype 2',	'2015-01-29 00:00:00',	'2015-02-25 00:00:00',	20,	20,	'1.3',	280,	NULL,	'Revise electrical schematic to correct connectivity of PCB-type inductor, revise PCB design to correct inductor layout, and generate new PCB CAM files. Correct mechanical dimensions of the PCB, create Master Drawing for the PCB, create assembly drawing an',	6,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(4,	'design gate 2',	'2015-02-26 00:00:00',	'2015-02-26 00:00:00',	0,	0,	'1.4',	0,	NULL,	NULL,	20,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(5,	'product release',	'2015-02-26 00:00:00',	'2015-03-25 00:00:00',	20,	0,	'1.5',	490,	NULL,	'Restructuring of parts lists for product release, including creation of a new top-level marketing assembly part number. An enclosure with hardware was added, the manual and earphone were moved to the marketing assembly, and the stubby antenna was removed ',	6,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(6,	'mfg gate 1',	'2015-03-26 00:00:00',	'2015-03-26 00:00:00',	0,	0,	'1.6',	0,	NULL,	NULL,	20,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(7,	'cost/quality improvements',	'2015-03-26 00:00:00',	'2015-04-22 00:00:00',	20,	0,	'1.7',	630,	NULL,	'Circuit board orientation in enclosure was inverted to aid assembly and test (mounted PCA component-side-up in enclosure changed to copper-side-up, allowing direct access to circuit board components and off-board wiring while mounted in the enclosure). Lo',	18,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(8,	'mfg gate 2',	'2015-04-23 00:00:00',	'2015-04-23 00:00:00',	0,	0,	'1.8',	0,	NULL,	NULL,	20,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(9,	'field service kit',	'2015-04-23 00:00:00',	'2015-05-20 00:00:00',	20,	0,	'1.9',	160,	NULL,	'A kit of parts useful for field service was released. The service kit and contents was created in response to requests from field service technicians to provide more effective and efficient field service.',	14,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6),
-(10,	'mfg gate 3',	'2015-05-21 00:00:00',	'2015-05-21 00:00:00',	0,	0,	'1.1',	0,	NULL,	NULL,	20,	1,	'2015-01-01 00:00:00',	6,	'2015-01-01 00:00:00',	6);
-
--- activity_part_assignment (GanttProject -> csv -> project.ods -> csv)
+-- activity_part_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
 -- LOAD DATA INFILE '/home/maestro/scc/csv/activity_part_assignment].csv'
 -- INTO TABLE maestro.tbl_activity_part_assignment
@@ -118,78 +106,35 @@ INSERT INTO `tbl_activity` (`id`, `name`, `begin_date`, `end_date`, `duration`, 
 -- IGNORE 1 LINES
 -- (activity_id,part_id);
 
--- activity_predecessor_assignment (GanttProject -> csv -> project.ods -> csv)
+-- activity_predecessor_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
--- LOAD DATA INFILE '/home/maestro/scc/csv/activity_predecessor_assignment.csv'
--- INTO TABLE maestro.tbl_activity_predecessor_assignment
--- CHARACTER SET ascii
--- FIELDS
--- 	TERMINATED BY ','
--- 	OPTIONALLY ENCLOSED BY '"'
--- 	ESCAPED BY '"'
--- LINES
--- 	TERMINATED BY '\r\n'
--- IGNORE 1 LINES
--- (activity_id,predecessor_id);
+LOAD DATA INFILE '/home/maestro/scc/csv/activity_predecessor_assignment.csv'
+INTO TABLE maestro.tbl_activity_predecessor_assignment
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(activity_id,predecessor_id);
 
-INSERT INTO `tbl_activity_predecessor_assignment` (`activity_id`, `predecessor_id`) VALUES
-(2,	1),
-(3,	1),
-(4,	3),
-(5,	3),
-(6,	5),
-(7,	5),
-(8,	7),
-(9,	7),
-(10,	9);
-
--- activity_resource_assignment (GanttProject -> csv -> project.ods -> csv)
+-- activity_resource_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
--- LOAD DATA INFILE '/home/maestro/scc/csv/activity_resource_assignment.csv'
--- INTO TABLE maestro.tbl_activity_resource_assignment
--- CHARACTER SET ascii
--- FIELDS
--- 	TERMINATED BY ','
--- 	OPTIONALLY ENCLOSED BY '"'
--- 	ESCAPED BY '"'
--- LINES
--- 	TERMINATED BY '\r\n'
--- IGNORE 1 LINES
--- (activity_id,resource_id);
+LOAD DATA INFILE '/home/maestro/scc/csv/activity_resource_assignment.csv'
+INTO TABLE maestro.tbl_activity_resource_assignment
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(activity_id,resource_id);
 
-INSERT INTO `tbl_activity_resource_assignment` (`activity_id`, `resource_id`) VALUES
-(1,	3),
-(3,	3),
-(7,	3),
-(7,	5),
-(1,	6),
-(3,	6),
-(5,	6),
-(7,	6),
-(7,	7),
-(1,	11),
-(5,	14),
-(7,	14),
-(9,	14),
-(5,	18),
-(7,	18),
-(9,	18),
-(5,	19),
-(2,	20),
-(4,	20),
-(5,	20),
-(6,	20),
-(8,	20),
-(9,	20),
-(10,	20),
-(1,	22),
-(3,	23),
-(5,	23),
-(7,	23),
-(9,	23);
-
-
--- activity_stock_assignment (GanttProject -> csv -> project.ods -> csv)
+-- activity_stock_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
 -- LOAD DATA INFILE '/home/maestro/scc/csv/activity_stock_assignment.csv'
 -- INTO TABLE maestro.tbl_activity_stock_assignment
@@ -217,7 +162,7 @@ LINES
 IGNORE 1 LINES
 (id,CURCurrencyName,CURExchangeRate,CURCurrencyChar,CURFormat,CURFormatExt);
 
--- customer (origin customer spreadsheet, based on parts&vendors CU table)
+-- customer (customer.xlsx, based on parts&vendors CU table)
 -- Windows EOL
 -- LOAD DATA INFILE '/home/maestro/scc/csv/customer.csv'
 -- INTO TABLE maestro.tbl_customer
@@ -259,7 +204,7 @@ LINES
 IGNORE 1 LINES
 (id,part_id,FILPNPartNumber,FILFilePath,FILFileName,FILView,FILNotes);
 
--- issue
+-- issue (issue.xlsx)
 -- Windows EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/issue.csv'
 INTO TABLE maestro.tbl_issue
@@ -271,7 +216,14 @@ FIELDS
 LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(id, name,description,part_id,project_id,type_id,status_id,owner_id,create_time,create_user_id,update_time,update_user_id);
+(id,name,description,@part_id,@project_id,@type_id,status_id,stock_id,owner_id,create_time,create_user_id,update_time,update_user_id)
+SET
+    part_id    = nullif(@part_id, ''),
+    project_id = nullif(@project_id, ''),
+    type_id    = nullif(@type_id, ''),
+    status_id  = nullif(@status_id, ''),
+    stock_id   = nullif(@stock_id, ''),
+    owner_id   = nullif(@owner_id, '');
 
 -- manufacturer (origin parts&vendors MFR table)
 -- Unix EOL
@@ -348,7 +300,12 @@ FIELDS
 LINES
 	TERMINATED BY '\n'
 IGNORE 1 LINES
-(id,PLListID,PLPartID,PLItem,PLQty,PLRefMemo,PLRefText,PLAssyOrder,PLAssySpec,PLMFRPNID,PLMFRID,PLSUID,PLLNKID);
+    (id,PLListID,PLPartID,PLItem,PLQty,PLRefMemo,PLRefText,PLAssyOrder,PLAssySpec,@PLMFRPNID,@PLMFRID,@PLSUID,@PLLNKID)
+SET
+    PLMFRPNID = nullif(@PLMFRPNID, ''),
+    PLMFRID   = nullif(@PLMFRID, ''),
+    PLSUID    = nullif(@PLSUID, ''),
+    PLLNKID   = nullif(@PLLNKID, '');
 
 -- part_source_assignment (origin parts&vendors LNK table)
 -- Unix EOL
@@ -379,7 +336,7 @@ LINES
 IGNORE 1 LINES
 (id,TYPEType);
 
--- person
+-- person (person.xlsx)
 -- Windows EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/person.csv'
 INTO TABLE maestro.tbl_person
@@ -393,7 +350,7 @@ LINES
 IGNORE 1 LINES
 (id,username,password,email,nick,lname,fname,initial,status_id,profile_id);
 
--- project (GanttProject -> csv -> project.ods -> csv)
+-- project (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/project.csv'
 INTO TABLE maestro.tbl_project
@@ -407,7 +364,7 @@ LINES
 IGNORE 1 LINES
 (id,name,code,description,customer_id,owner_id,phase_id,status_id,type_id,create_time,create_user_id,update_time,update_user_id);
 
--- project_person_assignment (GanttProject -> csv -> project.ods -> csv)
+-- project_person_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
 -- LOAD DATA INFILE '/home/maestro/scc/csv/project_person_assignment.csv'
 -- INTO TABLE maestro.tbl_project_person_assignment
@@ -421,7 +378,7 @@ IGNORE 1 LINES
 -- IGNORE 1 LINES
 -- (project_id,person_id);
 
--- stock
+-- stock (stock.xlsx)
 -- Windows EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/stock.csv'
 INTO TABLE maestro.tbl_stock
@@ -436,7 +393,7 @@ IGNORE 1 LINES
 (serial_number,version,part_id,status_id)
 SET id = NULL;
 
--- stock_location
+-- stock_location (stock_location.xlsx)
 -- Windows EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/stock_location.csv'
 INTO TABLE maestro.tbl_stock_location

@@ -1,5 +1,5 @@
-"id","name","description"
-1,"DEV","Product development project (of product or service to be sold)"
-2,"RSRCH","Research project (investigation of fundamental principle anticipated to benefit future product development)"
-3,"CI","Product continuous-improvement project (improvement to existing product)"
-4,"INFRA","Infrastructure project"
+id,name,description
+1,DEV,Product development project (of product or service to be sold)
+2,RSRCH,Research project (investigation of fundamental principle anticipated to benefit future product development)
+3,CI,Product continuous-improvement project (improvement to existing product)
+4,INFRA,Infrastructure project
