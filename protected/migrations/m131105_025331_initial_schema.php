@@ -19,8 +19,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'web_link' => 'string',
 			'notes' => 'string',
 
-			'coordinator_id' => 'integer',
-			'project_id' => 'integer',
+			'coordinator_id' => 'integer DEFAULT NULL',
+			'project_id' => 'integer DEFAULT NULL',
 
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
@@ -120,12 +120,12 @@ class m131105_025331_initial_schema extends CDbMigration
 			'name' => 'string NOT NULL',
 			'description' => 'text',
 			
-			'part_id' => 'integer', //limitation: one part number per issue
+			'part_id' => 'integer DEFAULT NULL', //limitation: one part number per issue
 			'project_id' =>'integer DEFAULT NULL', //limitation: one project per issue
 			'type_id' => 'integer DEFAULT NULL', //defined in issue model
 			'status_id' => 'integer DEFAULT NULL', //defined in issue model
-			'stock_id' => 'integer', //limitation: one stock id per issue (e.g. serial number or batch/lot number) 
-			'owner_id' => 'integer', //constraint: one owner per issue
+			'stock_id' => 'integer DEFAULT NULL', //limitation: one stock id per issue (e.g. serial number or batch/lot number) 
+			'owner_id' => 'integer DEFAULT NULL', //constraint: one owner per issue
 
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
@@ -280,18 +280,18 @@ class m131105_025331_initial_schema extends CDbMigration
 		//part part relationships and related data
 		$this->createTable('tbl_part_list', array(
 			'id' => 'pk',
-			'PLListID' => 'INTEGER NOT NULL DEFAULT 0',
-			'PLPartID' => 'INTEGER NOT NULL DEFAULT 0',
+			'PLListID' => 'integer NOT NULL DEFAULT 0',
+			'PLPartID' => 'integer NOT NULL DEFAULT 0',
 			'PLItem' => 'INTEGER DEFAULT 0',
 			'PLQty' => 'VARCHAR(10)',
 			'PLRefMemo' => 'LONGTEXT',
 			'PLRefText' => 'VARCHAR(255)',
 			'PLAssyOrder' => 'FLOAT NULL',
 			'PLAssySpec' => 'VARCHAR(255)',
-			'PLMFRPNID' => 'INTEGER',
-			'PLMFRID' => 'INTEGER',
-			'PLSUID' => 'INTEGER',
-			'PLLNKID' => 'INTEGER',
+			'PLMFRPNID' => 'integer DEFAULT NULL',
+			'PLMFRID' => 'integer DEFAULT NULL',
+			'PLSUID' => 'integer DEFAULT NULL',
+			'PLLNKID' => 'integer DEFAULT NULL',
 		), 'ENGINE=InnoDB');        
 
 		//part_source_assignment table (origin parts&vendors LNK table)
@@ -817,6 +817,17 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_part_to_create_user", "tbl_part", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_part_to_update_user", "tbl_part", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 
+		//part_cost
+		$this->addForeignKey("fk_part_cost_to_part_source", "tbl_part_cost", "COSTLNKID", "tbl_part_source_assignment", "id", "CASCADE", "RESTRICT");
+
+		//part_list
+		$this->addForeignKey("fk_part_list_to_parent", "tbl_part_list", "PLListID", "tbl_part", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_list_to_child", "tbl_part_list", "PLPartID", "tbl_part", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_list_to_mfr_part", "tbl_part_list", "PLMFRPNID", "tbl_manufacturer_part", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_list_to_mfr", "tbl_part_list", "PLMFRID", "tbl_manufacturer", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_list_to_supplier", "tbl_part_list", "PLSUID", "tbl_supplier", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_list_to_part_source_assignment", "tbl_part_list", "PLLNKID", "tbl_part_source_assignment", "id", "CASCADE", "RESTRICT");
+		
 		//part_source_assignment
 		$this->addForeignKey("fk_pv_lnk_supplier", "tbl_part_source_assignment", "LNKSUID", "tbl_supplier", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_pv_lnk_mfr_part", "tbl_part_source_assignment", "LNKMFRPNID", "tbl_manufacturer_part", "id", "CASCADE", "RESTRICT");
@@ -838,6 +849,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_stock_to_part", "tbl_stock", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 
 		//parts&vendors
+		//
+		//pv_cost
+		//$this->addForeignKey("fk_pv_cost_lnk", "tbl_pv_cost", "COSTLNKID", "tbl_pv_lnk", "LNKID", "CASCADE", "RESTRICT");
+		//
 		//pv_fil
 		//$this->addForeignKey("fk_pv_fil_part", "tbl_pv_fil", "FILPNID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
 		//

@@ -91,6 +91,11 @@ LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (id,name,begin_date,end_date,duration,completion,outline_number,cost,web_link,notes,coordinator_id,project_id,create_time,create_user_id,update_time,update_user_id);
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(id,name,begin_date,end_date,duration,completion,outline_number,cost,web_link,notes,coordinator_id,project_id,create_time,create_user_id,update_time,update_user_id);
 
 -- activity_part_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
@@ -119,6 +124,11 @@ LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (activity_id,predecessor_id);
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(activity_id,predecessor_id);
 
 -- activity_resource_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
@@ -133,6 +143,36 @@ LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (activity_id,resource_id);
+-- INSERT INTO `tbl_activity_resource_assignment` (`activity_id`, `resource_id`) VALUES
+-- (1,	3),
+-- (3,	3),
+-- (7,	3),
+-- (7,	5),
+-- (1,	6),
+-- (3,	6),
+-- (5,	6),
+-- (7,	6),
+-- (7,	7),
+-- (1,	11),
+-- (5,	14),
+-- (7,	14),
+-- (9,	14),
+-- (5,	18),
+-- (7,	18),
+-- (9,	18),
+-- (5,	19),
+-- (2,	20),
+-- (4,	20),
+-- (5,	20),
+-- (6,	20),
+-- (8,	20),
+-- (9,	20),
+-- (10,	20),
+-- (1,	22),
+-- (3,	23),
+-- (5,	23),
+-- (7,	23),
+-- (9,	23);
 
 -- activity_stock_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
