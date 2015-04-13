@@ -137,7 +137,7 @@ chmod -R ugo+rw       /home/maestro/scc/parts/
 
 echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
-cp -a ../pv/pv-1.mdb /home/maestro/scc/pv/pv.mdb
+cp -a ../pv-1/pv.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
@@ -203,7 +203,7 @@ chmod -R ugo+rw       /home/maestro/scc/parts/
 
 echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
-cp -a ../pv/pv-2.mdb /home/maestro/scc/pv/pv.mdb
+cp -a ../pv-2/pv.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
@@ -261,7 +261,7 @@ chmod -R ugo+rw       /home/maestro/scc/parts/
 
 echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
-cp -a ../pv/pv-3.mdb /home/maestro/scc/pv/pv.mdb
+cp -a ../pv-3/pv.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
@@ -319,7 +319,7 @@ chmod -R ugo+rw       /home/maestro/scc/parts/
 
 echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
-cp -a ../pv/pv-4.mdb /home/maestro/scc/pv/pv.mdb
+cp -a ../pv-4/pv.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 
@@ -377,7 +377,7 @@ chmod -R ugo+rw       /home/maestro/scc/parts/
 
 echo "restore 'current' parts&vendors database"
 # -a archive mode preserves file times
-cp -a ../pv/pv-5.mdb /home/maestro/scc/pv/pv.mdb
+cp -a ../pv-5/pv.mdb /home/maestro/scc/pv/pv.mdb
 #chown -R nobody:wheel /home/maestro/scc/pv/
 chmod ugo+rw /home/maestro/scc/pv/*
 

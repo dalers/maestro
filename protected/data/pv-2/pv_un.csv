@@ -1,0 +1,7 @@
+UNID,UNUseUnits,UNPurchUnits,UNConvUnits
+1,"each","each",1.00000000e+00
+20,"each","Lot10",1.00000000e+01
+21,"each","Lot100",1.00000000e+02
+22,"inch","spool66FT",7.92000000e+02
+23,"cm","spool100FT",3.04800000e+03
+24,"cm","spool19300FT",5.88264000e+05

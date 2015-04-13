@@ -1,0 +1,6 @@
+ORGID,ORGKey,ORGName,ORGAddress,ORGPhone,ORGFaax,ORGPOUseShpgAddr,ORGRFQUseShpgAddr,ORGListOrder
+1,"Billing","Swift Construction Company","1 Swift Way
+Shopton, NY 13054, USA","1-315-123-4567","1-315-123-4568",0,0,0
+6,"Shipping",,"Swift Construction Company
+1 Swift Way
+Shopton, NY 13054, USA",,,1,1,1
