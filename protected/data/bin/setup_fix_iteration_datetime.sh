@@ -14,8 +14,9 @@
 #
 
 # master data files that currently don't include iteration
-echo "setup_fix_iteration_datetime: ods, tdl"
-touch -t 201301010101 ../ods/*
+echo "setup_fix_iteration_datetime: master, ganttproject, todolist"
+touch -t 201301010101 ../master/*
+touch -t 201301010101 ../tdl/*
 touch -t 201301010101 ../tdl/*
 
 echo "setup_fix_iteration_datetime: Iteration 1 pv, csv"

@@ -114,7 +114,7 @@ If you just want to load the demo data, skip to the next step.
 
 ```
 > cd maestro/protected/data/bin
-> ./run_iterations.sh
+> ./run_iteration_all.sh
 ```
 
 8) If you just want to load the most recent copy of the SCC database, and

@@ -4,7 +4,7 @@ Maestro
 
 Maesto is in active development and likely *not* suitable for use at this time. Refer to the demo site for current functionality.
 
-Maestro manages information related to projects, parts, stock, issues and people. Taking inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro adds enterprise features, single-entry accounting, and true multi-user operation. Maestro works cooperatively with [*GanttProject*<sup>*TM*</sup>](http://www.ganttproject.biz/) to provide a Gantt-type user experience for project planning.
+Maestro manages information related to projects, parts, stock, issues and people. Taking inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro adds enterprise features, single-entry accounting, and true multi-user operation. Maestro works cooperatively with [*GanttProject*<sup>*TM*</sup>](http://www.ganttproject.biz/) for Gantt-based project planning.
 
 Maestro also includes a complete data set for the fictional ***Swift Construction Company*** (the *SCC*), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people, and a demo system is available ([swiftconstructioncompany.net](http://www.swiftconstructioncompany.net)). 
 

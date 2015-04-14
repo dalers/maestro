@@ -80,8 +80,8 @@ modified datefiles are consistent with the iteration story.
 For example, to re-create the vault at iteration 5 using the 
 parts-n/ set of directories: 
 
-    $ cd .../maestro/scc/bin/
-    $ ./fix_iteration_datetime.sh
+    $ cd .../maestro/scc/bin/protected/data/bin
+    $ ./setup_fix_iteration_datetime.sh
     $ mkdir parts
     $ cp -a ../parts-1/* ./parts/
     $ cp -a ../parts-2/* ./parts/

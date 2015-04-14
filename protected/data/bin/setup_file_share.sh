@@ -26,7 +26,7 @@ mkdir /home/maestro/scc/material/
 mkdir /home/maestro/scc/material.rsync/
 
 # master spreadsheets
-mkdir /home/maestro/scc/ods/
+mkdir /home/maestro/scc/master/
 
 # part documents
 mkdir /home/maestro/scc/parts
@@ -43,7 +43,7 @@ mkdir /home/maestro/scc/work/
 # - NO write access from Windows to csv/, csv.old/, work/ or *.rsync/
 #
 chmod ugo+rw /home/maestro/scc/docs/
-chmod ugo+rw /home/maestro/scc/ods/
+chmod ugo+rw /home/maestro/scc/master/
 chmod ugo+rw /home/maestro/scc/material/
 chmod ugo+rw /home/maestro/scc/parts/
 chmod ugo+rw /home/maestro/scc/pv/

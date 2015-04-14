@@ -32,7 +32,7 @@
 #    +-- ldap/                    OpenLDAP related files
 #    +-- ganttproject/            GanttProject project-planning-related files
 #    +-- mantis/                  Mantis Bugtracker related files
-#    +-- ods/                     master data spreadsheets with export csv
+#    +-- master/                  master data spreadsheets with exported csv
 #    +-- parts/                   stub directory to create temp consolidated parts/ for developer convenience (.gitignore)
 #    +-- parts-1..5/              part documents by iteration WITH revision in filename
 #    |   +-- 10000001/
@@ -62,7 +62,7 @@
 #    +-- docs.rsync/              controlled ad-hoc documents
 #    +-- material/                current material documents
 #    +-- material.rsync/          controlled material documents
-#    +-- ods/                     current master spreadsheets with csv
+#    +-- master/                  current master spreadsheets with exported csv
 #    +-- parts/                   current part documents
 #    +-- parts.rsync/             controlled part documents
 #    +-- pv/                      parts&vendors database files
@@ -111,12 +111,12 @@ echo "========================================"
 
 # restore master spreadsheets with csv
 echo "restore 'current' master spreadsheets with csv"
-cp ../ods/* /home/maestro/scc/ods
+cp ../master/* /home/maestro/scc/master
 
 # restore GanttProject project file
-# (although using project.ods until PhpProject interface to project.gan file is working)
+# (using project.xlsx until PhpProject interface to project.gan file is working)
 echo "restore 'current' GanttProject file"
-cp ../ganttproject/project.gan /home/maestro/scc/ods
+cp ../ganttproject/project.gan /home/maestro/scc/master
 
 # restore 'current' part documents to fileshare
 if test $version = "VER"
@@ -177,12 +177,12 @@ cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
 # restore master spreadsheets with csv
 echo "restore 'current' master spreadsheets with csv"
-cp ../ods/* /home/maestro/scc/ods
+cp ../master/* /home/maestro/scc/master
 
 # restore GanttProject project file with csv
-# (although using project.ods until PhpProject interface to project.gan file is working)
+# (using project.xlsx until PhpProject interface to project.gan file is working)
 echo "restore 'current' GanttProject file"
-cp ../ganttproject/project.gan /home/maestro/scc/ods
+cp ../ganttproject/project.gan /home/maestro/scc/master
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
@@ -235,12 +235,12 @@ cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
 # restore master spreadsheets with csv
 echo "restore 'current' master spreadsheets with csv"
-cp ../ods/* /home/maestro/scc/ods
+cp ../master/* /home/maestro/scc/master
 
 # restore GanttProject project file with csv
-# (although using project.ods until PhpProject interface to project.gan file is working)
+# (using project.xlsx until PhpProject interface to project.gan file is working)
 echo "restore 'current' GanttProject file"
-cp ../ganttproject/project.gan /home/maestro/scc/ods
+cp ../ganttproject/project.gan /home/maestro/scc/master
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
@@ -293,12 +293,12 @@ cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
 # restore master spreadsheets with csv
 echo "restore 'current' master spreadsheets with csv"
-cp ../ods/* /home/maestro/scc/ods
+cp ../master/* /home/maestro/scc/master
 
 # restore GanttProject project file with csv
-# (although using project.ods until PhpProject interface to project.gan file is working)
+# (using project.xlsx until PhpProject interface to project.gan file is working)
 echo "restore 'current' GanttProject file"
-cp ../ganttproject/project.gan /home/maestro/scc/ods
+cp ../ganttproject/project.gan /home/maestro/scc/master
 
 # copy 'current' part documents to fileshare
 if test $version = "VER"
@@ -351,12 +351,12 @@ cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
 
 # restore master spreadsheets with csv
 echo "restore 'current' master spreadsheets with csv"
-cp ../ods/* /home/maestro/scc/ods
+cp ../master/* /home/maestro/scc/master
 
 # restore GanttProject project file with csv
-# (although using project.ods until PhpProject interface to project.gan file is working)
+# (using project.xlsx until PhpProject interface to project.gan file is working)
 echo "restore 'current' GanttProject file"
-cp ../ganttproject/project.gan /home/maestro/scc/ods
+cp ../ganttproject/project.gan /home/maestro/scc/master
 
 # restore 'current' part documents to fileshare
 if test $version = "VER"

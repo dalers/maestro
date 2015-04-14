@@ -12,34 +12,29 @@
 # customers
 echo "export_current_to_csv: customers"
 echo "  - using parts&vendors"
-#echo "  - using scc\ods\customer.csv"
-#cp -af /home/maestro/scc/ods/customer.csv /home/maestro/scc/csv/
+#echo "  - using scc\master\customer.csv"
+#cp -af /home/maestro/scc/master/customer.csv /home/maestro/scc/csv/
 
 # issues
 echo "export_current_to_csv: issues"
-echo "  - using scc\ods\issue.csv"
-cp -af /home/maestro/scc/ods/issue.csv /home/maestro/scc/csv/
+echo "  - using scc\master\issue*.csv"
+cp -af /home/maestro/scc/master/issue*.csv /home/maestro/scc/csv/
 
 # persons
 echo "export_current_to_csv: persons"
-echo "  - using scc\ods\person.csv"
-cp -af /home/maestro/scc/ods/person.csv /home/maestro/scc/csv/
+echo "  - using scc\master\person*.csv"
+cp -af /home/maestro/scc/master/person*.csv /home/maestro/scc/csv/
 
 # projects
 echo "export_current_to_csv: projects"
-echo "  - using scc\ods\project*.csv, activity*.csv"
-cp -af /home/maestro/scc/ods/project*.csv /home/maestro/scc/csv/
-cp -af /home/maestro/scc/ods/activity*.csv /home/maestro/scc/csv/
+echo "  - using scc\master\project*.csv, activity*.csv"
+cp -af /home/maestro/scc/master/project*.csv /home/maestro/scc/csv/
+cp -af /home/maestro/scc/master/activity*.csv /home/maestro/scc/csv/
 
 # stock
 echo "export_current_to_csv: stock"
-echo "  - using scc\ods\stock.csv"
-cp /home/maestro/scc/ods/stock.csv /home/maestro/scc/csv/
-
-# stock locations
-echo "export_current_to_csv: stock locations"
-echo "  - using scc\ods\stock_location.csv"
-cp /home/maestro/scc/ods/stock_location.csv /home/maestro/scc/csv/
+echo "  - using scc\master\stock*.csv"
+cp /home/maestro/scc/master/stock*.csv /home/maestro/scc/csv/
 
 # export tables from parts&vendors
 echo "export_current_to_csv: parts&vendors"
