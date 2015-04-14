@@ -90,7 +90,7 @@ FIELDS
 LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(id,name,begin_date,end_date,duration,completion,outline_number,cost,web_link,notes,coordinator_id,project_id,create_time,create_user_id,update_time,update_user_id);
+(id,name,status_id,begin_date,end_date,duration,completion,outline_number,cost,web_link,notes,coordinator_id,project_id,create_time,create_user_id,update_time,update_user_id);
 
 -- activity_part_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
@@ -216,7 +216,7 @@ FIELDS
 LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(id,name,description,@part_id,@project_id,@type_id,status_id,stock_id,owner_id,create_time,create_user_id,update_time,update_user_id)
+(id,name,description,@part_id,@project_id,@type_id,@status_id,@stock_id,@owner_id,create_time,create_user_id,update_time,update_user_id)
 SET
     part_id    = nullif(@part_id, ''),
     project_id = nullif(@project_id, ''),
@@ -272,7 +272,9 @@ FIELDS
 LINES
 	TERMINATED BY '\n'
 IGNORE 1 LINES
-(id,PNIDToLNK,PNUNID,PNTabParentID,PNPrefix,PNPartNumber,PNSuffix,PNType,PNRevision,PNTitle,PNDetail,PNStatus,PNReqBy,PNNotes,PNUser1,PNUser2,PNUser3,PNUser4,PNUser5,PNUser6,PNUser7,PNUser8,PNUser9,PNUser10,PNDate,PNTab,PNControlled,PNAux1,PNQty,PNQty2,PNCostChanged,PNParentCost,PNExpandList,PNAssyCostOption,PNInclAssyOnPurchList,PNMadeFrom,PNMinStockQty,PNOrderToMaintain,PNOnECO,PNOverKit,PNOverKitQty,PNOverKitBy,PNOverKitFor,PNCurrentCost,PNLastRollupCost,PNUSRID,PNUserLock);
+(id,PNIDToLNK,PNUNID,@PNTabParentID,PNPrefix,PNPartNumber,PNSuffix,PNType,PNRevision,PNTitle,PNDetail,PNStatus,PNReqBy,PNNotes,PNUser1,PNUser2,PNUser3,PNUser4,PNUser5,PNUser6,PNUser7,PNUser8,PNUser9,PNUser10,PNDate,PNTab,PNControlled,PNAux1,PNQty,PNQty2,PNCostChanged,PNParentCost,PNExpandList,PNAssyCostOption,PNInclAssyOnPurchList,PNMadeFrom,PNMinStockQty,PNOrderToMaintain,PNOnECO,PNOverKit,PNOverKitQty,PNOverKitBy,PNOverKitFor,PNCurrentCost,PNLastRollupCost,PNUSRID,PNUserLock)
+SET
+    PNTabParentID = nullif(@PNTabParentID, '');
 
 -- part_cost (origin parts&vendors COST table)
 -- Unix EOL
@@ -521,7 +523,8 @@ IGNORE 1 LINES
 (id,HISTWho,HISTWhat,HISTWhen,HISTWhy,HISTHowMany);
 
 -- pv_hpref
--- database configuration parameters	
+-- database configuration parameters
+-- WARNING!! HPREF includes license string in plain text, TODO do not load license key?
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_hpref.csv'
 INTO TABLE maestro.tbl_pv_hpref

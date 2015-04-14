@@ -19,13 +19,14 @@ class m131105_025331_initial_schema extends CDbMigration
 			'web_link' => 'string',
 			'notes' => 'string',
 
+			'status_id' => 'integer DEFAULT NULL',
 			'coordinator_id' => 'integer DEFAULT NULL',
 			'project_id' => 'integer DEFAULT NULL',
 
-			'create_time' => 'datetime',
-			'create_user_id' => 'integer',
-			'update_time' => 'datetime',
-			'update_user_id' => 'integer',
+			'create_time' => 'datetime NOT NULL',
+			'create_user_id' => 'integer NOT NULL',
+			'update_time' => 'datetime NOT NULL',
+			'update_user_id' => 'integer NOT NULL',
 		), 'ENGINE = InnoDB');
 
 		//activity_part_assignment table (equipment)
@@ -106,11 +107,6 @@ class m131105_025331_initial_schema extends CDbMigration
 			'FILNotes' => 'VARCHAR(50)', 
 			
 			'part_id' => 'integer DEFAULT NULL', //limitation: one part number reference per file
-			
-			'create_time' => 'datetime',
-			'create_user_id' => 'integer',
-			'update_time' => 'datetime',
-			'update_user_id' => 'integer',
 		), 'ENGINE=InnoDB');        
 
 		//issue table
@@ -848,6 +844,13 @@ class m131105_025331_initial_schema extends CDbMigration
 		//stock
 		$this->addForeignKey("fk_stock_to_part", "tbl_stock", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 
+		//supplier
+		$this->addForeignKey("fk_supplier_to_currency", "tbl_supplier", "currency_id", "tbl_currency", "id", "CASCADE", "RESTRICT");
+
+		//supplier_manufacturer_assignment
+		$this->addForeignKey("fk_supplier_manufacturer_assignment_to_supplier", "tbl_supplier_manufacturer_assignment", "LINSUID", "tbl_supplier", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_supplier_manufacturer_assignment_to_manufacturer", "tbl_supplier_manufacturer_assignment", "LINMFRID", "tbl_manufacturer", "id", "CASCADE", "RESTRICT");
+		
 		//parts&vendors
 		//
 		//pv_cost
