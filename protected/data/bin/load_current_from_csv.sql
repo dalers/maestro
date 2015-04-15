@@ -216,14 +216,15 @@ FIELDS
 LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(id,name,description,@part_id,@project_id,@type_id,@status_id,@stock_id,@owner_id,create_time,create_user_id,update_time,update_user_id)
+(id,name,description,@owner_id,@part_id,@project_id,@requester_id,@status_id,@stock_id,@type_id,create_time,create_user_id,update_time,update_user_id)
 SET
-    part_id    = nullif(@part_id, ''),
-    project_id = nullif(@project_id, ''),
-    type_id    = nullif(@type_id, ''),
-    status_id  = nullif(@status_id, ''),
-    stock_id   = nullif(@stock_id, ''),
-    owner_id   = nullif(@owner_id, '');
+    owner_id     = nullif(@owner_id, ''),
+    part_id      = nullif(@part_id, ''),
+    project_id   = nullif(@project_id, ''),
+    requester_id = nullif(@part_id, ''),
+    status_id    = nullif(@status_id, ''),
+    stock_id     = nullif(@stock_id, ''),
+    type_id      = nullif(@type_id, '');
 
 -- manufacturer (origin parts&vendors MFR table)
 -- Unix EOL

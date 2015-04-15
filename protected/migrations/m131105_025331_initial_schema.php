@@ -19,9 +19,10 @@ class m131105_025331_initial_schema extends CDbMigration
 			'web_link' => 'string',
 			'notes' => 'string',
 
-			'status_id' => 'integer DEFAULT NULL',
 			'coordinator_id' => 'integer DEFAULT NULL',
 			'project_id' => 'integer DEFAULT NULL',
+			'status_id' => 'integer DEFAULT NULL', //[Inactive|Active], defined in class, not fk
+			'type_id' => 'integer DEFAULT NULL', //[Type1|Type2|Type3], defined in class, not fk
 
 			'create_time' => 'datetime NOT NULL',
 			'create_user_id' => 'integer NOT NULL',
@@ -66,7 +67,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->createTable('tbl_currency', array(
 			'id' => 'pk',
 			'CURCurrencyName' => 'VARCHAR(50)', 
-			'CURExchangeRate' => 'DOUBLE NULL DEFAULT 0', //<local currency> divided by <foreign currency>
+			'CURExchangeRate' => 'DOUBLE NULL DEFAULT 0', //local_currency divided by foreign_currency
 			'CURCurrencyChar' => 'VARCHAR(4)', 
 			'CURFormat' => 'VARCHAR(35)', 
 			'CURFormatExt' => 'VARCHAR(35)', 
@@ -106,7 +107,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'FILView' => 'TINYINT(1) DEFAULT 0',
 			'FILNotes' => 'VARCHAR(50)', 
 			
-			'part_id' => 'integer DEFAULT NULL', //limitation: one part number reference per file
+			'part_id' => 'integer DEFAULT NULL', //the part the file is associated with (one part per file)
 		), 'ENGINE=InnoDB');        
 
 		//issue table
@@ -116,12 +117,13 @@ class m131105_025331_initial_schema extends CDbMigration
 			'name' => 'string NOT NULL',
 			'description' => 'text',
 			
-			'part_id' => 'integer DEFAULT NULL', //limitation: one part number per issue
-			'project_id' =>'integer DEFAULT NULL', //limitation: one project per issue
-			'type_id' => 'integer DEFAULT NULL', //defined in issue model
-			'status_id' => 'integer DEFAULT NULL', //defined in issue model
-			'stock_id' => 'integer DEFAULT NULL', //limitation: one stock id per issue (e.g. serial number or batch/lot number) 
-			'owner_id' => 'integer DEFAULT NULL', //constraint: one owner per issue
+			'owner_id' => 'integer DEFAULT NULL', //champion or manager resolving the issue
+			'part_id' => 'integer DEFAULT NULL', //part (design) which the issue relates to
+			'project_id' =>'integer DEFAULT NULL', //project which the issue relates to
+			'requester_id' => 'integer DEFAULT NULL', //person who requested observation be recorded (typically the observer)
+			'status_id' => 'integer DEFAULT NULL', //[Inactive|Active], defined in class, not fk
+			'stock_id' => 'integer DEFAULT NULL', //stock item which the issue relates to (serial number or lot)
+			'type_id' => 'integer DEFAULT NULL', //[Bug|Feature|Task], defined in class, not fk
 
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
@@ -210,8 +212,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PNRevision' => 'VARCHAR(10)',
 			'PNTitle' => 'VARCHAR(255)', 
 			'PNDetail' => 'VARCHAR(255)',
-			'PNStatus' => 'VARCHAR(1)', //[R|U|O] (defined in model, not fk)
-			'PNReqBy' => 'VARCHAR(10)', //initials or nickname of requestor, see requestor_id for fk to person
+			'PNStatus' => 'VARCHAR(1)', //[R|U|O], defined in class, not fk
+			'PNReqBy' => 'VARCHAR(10)', //initials or nickname of requester (requester_id is fk to person)
 			'PNNotes' => 'LONGTEXT',
 			'PNUser1' => 'VARCHAR(100)', 
 			'PNUser2' => 'VARCHAR(100)', 
@@ -252,9 +254,9 @@ class m131105_025331_initial_schema extends CDbMigration
 			'is_current_iteration' => 'boolean',
 
 			'requester_id' => 'integer',
-			'status_id' => 'integer',
+			'status_id' => 'integer', //[Inactive|Active], defined in class, not fk
 			'stock_location_id' => 'integer',
-			'type_id' => 'integer',
+			'type_id' => 'integer DEFAULT NULL',
 
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
@@ -325,17 +327,17 @@ class m131105_025331_initial_schema extends CDbMigration
 		//person table
 		$this->createTable('tbl_person', array(
 			'id' => 'pk',
-			'username' => 'string NOT NULL', //network login id
+			'username' => 'string NOT NULL', //preferably same as network login id
 			'password' => 'string NOT NULL',
 			'email' => 'string',
 			'nick' => 'string',
 			'lname' => 'string', //e.g. "Tom"
 			'fname' => 'string', //e.g. "Swift"
-			'initial' => 'string', //e.g. "TS"
+			'initial' => 'string', //e.g. "J"
 
-			'status_id' => 'integer DEFAULT NULL', //[ACTIVE|NOTACTIVE] (0=Not-Active, 1=Active) (defined in model, not fk) 
-			'profile_id' => 'integer DEFAULT NULL',
-			
+			'status_id' => 'integer DEFAULT NULL', // //[Inactive|Active], defined in class, not fk
+			'profile_id' => 'integer DEFAULT NULL', //[Admin|Demo|Eng|Finance|MfgBuild|PurchRcv|RelCtrl|Sales|View], defined in class, not fk
+
 			'last_login_time' => 'datetime DEFAULT NULL',
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
@@ -351,10 +353,10 @@ class m131105_025331_initial_schema extends CDbMigration
 			'description' => 'text NOT NULL', //e.g. "New smaller wireless for 2-seaters"
 
 			'customer_id' => 'integer', //customer in case of a customer-directed project
-			'owner_id' => 'integer', //primary scc stakeholder/benefactor
-			'phase_id' => 'integer', //[IDEA|PRODUCT|DESIGN|TEST|PILOT|TERMINATION] (defined in model, not fk)
-			'status_id' => 'integer', //[ACTIVE|NOTACTIVE] (defined in model, not fk)
-			'type_id' => 'integer', //[DEV|RSRCH|CI|INFRA..] (defined in model, not fk)
+			'owner_id' => 'integer', //primary stakeholder or benefactor
+			'phase_id' => 'integer DEFAULT NULL', //[Idea|Product|Design|Test|Pilot|Termination], defined in class, not fk
+			'status_id' => 'integer DEFAULT NULL', //[Active|NotActive], defined in class, not fk
+			'type_id' => 'integer DEFAULT NULL', //[PDev|PCi|Rsrch|Infra], defined in class, not fk
 			
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'integer DEFAULT NULL',
@@ -377,7 +379,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'version' => 'string',
 
 			'part_id' => 'integer',
-			'status_id' => 'integer DEFAULT NULL', //defined in stock model
+			'status_id' => 'integer DEFAULT NULL', //[Inactive|Active], defined in class, not fk
 		), 'ENGINE=InnoDB');
 		
 		//stock location table
@@ -778,10 +780,11 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_file_to_part", "tbl_file", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 
 		//issue
+		$this->addForeignKey("fk_issue_to_owner", "tbl_issue", "owner_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_part", "tbl_issue", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_project", "tbl_issue", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_issue_to_requester", "tbl_issue", "requester_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_stock", "tbl_issue", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_owner", "tbl_issue", "owner_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
