@@ -15,7 +15,7 @@ installed on a FreeBSD system.
 * [rsync](http://rsync.samba.org/) - for synchronizing "current" files 
  stored on a remote Windows-compatible file share. 
 * [Samba](http://www.samba.org) - for providing Windows-compatible 
- access to "current" files located on the maestro server. 
+ access to "current" documents and files in the Maestro file vault. 
 * Mail Server (e.g. Postfix)
 * Webmail Client (e.g. SquirrelMail)
 * User Authentication (e.g. OpenLDAP with phpLdapAdmin)
@@ -72,18 +72,17 @@ Alias /maestro "/usr/local/www/maestro"
 
 *This is not necessarily secure, but it's a place to start.*
 
-5) Execute /usr/local/www/maestro/protected/data/bin/setup.sh to create 
-standard directories and set permissions, etc. Review the script and 
-edit if desired for your environment. 
+5) Create the maestro database.
 
+Create the Maestro database specifying UTF8 as the default
+character set and collation for data storage.
 
 ```
-> ./setup.sh
-...
-> cd /usr/local/www/maestro/protected/data/
-Apply the above migration? (yes|no) [no]:y
-...
->
+> mysql -uroot -pappleton
+mysql> CREATE DATABASE mydb
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+mysql> 
 ```
 
 6) Create the Maestro file vault root directory.
@@ -106,7 +105,21 @@ Edit /usr/local/etc/smb.conf and add the path to the Maestro file vault.
     read only = no
 ```
 
-7) Load the Swift Construction Company (SCC) data into Maestro. The 
+7) Execute /usr/local/www/maestro/protected/data/bin/setup.sh to create 
+standard directories and set permissions, etc. Review the script and 
+edit if desired for your environment. 
+
+
+```
+> ./setup.sh
+...
+> cd /usr/local/www/maestro/protected/data/
+Apply the above migration? (yes|no) [no]:y
+...
+>
+```
+
+8) Load the Swift Construction Company (SCC) data into Maestro. The 
  run_iterations.sh script successively loads the PLM "iterations" and 
  emails a change report for each iteration.
  
@@ -117,7 +130,7 @@ If you just want to load the demo data, skip to the next step.
 > ./run_iteration_all.sh
 ```
 
-8) If you just want to load the most recent copy of the SCC database, and
+9) If you just want to load the most recent copy of the SCC database, and
 are not concerned with part documents, you can simply load the demo data
 SQL file.
 
@@ -125,6 +138,6 @@ SQL file.
 > mysql -uroot -pappleton --local-infile=1 --show-warnings --verbose < /usr/local/www/maestro/protected/data/sql/demo.sql
 ```
 
-9) You should now be able to access Maestro and login (e.g. [localhost/maestro](http://localhost/maestro)).
+10) You should now be able to access Maestro and login (e.g. [localhost/maestro](http://localhost/maestro)).
 
 For information on using Maestro, please review the [Maestro Guided Tour](http://github.com/dalers/maestro/wiki/Guided-tour).
