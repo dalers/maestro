@@ -150,7 +150,7 @@ IGNORE 1 LINES
 -- IGNORE 1 LINES
 -- (activity_id,stock_id);
 
--- currency (origin parts&vendors CUR)
+-- currency (origin: parts&vendors CUR)
 -- use Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_cur.csv'
 INTO TABLE maestro.tbl_currency
@@ -164,7 +164,7 @@ LINES
 IGNORE 1 LINES
 (id,CURCurrencyName,CURExchangeRate,CURCurrencyChar,CURFormat,CURFormatExt);
 
--- customer (customer.xlsx, based on parts&vendors CU table)
+-- customer (customer.xlsx, based on parts&vendors CU)
 -- Windows EOL
 -- LOAD DATA INFILE '/home/maestro/scc/csv/customer.csv'
 -- INTO TABLE maestro.tbl_customer
@@ -178,7 +178,7 @@ IGNORE 1 LINES
 -- IGNORE 1 LINES
 -- (id,CUCustomer,CUAddress,CUShipAddress,CUPhone1,CUPhone2,CUContact1,CUContact2,CUFax,CUEmail1,CUEmail2,CUNotes,CUWeb,CUCode,CUAccount,CUTerms,CUFedTaxID,CUStateTaxID,CUNoPhonePrefix);
 
--- customer (origin parts&vendors CU table)
+-- customer (origin: parts&vendors CU)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_cu.csv'
 INTO TABLE maestro.tbl_customer
@@ -192,7 +192,7 @@ LINES
 IGNORE 1 LINES
 (id,CUCustomer,CUAddress,CUShipAddress,CUPhone1,CUPhone2,CUContact1,CUContact2,CUFax,CUEmail1,CUEmail2,CUNotes,CUWeb,CUCode,CUAccount,CUTerms,CUFedTaxID,CUStateTaxID,CUNoPhonePrefix);
 
--- file (origin parts&vendors FIL table)
+-- file (origin: parts&vendors FIL)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_fil.csv'
 INTO TABLE maestro.tbl_file
@@ -228,7 +228,7 @@ SET
     stock_id     = nullif(@stock_id, ''),
     type_id      = nullif(@type_id, '');
 
--- manufacturer (origin parts&vendors MFR table)
+-- manufacturer (origin: parts&vendors MFR)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_mfr.csv'
 INTO TABLE maestro.tbl_manufacturer
@@ -242,7 +242,7 @@ LINES
 IGNORE 1 LINES
 (id,MFRMfrName,MFRAddress,MFRCountry,MFRContact1,MFRContact2,MFRPhone1,MFRPhone2,MFRFax,MFRWeb,MFRNotes,MFRCode,MFREMail1,MFREMail2,MFRNoPhonePrefix);
 
--- manufacturer_part (origin parts&vendors MFRPN table)
+-- manufacturer_part (origin: parts&vendors MFRPN)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_mfrpn.csv'
 INTO TABLE maestro.tbl_manufacturer_part
@@ -257,16 +257,40 @@ IGNORE 1 LINES
 -- (id,MFRPNMFRID,MFRPNPart);
 (id,manufacturer_id,MFRPNPart);
 
--- order
--- NO DATA
+-- order (origin: parts&vendors JOB - PV6EX and PV6ECO only)
+-- job master data for customer jobs
+-- Unix EOL
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_job.csv'
+INTO TABLE maestro.tbl_order
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\n'
+IGNORE 1 LINES
+(id,JOBNumber,JOBCUID,JOBCustomer,JOBDateCreated,JOBDatePromised,JOBDateCompleted,JOBAccount,JOBNotes,JOBAllocateStock,JOBFOB,JOBTerms,JOBShipMethod,JOBAttnTo,JOBTaxRate,JOBTaxRate2,JOBTax2OnTax1,JOBTotalCost,JOBSubTotalCost,JOBTotalPrice,JOBSubTotalPrice,JOBTax1,JOBTax2,JOBCustOrderNumber,JOBDateInvoiced,JOBDateShipped);
 
--- order_item
--- NO DATA
+-- order_item (origin: parts&vendors TASK - PV6EX, PV6ECO)	
+-- line items for jobs	
+-- Unix EOL
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_task.csv'
+INTO TABLE maestro.tbl_order_item
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\n'
+IGNORE 1 LINES
+(id,TASKJOBID,TASKPNID,TASKIHPartNumber,TASKPartNumber,TASKRevision,TASKDescription,TASKItem,TASKQty,TASKCost,TASKCostExt,TASKPrice,TASKPriceExt,TASKNotes,TASKShowOnQuote,TASKShowOnInvoice,TASKShowOnPackingList,TASKTaxable,TASKPriceExtPlusTax);
 
 -- order_item_stock_assignment
 -- NO DATA
 
--- part table (origin parts&vendors PN table)
+-- part (origin: parts&vendors PN)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_pn.csv'
 INTO TABLE maestro.tbl_part
@@ -282,7 +306,7 @@ IGNORE 1 LINES
 SET
     PNTabParentID = nullif(@PNTabParentID, '');
 
--- part_cost (origin parts&vendors COST table)
+-- part_cost (origin: parts&vendors COST)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_cost.csv'
 INTO TABLE maestro.tbl_part_cost
@@ -296,7 +320,7 @@ LINES
 IGNORE 1 LINES
 (id,COSTLNKID,COSTAtQty,COSTLeadtime,COSTCost);
 
--- part_list (origin parts&vendors PL table)
+-- part_list (origin: parts&vendors PL)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_pl.csv'
 INTO TABLE maestro.tbl_part_list
@@ -315,7 +339,7 @@ SET
     PLSUID    = nullif(@PLSUID, ''),
     PLLNKID   = nullif(@PLLNKID, '');
 
--- part_source_assignment (origin parts&vendors LNK table)
+-- part_source_assignment (origin: parts&vendors LNK)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_lnk.csv'
 INTO TABLE maestro.tbl_part_source_assignment
@@ -330,7 +354,7 @@ IGNORE 1 LINES
 (id,LNKSUID,LNKMFRPNID,LNKMFRID,LNKUNID,LNKPNID,LNKToPNID,LNKUse,LNKLeadtime,LNKChoice,LNKVendorPN,LNKVendorDesc,LNKAtQty,LNKRFQDate,LNKMinIncrement,LNKCurrentCost,LNKSetupCost,LNKRoHS,LNKRoHSDoc,
 LNKRoHSNote);
 
--- part_type (origin parts&vendors TYPE table)
+-- part_type (origin: parts&vendors TYPE)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_type.csv'
 INTO TABLE maestro.tbl_part_type
@@ -417,21 +441,6 @@ LINES
 IGNORE 1 LINES
 (id,POPOMID,POLNKID,POItem,POPart,PORev,PODescription,POReceived,POPurchUnits,POUseUnits,POConvUnits,PORFQQty,POAcct,POIHPart,POSchedule,POTaxable,POTaxable2,POExtension,POExtPlusTax,POCost,POQty,POItemQtyEntry,POItemQtyReceived,POItemQtyBackordered,POTax1,POTax2);
 
--- purchase_order_item_data(origin: parts&vendors POD - PV6EX and PV6ECO only)
--- purchase order data included in PO line item
--- Unix EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/pv_pod.csv'
-INTO TABLE maestro.tbl_purchase_order_item_data
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\n'
-IGNORE 1 LINES
-(id,PODField,PODCaption,PODOrder,PODUse,PODNewLine,PODUseCaption,PODMode,PODOrderJOB,PODUseJOB,PODNewLineJOB,PODUseCaptionJOB);
-
 -- shipper (origin: parts&vendors SHIP - PV6EX and PV6ECO only)
 -- shipping methods for reference by POs
 -- Unix EOL
@@ -477,7 +486,7 @@ IGNORE 1 LINES
 (name,use_sublocation,sublocation_min,sublocation_max)
 SET id = NULL;
 
--- supplier (origin parts&vendors SU table)
+-- supplier (origin: parts&vendors SU)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_su.csv'
 INTO TABLE maestro.tbl_supplier
@@ -492,7 +501,7 @@ IGNORE 1 LINES
 -- (id,SUSupplier,SUAddress,SUCountry,SUPhone1,SUPhone2,SUFAX,SUWeb,SUContact1,SUContact2,SUDateLast,SUFollowup,SUNotes,SUCode,SUAccount,SUTerms,SUFedTaxID,SUStateTaxID,SUEMail1,SUEMail2,SUCurDedExRate,SUCurExRate,SUCURID,SUCurReverse,SUNoPhonePrefix);
 (id,SUSupplier,SUAddress,SUCountry,SUPhone1,SUPhone2,SUFAX,SUWeb,SUContact1,SUContact2,SUDateLast,SUFollowup,SUNotes,SUCode,SUAccount,SUTerms,SUFedTaxID,SUStateTaxID,SUEMail1,SUEMail2,SUCurDedExRate,SUCurExRate,currency_id,SUCurReverse,SUNoPhonePrefix);
 
--- supplier_manufacturer_assignment (origin parts&vendors LIN table)
+-- supplier_manufacturer_assignment (origin: parts&vendors LIN)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_lin.csv'
 INTO TABLE maestro.tbl_supplier_manufacturer_assignment
@@ -506,7 +515,7 @@ LINES
 IGNORE 1 LINES
 (id,LINSUID,LINMFRID);
 
--- unit (origin parts&vendors UNIT table)
+-- unit (origin: parts&vendors UNIT)
 -- Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_un.csv'
 INTO TABLE maestro.tbl_unit
@@ -521,7 +530,7 @@ IGNORE 1 LINES
 (id,UNUseUnits,UNPurchUnits,UNConvUnits);
 
 -- parts&vendors
--- tables specific to PV6EX or PV6ECO, or not yet fully understood, or to be refactored
+-- tables specific to PV6EX or PV6ECO, not yet fully understood, or to be refactored
 
 -- pv_al (PV6EX and PV6ECO only)
 -- for managing client jobs
@@ -560,7 +569,7 @@ IGNORE 1 LINES
 -- refactored to customer
 
 -- pv_cur
--- refactored to currency table
+-- refactored to currency
 
 -- pv_dept (PV6ECO & only if schema installed)
 -- eco sign-off departments
@@ -571,7 +580,7 @@ IGNORE 1 LINES
 -- pv_fil
 -- refactored to file
 
--- pv_grp table (PV6EX, PV6ECO & only if schema installed)
+-- pv_grp (PV6EX, PV6ECO & only if schema installed)
 -- user permission groups
 
 -- pv_hist
@@ -605,20 +614,8 @@ LINES
 IGNORE 1 LINES
 (id,GPREFKey,GPREFText1,GPREFText2,GPREFText3,GPREFText4,GPREFText5,GPREFBool1,GPREFBool2,GPREFBool3,GPREFBool4,GPREFInt1,GPREFText6,GPREFText7,GPREFText8,GPREFText9,GPREFText10);
 
--- pv_job (PV6EX and PV6ECO only)
--- job master data for customer jobs
--- Unix EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/pv_job.csv'
-INTO TABLE maestro.tbl_pv_job
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\n'
-IGNORE 1 LINES
-(id,JOBNumber,JOBCUID,JOBCustomer,JOBDateCreated,JOBDatePromised,JOBDateCompleted,JOBAccount,JOBNotes,JOBAllocateStock,JOBFOB,JOBTerms,JOBShipMethod,JOBAttnTo,JOBTaxRate,JOBTaxRate2,JOBTax2OnTax1,JOBTotalCost,JOBSubTotalCost,JOBTotalPrice,JOBSubTotalPrice,JOBTax1,JOBTax2,JOBCustOrderNumber,JOBDateInvoiced,JOBDateShipped);
+-- pv_job
+-- refactored to order
 
 -- pv_lin
 -- refactored to supplier_manufacturer_assignment
@@ -681,16 +678,28 @@ IGNORE 1 LINES
 (id,PLLParentListID,PLLSubListID,PLLQty,PLLLevel,PLLCost,PLLItemNumber);
 
 -- pv_pn
--- refactored to part table
+-- refactored to part
 
 -- pv_po (PV6EX and PV6ECO only)
 -- refactored to purchase_order_item
 
 -- pv_pod (PV6EX and PV6ECO only)
--- refactored to purchase_order_item_data table
+-- purchase order data included in PO line item
+-- Unix EOL
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_pod.csv'
+INTO TABLE maestro.tbl_pv_pod
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\n'
+IGNORE 1 LINES
+(id,PODField,PODCaption,PODOrder,PODUse,PODNewLine,PODUseCaption,PODMode,PODOrderJOB,PODUseJOB,PODNewLineJOB,PODUseCaptionJOB);
 
 -- pv_pom (PV6EX and PV6ECO only)
--- refactored to purchase_order table
+-- refactored to purchase_order
 
 -- pv_rpx (PV6EX, PV6ECO)
 -- global report layouts
@@ -713,20 +722,8 @@ IGNORE 1 LINES
 -- pv_su
 -- refactored to supplier
 
--- pv_task (PV6EX, PV6ECO)	
--- line items for jobs	
--- Unix EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/pv_task.csv'
-INTO TABLE maestro.tbl_pv_task
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\n'
-IGNORE 1 LINES
-(id,TASKJOBID,TASKPNID,TASKIHPartNumber,TASKPartNumber,TASKRevision,TASKDescription,TASKItem,TASKQty,TASKCost,TASKCostExt,TASKPrice,TASKPriceExt,TASKNotes,TASKShowOnQuote,TASKShowOnInvoice,TASKShowOnPackingList,TASKTaxable,TASKPriceExtPlusTax);
+-- pv_task (PV6EX, PV6ECO)
+-- refactored to order_item
 
 -- pv_type
 -- refactored to part_type

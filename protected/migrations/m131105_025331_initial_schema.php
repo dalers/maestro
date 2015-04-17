@@ -212,6 +212,7 @@ class m131105_025331_initial_schema extends CDbMigration
 
 			'partslist_id' => 'integer', //parts list used as order template (if used)
 			'project_id' => 'integer', //project associated with order
+			'shipper_id' => 'integer',
 			'status_id' => 'integer', //[New|Invoiced|Shipped|Closed], defined in class, not fk
 			'type_id' => 'integer', //[Internal|External], defined in class, not fk
 
@@ -259,7 +260,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'stock_id' => 'integer',
 		), 'ENGINE=InnoDB');
 		
-		//part table (origin: parts&vendors PN)
+		//part (origin: parts&vendors PN)
 		//part master data
 		$this->createTable('tbl_part', array(
 			'id' => 'pk',
@@ -325,7 +326,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer',			
 		), 'ENGINE=InnoDB');
 
-		//part_cost table (origin: parts&vendors COST)
+		//part_cost (origin: parts&vendors COST)
 		//cost at "buy-level" from a source for a part
 		$this->createTable('tbl_part_cost', array(
 			'id' => 'pk',
@@ -335,7 +336,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'COSTCost' => 'DOUBLE NULL DEFAULT 0', 
 		), 'ENGINE=InnoDB'); 
 
-		//part_list table (origin: parts&vendors PL)
+		//part_list (origin: parts&vendors PL)
 		//part part relationships and related data
 		$this->createTable('tbl_part_list', array(
 			'id' => 'pk',
@@ -353,7 +354,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PLLNKID' => 'integer DEFAULT NULL',
 		), 'ENGINE=InnoDB');        
 
-		//part_source_assignment table (origin:parts&vendors LNK)
+		//part_source_assignment (origin:parts&vendors LNK)
 		//part source links and related data and relationships
 		$this->createTable('tbl_part_source_assignment', array(
 			'id' => 'pk',
@@ -378,14 +379,14 @@ class m131105_025331_initial_schema extends CDbMigration
 			'LNKRoHSNote' => 'VARCHAR(255)', 
 		), 'ENGINE=InnoDB');  
 
-		//part_type table (origin: parts&vendors TYPE)
+		//part_type (origin: parts&vendors TYPE)
 		//part type lookup
 		$this->createTable('tbl_part_type', array(
 			'id' => 'pk',
 			'TYPEType' => 'VARCHAR(6)',
 		), 'ENGINE=InnoDB');  
 		
-		//person table
+		//person
 		$this->createTable('tbl_person', array(
 			'id' => 'pk',
 			'username' => 'string NOT NULL', //preferably same as network login id
@@ -406,7 +407,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'int(11) DEFAULT NULL',
 		), 'ENGINE=InnoDB');
 		
-		//project table
+		//project
 		$this->createTable('tbl_project', array(
 			'id' => 'pk',
 			'name' => 'string NOT NULL', //e.g. "Aircraft Wireless"
@@ -415,7 +416,7 @@ class m131105_025331_initial_schema extends CDbMigration
 
 			'customer_id' => 'integer', //customer in case of a customer-directed project
 			'owner_id' => 'integer', //primary stakeholder or benefactor
-			'phase_id' => 'integer DEFAULT NULL', //[Idea|Product|Design|Test|Pilot|Termination], defined in class, not fk
+			'phase_id' => 'integer DEFAULT NULL', //[Idea|Definition|Design|Test|Pilot|Termination], defined in class, not fk
 			'status_id' => 'integer DEFAULT NULL', //[Active|NotActive], defined in class, not fk
 			'type_id' => 'integer DEFAULT NULL', //[PDev|PCi|Rsrch|Infra], defined in class, not fk
 			
@@ -425,7 +426,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer DEFAULT NULL',
 		), 'ENGINE = InnoDB');
 
-		//project_person_assignment table
+		//project_person_assignment
 		//many-to-many projects-to-persons
 		$this->createTable('tbl_project_person_assignment', array(
 			'project_id' => 'int(11) DEFAULT NULL',
@@ -433,7 +434,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PRIMARY KEY (`project_id`,`person_id`)',
 		), 'ENGINE=InnoDB');
 		
-		//purchase_order table (origin: parts&vendors POM - PV6EX and PV6ECO only)
+		//purchase_order (origin: parts&vendors POM - PV6EX and PV6ECO only)
 		//purchase order and RFQ master data
 		$this->createTable('tbl_purchase_order', array(
 			'id' => 'pk',
@@ -477,7 +478,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer',			
 		), 'ENGINE=InnoDB');  
 
-		//purchase_order_item table (origin: parts&vendors PO - PV6EX and PV6ECO only)
+		//purchase_order_item (origin: parts&vendors PO - PV6EX and PV6ECO only)
 		//line items on RFQs and POs
 		$this->createTable('tbl_purchase_order_item', array(
 			'id' => 'pk',
@@ -508,31 +509,14 @@ class m131105_025331_initial_schema extends CDbMigration
 			'POTax2' => 'DOUBLE NULL DEFAULT 0', 
 		), 'ENGINE=InnoDB');  
 
-		//purchase_order_item_data (origin: parts&vendors POD - PV6EX and PV6ECO only)
-		//purchase order data included in PO line item
-		$this->createTable('tbl_purchase_order_item_data', array(
-			'id' => 'pk',
-			'PODField' => 'VARCHAR(50)', 
-			'PODCaption' => 'VARCHAR(50)', 
-			'PODOrder' => 'INTEGER DEFAULT 0', 
-			'PODUse' => 'TINYINT(1) DEFAULT 0', 
-			'PODNewLine' => 'TINYINT(1) DEFAULT 0', 
-			'PODUseCaption' => 'TINYINT(1) DEFAULT 0', 
-			'PODMode' => 'INTEGER DEFAULT 0', //0=PO; 1=JOB
-			'PODOrderJOB' => 'INTEGER DEFAULT 0', 
-			'PODUseJOB' => 'TINYINT(1) DEFAULT 0', 
-			'PODNewLineJOB' => 'TINYINT(1) DEFAULT 0', 
-			'PODUseCaptionJOB' => 'TINYINT(1) DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
-
-		//shipper table (origin: parts&vendors SHIP - PV6EX and PV6ECO only)
+		//shipper (origin: parts&vendors SHIP - PV6EX and PV6ECO only)
 		//shipping methods for reference by POs
 		$this->createTable('tbl_shipper', array(
 			'id' => 'pk',
 			'SHIPMethod' => 'VARCHAR(50)', 
 		), 'ENGINE=InnoDB');  
 
-		//stock table (serial or lot identified stock)
+		//stock (serial or lot identified stock)
 		$this->createTable('tbl_stock', array(
 			'id' => 'pk', //not included in source csv
 			'serial_number' => 'string', //e.g. A1234, 1234B, A-1234...
@@ -542,7 +526,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'status_id' => 'integer DEFAULT NULL', //[Inactive|Active], defined in class, not fk
 		), 'ENGINE=InnoDB');
 		
-		//stock location table
+		//stock location
 		$this->createTable('tbl_stock_location', array(
 			'id' => 'pk',
 			'name' => 'string',
@@ -570,7 +554,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer NOT NULL',		
 		), 'ENGINE=InnoDB');        
 
-		//supplier table (origin: parts&vendors SU)
+		//supplier (origin: parts&vendors SU)
 		//supplier (vendor) master data
 		$this->createTable('tbl_supplier', array(
 			'id' => 'pk',
@@ -598,10 +582,10 @@ class m131105_025331_initial_schema extends CDbMigration
 			//'SUCURID' => 'INTEGER DEFAULT 1', 
 			'currency_id' => 'integer DEFAULT 1', 
 			'SUCurReverse' => 'TINYINT(1) DEFAULT 0', 
-			'SUNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', //boolean, 0 = do not use prefix, 1 = use prefix (prefix in HPREF table)
+			'SUNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', //boolean, 0 = do not use prefix, 1 = use prefix (prefix stored in pv_hpref)
  		), 'ENGINE=InnoDB');  
 
-		//supplier_manufacturer_assignment table (origin: parts&vendors LIN)
+		//supplier_manufacturer_assignment (origin: parts&vendors LIN)
 		//many-to-many suppliers-to-manufacturers
 		$this->createTable('tbl_supplier_manufacturer_assignment', array(
 			'id' => 'pk',
@@ -609,7 +593,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'LINMFRID' => 'INTEGER NOT NULL DEFAULT 0', 
 		), 'ENGINE=InnoDB');  
 
-		//unit table (origin: parts&vendors UN)
+		//unit (origin: parts&vendors UN)
 		//units of measure
 		$this->createTable('tbl_unit', array(
 			'id' => 'pk',
@@ -619,7 +603,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//parts&vendors
-		//tables specific to PV6EX or PV6ECO, not yet fully understood, or to be refactored
+		//specific to PV6EX or PV6ECO, not yet fully understood, or to be refactored
 
 		//pv_al (PV6EX and PV6ECO only)
 		//for managing client jobs
@@ -642,13 +626,13 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB'); 
 
 		//pv_cost
-		//refactored to part_cost table
+		//refactored to part_cost
 
 		//pv_cu
-		//refactored to customer table
+		//refactored to customer
 
 		//pv_cur
-		//refactored to currency table
+		//refactored to currency
 
 		//pv_dept (PV6ECO only, and only if schema installed)
 		//not supported
@@ -656,8 +640,8 @@ class m131105_025331_initial_schema extends CDbMigration
 		//pv_eco (PV6ECO only, and only if schema installed)
 		//not supported
 
-		//pv_fil table
-		//refactored to file table
+		//pv_fil
+		//refactored to file
 
 		//pv_grp (PV6EX and PV6ECO only, and only if schema installed)
 		//not supported
@@ -755,10 +739,24 @@ class m131105_025331_initial_schema extends CDbMigration
 		//refactored to purchase_order_item
 
 		//pv_pod (PV6EX and PV6ECO only)
-		//refactored to purchase_order_item_data table
+		//purchase order data included in PO line item
+		$this->createTable('tbl_pv_pod', array(
+			'id' => 'pk',
+			'PODField' => 'VARCHAR(50)', 
+			'PODCaption' => 'VARCHAR(50)', 
+			'PODOrder' => 'INTEGER DEFAULT 0', 
+			'PODUse' => 'TINYINT(1) DEFAULT 0', 
+			'PODNewLine' => 'TINYINT(1) DEFAULT 0', 
+			'PODUseCaption' => 'TINYINT(1) DEFAULT 0', 
+			'PODMode' => 'INTEGER DEFAULT 0', //0=PO; 1=JOB
+			'PODOrderJOB' => 'INTEGER DEFAULT 0', 
+			'PODUseJOB' => 'TINYINT(1) DEFAULT 0', 
+			'PODNewLineJOB' => 'TINYINT(1) DEFAULT 0', 
+			'PODUseCaptionJOB' => 'TINYINT(1) DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
 
 		//pv_pom (PV6EX and PV6ECO only)
-		//refactored to purchase_order table
+		//refactored to purchase_order
 
 		//pv_rpx (PV6EX and PV6ECO only)
 		//global report layouts
@@ -772,19 +770,19 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//pv_ship (PV6EX and PV6ECO only)
-		//refactored to shipper table
+		//refactored to shipper
 
 		//pv_su 
-		//refactored to supplier table
+		//refactored to supplier
 
 		//pv_task (PV6EX and PV6ECO only)
 		//refactored to order_item
 
-		//pv_type table
-		//refactored to part_type table
+		//pv_type
+		//refactored to part_type
 
-		//pv_un table
-		//refactored to unit table
+		//pv_un
+		//refactored to unit
 
 		//foreign keys
 		//
@@ -834,6 +832,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_order_to_customer", "tbl_order", "JOBCUID", "tbl_customer", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_order_to_parts_list", "tbl_order", "partslist_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_order_to_project", "tbl_order", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_to_shipper", "tbl_order", "shipper_id", "tbl_shipper", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_order_to_create_user", "tbl_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_order_to_update_user", "tbl_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
@@ -923,6 +922,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_currency');
 		$this->dropTable('tbl_customer');
 		$this->dropTable('tbl_file');
+		$this->dropTable('tbl_invoice');
 		$this->dropTable('tbl_issue');
 		$this->dropTable('tbl_manufacturer');
 		$this->dropTable('tbl_manufacturer_part');
@@ -940,10 +940,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_project_person_assignment');
 		$this->dropTable('tbl_purchase_order');
 		$this->dropTable('tbl_purchase_order_item');
-		$this->dropTable('tbl_purchase_order_item_data');
 		$this->dropTable('tbl_shipper');
 		$this->dropTable('tbl_stock');
 		$this->dropTable('tbl_stock_location');
+		$this->dropTable('tbl_stock_transaction');
 		$this->dropTable('tbl_supplier');
 		$this->dropTable('tbl_supplier_manufacturer_assignment');
 		$this->dropTable('tbl_unit');
@@ -956,6 +956,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_pv_mf');
 		$this->dropTable('tbl_pv_org');
 		$this->dropTable('tbl_pv_pll');
+		$this->dropTable('tbl_pv_pod');
 		$this->dropTable('tbl_pv_rpx');
 		
 		$this->execute("SET foreign_key_checks = 0;");
