@@ -4,6 +4,8 @@ class m131105_025331_initial_schema extends CDbMigration
 {
 	public function up()
 	{
+		// TODO review fk typical "CASCADE", "RESTRICT" constraints. E.g. delete PO should not delete user, and vice versa.
+		
 		//activity table
 		//project activities
 		$this->createTable('tbl_activity', array(
@@ -73,7 +75,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'CURFormatExt' => 'VARCHAR(35)', 
 		), 'ENGINE=InnoDB'); 
 
-		//customer table (origin parts&vendors CU table)
+		//customer table (origin: parts&vendors CU)
 		//customer master data
 		$this->createTable('tbl_customer', array(
 			'id' => 'pk',
@@ -97,7 +99,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'CUNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', 
 		), 'ENGINE=InnoDB'); 
 
-		//file table (origin parts&vendors FIL table)
+		//file table (origin: parts&vendors FIL)
 		//files associated with parts
 		$this->createTable('tbl_file', array(
 			'id' => 'pk',
@@ -131,7 +133,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer',
 		), 'ENGINE=InnoDB');
 
-		//manufacturer table (origin parts&vendors MFR table)
+		//manufacturer table (origin: parts&vendors MFR)
 		//manufacturer master data
 		$this->createTable('tbl_manufacturer', array(
 			'id' => 'pk',
@@ -151,7 +153,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'MFRNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', 
 		), 'ENGINE=InnoDB');  
 
-		//manufacturer_part table (origin parts&vendors MFRPN table)
+		//manufacturer_part table (origin: parts&vendors MFRPN)
 		//manufacturers part numbers and related data
 		$this->createTable('tbl_manufacturer_part', array(
 			'id' => 'pk',
@@ -168,7 +170,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'status' => 'string',
 			
 			'project_id' => 'integer',
-			'part_id' => 'integer', //record of origin if parts list
+			'part_id' => 'integer', //records parts list used as origin (if used)
 			
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'integer DEFAULT NULL',
@@ -198,7 +200,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'stock_id' => 'integer',
 		), 'ENGINE=InnoDB');
 		
-		//part table (origin parts&vendors PN table)
+		//part table (origin: parts&vendors PN)
 		//part master data
 		$this->createTable('tbl_part', array(
 			'id' => 'pk',
@@ -264,7 +266,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer',			
 		), 'ENGINE=InnoDB');
 
-		//part_cost table (origin parts&vendors COST table)
+		//part_cost table (origin: parts&vendors COST)
 		//cost at "buy-level" from a source for a part
 		$this->createTable('tbl_part_cost', array(
 			'id' => 'pk',
@@ -274,7 +276,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'COSTCost' => 'DOUBLE NULL DEFAULT 0', 
 		), 'ENGINE=InnoDB'); 
 
-		//part_list table (origin parts&vendors PL table)
+		//part_list table (origin: parts&vendors PL)
 		//part part relationships and related data
 		$this->createTable('tbl_part_list', array(
 			'id' => 'pk',
@@ -292,7 +294,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PLLNKID' => 'integer DEFAULT NULL',
 		), 'ENGINE=InnoDB');        
 
-		//part_source_assignment table (origin parts&vendors LNK table)
+		//part_source_assignment table (origin:parts&vendors LNK)
 		//part source links and related data and relationships
 		$this->createTable('tbl_part_source_assignment', array(
 			'id' => 'pk',
@@ -317,7 +319,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'LNKRoHSNote' => 'VARCHAR(255)', 
 		), 'ENGINE=InnoDB');  
 
-		//part_type table (origin parts&vendors TYPE table)
+		//part_type table (origin: parts&vendors TYPE)
 		//part type lookup
 		$this->createTable('tbl_part_type', array(
 			'id' => 'pk',
@@ -372,298 +374,9 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PRIMARY KEY (`project_id`,`person_id`)',
 		), 'ENGINE=InnoDB');
 		
-		//stock table (serial or lot identified stock)
-		$this->createTable('tbl_stock', array(
-			'id' => 'pk', //not included in source csv
-			'serial_number' => 'string', //e.g. A1234, 1234B, A-1234...
-			'version' => 'string',
-
-			'part_id' => 'integer',
-			'status_id' => 'integer DEFAULT NULL', //[Inactive|Active], defined in class, not fk
-		), 'ENGINE=InnoDB');
-		
-		//stock location table
-		$this->createTable('tbl_stock_location', array(
-			'id' => 'pk',
-			'name' => 'string',
-			'use_sublocation' => 'integer', //TODO boolean
-			'sublocation_min' => 'integer',
-			'sublocation_max' => 'integer',
-		), 'ENGINE=InnoDB');        
-
-		//supplier table (origin parts&vendors SU table)
-		//supplier (vendor) master data
-		$this->createTable('tbl_supplier', array(
-			'id' => 'pk',
-			'SUSupplier' => 'VARCHAR(50) UNIQUE NOT NULL',
-			'SUAddress' => 'VARCHAR(255)',
-			'SUCountry' => 'VARCHAR(50)',
-			'SUPhone1' => 'VARCHAR(20)',
-			'SUPhone2' => 'VARCHAR(20)',
-			'SUFAX' => 'VARCHAR(20)',
-			'SUWeb' => 'VARCHAR(255)',
-			'SUContact1' => 'VARCHAR(50)',
-			'SUContact2' => 'VARCHAR(50)',
-			'SUDateLast' => 'DATETIME', //date supplier was last contacted
-			'SUFollowup' => 'TINYINT(1) DEFAULT 0', //supplier requires follow-up
-			'SUNotes' => 'LONGTEXT',
-			'SUCode' => 'VARCHAR(20)',
-			'SUAccount' => 'VARCHAR(20)',
-			'SUTerms' => 'VARCHAR(20)',
-			'SUFedTaxID' => 'VARCHAR(20)',
-			'SUStateTaxID' => 'VARCHAR(20)',
-			'SUEMail1' => 'VARCHAR(50)', 
-			'SUEMail2' => 'VARCHAR(50)', 
-			'SUCurDedExRate' => 'TINYINT(1) DEFAULT 0', 
-			'SUCurExRate' => 'DOUBLE NULL DEFAULT 0', 
-			//'SUCURID' => 'INTEGER DEFAULT 1', 
-			'currency_id' => 'integer DEFAULT 1', 
-			'SUCurReverse' => 'TINYINT(1) DEFAULT 0', 
-			'SUNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', //boolean, 0 = do not use prefix, 1 = use prefix (prefix in HPREF table)
- 		), 'ENGINE=InnoDB');  
-
-		//supplier_manufacturer_assignment table (origin parts&vendors LIN table)
-		//many-to-many suppliers-to-manufacturers
-		$this->createTable('tbl_supplier_manufacturer_assignment', array(
-			'id' => 'pk',
-			'LINSUID' => 'INTEGER NOT NULL DEFAULT 0', 
-			'LINMFRID' => 'INTEGER NOT NULL DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
-
-		//unit table (origin parts&vendors UN table)
-		//units of measure
-		$this->createTable('tbl_unit', array(
-			'id' => 'pk',
-			'UNUseUnits' => 'VARCHAR(20) NOT NULL', 
-			'UNPurchUnits' => 'VARCHAR(20) NOT NULL', 
-			'UNConvUnits' => 'FLOAT NULL NOT NULL DEFAULT 1', //number of use-units in purchase-unit
-		), 'ENGINE=InnoDB');  
-
-		//parts&vendors
-		//tables specific to PV6EX or PV6ECO, not yet fully understood, or to be refactored
-		//
-		//pv_al table (PV6EX and PV6ECO only)
-		//for managing client jobs
-		$this->createTable('tbl_pv_al', array(
-			'id' => 'pk',
-			'ALPNID' => 'INTEGER DEFAULT 0', 
-			'ALJOBID' => 'INTEGER DEFAULT 0', 
-			'ALTASKID' => 'INTEGER DEFAULT 0', 
-			'ALJOBNumber' => 'VARCHAR(50)', 
-			'ALJOBNumberLine' => 'VARCHAR(50)', 
-			'ALQty' => 'FLOAT NULL DEFAULT 0', 
-			'ALQtyShort' => 'FLOAT NULL DEFAULT 0', 
-		), 'ENGINE=InnoDB'); 
-
-		//pv_cnv table
-		//convert unit of measure? convert PO to RFQ?
-		$this->createTable('tbl_pv_cnv', array(
-			'id' => 'pk',
-			'CNVLNKID' => 'INTEGER NOT NULL DEFAULT 0', 
-		), 'ENGINE=InnoDB'); 
-
-		//pv_cost table
-		//cost at "buy-level" from a source for a part
-		//refactored to part_cost table
-
-		//pv_cu table
-		//customer master data
-		//refactored to customer table
-
-		//pv_cur table
-		//currencies with print symbol, formatting and exchange rate
-		//refactored to currency table
-
-		//pv_dept table (PV6ECO only, and only if schema installed)
-		//eco sign-off departments
-		//not supported
-
-		//pv_eco table (PV6ECO only, and only if schema installed)
-		//eco master data
-		//not supported
-
-		//pv_fil table
-		//file paths or urls linked to parts
-		//refactored to file table
-
-		//pv_grp table (PV6EX and PV6ECO only, and only if schema installed)
-		//user permission groups
-		//not supported
-		
-		//pv_hist table
-		//history of bulk inventory adjustments
-		$this->createTable('tbl_pv_hist', array(
-			'id' => 'pk',
-			'HISTWho' => 'VARCHAR(20)', 
-			'HISTWhat' => 'VARCHAR(255)', 
-			'HISTWhen' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP', 
-			'HISTWhy' => 'VARCHAR(255)', 
-			'HISTHowMany' => 'FLOAT NULL DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
-		
-		//pv_hpref table
-		//database configuration parameters		
-		$this->createTable('tbl_pv_hpref', array(
-			'id' => 'pk',
-			'GPREFKey' => 'VARCHAR(50) NOT NULL',
-			'GPREFText1' => 'VARCHAR(50)', 
-			'GPREFText2' => 'VARCHAR(50)', 
-			'GPREFText3' => 'VARCHAR(50)', 
-			'GPREFText4' => 'VARCHAR(50)', 
-			'GPREFText5' => 'VARCHAR(50)', 
-			'GPREFBool1' => 'TINYINT(1) DEFAULT 0', 
-			'GPREFBool2' => 'TINYINT(1) DEFAULT 0', 
-			'GPREFBool3' => 'TINYINT(1) DEFAULT 0', 
-			'GPREFBool4' => 'TINYINT(1) DEFAULT 0', 
-			'GPREFInt1' => 'INTEGER DEFAULT 0', 
-			'GPREFText6' => 'VARCHAR(50)', 
-			'GPREFText7' => 'VARCHAR(50)', 
-			'GPREFText8' => 'VARCHAR(50)', 
-			'GPREFText9' => 'VARCHAR(50)', 
-			'GPREFText10' => 'VARCHAR(50)', 
-		), 'ENGINE=InnoDB');  
-		
-		//pv_job table (PV6EX and PV6ECO only)
-		//job master data for customer jobs
-		$this->createTable('tbl_pv_job', array(
-			'id' => 'pk',
-			'JOBNumber' => 'VARCHAR(50)', 
-			'JOBCUID' => 'INTEGER DEFAULT 0', 
-			'JOBCustomer' => 'VARCHAR(255)', 
-			'JOBDateCreated' => 'DATETIME', 
-			'JOBDatePromised' => 'DATETIME', 
-			'JOBDateCompleted' => 'DATETIME', 
-			'JOBAccount' => 'VARCHAR(50)', 
-			'JOBNotes' => 'LONGTEXT', 
-			'JOBAllocateStock' => 'TINYINT(1) DEFAULT 0', 
-			'JOBFOB' => 'VARCHAR(50)', 
-			'JOBTerms' => 'VARCHAR(50)', 
-			'JOBShipMethod' => 'VARCHAR(50)', 
-			'JOBAttnTo' => 'VARCHAR(50)', 
-			'JOBTaxRate' => 'FLOAT NULL DEFAULT 0', 
-			'JOBTaxRate2' => 'FLOAT NULL DEFAULT 0', 
-			'JOBTax2OnTax1' => 'TINYINT(1) DEFAULT 0', 
-			'JOBTotalCost' => 'DOUBLE NULL DEFAULT 0', 
-			'JOBSubTotalCost' => 'DOUBLE NULL DEFAULT 0', 
-			'JOBTotalPrice' => 'DOUBLE NULL DEFAULT 0', 
-			'JOBSubTotalPrice' => 'DOUBLE NULL DEFAULT 0', 
-			'JOBTax1' => 'DOUBLE NULL DEFAULT 0', 
-			'JOBTax2' => 'DOUBLE NULL DEFAULT 0', 
-			'JOBCustOrderNumber' => 'VARCHAR(50)', 
-			'JOBDateInvoiced' => 'DATETIME', 
-			'JOBDateShipped' => 'DATETIME', 
-		), 'ENGINE=InnoDB');  
-
-		//pv_lin table
-		//line card links, many-to-many suppliers-to-manufacturers
-		//refactored to supplier_manufacturer_assignment table
-
-		//pv_lnk table
-		//links part sources to parts
-		//refactored to part_source_assignment table
-
-		//pv_mf table (PV6EX and PV6ECO only)
-		//part made-from relationships
-		$this->createTable('tbl_pv_mf', array(
-			'id' => 'pk',
-			'MFPNIDParent' => 'INTEGER DEFAULT 0', 
-			'MFPNIDSub' => 'INTEGER DEFAULT 0', 
-			'MFQty' => 'FLOAT NULL DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
-
-		//pv_mfr table
-		//manufacturer master data
-		//refactored to manufacturer table
-
-		//pv_mfrpn table
-		//manufacturers part numbers and related data
-		//refactored to manufacturer_part table
-
-		//pv_org table
-		//user organization details
-		$this->createTable('tbl_pv_org', array(
-			'id' => 'pk',
-			'ORGKey' => 'VARCHAR(20)', 
-			'ORGName' => 'VARCHAR(50)',
-			'ORGAddress' => 'VARCHAR(255)', 
-			'ORGPhone' => 'VARCHAR(20)', 
-			'ORGFaax' => 'VARCHAR(20)', 
-			'ORGPOUseShpgAddr' => 'TINYINT(1) DEFAULT 0',
-			'ORGRFQUseShpgAddr' => 'TINYINT(1) DEFAULT 0',
-			'ORGListOrder' => 'INTEGER DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
-
-		//pv_pl table
-		//part part relationships and related data
-		//refactored to part_list table
-
-		//pv_pll table
-		//assembly index for purchase and kitting lists
-		$this->createTable('tbl_pv_pll', array(
-			'id' => 'pk',
-			'PLLParentListID' => 'INTEGER DEFAULT 0', 
-			'PLLSubListID' => 'INTEGER DEFAULT 0', 
-			'PLLQty' => 'FLOAT NULL DEFAULT 0', 
-			'PLLLevel' => 'INTEGER DEFAULT 0',
-			'PLLCost' => 'FLOAT NULL DEFAULT 0', 
-			'PLLItemNumber' => 'INTEGER DEFAULT 0', 
-		), 'ENGINE=InnoDB');        
-
-		//pv_pn table
-		//part master data
-		//refactored to part table
-
-		//pv_po table (PV6EX and PV6ECO only)
-		//line items on RFQs and POs
-		$this->createTable('tbl_pv_po', array(
-			'id' => 'pk',
-			'POPOMID' => 'INTEGER DEFAULT 0', 
-			'POLNKID' => 'INTEGER', 
-			'POItem' => 'INTEGER DEFAULT 0', 
-			'POPart' => 'VARCHAR(50)', 
-			'PORev' => 'VARCHAR(10)', 
-			'PODescription' => 'LONGTEXT', 
-			'POReceived' => 'TINYINT(1) DEFAULT 0', 
-			'POPurchUnits' => 'VARCHAR(20)', 
-			'POUseUnits' => 'VARCHAR(20)', 
-			'POConvUnits' => 'FLOAT NULL DEFAULT 1', 
-			'PORFQQty' => 'VARCHAR(255)', 
-			'POAcct' => 'VARCHAR(20)', 
-			'POIHPart' => 'VARCHAR(50)',
-			'POSchedule' => 'VARCHAR(255)', 
-			'POTaxable' => 'TINYINT(1) DEFAULT 0', 
-			'POTaxable2' => 'TINYINT(1) DEFAULT 0', 
-			'POExtension' => 'DOUBLE NULL DEFAULT 0', 
-			'POExtPlusTax' => 'DOUBLE NULL DEFAULT 0', 
-			'POCost' => 'DOUBLE NULL DEFAULT 0', 
-			'POQty' => 'DOUBLE NULL DEFAULT 0', 
-			'POItemQtyEntry' => 'DOUBLE NULL', 
-			'POItemQtyReceived' => 'DOUBLE NULL DEFAULT 0', 
-			'POItemQtyBackordered' => 'DOUBLE NULL DEFAULT 0', 
-			'POTax1' => 'DOUBLE NULL DEFAULT 0', 
-			'POTax2' => 'DOUBLE NULL DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
-
-		//pv_pod table (PV6EX and PV6ECO only)
-		//purchase order data included in PO line item
-		$this->createTable('tbl_pv_pod', array(
-			'id' => 'pk',
-			'PODField' => 'VARCHAR(50)', 
-			'PODCaption' => 'VARCHAR(50)', 
-			'PODOrder' => 'INTEGER DEFAULT 0', 
-			'PODUse' => 'TINYINT(1) DEFAULT 0', 
-			'PODNewLine' => 'TINYINT(1) DEFAULT 0', 
-			'PODUseCaption' => 'TINYINT(1) DEFAULT 0', 
-			'PODMode' => 'INTEGER DEFAULT 0', //0=PO; 1=JOB
-			'PODOrderJOB' => 'INTEGER DEFAULT 0', 
-			'PODUseJOB' => 'TINYINT(1) DEFAULT 0', 
-			'PODNewLineJOB' => 'TINYINT(1) DEFAULT 0', 
-			'PODUseCaptionJOB' => 'TINYINT(1) DEFAULT 0', 
-		), 'ENGINE=InnoDB');  
-
-		//pv_pom table (PV6EX and PV6ECO only)
+		//purchase_order table (origin: parts&vendors POM - PV6EX and PV6ECO only)
 		//purchase order and RFQ master data
-		$this->createTable('tbl_pv_pom', array(
+		$this->createTable('tbl_purchase_order', array(
 			'id' => 'pk',
 			'POMNumber' => 'VARCHAR(20) NOT NULL', 
 			'POMDatePrinted' => 'DATETIME', 
@@ -696,9 +409,308 @@ class m131105_025331_initial_schema extends CDbMigration
 			'POMCurName' => 'VARCHAR(20)', 
 			'POMCurExRate' => 'DOUBLE NULL DEFAULT 1', 
 			'POMDateReqDate' => 'DATETIME', 
+			
+			'status_id' => 'integer', //[Inactive|Active], defined in class, not fk
+
+			'create_time' => 'datetime',
+			'create_user_id' => 'integer',
+			'update_time' => 'datetime',
+			'update_user_id' => 'integer',			
 		), 'ENGINE=InnoDB');  
 
-		//pv_rpx table (PV6EX and PV6ECO only)
+		//purchase_order_item table (origin: parts&vendors PO - PV6EX and PV6ECO only)
+		//line items on RFQs and POs
+		$this->createTable('tbl_purchase_order_item', array(
+			'id' => 'pk',
+			'POPOMID' => 'INTEGER DEFAULT 0', 
+			'POLNKID' => 'INTEGER', 
+			'POItem' => 'INTEGER DEFAULT 0', 
+			'POPart' => 'VARCHAR(50)', 
+			'PORev' => 'VARCHAR(10)', 
+			'PODescription' => 'LONGTEXT', 
+			'POReceived' => 'TINYINT(1) DEFAULT 0', 
+			'POPurchUnits' => 'VARCHAR(20)', 
+			'POUseUnits' => 'VARCHAR(20)', 
+			'POConvUnits' => 'FLOAT NULL DEFAULT 1', 
+			'PORFQQty' => 'VARCHAR(255)', 
+			'POAcct' => 'VARCHAR(20)', 
+			'POIHPart' => 'VARCHAR(50)',
+			'POSchedule' => 'VARCHAR(255)', 
+			'POTaxable' => 'TINYINT(1) DEFAULT 0', 
+			'POTaxable2' => 'TINYINT(1) DEFAULT 0', 
+			'POExtension' => 'DOUBLE NULL DEFAULT 0', 
+			'POExtPlusTax' => 'DOUBLE NULL DEFAULT 0', 
+			'POCost' => 'DOUBLE NULL DEFAULT 0', 
+			'POQty' => 'DOUBLE NULL DEFAULT 0', 
+			'POItemQtyEntry' => 'DOUBLE NULL', 
+			'POItemQtyReceived' => 'DOUBLE NULL DEFAULT 0', 
+			'POItemQtyBackordered' => 'DOUBLE NULL DEFAULT 0', 
+			'POTax1' => 'DOUBLE NULL DEFAULT 0', 
+			'POTax2' => 'DOUBLE NULL DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+
+		//purchase_order_item_data (origin: parts&vendors POD - PV6EX and PV6ECO only)
+		//purchase order data included in PO line item
+		$this->createTable('tbl_purchase_order_item_data', array(
+			'id' => 'pk',
+			'PODField' => 'VARCHAR(50)', 
+			'PODCaption' => 'VARCHAR(50)', 
+			'PODOrder' => 'INTEGER DEFAULT 0', 
+			'PODUse' => 'TINYINT(1) DEFAULT 0', 
+			'PODNewLine' => 'TINYINT(1) DEFAULT 0', 
+			'PODUseCaption' => 'TINYINT(1) DEFAULT 0', 
+			'PODMode' => 'INTEGER DEFAULT 0', //0=PO; 1=JOB
+			'PODOrderJOB' => 'INTEGER DEFAULT 0', 
+			'PODUseJOB' => 'TINYINT(1) DEFAULT 0', 
+			'PODNewLineJOB' => 'TINYINT(1) DEFAULT 0', 
+			'PODUseCaptionJOB' => 'TINYINT(1) DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+
+		//shipper table (origin: parts&vendors SHIP - PV6EX and PV6ECO only)
+		//shipping methods for reference by POs
+		$this->createTable('tbl_shipper', array(
+			'id' => 'pk',
+			'SHIPMethod' => 'VARCHAR(50)', 
+		), 'ENGINE=InnoDB');  
+
+		//stock table (serial or lot identified stock)
+		$this->createTable('tbl_stock', array(
+			'id' => 'pk', //not included in source csv
+			'serial_number' => 'string', //e.g. A1234, 1234B, A-1234...
+			'version' => 'string',
+
+			'part_id' => 'integer',
+			'status_id' => 'integer DEFAULT NULL', //[Inactive|Active], defined in class, not fk
+		), 'ENGINE=InnoDB');
+		
+		//stock location table
+		$this->createTable('tbl_stock_location', array(
+			'id' => 'pk',
+			'name' => 'string',
+			'use_sublocation' => 'integer', //TODO boolean
+			'sublocation_min' => 'integer',
+			'sublocation_max' => 'integer',
+		), 'ENGINE=InnoDB');        
+
+		//supplier table (origin: parts&vendors SU)
+		//supplier (vendor) master data
+		$this->createTable('tbl_supplier', array(
+			'id' => 'pk',
+			'SUSupplier' => 'VARCHAR(50) UNIQUE NOT NULL',
+			'SUAddress' => 'VARCHAR(255)',
+			'SUCountry' => 'VARCHAR(50)',
+			'SUPhone1' => 'VARCHAR(20)',
+			'SUPhone2' => 'VARCHAR(20)',
+			'SUFAX' => 'VARCHAR(20)',
+			'SUWeb' => 'VARCHAR(255)',
+			'SUContact1' => 'VARCHAR(50)',
+			'SUContact2' => 'VARCHAR(50)',
+			'SUDateLast' => 'DATETIME', //date supplier was last contacted
+			'SUFollowup' => 'TINYINT(1) DEFAULT 0', //supplier requires follow-up
+			'SUNotes' => 'LONGTEXT',
+			'SUCode' => 'VARCHAR(20)',
+			'SUAccount' => 'VARCHAR(20)',
+			'SUTerms' => 'VARCHAR(20)',
+			'SUFedTaxID' => 'VARCHAR(20)',
+			'SUStateTaxID' => 'VARCHAR(20)',
+			'SUEMail1' => 'VARCHAR(50)', 
+			'SUEMail2' => 'VARCHAR(50)', 
+			'SUCurDedExRate' => 'TINYINT(1) DEFAULT 0', 
+			'SUCurExRate' => 'DOUBLE NULL DEFAULT 0', 
+			//'SUCURID' => 'INTEGER DEFAULT 1', 
+			'currency_id' => 'integer DEFAULT 1', 
+			'SUCurReverse' => 'TINYINT(1) DEFAULT 0', 
+			'SUNoPhonePrefix' => 'TINYINT(1) DEFAULT 0', //boolean, 0 = do not use prefix, 1 = use prefix (prefix in HPREF table)
+ 		), 'ENGINE=InnoDB');  
+
+		//supplier_manufacturer_assignment table (origin: parts&vendors LIN)
+		//many-to-many suppliers-to-manufacturers
+		$this->createTable('tbl_supplier_manufacturer_assignment', array(
+			'id' => 'pk',
+			'LINSUID' => 'INTEGER NOT NULL DEFAULT 0', 
+			'LINMFRID' => 'INTEGER NOT NULL DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+
+		//unit table (origin: parts&vendors UN)
+		//units of measure
+		$this->createTable('tbl_unit', array(
+			'id' => 'pk',
+			'UNUseUnits' => 'VARCHAR(20) NOT NULL', 
+			'UNPurchUnits' => 'VARCHAR(20) NOT NULL', 
+			'UNConvUnits' => 'FLOAT NULL NOT NULL DEFAULT 1', //number of use-units in purchase-unit
+		), 'ENGINE=InnoDB');  
+
+		//parts&vendors
+		//tables specific to PV6EX or PV6ECO, not yet fully understood, or to be refactored
+
+		//pv_al (PV6EX and PV6ECO only)
+		//for managing client jobs
+		$this->createTable('tbl_pv_al', array(
+			'id' => 'pk',
+			'ALPNID' => 'INTEGER DEFAULT 0', 
+			'ALJOBID' => 'INTEGER DEFAULT 0', 
+			'ALTASKID' => 'INTEGER DEFAULT 0', 
+			'ALJOBNumber' => 'VARCHAR(50)', 
+			'ALJOBNumberLine' => 'VARCHAR(50)', 
+			'ALQty' => 'FLOAT NULL DEFAULT 0', 
+			'ALQtyShort' => 'FLOAT NULL DEFAULT 0', 
+		), 'ENGINE=InnoDB'); 
+
+		//pv_cnv
+		//convert unit of measure? convert PO to RFQ?
+		$this->createTable('tbl_pv_cnv', array(
+			'id' => 'pk',
+			'CNVLNKID' => 'INTEGER NOT NULL DEFAULT 0', 
+		), 'ENGINE=InnoDB'); 
+
+		//pv_cost
+		//refactored to part_cost table
+
+		//pv_cu
+		//refactored to customer table
+
+		//pv_cur
+		//refactored to currency table
+
+		//pv_dept (PV6ECO only, and only if schema installed)
+		//not supported
+
+		//pv_eco (PV6ECO only, and only if schema installed)
+		//not supported
+
+		//pv_fil table
+		//refactored to file table
+
+		//pv_grp (PV6EX and PV6ECO only, and only if schema installed)
+		//not supported
+		
+		//pv_hist
+		//history of bulk inventory adjustments
+		$this->createTable('tbl_pv_hist', array(
+			'id' => 'pk',
+			'HISTWho' => 'VARCHAR(20)', 
+			'HISTWhat' => 'VARCHAR(255)', 
+			'HISTWhen' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP', 
+			'HISTWhy' => 'VARCHAR(255)', 
+			'HISTHowMany' => 'FLOAT NULL DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+		
+		//pv_hpref
+		//database configuration parameters		
+		$this->createTable('tbl_pv_hpref', array(
+			'id' => 'pk',
+			'GPREFKey' => 'VARCHAR(50) NOT NULL',
+			'GPREFText1' => 'VARCHAR(50)', 
+			'GPREFText2' => 'VARCHAR(50)', 
+			'GPREFText3' => 'VARCHAR(50)', 
+			'GPREFText4' => 'VARCHAR(50)', 
+			'GPREFText5' => 'VARCHAR(50)', 
+			'GPREFBool1' => 'TINYINT(1) DEFAULT 0', 
+			'GPREFBool2' => 'TINYINT(1) DEFAULT 0', 
+			'GPREFBool3' => 'TINYINT(1) DEFAULT 0', 
+			'GPREFBool4' => 'TINYINT(1) DEFAULT 0', 
+			'GPREFInt1' => 'INTEGER DEFAULT 0', 
+			'GPREFText6' => 'VARCHAR(50)', 
+			'GPREFText7' => 'VARCHAR(50)', 
+			'GPREFText8' => 'VARCHAR(50)', 
+			'GPREFText9' => 'VARCHAR(50)', 
+			'GPREFText10' => 'VARCHAR(50)', 
+		), 'ENGINE=InnoDB');  
+		
+		//pv_job (PV6EX and PV6ECO only)
+		//job master data for customer jobs
+		$this->createTable('tbl_pv_job', array(
+			'id' => 'pk',
+			'JOBNumber' => 'VARCHAR(50)', 
+			'JOBCUID' => 'INTEGER DEFAULT 0', 
+			'JOBCustomer' => 'VARCHAR(255)', 
+			'JOBDateCreated' => 'DATETIME', 
+			'JOBDatePromised' => 'DATETIME', 
+			'JOBDateCompleted' => 'DATETIME', 
+			'JOBAccount' => 'VARCHAR(50)', 
+			'JOBNotes' => 'LONGTEXT', 
+			'JOBAllocateStock' => 'TINYINT(1) DEFAULT 0', 
+			'JOBFOB' => 'VARCHAR(50)', 
+			'JOBTerms' => 'VARCHAR(50)', 
+			'JOBShipMethod' => 'VARCHAR(50)', 
+			'JOBAttnTo' => 'VARCHAR(50)', 
+			'JOBTaxRate' => 'FLOAT NULL DEFAULT 0', 
+			'JOBTaxRate2' => 'FLOAT NULL DEFAULT 0', 
+			'JOBTax2OnTax1' => 'TINYINT(1) DEFAULT 0', 
+			'JOBTotalCost' => 'DOUBLE NULL DEFAULT 0', 
+			'JOBSubTotalCost' => 'DOUBLE NULL DEFAULT 0', 
+			'JOBTotalPrice' => 'DOUBLE NULL DEFAULT 0', 
+			'JOBSubTotalPrice' => 'DOUBLE NULL DEFAULT 0', 
+			'JOBTax1' => 'DOUBLE NULL DEFAULT 0', 
+			'JOBTax2' => 'DOUBLE NULL DEFAULT 0', 
+			'JOBCustOrderNumber' => 'VARCHAR(50)', 
+			'JOBDateInvoiced' => 'DATETIME', 
+			'JOBDateShipped' => 'DATETIME', 
+		), 'ENGINE=InnoDB');  
+
+		//pv_lin
+		//refactored to supplier_manufacturer_assignment
+
+		//pv_lnk
+		//refactored to part_source_assignment
+
+		//pv_mf (PV6EX and PV6ECO only)
+		//part made-from relationships
+		$this->createTable('tbl_pv_mf', array(
+			'id' => 'pk',
+			'MFPNIDParent' => 'INTEGER DEFAULT 0', 
+			'MFPNIDSub' => 'INTEGER DEFAULT 0', 
+			'MFQty' => 'FLOAT NULL DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+
+		//pv_mfr
+		//refactored to manufacturer
+
+		//pv_mfrpn
+		//refactored to manufacturer_part
+
+		//pv_org
+		//user organization details
+		$this->createTable('tbl_pv_org', array(
+			'id' => 'pk',
+			'ORGKey' => 'VARCHAR(20)', 
+			'ORGName' => 'VARCHAR(50)',
+			'ORGAddress' => 'VARCHAR(255)', 
+			'ORGPhone' => 'VARCHAR(20)', 
+			'ORGFaax' => 'VARCHAR(20)', 
+			'ORGPOUseShpgAddr' => 'TINYINT(1) DEFAULT 0',
+			'ORGRFQUseShpgAddr' => 'TINYINT(1) DEFAULT 0',
+			'ORGListOrder' => 'INTEGER DEFAULT 0', 
+		), 'ENGINE=InnoDB');  
+
+		//pv_pl
+		//refactored to part_list
+
+		//pv_pll
+		//assembly index for purchase and kitting lists
+		$this->createTable('tbl_pv_pll', array(
+			'id' => 'pk',
+			'PLLParentListID' => 'INTEGER DEFAULT 0', 
+			'PLLSubListID' => 'INTEGER DEFAULT 0', 
+			'PLLQty' => 'FLOAT NULL DEFAULT 0', 
+			'PLLLevel' => 'INTEGER DEFAULT 0',
+			'PLLCost' => 'FLOAT NULL DEFAULT 0', 
+			'PLLItemNumber' => 'INTEGER DEFAULT 0', 
+		), 'ENGINE=InnoDB');        
+
+		//pv_pn
+		//refactored to part
+
+		//pv_po (PV6EX and PV6ECO only)
+		//refactored to purchase_order_item
+
+		//pv_pod (PV6EX and PV6ECO only)
+		//refactored to purchase_order_item_data table
+
+		//pv_pom (PV6EX and PV6ECO only)
+		//refactored to purchase_order table
+
+		//pv_rpx (PV6EX and PV6ECO only)
 		//global report layouts
 		$this->createTable('tbl_pv_rpx', array(
 			'id' => 'pk',
@@ -709,15 +721,10 @@ class m131105_025331_initial_schema extends CDbMigration
 			'RPXPrimary' => 'TINYINT(1) DEFAULT 0', 
 		), 'ENGINE=InnoDB');  
 
-		//pv_ship table (PV6EX and PV6ECO only)
-		//shipping methods for reference by POs
-		$this->createTable('tbl_pv_ship', array(
-			'id' => 'pk',
-			'SHIPMethod' => 'VARCHAR(50)', 
-		), 'ENGINE=InnoDB');  
+		//pv_ship (PV6EX and PV6ECO only)
+		//refactored to shipper table
 
-		//pv_su table
-		//supplier master data
+		//pv_su 
 		//refactored to supplier table
 
 		//pv_task (PV6EX and PV6ECO only)
@@ -745,11 +752,9 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');  
 
 		//pv_type table
-		//part types (believed not used with types hard-coded in client)
 		//refactored to part_type table
 
 		//pv_un table
-		//units of measure
 		//refactored to unit table
 
 		//foreign keys
@@ -844,6 +849,16 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_project_to_person", "tbl_project_person_assignment", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_person_to_project", "tbl_project_person_assignment", "person_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
+		//purchase_order
+		$this->addForeignKey("fk_purchase_order_to_supplier", "tbl_purchase_order", "POMSUID", "tbl_supplier", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_purchase_order_to_currency", "tbl_purchase_order", "POMCURID", "tbl_currency", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_purchase_order_to_create_user", "tbl_purchase_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_purchase_order_to_update_user", "tbl_purchase_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+
+		//purchase_order_item
+		$this->addForeignKey("fk_purchase_order_item_to_purchase_order", "tbl_purchase_order_item", "POPOMID", "tbl_purchase_order", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_purchase_order_item_to_", "tbl_purchase_order_item", "POLNKID", "tbl_part_source_assignment", "id", "CASCADE", "RESTRICT");
+
 		//stock
 		$this->addForeignKey("fk_stock_to_part", "tbl_stock", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 
@@ -853,48 +868,6 @@ class m131105_025331_initial_schema extends CDbMigration
 		//supplier_manufacturer_assignment
 		$this->addForeignKey("fk_supplier_manufacturer_assignment_to_supplier", "tbl_supplier_manufacturer_assignment", "LINSUID", "tbl_supplier", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_supplier_manufacturer_assignment_to_manufacturer", "tbl_supplier_manufacturer_assignment", "LINMFRID", "tbl_manufacturer", "id", "CASCADE", "RESTRICT");
-		
-		//parts&vendors
-		//
-		//pv_cost
-		//$this->addForeignKey("fk_pv_cost_lnk", "tbl_pv_cost", "COSTLNKID", "tbl_pv_lnk", "LNKID", "CASCADE", "RESTRICT");
-		//
-		//pv_fil
-		//$this->addForeignKey("fk_pv_fil_part", "tbl_pv_fil", "FILPNID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-		//
-		//pv_lin
-		//$this->addForeignKey("fk_pv_lin_supplier", "tbl_pv_lin", "LINSUID", "tbl_pv_lin", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_lin_mfr", "tbl_pv_lin", "LINMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
-		//
-		///pv_lnk
-		//$this->addForeignKey("fk_pv_lnk_supplier", "tbl_pv_lnk", "LNKSUID", "tbl_pv_su", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_lnk_mfr_part", "tbl_pv_lnk", "LNKMFRPNID", "tbl_pv_mfrpn", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_lnk_mfr", "tbl_pv_lnk", "LNKMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_lnk_units", "tbl_pv_lnk", "LNKUNID", "tbl_pv_un", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_lnk_part", "tbl_pv_lnk", "LNKPNID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-		//
-		//pv_mfrpn
-		//$this->addForeignKey("fk_pv_mfrpn_mfr", "tbl_pv_mfrpn", "MFRPNMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
-		//
-		//pv_pl
-		//$this->addForeignKey("fk_pv_pl_pn_parent", "tbl_pv_pl", "PLListID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pl_pn_child", "tbl_pv_pl", "PLPartID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pl_mfrpn", "tbl_pv_pl", "PLMFRPNID", "tbl_pv_mfrpn", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pl_mfr", "tbl_pv_pl", "PLMFRID", "tbl_pv_mfr", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pl_su", "tbl_pv_pl", "PLSUID", "tbl_pv_su", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pl_lnk", "tbl_pv_pl", "PLLNKID", "tbl_pv_lnk", "id", "CASCADE", "RESTRICT");
-		//
-		//pv_pn
-		//$this->addForeignKey("fk_pv_pn_units", "tbl_pv_pn", "PNUNID", "tbl_pv_un", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pn_tab_parent", "tbl_pv_pn", "PNTabParentID", "tbl_pv_pn", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pn_type", "tbl_pv_pn", "type_id", "tbl_pv_type", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pn_stock_location", "tbl_pv_pn", "stock_location_id", "tbl_stock_location", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_pv_pn_person", "tbl_pv_pn", "requester_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_part_to_create_user", "tbl_pv_pn", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		//$this->addForeignKey("fk_part_to_update_user", "tbl_pv_pn", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		//
-		//pv_su
-		//$this->addForeignKey("fk_pv_su_currency", "tbl_pv_su", "SUCURID", "tbl_pv_cur", "id", "CASCADE", "RESTRICT");
 	}
 
 	public function down()
@@ -903,7 +876,7 @@ class m131105_025331_initial_schema extends CDbMigration
 
 		$this->dropTable('tbl_activity');
 		$this->dropTable('tbl_activity_part_assignment');
-		$this->dropTable('tbl_activity_predecessor_assignment');		
+		$this->dropTable('tbl_activity_predecessor_assignment');
 		$this->dropTable('tbl_activity_resource_assignment');		
 		$this->dropTable('tbl_activity_stock_assignment');		
 		$this->dropTable('tbl_currency');
@@ -924,6 +897,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_person');
 		$this->dropTable('tbl_project');
 		$this->dropTable('tbl_project_person_assignment');
+		$this->dropTable('tbl_purchase_order');
+		$this->dropTable('tbl_purchase_order_item');
+		$this->dropTable('tbl_purchase_order_item_data');
+		$this->dropTable('tbl_shipper');
 		$this->dropTable('tbl_stock');
 		$this->dropTable('tbl_stock_location');
 		$this->dropTable('tbl_supplier');
@@ -933,31 +910,14 @@ class m131105_025331_initial_schema extends CDbMigration
 		//parts&vendors
 		$this->dropTable('tbl_pv_al');
 		$this->dropTable('tbl_pv_cnv');
-		//$this->dropTable('tbl_pv_cost');
-		//$this->dropTable('tbl_pv_cu');
-		//$this->dropTable('tbl_pv_cur');
-		//$this->dropTable('tbl_pv_fil');
 		$this->dropTable('tbl_pv_hist');
 		$this->dropTable('tbl_pv_hpref');
 		$this->dropTable('tbl_pv_job');
-		//$this->dropTable('tbl_pv_lin');
-		//$this->dropTable('tbl_pv_lnk');
 		$this->dropTable('tbl_pv_mf');
-		//$this->dropTable('tbl_pv_mfr');
-		//$this->dropTable('tbl_pv_mfrpn');
 		$this->dropTable('tbl_pv_org');
-		//$this->dropTable('tbl_pv_pl');
 		$this->dropTable('tbl_pv_pll');
-		//$this->dropTable('tbl_pv_pn');
-		$this->dropTable('tbl_pv_po');
-		$this->dropTable('tbl_pv_pod');
-		$this->dropTable('tbl_pv_pom');
 		$this->dropTable('tbl_pv_rpx');
-		$this->dropTable('tbl_pv_ship');
-		//$this->dropTable('tbl_pv_su');
 		$this->dropTable('tbl_pv_task');
-		//$this->dropTable('tbl_pv_type');
-		//$this->dropTable('tbl_pv_un');
 		
 		$this->execute("SET foreign_key_checks = 0;");
 	}
