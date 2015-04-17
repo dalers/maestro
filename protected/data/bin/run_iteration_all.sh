@@ -399,7 +399,68 @@ echo "load_current_from_csv.sh"
 ./load_current_from_csv.sh
 
 echo
-echo "iteration 5 complete"
+read -t 60 -p "iteration 5 complete - Press [Enter] to continue..." key
+
+echo
+echo "Iteration 6 - Manufacturing"
+echo "========================================"
+
+echo "move 'current' csv to 'old' csv"
+cp /home/maestro/scc/csv/* /home/maestro/scc/csv.old/
+
+# restore master spreadsheets with csv
+echo "restore 'current' master spreadsheets with csv"
+cp ../master/* /home/maestro/scc/master
+
+# restore GanttProject project file with csv
+# (using project.xlsx until PhpProject interface to project.gan file is working)
+echo "restore 'current' GanttProject file"
+cp ../ganttproject/project.gan /home/maestro/scc/master
+
+#ifdef FALSE
+# restore 'current' part documents to fileshare
+if test $version = "VER"
+then
+	echo "restore versioned 'current' part documents"
+	cp -a ../parts-5/* /home/maestro/scc/parts/
+elif test $version = "NOVER"
+then
+	echo "restore un-versioned 'current' part documents"
+	cp -a ../parts-5-nover/* /home/maestro/scc/parts/
+else
+	echo "ERROR: invalid [ VER | NOVER ]"
+	echo
+	exit 1
+fi
+#chown -R nobody:wheel /home/maestro/scc/parts/
+chmod -R ugo+rw       /home/maestro/scc/parts/
+#endif FALSE
+
+echo "restore 'current' parts&vendors database"
+# -a archive mode preserves file times
+cp -a ../pv-6/pv.mdb /home/maestro/scc/pv/pv.mdb
+#chown -R nobody:wheel /home/maestro/scc/pv/
+chmod ugo+rw /home/maestro/scc/pv/*
+
+echo "run export_current_to_csv.sh"
+./export_current_to_csv.sh
+#chown -R nobody:wheel /home/maestro/scc/csv/
+chmod -R ugo+rw       /home/maestro/scc/csv/
+
+echo "run rsync_current_files.sh"
+./rsync_current_files.sh
+
+echo "run send_current_change_report.sh"
+./send_current_change_report.sh
+
+echo "preserve change report"
+cp /home/maestro/scc/work/current_changereport.txt  /home/maestro/scc/work/current_changereport-5.txt
+
+echo "load_current_from_csv.sh"
+./load_current_from_csv.sh
+
+echo
+echo "iteration 6 complete"
 
 echo
 echo "Clean-up"

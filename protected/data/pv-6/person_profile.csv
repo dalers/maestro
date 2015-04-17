@@ -1,0 +1,20 @@
+"ID","Name","Description","ID","Create User, Edit Perm Group","ECO Admin and Item Status","Create PN","Item Specs, Parts Lists, Made From, Files","Item User 6-10","Costs +  Update Costs when making Purch List","Sources (vendor, mfr, mfr pn, line card)","Cust & Jobs (View)","Cust (Edit)","Job","PO","RFQ","Overkit Entries","Min Stk Entries","Stock Qtys","Units of Measure","Print","Report Design","Import","Export"
+1,"Admin","Create/Read/Update/Delete access to all data",1,"X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X","X"
+2,"Demo","Create/Read/Update access to all data",2,,,,,,,,"X",,,,,,,,,"X","X",,"X"
+3,"Eng","Specifies parts (and BOMs, including overkit qty if known at
+design), including sources and source costs, issuing RFQs for
+costs, and importing part, BOM and sources data.",3,,,"X","X",,"X","X","X",,,,"X","X",,,"X","X","X","X","X"
+4,"Finance","Maintains appropriate financial data for PO's (date closed),
+Vendors (account info), Customers (account info), and Jobs
+(invoiced date, completed date)",4,,,,,,,"X","X","X","X","X",,,,,,"X","X",,"X"
+5,"MfgBuild","Manages builds (control is via stock qty control), issues material,
+sets over-kitting and minimum stocking quantities.",5,,,,,,,,"X",,,,,"X","X","X",,"X","X",,"X"
+6,"PurchRcv","Issuing RFQs, entering part costs, assembly costing, issuing
+POs, receiving goods into stock, assigning stock locations.",6,,,,,"X","X",,"X",,,"X","X",,"X","X",,"X","X",,"X"
+7,"RelCtrl","Changes part Status to Released when part is released. Upon a change request, archives current revision
+BOM and changes Status to Unreleased with new rev level.",7,,"X",,,,,,"X",,,,,,,,,"X","X",,"X"
+8,"Sales","Creates and maintains appropriate customer data (contact,
+addresses, etc.), creates and maintains appropriate job data
+(created data, promised date, shipped date, customer order,
+Etc.).",8,,,,,,,,"X","X","X",,,,,,,"X","X",,"X"
+9,"View","Read access to all data, including exporting and creating reports.",9,,,,,,,,"X",,,,,,,,,"X","X",,"X"
