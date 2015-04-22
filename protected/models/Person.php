@@ -6,14 +6,14 @@
  * The followings are the available columns in table 'tbl_person':
  * @property integer $id
  * @property string $username
- * @property integer $status
  * @property string $password
  * @property string $email
  * @property string $nick
  * @property string $lname
  * @property string $fname
  * @property string $initial
- * @property integer $profile
+ * @property integer $status_id
+ * @property integer $profile_id
  * @property string $last_login_time
  * @property string $create_time
  * @property integer $create_user_id
@@ -21,20 +21,32 @@
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
+ * @property Activity[] $activities
+ * @property Activity[] $activities1
+ * @property Activity[] $activities2
+ * @property Activity[] $tblActivities
+ * @property Invoice[] $invoices
+ * @property Invoice[] $invoices1
  * @property Issue[] $issues
  * @property Issue[] $issues1
  * @property Issue[] $issues2
  * @property Issue[] $issues3
+ * @property Order[] $orders
+ * @property Order[] $orders1
+ * @property OrderItem[] $orderItems
+ * @property OrderItem[] $orderItems1
+ * @property Part[] $parts
+ * @property Part[] $parts1
+ * @property Part[] $parts2
  * @property Project[] $projects
  * @property Project[] $projects1
- * @property PvPn[] $pvPns
- * @property PvPn[] $pvPns1
- * @property PvPn[] $pvPns2
+ * @property Project[] $projects2
+ * @property Project[] $tblProjects
+ * @property PurchaseOrder[] $purchaseOrders
+ * @property PurchaseOrder[] $purchaseOrders1
  */
 class Person extends CActiveRecord
 {
-	const ROLE_ADMIN=0;
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -52,12 +64,12 @@ class Person extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, password', 'required'),
-			array('status, profile, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('status_id, profile_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('username, password, email, nick, lname, fname, initial', 'length', 'max'=>255),
 			array('last_login_time, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, status, password, email, nick, lname, fname, initial, profile, last_login_time, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, username, password, email, nick, lname, fname, initial, status_id, profile_id, last_login_time, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,15 +81,29 @@ class Person extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'issues' => array(self::HAS_MANY, 'Issue', 'update_user_id'),
-			'issues1' => array(self::HAS_MANY, 'Issue', 'create_user_id'),
-			'issues2' => array(self::HAS_MANY, 'Issue', 'owner_id'),
-			'issues3' => array(self::HAS_MANY, 'Issue', 'requester_id'),
-			'projects' => array(self::HAS_MANY, 'Project', 'update_user_id'),
-			'projects1' => array(self::HAS_MANY, 'Project', 'create_user_id'),
-			'pvPns' => array(self::HAS_MANY, 'PvPn', 'update_user_id'),
-			'pvPns1' => array(self::HAS_MANY, 'PvPn', 'create_user_id'),
-			'pvPns2' => array(self::HAS_MANY, 'PvPn', 'requester_id'),
+			'activities' => array(self::HAS_MANY, 'Activity', 'coordinator_id'),
+			'activities1' => array(self::HAS_MANY, 'Activity', 'create_user_id'),
+			'activities2' => array(self::HAS_MANY, 'Activity', 'update_user_id'),
+			'tblActivities' => array(self::MANY_MANY, 'Activity', 'tbl_activity_resource_assignment(resource_id, activity_id)'),
+			'invoices' => array(self::HAS_MANY, 'Invoice', 'create_user_id'),
+			'invoices1' => array(self::HAS_MANY, 'Invoice', 'update_user_id'),
+			'issues' => array(self::HAS_MANY, 'Issue', 'create_user_id'),
+			'issues1' => array(self::HAS_MANY, 'Issue', 'owner_id'),
+			'issues2' => array(self::HAS_MANY, 'Issue', 'requester_id'),
+			'issues3' => array(self::HAS_MANY, 'Issue', 'update_user_id'),
+			'orders' => array(self::HAS_MANY, 'Order', 'create_user_id'),
+			'orders1' => array(self::HAS_MANY, 'Order', 'update_user_id'),
+			'orderItems' => array(self::HAS_MANY, 'OrderItem', 'create_user_id'),
+			'orderItems1' => array(self::HAS_MANY, 'OrderItem', 'update_user_id'),
+			'parts' => array(self::HAS_MANY, 'Part', 'create_user_id'),
+			'parts1' => array(self::HAS_MANY, 'Part', 'requester_id'),
+			'parts2' => array(self::HAS_MANY, 'Part', 'update_user_id'),
+			'projects' => array(self::HAS_MANY, 'Project', 'create_user_id'),
+			'projects1' => array(self::HAS_MANY, 'Project', 'owner_id'),
+			'projects2' => array(self::HAS_MANY, 'Project', 'update_user_id'),
+			'tblProjects' => array(self::MANY_MANY, 'Project', 'tbl_project_person_assignment(person_id, project_id)'),
+			'purchaseOrders' => array(self::HAS_MANY, 'PurchaseOrder', 'create_user_id'),
+			'purchaseOrders1' => array(self::HAS_MANY, 'PurchaseOrder', 'update_user_id'),
 		);
 	}
 
@@ -89,14 +115,14 @@ class Person extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'username' => 'Username',
-			'status' => 'Status',
 			'password' => 'Password',
 			'email' => 'Email',
 			'nick' => 'Nick',
 			'lname' => 'Lname',
 			'fname' => 'Fname',
 			'initial' => 'Initial',
-			'profile' => 'Profile',
+			'status_id' => 'Status',
+			'profile_id' => 'Profile',
 			'last_login_time' => 'Last Login Time',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
@@ -125,14 +151,14 @@ class Person extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('username',$this->username,true);
-		$criteria->compare('status',$this->status);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('nick',$this->nick,true);
 		$criteria->compare('lname',$this->lname,true);
 		$criteria->compare('fname',$this->fname,true);
 		$criteria->compare('initial',$this->initial,true);
-		$criteria->compare('profile',$this->profile);
+		$criteria->compare('status_id',$this->status_id);
+		$criteria->compare('profile_id',$this->profile_id);
 		$criteria->compare('last_login_time',$this->last_login_time,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);

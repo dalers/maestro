@@ -26,12 +26,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
-		<?php echo $form->error($model,'status'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'password'); ?>
@@ -68,9 +62,15 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'profile'); ?>
-		<?php echo $form->textField($model,'profile'); ?>
-		<?php echo $form->error($model,'profile'); ?>
+		<?php echo $form->labelEx($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->error($model,'status_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'profile_id'); ?>
+		<?php echo $form->textField($model,'profile_id'); ?>
+		<?php echo $form->error($model,'profile_id'); ?>
 	</div>
 
 	<div class="row">

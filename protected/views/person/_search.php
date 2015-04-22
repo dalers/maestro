@@ -22,11 +22,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'email'); ?>
 		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
@@ -52,8 +47,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'profile'); ?>
-		<?php echo $form->textField($model,'profile'); ?>
+		<?php echo $form->label($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'profile_id'); ?>
+		<?php echo $form->textField($model,'profile_id'); ?>
 	</div>
 
 	<div class="row">

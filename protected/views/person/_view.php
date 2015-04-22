@@ -13,10 +13,6 @@
 	<?php echo CHtml::encode($data->username); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('password')); ?>:</b>
 	<?php echo CHtml::encode($data->password); ?>
 	<br />
@@ -33,17 +29,21 @@
 	<?php echo CHtml::encode($data->lname); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fname')); ?>:</b>
 	<?php echo CHtml::encode($data->fname); ?>
 	<br />
 
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('initial')); ?>:</b>
 	<?php echo CHtml::encode($data->initial); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('profile')); ?>:</b>
-	<?php echo CHtml::encode($data->profile); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status_id')); ?>:</b>
+	<?php echo CHtml::encode($data->status_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('profile_id')); ?>:</b>
+	<?php echo CHtml::encode($data->profile_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('last_login_time')); ?>:</b>
