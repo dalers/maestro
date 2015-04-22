@@ -58,10 +58,10 @@ Support
 -------
 If you need help, please try the following:
 
-* Update your local repository.
+* Review the [Maestro project Wiki](https://github.com/dalers/maestro/wiki/).
 * Investigate related behaviour in the [SCC Maestro demo system](http://www.swiftconstructioncompany.net)
 * Search the [Maestro issue tracker](https://github.com/dalers/maestro/issues)
-* Search the [Maestro project Wiki](https://github.com/dalers/maestro/wiki/).
+* Update your repository.
 * Submit an issue to the [Maestro issue tracker](https://github.com/dalers/maestro/issues)
 
 If you post an issue to the issue tracker, please try to include answers to the following questions:

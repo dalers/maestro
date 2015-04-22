@@ -20,12 +20,6 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'number'); ?>
-		<?php echo $form->textField($model,'number',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'number'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'name'); ?>
@@ -38,51 +32,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'project'); ?>
-		<?php echo $form->textField($model,'project',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'project'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'type'); ?>
-		<?php echo $form->textField($model,'type',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'type'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'corrective_action'); ?>
-		<?php echo $form->textField($model,'corrective_action',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'corrective_action'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'cost'); ?>
-		<?php echo $form->textField($model,'cost',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'cost'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'status'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'project_id'); ?>
-		<?php echo $form->textField($model,'project_id'); ?>
-		<?php echo $form->error($model,'project_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'type_id'); ?>
-		<?php echo $form->textField($model,'type_id'); ?>
-		<?php echo $form->error($model,'type_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'status_id'); ?>
-		<?php echo $form->textField($model,'status_id'); ?>
-		<?php echo $form->error($model,'status_id'); ?>
+		<?php echo $form->labelEx($model,'owner_id'); ?>
+		<?php echo $form->textField($model,'owner_id'); ?>
+		<?php echo $form->error($model,'owner_id'); ?>
 	</div>
 
 	<div class="row">
@@ -92,21 +44,33 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'stock_serial_id'); ?>
-		<?php echo $form->textField($model,'stock_serial_id'); ?>
-		<?php echo $form->error($model,'stock_serial_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'owner_id'); ?>
-		<?php echo $form->textField($model,'owner_id'); ?>
-		<?php echo $form->error($model,'owner_id'); ?>
+		<?php echo $form->labelEx($model,'project_id'); ?>
+		<?php echo $form->textField($model,'project_id'); ?>
+		<?php echo $form->error($model,'project_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'requester_id'); ?>
 		<?php echo $form->textField($model,'requester_id'); ?>
 		<?php echo $form->error($model,'requester_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->error($model,'status_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'stock_id'); ?>
+		<?php echo $form->textField($model,'stock_id'); ?>
+		<?php echo $form->error($model,'stock_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id'); ?>
+		<?php echo $form->error($model,'type_id'); ?>
 	</div>
 
 	<div class="row">
