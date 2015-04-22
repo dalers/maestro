@@ -9,49 +9,37 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('acct1')); ?>:</b>
-	<?php echo CHtml::encode($data->acct1); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('acct2')); ?>:</b>
-	<?php echo CHtml::encode($data->acct2); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('acct3')); ?>:</b>
-	<?php echo CHtml::encode($data->acct3); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('acct4')); ?>:</b>
-	<?php echo CHtml::encode($data->acct4); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('client')); ?>:</b>
-	<?php echo CHtml::encode($data->client); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('code')); ?>:</b>
+	<?php echo CHtml::encode($data->code); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
 	<?php echo CHtml::encode($data->description); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
-	<?php echo CHtml::encode($data->type); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('customer_id')); ?>:</b>
+	<?php echo CHtml::encode($data->customer_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('owner_id')); ?>:</b>
+	<?php echo CHtml::encode($data->owner_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('milestone')); ?>:</b>
-	<?php echo CHtml::encode($data->milestone); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('phase_id')); ?>:</b>
+	<?php echo CHtml::encode($data->phase_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('milestone_date')); ?>:</b>
-	<?php echo CHtml::encode($data->milestone_date); ?>
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status_id')); ?>:</b>
+	<?php echo CHtml::encode($data->status_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->type_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>

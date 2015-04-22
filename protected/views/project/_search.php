@@ -17,33 +17,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'acct1'); ?>
-		<?php echo $form->textField($model,'acct1',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'acct2'); ?>
-		<?php echo $form->textField($model,'acct2',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'acct3'); ?>
-		<?php echo $form->textField($model,'acct3',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'acct4'); ?>
-		<?php echo $form->textField($model,'acct4',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'client'); ?>
-		<?php echo $form->textField($model,'client'); ?>
+		<?php echo $form->label($model,'code'); ?>
+		<?php echo $form->textField($model,'code',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -52,23 +32,28 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->textField($model,'type',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'customer_id'); ?>
+		<?php echo $form->textField($model,'customer_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
+		<?php echo $form->label($model,'owner_id'); ?>
+		<?php echo $form->textField($model,'owner_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'milestone'); ?>
-		<?php echo $form->textField($model,'milestone',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'phase_id'); ?>
+		<?php echo $form->textField($model,'phase_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'milestone_date'); ?>
-		<?php echo $form->textField($model,'milestone_date'); ?>
+		<?php echo $form->label($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id'); ?>
 	</div>
 
 	<div class="row">

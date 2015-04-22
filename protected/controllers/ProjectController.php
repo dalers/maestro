@@ -122,16 +122,9 @@ class ProjectController extends Controller
 	 */
 	public function actionIndex()
 	{
-        $model = new Project('search');
-
-        $model->unsetAttributes();
-
-		if (isset($_GET['Project']))
-			$model->attributes = $_GET['Project'];
-
-        $this->render('index', array(
-            'dataProvider' => $model->search(),
-			'model' => $model,
+		$dataProvider=new CActiveDataProvider('Project');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
 		));
 	}
 

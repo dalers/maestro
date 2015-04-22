@@ -18,35 +18,18 @@ $this->menu=array(
 
 <h1>View Project #<?php echo $model->id; ?></h1>
 
-<p>Created on <?php echo empty($model->create_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "Unknown user" : $model->createUser->username; ?>
-
-<?php
-    // Show update information only if the Project was updated
-
-    if (!empty($model->update_time)) {
-?>
-, Updated on 
-<?php 
-        echo empty($model->update_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "Unknown user" : $model->updateUser->username;
-    }
-?>
-</p>
-
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'acct1',
-		'acct2',
-		'acct3',
-		'acct4',
 		'name',
-		'client',
+		'code',
 		'description',
-		'type',
-		'status',
-		'milestone',
-		'milestone_date',
+		'customer_id',
+		'owner_id',
+		'phase_id',
+		'status_id',
+		'type_id',
 		'create_time',
 		'create_user_id',
 		'update_time',

@@ -20,39 +20,15 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'acct1'); ?>
-		<?php echo $form->textField($model,'acct1',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'acct1'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'acct2'); ?>
-		<?php echo $form->textField($model,'acct2',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'acct2'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'acct3'); ?>
-		<?php echo $form->textField($model,'acct3',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'acct3'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'acct4'); ?>
-		<?php echo $form->textField($model,'acct4',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'acct4'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'client'); ?>
-		<?php echo $form->textField($model,'client',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'client'); ?>
+		<?php echo $form->labelEx($model,'code'); ?>
+		<?php echo $form->textField($model,'code',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'code'); ?>
 	</div>
 
 	<div class="row">
@@ -62,48 +38,35 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'type'); ?>
-		<?php echo $form->textField($model,'type',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'type'); ?>
+		<?php echo $form->labelEx($model,'customer_id'); ?>
+		<?php echo $form->textField($model,'customer_id'); ?>
+		<?php echo $form->error($model,'customer_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'status'); ?>
+		<?php echo $form->labelEx($model,'owner_id'); ?>
+		<?php echo $form->textField($model,'owner_id'); ?>
+		<?php echo $form->error($model,'owner_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'milestone'); ?>
-		<?php echo $form->textField($model,'milestone',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'milestone'); ?>
+		<?php echo $form->labelEx($model,'phase_id'); ?>
+		<?php echo $form->textField($model,'phase_id'); ?>
+		<?php echo $form->error($model,'phase_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'milestone_date'); ?>
-		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                'model'=>$model,
-                'attribute'=>'milestone_date',
-                'value'=>$model->milestone_date,
-
-                // additional javascript options for the date picker plugin
-                'options'=>array(
-                        'autoSize'=>true,
-                        'defaultDate'=>$model->milestone_date,
-                        'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
-                        'buttonImageOnly'=>true,
-                        'buttonText'=>'Select',
-						'dateFormat'=>'yy-mm-dd', 
-                        'selectOtherMonths'=>true,
-                        'showAnim'=>'fold',
-                        'showButtonPanel'=>true,
-                        'showOn'=>'button',
-                        'showOtherMonths'=>true,
-                ),
-        )); ?>
-		<?php echo $form->error($model,'milestone_date'); ?>
+		<?php echo $form->labelEx($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->error($model,'status_id'); ?>
 	</div>
-	
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id'); ?>
+		<?php echo $form->error($model,'type_id'); ?>
+	</div>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'create_time'); ?>
 		<?php echo $form->textField($model,'create_time'); ?>

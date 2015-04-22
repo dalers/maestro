@@ -5,26 +5,28 @@
  *
  * The followings are the available columns in table 'tbl_project':
  * @property integer $id
- * @property string $acct1
- * @property string $acct2
- * @property string $acct3
- * @property string $acct4
  * @property string $name
- * @property string $client
+ * @property string $code
  * @property string $description
- * @property string $type
- * @property integer $status
- * @property string $milestone
- * @property string $milestone_date
+ * @property integer $customer_id
+ * @property integer $owner_id
+ * @property integer $phase_id
+ * @property integer $status_id
+ * @property integer $type_id
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
+ * @property Activity[] $activities
  * @property Issue[] $issues
+ * @property Order[] $orders
  * @property Person $createUser
+ * @property Customer $customer
+ * @property Person $owner
  * @property Person $updateUser
+ * @property Person[] $tblPeople
  */
 class Project extends CActiveRecord
 {
@@ -44,12 +46,13 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('client, status, acct1, acct2, acct3, acct4, name, type, milestone', 'length', 'max'=>255),
-			array('description, milestone_date, create_time, update_time', 'safe'),
+			array('name, code, description', 'required'),
+			array('customer_id, owner_id, phase_id, status_id, type_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('name, code', 'length', 'max'=>255),
+			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, acct1, acct2, acct3, acct4, name, client, description, type, status, milestone, milestone_date, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, name, code, description, customer_id, owner_id, phase_id, status_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,9 +64,14 @@ class Project extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'activities' => array(self::HAS_MANY, 'Activity', 'project_id'),
 			'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
+			'orders' => array(self::HAS_MANY, 'Order', 'project_id'),
 			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
+			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
+			'owner' => array(self::BELONGS_TO, 'Person', 'owner_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
+			'tblPeople' => array(self::MANY_MANY, 'Person', 'tbl_project_person_assignment(project_id, person_id)'),
 		);
 	}
 
@@ -74,17 +82,14 @@ class Project extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'acct1' => 'Acct1',
-			'acct2' => 'Acct2',
-			'acct3' => 'Acct3',
-			'acct4' => 'Acct4',
 			'name' => 'Name',
-			'client' => 'Client',
+			'code' => 'Code',
 			'description' => 'Description',
-			'type' => 'Type',
-			'status' => 'Status',
-			'milestone' => 'Milestone',
-			'milestone_date' => 'Milestone Date',
+			'customer_id' => 'Customer',
+			'owner_id' => 'Owner',
+			'phase_id' => 'Phase',
+			'status_id' => 'Status',
+			'type_id' => 'Type',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
@@ -111,17 +116,14 @@ class Project extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('acct1',$this->acct1,true);
-		$criteria->compare('acct2',$this->acct2,true);
-		$criteria->compare('acct3',$this->acct3,true);
-		$criteria->compare('acct4',$this->acct4,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('client',$this->client,true);
+		$criteria->compare('code',$this->code,true);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('type',$this->type,true);
-		$criteria->compare('status',$this->status,true);
-		$criteria->compare('milestone',$this->milestone,true);
-		$criteria->compare('milestone_date',$this->milestone_date,true);
+		$criteria->compare('customer_id',$this->customer_id);
+		$criteria->compare('owner_id',$this->owner_id);
+		$criteria->compare('phase_id',$this->phase_id);
+		$criteria->compare('status_id',$this->status_id);
+		$criteria->compare('type_id',$this->type_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_time',$this->update_time,true);
