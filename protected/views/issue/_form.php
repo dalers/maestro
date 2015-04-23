@@ -32,6 +32,20 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'type_id'); ?>
+		<?php echo $form->dropDownList($model,'type_id', $model->getTypeOptions()); ?>
+		<?php //echo $form->textField($model,'type_id'); ?>
+		<?php echo $form->error($model,'type_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'status_id'); ?>
+		<?php echo $form->dropDownList($model,'status_id', $model->getStatusOptions()); ?>
+		<?php //echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->error($model,'status_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'owner_id'); ?>
 		<?php echo $form->textField($model,'owner_id'); ?>
 		<?php echo $form->error($model,'owner_id'); ?>
@@ -56,21 +70,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'status_id'); ?>
-		<?php echo $form->textField($model,'status_id'); ?>
-		<?php echo $form->error($model,'status_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'stock_id'); ?>
 		<?php echo $form->textField($model,'stock_id'); ?>
 		<?php echo $form->error($model,'stock_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'type_id'); ?>
-		<?php echo $form->textField($model,'type_id'); ?>
-		<?php echo $form->error($model,'type_id'); ?>
 	</div>
 
 	<div class="row">
