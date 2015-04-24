@@ -27,6 +27,8 @@
  * @property Person $requester
  * @property Stock $stock
  * @property Person $updateUser
+ * @property IssueList[] $issueLists
+ * @property IssueList[] $issueLists1
  */
 class Issue extends CActiveRecord
 {
@@ -81,6 +83,8 @@ class Issue extends CActiveRecord
 			'requester' => array(self::BELONGS_TO, 'Person', 'requester_id'),
 			'stock' => array(self::BELONGS_TO, 'Stock', 'stock_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
+			'issueLists' => array(self::HAS_MANY, 'IssueList', 'related_issue_id'),
+			'issueLists1' => array(self::HAS_MANY, 'IssueList', 'issue_id'),
 		);
 	}
 

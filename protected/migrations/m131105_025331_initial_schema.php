@@ -131,7 +131,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');        
 
 		//issue
-		//issue master data
+		//an observation of some (often undesirable) behavior
 		$this->createTable('tbl_issue', array(
 			'id' => 'pk',
 			'name' => 'string NOT NULL',
@@ -149,6 +149,14 @@ class m131105_025331_initial_schema extends CDbMigration
 			'create_user_id' => 'integer',
 			'update_time' => 'datetime',
 			'update_user_id' => 'integer',
+		), 'ENGINE=InnoDB');
+
+		//issue_list
+		//related issues (similar concept to part_list)
+		$this->createTable('tbl_issue_list', array(
+			'id' => 'pk',
+			'issue_id' => 'integer DEFAULT NULL',
+			'related_issue_id' => 'integer DEFAULT NULL',
 		), 'ENGINE=InnoDB');
 
 		//manufacturer (origin: parts&vendors MFR)
@@ -825,6 +833,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
 		
+		//issue_list
+		$this->addForeignKey("fk_issue_list_to_parent", "tbl_issue_list", "issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_issue_list_to_child", "tbl_issue_list", "related_issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
+
 		//manufacturer_part
 		$this->addForeignKey("fk_mfrpn_mfr", "tbl_manufacturer_part", "manufacturer_id", "tbl_manufacturer", "id", "CASCADE", "RESTRICT");
 
@@ -924,6 +936,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_file');
 		$this->dropTable('tbl_invoice');
 		$this->dropTable('tbl_issue');
+		$this->dropTable('tbl_issue_list');
 		$this->dropTable('tbl_manufacturer');
 		$this->dropTable('tbl_manufacturer_part');
 		//$this->dropTable('tbl_migration');
