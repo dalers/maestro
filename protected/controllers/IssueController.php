@@ -69,6 +69,7 @@ class IssueController extends Controller
 	public function actionCreate()
 	{
 		$model=new Issue;
+		$model->project_id = $this->_project->id;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -184,7 +185,7 @@ class IssueController extends Controller
 	 */
 	protected function loadProject($projectId)	 
 	{
-		//if the project property is null, create it based on input id
+		//if _project property is null, define it based on input project id
 		if($this->_project===null)
 		{
 			$this->_project=Project::model()->findByPk($projectId);
@@ -208,7 +209,7 @@ class IssueController extends Controller
 		if(isset($_GET['pid']))
 			$this->loadProject($_GET['pid']);   
 		else
-			throw new CHttpException(403,'Must specify a project before performing this action.');
+			throw new CHttpException(403,'Must specify project before performing this action.');
 			
 		//complete the running of other filters and execute the requested action
 		$filterChain->run(); 

@@ -39,7 +39,8 @@ return array(
 			'allowAutoLogin'=>true,
 			'class'=>'WebUser',
 		),
-		//comment the following to disable URLs in path-format
+		//uncomment the following to enable URLs in path-format
+		/*
 		'urlManager'=>array(
             'caseSensitive' => true,
 			'urlFormat'=>'path',
@@ -49,6 +50,7 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
+		*/
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=maestro',
 			'emulatePrepare' => true,
