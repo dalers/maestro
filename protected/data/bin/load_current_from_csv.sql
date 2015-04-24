@@ -380,7 +380,9 @@ FIELDS
 LINES
 	TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(id,username,password,email,nick,lname,fname,initial,status_id,profile_id);
+(id,username,@password,email,nick,lname,fname,initial,status_id,profile_id)
+SET
+    password = MD5(@password);
 
 -- project (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
