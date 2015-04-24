@@ -419,7 +419,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->createTable('tbl_project', array(
 			'id' => 'pk',
 			'name' => 'string NOT NULL', //e.g. "Aircraft Wireless"
-			'code' => 'string NOT NULL', //e.g. "P2015-001"
+			'code' => 'string', //e.g. "P2015-001"
 			'description' => 'text NOT NULL', //e.g. "New smaller wireless for 2-seaters"
 
 			'customer_id' => 'integer', //customer in case of a customer-directed project

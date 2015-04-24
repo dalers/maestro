@@ -24,8 +24,8 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'name',
-		'code',
 		'description',
+		'code',
 		'customer_id',
 		'owner_id',
 		'phase_id',
