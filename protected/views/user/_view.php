@@ -1,6 +1,6 @@
 <?php
-/* @var $this PersonController */
-/* @var $data Person */
+/* @var $this UserController */
+/* @var $data User */
 ?>
 
 <div class="view">

@@ -140,10 +140,10 @@ class m131105_025331_initial_schema extends CDbMigration
 			'owner_id' => 'integer DEFAULT NULL', //champion or manager resolving the issue
 			'part_id' => 'integer DEFAULT NULL', //part (design) which the issue relates to
 			'project_id' =>'integer DEFAULT NULL', //project which the issue relates to
-			'requester_id' => 'integer DEFAULT NULL', //person who requested observation be recorded (typically the observer)
-			'status_id' => 'integer DEFAULT NULL', //[Inactive|Active], defined in class, not fk
-			'stock_id' => 'integer DEFAULT NULL', //stock item which the issue relates to (serial number or lot)
-			'type_id' => 'integer DEFAULT NULL', //[Bug|Feature|Task], defined in class, not fk
+			'requester_id' => 'integer DEFAULT NULL', //user who requested observation be recorded (typically the observer)
+			'status_id' => 'integer DEFAULT NULL', //[NOT_STARTED|STARTED|FINISHED], defined in class, not fk
+			'stock_id' => 'integer DEFAULT NULL', //stock item to which the issue relates (serial number or lot)
+			'type_id' => 'integer DEFAULT NULL', //[BUG|FEATURE|TASK], defined in class, not fk
 
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
@@ -283,7 +283,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PNTitle' => 'VARCHAR(255)', 
 			'PNDetail' => 'VARCHAR(255)',
 			'PNStatus' => 'VARCHAR(1)', //[R|U|O], defined in class, not fk
-			'PNReqBy' => 'VARCHAR(10)', //initials or nickname of requester (requester_id is fk to person)
+			'PNReqBy' => 'VARCHAR(10)', //initials or nickname of requester (requester_id is fk to user)
 			'PNNotes' => 'LONGTEXT',
 			'PNUser1' => 'VARCHAR(100)', 
 			'PNUser2' => 'VARCHAR(100)', 
@@ -394,27 +394,6 @@ class m131105_025331_initial_schema extends CDbMigration
 			'TYPEType' => 'VARCHAR(6)',
 		), 'ENGINE=InnoDB');  
 		
-		//person
-		$this->createTable('tbl_person', array(
-			'id' => 'pk',
-			'username' => 'string NOT NULL', //preferably same as network login id
-			'password' => 'string NOT NULL',
-			'email' => 'string',
-			'nick' => 'string',
-			'lname' => 'string', //e.g. "Tom"
-			'fname' => 'string', //e.g. "Swift"
-			'initial' => 'string', //e.g. "J"
-
-			'status_id' => 'integer DEFAULT NULL', // //[Inactive|Active], defined in class, not fk
-			'profile_id' => 'integer DEFAULT NULL', //[Admin|Demo|Eng|Finance|MfgBuild|PurchRcv|RelCtrl|Sales|View], defined in class, not fk
-
-			'last_login_time' => 'datetime DEFAULT NULL',
-			'create_time' => 'datetime DEFAULT NULL',
-			'create_user_id' => 'int(11) DEFAULT NULL',
-			'update_time' => 'datetime DEFAULT NULL',
-			'update_user_id' => 'int(11) DEFAULT NULL',
-		), 'ENGINE=InnoDB');
-		
 		//project
 		$this->createTable('tbl_project', array(
 			'id' => 'pk',
@@ -423,7 +402,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'description' => 'text NOT NULL', //e.g. "New smaller wireless for 2-seaters"
 
 			'customer_id' => 'integer', //customer in case of a customer-directed project
-			'owner_id' => 'integer', //primary stakeholder or benefactor
+			'owner_id' => 'integer', //primary stakeholder
 			'phase_id' => 'integer DEFAULT NULL', //[Idea|Definition|Design|Test|Pilot|Termination], defined in class, not fk
 			'status_id' => 'integer DEFAULT NULL', //[Active|NotActive], defined in class, not fk
 			'type_id' => 'integer DEFAULT NULL', //[PDev|PCi|Rsrch|Infra], defined in class, not fk
@@ -434,12 +413,12 @@ class m131105_025331_initial_schema extends CDbMigration
 			'update_user_id' => 'integer DEFAULT NULL',
 		), 'ENGINE = InnoDB');
 
-		//project_person_assignment
-		//many-to-many projects-to-persons
-		$this->createTable('tbl_project_person_assignment', array(
+		//project_user_assignment
+		//many-to-many projects-to-users
+		$this->createTable('tbl_project_user_assignment', array(
 			'project_id' => 'int(11) DEFAULT NULL',
-			'person_id' => 'int(11) DEFAULT NULL',
-			'PRIMARY KEY (`project_id`,`person_id`)',
+			'user_id' => 'int(11) DEFAULT NULL',
+			'PRIMARY KEY (`project_id`,`user_id`)',
 		), 'ENGINE=InnoDB');
 		
 		//purchase_order (origin: parts&vendors POM - PV6EX and PV6ECO only)
@@ -610,6 +589,27 @@ class m131105_025331_initial_schema extends CDbMigration
 			'UNConvUnits' => 'FLOAT NULL NOT NULL DEFAULT 1', //number of use-units in purchase-unit
 		), 'ENGINE=InnoDB');  
 
+		//user
+		$this->createTable('tbl_user', array(
+			'id' => 'pk',
+			'username' => 'string NOT NULL', //preferably same as network login id
+			'password' => 'string NOT NULL',
+			'email' => 'string',
+			'nick' => 'string',
+			'lname' => 'string', //e.g. "Tom"
+			'fname' => 'string', //e.g. "Swift"
+			'initial' => 'string', //e.g. "J"
+
+			'status_id' => 'integer DEFAULT NULL', // //[Inactive|Active], defined in class, not fk
+			'profile_id' => 'integer DEFAULT NULL', //[Admin|Demo|Eng|Finance|MfgBuild|PurchRcv|RelCtrl|Sales|View], defined in class, not fk
+
+			'last_login_time' => 'datetime DEFAULT NULL',
+			'create_time' => 'datetime DEFAULT NULL',
+			'create_user_id' => 'int(11) DEFAULT NULL',
+			'update_time' => 'datetime DEFAULT NULL',
+			'update_user_id' => 'int(11) DEFAULT NULL',
+		), 'ENGINE=InnoDB');
+		
 		//parts&vendors
 		//specific to PV6EX or PV6ECO, not yet fully understood, or to be refactored
 
@@ -795,10 +795,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		//foreign keys
 		//
 		//activity
-		$this->addForeignKey("fk_activity_to_coordinator", "tbl_activity", "coordinator_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_activity_to_coordinator", "tbl_activity", "coordinator_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_activity_to_project", "tbl_activity", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_activity_to_create_user", "tbl_activity", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_activity_to_update_user", "tbl_activity", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_activity_to_create_user", "tbl_activity", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_activity_to_update_user", "tbl_activity", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		
         //activity_part_assignment
 		$this->addForeignKey("fk_activity_to_part", "tbl_activity_part_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
@@ -810,7 +810,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		
         //activity_resource_assignment
 		$this->addForeignKey("fk_activity_to_resource", "tbl_activity_resource_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_resource_to_activity", "tbl_activity_resource_assignment", "resource_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_resource_to_activity", "tbl_activity_resource_assignment", "resource_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		
         //activity_stock_assignment
 		$this->addForeignKey("fk_activity_to_stock", "tbl_activity_stock_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
@@ -821,17 +821,17 @@ class m131105_025331_initial_schema extends CDbMigration
 
 		//invoice
 		$this->addForeignKey("fk_invoice_to_order", "tbl_invoice", "order_id", "tbl_order", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_invoice_to_create_user", "tbl_invoice", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_invoice_to_update_user", "tbl_invoice", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_invoice_to_create_user", "tbl_invoice", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_invoice_to_update_user", "tbl_invoice", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 
 		//issue
-		$this->addForeignKey("fk_issue_to_owner", "tbl_issue", "owner_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_issue_to_owner", "tbl_issue", "owner_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_part", "tbl_issue", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_project", "tbl_issue", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_requester", "tbl_issue", "requester_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_issue_to_requester", "tbl_issue", "requester_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_stock", "tbl_issue", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		
 		//issue_list
 		$this->addForeignKey("fk_issue_list_to_parent", "tbl_issue_list", "issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
@@ -845,14 +845,14 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_order_to_parts_list", "tbl_order", "partslist_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_order_to_project", "tbl_order", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_order_to_shipper", "tbl_order", "shipper_id", "tbl_shipper", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_to_create_user", "tbl_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_to_update_user", "tbl_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_to_create_user", "tbl_order", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_to_update_user", "tbl_order", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		
 		//order_item
 		$this->addForeignKey("fk_order_item_to_order", "tbl_order_item", "TASKJOBID", "tbl_order", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_order_item_to_part", "tbl_order_item", "TASKPNID", "tbl_part", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_create_user", "tbl_order_item", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_order_item_to_update_user", "tbl_order_item", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_item_to_create_user", "tbl_order_item", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_order_item_to_update_user", "tbl_order_item", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 
 		//order_item_stock_assignment
 		$this->addForeignKey("fk_stock_item_to_order_item", "tbl_order_item_stock_assignment", "order_item_id", "tbl_order_item", "id", "CASCADE", "RESTRICT");
@@ -863,9 +863,9 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->addForeignKey("fk_part_to_tab_parent", "tbl_part", "PNTabParentID", "tbl_part", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_part_to_type", "tbl_part", "type_id", "tbl_part_type", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_part_to_stock_location", "tbl_part", "stock_location_id", "tbl_stock_location", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_requestor", "tbl_part", "requester_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_create_user", "tbl_part", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_update_user", "tbl_part", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_requestor", "tbl_part", "requester_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_create_user", "tbl_part", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_update_user", "tbl_part", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 
 		//part_cost
 		$this->addForeignKey("fk_part_cost_to_part_source", "tbl_part_cost", "COSTLNKID", "tbl_part_source_assignment", "id", "CASCADE", "RESTRICT");
@@ -887,19 +887,19 @@ class m131105_025331_initial_schema extends CDbMigration
 		
 		//project
 		$this->addForeignKey("fk_project_to_customer", "tbl_project", "customer_id", "tbl_customer", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_project_to_owner", "tbl_project", "owner_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_project_to_owner", "tbl_project", "owner_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_project_to_create_user", "tbl_project", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_project_to_update_user", "tbl_project", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 
-        //project_person_assignment
-		$this->addForeignKey("fk_project_to_person", "tbl_project_person_assignment", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_person_to_project", "tbl_project_person_assignment", "person_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+        //project_user_assignment
+		$this->addForeignKey("fk_project_to_user", "tbl_project_user_assignment", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_user_to_project", "tbl_project_user_assignment", "user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		
 		//purchase_order
 		$this->addForeignKey("fk_purchase_order_to_supplier", "tbl_purchase_order", "POMSUID", "tbl_supplier", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_purchase_order_to_currency", "tbl_purchase_order", "POMCURID", "tbl_currency", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_purchase_order_to_create_user", "tbl_purchase_order", "create_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_purchase_order_to_update_user", "tbl_purchase_order", "update_user_id", "tbl_person", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_purchase_order_to_create_user", "tbl_purchase_order", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_purchase_order_to_update_user", "tbl_purchase_order", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 
 		//purchase_order_item
 		$this->addForeignKey("fk_purchase_order_item_to_purchase_order", "tbl_purchase_order_item", "POPOMID", "tbl_purchase_order", "id", "CASCADE", "RESTRICT");
@@ -948,9 +948,8 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_part_list');
 		$this->dropTable('tbl_part_source_assignment');
 		$this->dropTable('tbl_part_type');
-		$this->dropTable('tbl_person');
 		$this->dropTable('tbl_project');
-		$this->dropTable('tbl_project_person_assignment');
+		$this->dropTable('tbl_project_user_assignment');
 		$this->dropTable('tbl_purchase_order');
 		$this->dropTable('tbl_purchase_order_item');
 		$this->dropTable('tbl_shipper');
@@ -960,6 +959,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_supplier');
 		$this->dropTable('tbl_supplier_manufacturer_assignment');
 		$this->dropTable('tbl_unit');
+		$this->dropTable('tbl_user');
 
 		//parts&vendors
 		$this->dropTable('tbl_pv_al');

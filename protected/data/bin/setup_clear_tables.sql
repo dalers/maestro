@@ -28,11 +28,10 @@ TRUNCATE TABLE `tbl_part_cost`;
 TRUNCATE TABLE `tbl_part_list`;
 TRUNCATE TABLE `tbl_part_source_assignment`;
 TRUNCATE TABLE `tbl_part_type`;
-TRUNCATE TABLE `tbl_person`;
 TRUNCATE TABLE `tbl_project`;
+TRUNCATE TABLE `tbl_project_user_assignment`;
 TRUNCATE TABLE `tbl_purchase_order_item`;
 TRUNCATE TABLE `tbl_purchase_order`;
-TRUNCATE TABLE `tbl_project_person_assignment`;
 TRUNCATE TABLE `tbl_shipper`;
 TRUNCATE TABLE `tbl_stock`;
 TRUNCATE TABLE `tbl_stock_location`;
@@ -40,6 +39,7 @@ TRUNCATE TABLE `tbl_stock_transaction`;
 TRUNCATE TABLE `tbl_supplier`;
 TRUNCATE TABLE `tbl_supplier_manufacturer_assignment`;
 TRUNCATE TABLE `tbl_unit`;
+TRUNCATE TABLE `tbl_user`;
 
 -- parts&vendors
 TRUNCATE TABLE `tbl_pv_al`;

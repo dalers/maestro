@@ -22,11 +22,11 @@
  * @property Activity[] $activities
  * @property Issue[] $issues
  * @property Order[] $orders
- * @property Person $createUser
+ * @property User $createUser
  * @property Customer $customer
- * @property Person $owner
- * @property Person $updateUser
- * @property Person[] $tblPeople
+ * @property User $owner
+ * @property User $updateUser
+ * @property User[] $users
  */
 class Project extends CActiveRecord
 {
@@ -67,11 +67,11 @@ class Project extends CActiveRecord
 			'activities' => array(self::HAS_MANY, 'Activity', 'project_id'),
 			'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
 			'orders' => array(self::HAS_MANY, 'Order', 'project_id'),
-			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
+			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
-			'owner' => array(self::BELONGS_TO, 'Person', 'owner_id'),
-			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
-			'tblPeople' => array(self::MANY_MANY, 'Person', 'tbl_project_person_assignment(project_id, person_id)'),
+			'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
+			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
+			'users' => array(self::MANY_MANY, 'User', 'tbl_project_user_assignment(project_id, user_id)'),
 		);
 	}
 

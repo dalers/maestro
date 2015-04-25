@@ -25,10 +25,10 @@ ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /usr/local/www/ma
 # add organizational unit to OpenLDAP directory
 ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /usr/local/www/maestro/protected/data/openldap/people.ldif
 
-# convert master person spreadsheet csv to ldif
-/usr/local/www/maestro/protected/data/bin/csv2ldif2.pl -b 'ou=People,dc=root,dc=org' < /home/maestro/scc/ods/person-ldap.csv > /home/maestro/scc/ods/person-ldap.csv.ldif
+# convert master user spreadsheet csv to ldif
+/usr/local/www/maestro/protected/data/bin/csv2ldif2.pl -b 'ou=People,dc=root,dc=org' < /home/maestro/scc/ods/user-ldap.csv > /home/maestro/scc/ods/user-ldap.csv.ldif
 
 # add users to OpenLDAP directory
-ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /home/maestro/scc/ods/person-ldap.csv.ldif
+ldapadd -v -x -D "cn=Manager,dc=root,dc=org" -w appleton -c -f /home/maestro/scc/ods/user-ldap.csv.ldif
 
 exit 0

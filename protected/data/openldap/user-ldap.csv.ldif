@@ -5,7 +5,7 @@ sn: Swift
 title: Director, Engineering
 mail: tswift@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: tswift
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -17,7 +17,7 @@ sn: Jackson
 title: Production Planner
 mail: gjackson@whizzer.local
 manager: cn=Miguel DeLazes,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: gjackson
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -29,7 +29,7 @@ sn: Malloy
 title: Receiver
 mail: smalloy@whizzer.local
 manager: cn=Miguel DeLazes,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: smalloy
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -41,7 +41,7 @@ sn: Sharp
 title: Director, Prod Mgmt
 mail: jsharp@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: jsharp
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -53,7 +53,7 @@ sn: Randall
 title: AP Clerk
 mail: hrandall@whizzer.local
 manager: cn=Ned Newton,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: hrandall
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -62,7 +62,7 @@ dn: cn=Administrator User,ou=People,dc=root,dc=org
 cn: Administrator User
 givenName: Administrator
 sn: User
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: admin
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -74,7 +74,7 @@ sn: Morse
 title: AR Clerk
 mail: jmorse@whizzer.local
 manager: cn=Ned Newton,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: jmorse
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -86,7 +86,7 @@ sn: Blair
 title: Software Engineer
 mail: mblair@whizzer.local
 manager: cn=Tom Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: mblair
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -98,7 +98,7 @@ sn: Nestor
 title: Director, MIS-IT
 mail: mnestor@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: mnestor
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -110,7 +110,7 @@ sn: DeLazes
 title: Director, Manufacturing
 mail: mdelazes@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: mdelazes
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -122,7 +122,7 @@ sn: Crawford
 title: Director, Legal
 mail: wcrawford@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: wcrawford
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -134,7 +134,7 @@ sn: Armstrong
 title: Mechanical Engineer
 mail: barmstrong@whizzer.local
 manager: cn=Tom Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: barmstrong
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -146,7 +146,7 @@ sn: Baggert
 title: Director, Human Resources
 mail: mbaggert@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: mbaggert
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -158,7 +158,7 @@ sn: Period
 title: Director, Sales & Marketing
 mail: jperiod@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: jperiod
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -170,7 +170,7 @@ sn: Sampson
 title: Director, Quality
 mail: rsampson@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: rsampson
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -182,7 +182,7 @@ sn: Haddon
 title: Buyer
 mail: jhaddon@whizzer.local
 manager: cn=Miguel DeLazes,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: jhaddon
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -194,7 +194,7 @@ sn: Mason
 title: Engineering Project Coordinator
 mail: fmason@whizzer.local
 manager: cn=Tom Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: fmason
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -206,7 +206,7 @@ sn: Wood
 title: Sales Agent
 mail: jwood@whizzer.local
 manager: cn=James Period,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: jwood
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -218,7 +218,7 @@ sn: Baldwin
 title: Lead Hand
 mail: hbaldwin@whizzer.local
 manager: cn=Miguel DeLazes,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: hbaldwin
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -230,7 +230,7 @@ sn: Newton
 title: Chief Financial Officer
 mail: nnewton@whizzer.local
 manager: cn=Barton Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: nnewton
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -242,7 +242,7 @@ sn: Damon
 title: Technical Writer
 mail: wdamon@whizzer.local
 manager: cn=John Sharp,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: wdamon
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -253,7 +253,7 @@ givenName: Barton
 sn: Swift
 title: President
 mail: bswift@whizzer.local
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: bswift
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU
@@ -265,7 +265,7 @@ sn: Jenks
 title: Electronics Engineer
 mail: bjenks@whizzer.local
 manager: cn=Tom Swift,ou=People,dc=root,dc=org
-objectClass: inetOrgPerson
+objectClass: inetOrgUser
 objectClass: top
 uid: bjenks
 userPassword: {SSHA}cAvUmw90CDKPDmPlym92Ym/GGDEdgvWU

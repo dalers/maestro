@@ -368,22 +368,6 @@ LINES
 IGNORE 1 LINES
 (id,TYPEType);
 
--- person (person.xlsx)
--- Windows EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/person.csv'
-INTO TABLE maestro.tbl_person
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\r\n'
-IGNORE 1 LINES
-(id,username,@password,email,nick,lname,fname,initial,status_id,profile_id)
-SET
-    password = MD5(@password);
-
 -- project (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/project.csv'
@@ -399,10 +383,10 @@ IGNORE 1 LINES
 (id,name,code,description,customer_id,owner_id,phase_id,status_id,type_id,create_time,create_user_id,update_time,update_user_id);
 
 -- NO DATA
--- project_person_assignment (GanttProject -> csv -> project.xlsx -> csv)
+-- project_user_assignment (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
--- LOAD DATA INFILE '/home/maestro/scc/csv/project_person_assignment.csv'
--- INTO TABLE maestro.tbl_project_person_assignment
+-- LOAD DATA INFILE '/home/maestro/scc/csv/project_user_assignment.csv'
+-- INTO TABLE maestro.tbl_project_user_assignment
 -- CHARACTER SET ascii
 -- FIELDS
 -- 	TERMINATED BY ','
@@ -411,7 +395,7 @@ IGNORE 1 LINES
 -- LINES
 -- 	TERMINATED BY '\r\n'
 -- IGNORE 1 LINES
--- (project_id,person_id);
+-- (project_id,user_id);
 
 -- purchase_order (origin: parts&vendors POM - PV6EX and PV6ECO only)
 -- purchase order and RFQ master data
@@ -530,6 +514,22 @@ LINES
 	TERMINATED BY '\n'
 IGNORE 1 LINES
 (id,UNUseUnits,UNPurchUnits,UNConvUnits);
+
+-- user (user.xlsx)
+-- Windows EOL
+LOAD DATA INFILE '/home/maestro/scc/csv/user.csv'
+INTO TABLE maestro.tbl_user
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(id,username,@password,email,nick,lname,fname,initial,status_id,profile_id)
+SET
+    password = MD5(@password);
 
 -- parts&vendors
 -- tables specific to PV6EX or PV6ECO, not yet fully understood, or to be refactored

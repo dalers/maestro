@@ -67,9 +67,9 @@
  * @property PvLnk[] $pvLnks
  * @property PvPl[] $pvPls
  * @property PvPl[] $pvPls1
- * @property Person $updateUser
- * @property Person $createUser
- * @property Person $requester
+ * @property User $updateUser
+ * @property User $createUser
+ * @property User $requester
  * @property StockLocation $stockLocation
  * @property PvPn $pNTabParent
  * @property PvPn[] $pvPns
@@ -124,9 +124,9 @@ class PvPn extends CActiveRecord
 			'pvLnks' => array(self::HAS_MANY, 'PvLnk', 'LNKPNID'),
 			'pvPls' => array(self::HAS_MANY, 'PvPl', 'PLPartID'),
 			'pvPls1' => array(self::HAS_MANY, 'PvPl', 'PLListID'),
-			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
-			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
-			'requester' => array(self::BELONGS_TO, 'Person', 'requester_id'),
+			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
+			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
+			'requester' => array(self::BELONGS_TO, 'User', 'requester_id'),
 			'stockLocation' => array(self::BELONGS_TO, 'StockLocation', 'stock_location_id'),
 			'pNTabParent' => array(self::BELONGS_TO, 'PvPn', 'PNTabParentID'),
 			'pvPns' => array(self::HAS_MANY, 'PvPn', 'PNTabParentID'),

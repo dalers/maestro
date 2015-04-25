@@ -44,14 +44,14 @@ class WebUser extends CWebUser {
 	}
 	
 	// This a function that checks the field 'profile'
-	// in the Person model to be equal to ROLE_ADMIN, that means it's admin
+	// in the User model to be equal to ROLE_ADMIN, that means it's admin
 	// access it by Yii::app()->user->isAdmin()
 	function isAdmin()
 	{
 		$user = $this->loadUser(Yii::app()->user->id);
 		if ($user!==null)
 		{
-			return intval($user->profile) == Person::ROLE_ADMIN;
+			return intval($user->profile) == User::ROLE_ADMIN;
 		}
 		else
 		{
@@ -65,7 +65,7 @@ class WebUser extends CWebUser {
 		{
 			if ($id!==null)
 			{
-				$this->_model=Person::model()->findByPK($id);
+				$this->_model=User::model()->findByPK($id);
 			}
 		}
 		

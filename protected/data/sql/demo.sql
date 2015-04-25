@@ -57,10 +57,10 @@ INSERT INTO `tbl_order_item_sn` (`id`, `order_item_id`, `stock_serial_id`) VALUE
 (2, 3, 8);
 
 --
--- Dumping data for table `tbl_person`
+-- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_person` (`id`, `username`, `status`, `password`, `email`, `nick`, `lname`, `fname`, `initial`, `profile`, `last_login_time`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
+INSERT INTO `tbl_user` (`id`, `username`, `status`, `password`, `email`, `nick`, `lname`, `fname`, `initial`, `profile`, `last_login_time`, `create_time`, `create_user_id`, `update_time`, `update_user_id`) VALUES
 (1, 'admin', 1, 'admin', 'admin@firefly.scc.loc', 'admin', 'Administrator', 'System', 'SA', 0, NULL, NULL, NULL, NULL, NULL),
 (2, 'demo', 1, 'demo', 'demo@firefly.scc.loc', 'demo', 'User', 'Demo', 'DU', 9, NULL, NULL, NULL, NULL, NULL),
 (3, 'bjenks', 1, 'appleton', 'bjenks@firefly.scc.loc', 'BJ', 'Jenks', 'Barcoe', 'BJ', 2, NULL, NULL, NULL, NULL, NULL),
