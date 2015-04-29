@@ -2,9 +2,9 @@ Maestro
 =======
 ***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>, an open-source web-based ERP system providing ***Transparency with Trust***<sup><em>TM</em></sup> to design, manufacturing and support teams.
 
-Maesto is in active development and likely *not* suitable for use at this time. Review the demo for current functionality.
+Maesto is in active development and likely *not* suitable for use at this time. Refer to the demo site for current functionality.
 
-Maestro manages information related to projects, parts, stock, issues and people. Drawing inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro includes enterprise features, single-entry accounting, and true multi-user operation.
+Maestro manages information related to projects, parts, stock, issues and people. Taking inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro adds enterprise features, single-entry accounting, and true multi-user operation. Maestro works cooperatively with [*GanttProject*<sup>*TM*</sup>](http://www.ganttproject.biz/) for Gantt-based project planning.
 
 Maestro also includes a complete data set for the fictional ***Swift Construction Company*** (the *SCC*), including projects, parts, stock (unserialized, serialized and lot controlled), issues and people, and a demo system is available ([swiftconstructioncompany.net](http://www.swiftconstructioncompany.net)). 
 
@@ -47,18 +47,19 @@ For more information, see the [Maestro project wiki](https://github.com/dalers/m
 
 Legal
 -----
-Maestro source is copyright by its authors, as recorded in the maestro repository commit log. The Maestro project does not use a Contributor License Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you agree to license your contribution according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
+Maestro source is copyright by its authors, as recorded in the maestro repository commit log. The Maestro project does not use a Contributor Licence Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you agree to license your contribution according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
-*Maestro*<sup>TM</sup>, *ERP for Engineers*<sup>TM</sup>, and *Transparency with Trust*<sup>TM</sup> are used under license according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Maestro-Trademark-And-Logo-Policy).
+*Maestro*, *ERP for Engineers*, and *Transparency with Trust* are trademarks of Dale R. Scott, and provided for use according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
 
-*Parts&Vendors*<sup>TM</sup> is a trademark of [Trilogy Design](http://www.trilogydesign.com/)
+*Parts&Vendors* is a trademark of [Trilogy Design](http://www.trilogydesign.com/)
+
 
 Support
 -------
-If you require assistance, please try the following in order:
+If you need help, please try the following:
 
 * Review the [Maestro project Wiki](https://github.com/dalers/maestro/wiki/).
-* Investigate related behaviour using the [SCC Maestro demo system](http://www.swiftconstructioncompany.net)
+* Investigate related behaviour in the [SCC Maestro demo system](http://www.swiftconstructioncompany.net)
 * Search the [Maestro issue tracker](https://github.com/dalers/maestro/issues)
 * Update your repository.
 * Submit an issue to the [Maestro issue tracker](https://github.com/dalers/maestro/issues)

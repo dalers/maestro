@@ -1,6 +1,6 @@
 <?php
 
-class PersonController extends Controller
+class UserController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,14 +62,14 @@ class PersonController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Person;
+		$model=new User;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Person']))
+		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['Person'];
+			$model->attributes=$_POST['User'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class PersonController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Person']))
+		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['Person'];
+			$model->attributes=$_POST['User'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class PersonController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Person');
+		$dataProvider=new CActiveDataProvider('User');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class PersonController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Person('search');
+		$model=new User('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Person']))
-			$model->attributes=$_GET['Person'];
+		if(isset($_GET['User']))
+			$model->attributes=$_GET['User'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class PersonController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Person the loaded model
+	 * @return User the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Person::model()->findByPk($id);
+		$model=User::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,11 +160,11 @@ class PersonController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Person $model the model to be validated
+	 * @param User $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='person-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='User-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

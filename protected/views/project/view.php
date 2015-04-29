@@ -17,12 +17,12 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Project "<?php echo $model->name; ?>"</h1>
+<h1>View Project #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		//'id',
+		'id',
 		'name',
 		'description',
 		'code',
@@ -36,12 +36,4 @@ $this->menu=array(
 		'update_time',
 		'update_user_id',
 	),
-)); ?>
-
-<br /><br />
-<h1>Project Issues</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$issueDataProvider,
-	'itemView'=>'/issue/_view',
 )); ?>

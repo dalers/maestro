@@ -20,11 +20,6 @@ echo "export_current_to_csv: issues"
 echo "  - using scc\master\issue*.csv"
 cp -af /home/maestro/scc/master/issue*.csv /home/maestro/scc/csv/
 
-# persons
-echo "export_current_to_csv: persons"
-echo "  - using scc\master\person*.csv"
-cp -af /home/maestro/scc/master/person*.csv /home/maestro/scc/csv/
-
 # projects
 echo "export_current_to_csv: projects"
 echo "  - using scc\master\project*.csv, activity*.csv"
@@ -35,6 +30,11 @@ cp -af /home/maestro/scc/master/activity*.csv /home/maestro/scc/csv/
 echo "export_current_to_csv: stock"
 echo "  - using scc\master\stock*.csv"
 cp /home/maestro/scc/master/stock*.csv /home/maestro/scc/csv/
+
+# users
+echo "export_current_to_csv: users"
+echo "  - using scc\master\user*.csv"
+cp -af /home/maestro/scc/master/user*.csv /home/maestro/scc/csv/
 
 # export tables from parts&vendors
 echo "export_current_to_csv: parts&vendors"

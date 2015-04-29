@@ -27,7 +27,7 @@ class UserIdentity extends CUserIdentity
 	 }
 	public function authenticate()
 	{
-		$user=Person::model()->find('lower(username)=?', array(strtolower($this->username)));
+		$user=User::model()->find('lower(username)=?', array(strtolower($this->username)));
 		if ($user === null)
 		{
 			$this->errorCode= self::ERROR_UNKNOWN_IDENTITY;

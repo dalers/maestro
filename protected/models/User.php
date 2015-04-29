@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "tbl_person".
+ * This is the model class for table "tbl_user".
  *
- * The followings are the available columns in table 'tbl_person':
+ * The followings are the available columns in table 'tbl_user':
  * @property integer $id
  * @property string $username
  * @property string $password
@@ -45,14 +45,14 @@
  * @property PurchaseOrder[] $purchaseOrders
  * @property PurchaseOrder[] $purchaseOrders1
  */
-class Person extends CActiveRecord
+class User extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tbl_person';
+		return 'tbl_user';
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Person extends CActiveRecord
 			'projects' => array(self::HAS_MANY, 'Project', 'create_user_id'),
 			'projects1' => array(self::HAS_MANY, 'Project', 'owner_id'),
 			'projects2' => array(self::HAS_MANY, 'Project', 'update_user_id'),
-			'tblProjects' => array(self::MANY_MANY, 'Project', 'tbl_project_person_assignment(person_id, project_id)'),
+			'tblProjects' => array(self::MANY_MANY, 'Project', 'tbl_project_user_assignment(user_id, project_id)'),
 			'purchaseOrders' => array(self::HAS_MANY, 'PurchaseOrder', 'create_user_id'),
 			'purchaseOrders1' => array(self::HAS_MANY, 'PurchaseOrder', 'update_user_id'),
 		);
@@ -174,7 +174,7 @@ class Person extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Person the static model class
+	 * @return User the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

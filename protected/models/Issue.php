@@ -20,13 +20,13 @@
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
- * @property Person $createUser
- * @property Person $owner
+ * @property User $createUser
+ * @property User $owner
  * @property Part $part
  * @property Project $project
- * @property Person $requester
+ * @property User $requester
  * @property Stock $stock
- * @property Person $updateUser
+ * @property User $updateUser
  * @property IssueList[] $issueLists
  * @property IssueList[] $issueLists1
  */
@@ -76,13 +76,13 @@ class Issue extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
-			'owner' => array(self::BELONGS_TO, 'Person', 'owner_id'),
+			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
+			'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
 			'part' => array(self::BELONGS_TO, 'Part', 'part_id'),
 			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
-			'requester' => array(self::BELONGS_TO, 'Person', 'requester_id'),
+			'requester' => array(self::BELONGS_TO, 'User', 'requester_id'),
 			'stock' => array(self::BELONGS_TO, 'Stock', 'stock_id'),
-			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
+			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 			'issueLists' => array(self::HAS_MANY, 'IssueList', 'related_issue_id'),
 			'issueLists1' => array(self::HAS_MANY, 'IssueList', 'issue_id'),
 		);
@@ -203,23 +203,4 @@ class Issue extends CActiveRecord
 			self::STATUS_FINISHED,
 		);
 	}	
-
-	/**
-	 * @return string the status text display for the current issue
-	 */ 
-	public function getStatusText()
-	{
-		$statusOptions=$this->statusOptions;
-		return isset($statusOptions[$this->status_id]) ? $statusOptions[$this->status_id] : "unknown status ({$this->status_id})";
-	}
-
-	/**
-	 * @return string the type text display for the current issue
-	 */ 
-	public function getTypeText()
-	{
-		$typeOptions=$this->typeOptions;
-		return isset($typeOptions[$this->type_id]) ? $typeOptions[$this->type_id] : "unknown type ({$this->type_id})";
-	}
-	
 }

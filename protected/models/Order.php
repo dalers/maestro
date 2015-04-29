@@ -15,8 +15,8 @@
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
- * @property Person $createUser
- * @property Person $updateUser
+ * @property User $createUser
+ * @property User $updateUser
  * @property OrderItem[] $OrderItems
  */
 class Order extends CActiveRecord
@@ -56,8 +56,8 @@ class Order extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
-			'createUser' => array(self::BELONGS_TO, 'Person', 'create_user_id'),
-			'updateUser' => array(self::BELONGS_TO, 'Person', 'update_user_id'),
+			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
+			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 			'OrderItems' => array(self::HAS_MANY, 'OrderItem', 'order_id'),
 			'partslist' => array(self::BELONGS_TO, 'PvPn', 'parts_list_id'),
 		);

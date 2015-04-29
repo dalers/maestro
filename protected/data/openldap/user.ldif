@@ -1,0 +1,5 @@
+# Create Organizational Unit (Users)
+dn: ou=Users,dc=root,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: User
