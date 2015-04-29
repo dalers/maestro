@@ -56,8 +56,8 @@
 
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by Maestro developers.<br/>
-		Licensed according to the BSD 2-Clause license.<br/>
-		<?php echo Yii::powered(); ?>
+		Maestro is licensed according to the <a href="http://opensource.org/licenses/BSD-2-Clause">BSD 2-Clause license</a>.<br/>
+		<em>Maestro</em><sup>TM</sup>, <em>The ERP for Engineers</em><sup>TM</sup>, and <em>Transparency with Trust</em><sup>TM</sup> are used under <a href="https://github.com/dalers/maestro/wiki/Maestro-Trademark-And-Logo-Policy">license</a>.<br/>
 	</div><!-- footer -->
 
 </div><!-- page -->
