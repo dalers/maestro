@@ -144,4 +144,13 @@ class Project extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	/**
+	 * @return array of valid users for this project, indexed by user IDs
+	 */ 
+	public function getUserOptions()
+	{
+		$usersArray = CHtml::listData($this->tblPeople, 'id', 'username');	
+		return $usersArray;
+	} 
 }
