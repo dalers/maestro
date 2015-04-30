@@ -49,7 +49,7 @@ Legal
 -----
 Maestro source is copyright by its authors, as recorded in the maestro repository commit log. The Maestro project does not use a Contributor License Agreement (CLA) or a Copyright Assignment Agreement (CAA). By submitting work to the project, you agree to license your contribution according to the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
-*Maestro*, *ERP for Engineers*, and *Transparency with Trust* are trademarks of Dale R. Scott, and provided for use according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Trademark-and-logo-policy).
+*Maestro*<sup>TM</sup>, *ERP for Engineers*<sup>TM</sup>, and *Transparency with Trust*<sup>TM</sup> are used under license according to the [Maestro Trademark and Logo Policy](https://github.com/dalers/maestro/wiki/Maestro-Trademark-And-Logo-Policy).
 
 *Parts&Vendors*<sup>TM</sup> is a trademark of [Trilogy Design](http://www.trilogydesign.com/)
 
