@@ -4,67 +4,10 @@ class m131105_025331_initial_schema extends CDbMigration
 {
 	public function up()
 	{
-		// TODO review fk typical "CASCADE", "RESTRICT" constraints. E.g. delete PO should not delete user, and vice versa.
+		//TODO review typical fk constraints "CASCADE", "RESTRICT" constraints.
+		//E.g. deleting a PO must not delete user and vice versa.
 		
-		//activity
-		//project activities
-		$this->createTable('tbl_activity', array(
-			'id' => 'pk',
-			
-			'name' => 'string',
-			'begin_date' => 'datetime',
-			'end_date' => 'datetime',
-			'duration' => 'integer', //in work units
-			'completion' => 'float', //percentage of activity completed
-			'outline_number' => 'string', //e.g. WBS code
-			'cost' => 'float', //$$$s
-			'web_link' => 'string',
-			'notes' => 'string',
-
-			'coordinator_id' => 'integer DEFAULT NULL',
-			'project_id' => 'integer DEFAULT NULL',
-			'status_id' => 'integer DEFAULT NULL', //[Inactive|Active], defined in class, not fk
-			'type_id' => 'integer DEFAULT NULL', //[Type1|Type2|Type3], defined in class, not fk
-
-			'create_time' => 'datetime NOT NULL',
-			'create_user_id' => 'integer NOT NULL',
-			'update_time' => 'datetime NOT NULL',
-			'update_user_id' => 'integer NOT NULL',
-		), 'ENGINE = InnoDB');
-
-		//activity_part_assignment (equipment)
-		//many-to-many activity-to-part
-		$this->createTable('tbl_activity_part_assignment', array(
-			'activity_id' => 'integer DEFAULT NULL',
-			'part_id' => 'integer DEFAULT NULL',
-			'PRIMARY KEY (`activity_id`,`part_id`)',
-		), 'ENGINE=InnoDB');
-
-		//activity_predecessor_assignment
-		//many-to-many activity-to-predecessor
-		$this->createTable('tbl_activity_predecessor_assignment', array(
-			'activity_id' => 'integer DEFAULT NULL',
-			'predecessor_id' => 'integer DEFAULT NULL',
-			'PRIMARY KEY (`activity_id`,`predecessor_id`)',
-		), 'ENGINE=InnoDB');
-
-		//activity_resource_assignment (human resource)
-		//many-to-many activity-to-resource
-		$this->createTable('tbl_activity_resource_assignment', array(
-			'activity_id' => 'integer DEFAULT NULL',
-			'resource_id' => 'integer DEFAULT NULL',
-			'PRIMARY KEY (`activity_id`,`resource_id`)',
-		), 'ENGINE=InnoDB');
-
-		//activity_stock_assignment (equipment)
-		//many-to-many activity-to-stock
-		$this->createTable('tbl_activity_stock_assignment', array(
-			'activity_id' => 'integer DEFAULT NULL',
-			'stock_id' => 'integer DEFAULT NULL',
-			'PRIMARY KEY (`activity_id`,`stock_id`)',
-		), 'ENGINE=InnoDB');
-
-		//currency (origin parts&vendors CUR)
+		//currency (origin: parts&vendors CUR)
 		//currencies with print symbol, formatting and exchange rate
 		$this->createTable('tbl_currency', array(
 			'id' => 'pk',
@@ -131,18 +74,27 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');        
 
 		//issue
-		//an observation of some (often undesirable) behavior
+		//an observation of a past behavior that must be investigated (which
+		//be only taking note of, and to leave a record which may be of use
+		//in some later investigation), or a behavior to be investigated or
+		//verified at some later time.
 		$this->createTable('tbl_issue', array(
 			'id' => 'pk',
 			'name' => 'string NOT NULL',
 			'description' => 'text',
 			
-			'owner_id' => 'integer DEFAULT NULL', //champion or manager resolving the issue
-			'part_id' => 'integer DEFAULT NULL', //part (design) which the issue relates to
-			'project_id' =>'integer DEFAULT NULL', //project which the issue relates to
-			'requester_id' => 'integer DEFAULT NULL', //user who requested observation be recorded (typically the observer)
+			'begin_date' => 'datetime NULL',
+			'end_date' => 'datetime DEFAULT NULL',
+			'duration' => 'integer DEFAULT NULL', //in work units
+			'completion' => 'float DEFAULT NULL', //percentage of activity completed
+			'outline_number' => 'string DEFAULT NULL', //e.g. WBS code
+			'cost' => 'float DEFAULT NULL', //$$$s
+			'web_link' => 'string DEFAULT NULL', //URL of arbitrary web resource
+			
+			'owner_id' => 'integer DEFAULT NULL', //user accountable for resolution of issuehaving issue resolved
+			'project_id' =>'integer DEFAULT NULL', //project that the issue relates to
+			'requester_id' => 'integer DEFAULT NULL', //user taking accountability for having issue recorded
 			'status_id' => 'integer DEFAULT NULL', //[NOT_STARTED|STARTED|FINISHED], defined in class, not fk
-			'stock_id' => 'integer DEFAULT NULL', //stock item to which the issue relates (serial number or lot)
 			'type_id' => 'integer DEFAULT NULL', //[BUG|FEATURE|TASK], defined in class, not fk
 
 			'create_time' => 'datetime',
@@ -152,11 +104,48 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');
 
 		//issue_list
-		//related issues (similar concept to part_list)
+		//issues determined to be related (child issues)
 		$this->createTable('tbl_issue_list', array(
 			'id' => 'pk',
 			'issue_id' => 'integer DEFAULT NULL',
-			'related_issue_id' => 'integer DEFAULT NULL',
+			'related_id' => 'integer DEFAULT NULL',
+		), 'ENGINE=InnoDB');
+
+		//issue_part_assignment
+		//parts required to resolve an issue, or which themselves require resolution
+		//many-to-many issues to parts
+		$this->createTable('tbl_issue_part_assignment', array(
+			'issue_id' => 'integer DEFAULT NULL',
+			'part_id' => 'integer DEFAULT NULL',
+			'PRIMARY KEY (`issue_id`,`part_id`)',
+		), 'ENGINE=InnoDB');
+
+		//issue_predecessor_assignment
+		//issues which require resolution before an issue
+		//for use in scheduling TASK-type issues
+		//many-to-many issues to predecessors
+		$this->createTable('tbl_issue_predecessor_assignment', array(
+			'issue_id' => 'integer DEFAULT NULL',
+			'predecessor_id' => 'integer DEFAULT NULL',
+			'PRIMARY KEY (`issue_id`,`predecessor_id`)',
+		), 'ENGINE=InnoDB');
+
+		//issue_stock_assignment
+		//stock required to resolve an issue, or which themselves require resolution
+		//many-to-many issues to stock items
+		$this->createTable('tbl_issue_stock_assignment', array(
+			'issue_id' => 'integer DEFAULT NULL',
+			'stock_id' => 'integer DEFAULT NULL',
+			'PRIMARY KEY (`issue_id`,`stock_id`)',
+		), 'ENGINE=InnoDB');
+
+		//issue_user_assignment
+		//team of users tasked with resolving issue
+		//many-to-many issues to users
+		$this->createTable('tbl_issue_user_assignment', array(
+			'issue_id' => 'integer DEFAULT NULL',
+			'user_id' => 'integer DEFAULT NULL',
+			'PRIMARY KEY (`issue_id`,`user_id`)',
 		), 'ENGINE=InnoDB');
 
 		//manufacturer (origin: parts&vendors MFR)
@@ -794,28 +783,6 @@ class m131105_025331_initial_schema extends CDbMigration
 
 		//foreign keys
 		//
-		//activity
-		$this->addForeignKey("fk_activity_to_coordinator", "tbl_activity", "coordinator_id", "tbl_user", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_activity_to_project", "tbl_activity", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_activity_to_create_user", "tbl_activity", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_activity_to_update_user", "tbl_activity", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
-		
-        //activity_part_assignment
-		$this->addForeignKey("fk_activity_to_part", "tbl_activity_part_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_activity", "tbl_activity_part_assignment", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
-		
-        //activity_predecessor_assignment
-		$this->addForeignKey("fk_activity_to_predecessor", "tbl_activity_predecessor_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_predecessor_to_activity", "tbl_activity_predecessor_assignment", "predecessor_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
-		
-        //activity_resource_assignment
-		$this->addForeignKey("fk_activity_to_resource", "tbl_activity_resource_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_resource_to_activity", "tbl_activity_resource_assignment", "resource_id", "tbl_user", "id", "CASCADE", "RESTRICT");
-		
-        //activity_stock_assignment
-		$this->addForeignKey("fk_activity_to_stock", "tbl_activity_stock_assignment", "activity_id", "tbl_activity", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_stock_to_activity", "tbl_activity_stock_assignment", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
-		
 		//file
 		$this->addForeignKey("fk_file_to_part", "tbl_file", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 
@@ -826,17 +793,31 @@ class m131105_025331_initial_schema extends CDbMigration
 
 		//issue
 		$this->addForeignKey("fk_issue_to_owner", "tbl_issue", "owner_id", "tbl_user", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_part", "tbl_issue", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_project", "tbl_issue", "project_id", "tbl_project", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_requester", "tbl_issue", "requester_id", "tbl_user", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_to_stock", "tbl_issue", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_create_user", "tbl_issue", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_issue_to_update_user", "tbl_issue", "update_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		
 		//issue_list
 		$this->addForeignKey("fk_issue_list_to_parent", "tbl_issue_list", "issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_issue_list_to_child", "tbl_issue_list", "related_issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_issue_list_to_child", "tbl_issue_list", "related_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
 
+        //issue_part_assignment
+		$this->addForeignKey("fk_issue_to_part", "tbl_issue_part_assignment", "issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_part_to_issue", "tbl_issue_part_assignment", "part_id", "tbl_part", "id", "CASCADE", "RESTRICT");
+		
+        //issue_predecessor_assignment
+		$this->addForeignKey("fk_issue_to_predecessor", "tbl_issue_predecessor_assignment", "issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_predecessor_to_issue", "tbl_issue_predecessor_assignment", "predecessor_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
+		
+        //issue_stock_assignment
+		$this->addForeignKey("fk_issue_to_stock", "tbl_issue_stock_assignment", "issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_stock_to_issue", "tbl_issue_stock_assignment", "stock_id", "tbl_stock", "id", "CASCADE", "RESTRICT");
+		
+        //issue_user_assignment
+		$this->addForeignKey("fk_issue_to_user", "tbl_issue_user_assignment", "issue_id", "tbl_issue", "id", "CASCADE", "RESTRICT");
+		$this->addForeignKey("fk_user_to_issue", "tbl_issue_user_assignment", "user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
+		
 		//manufacturer_part
 		$this->addForeignKey("fk_mfrpn_mfr", "tbl_manufacturer_part", "manufacturer_id", "tbl_manufacturer", "id", "CASCADE", "RESTRICT");
 
@@ -926,17 +907,16 @@ class m131105_025331_initial_schema extends CDbMigration
 	{
 		$this->execute("SET foreign_key_checks = 0;");
 
-		$this->dropTable('tbl_activity');
-		$this->dropTable('tbl_activity_part_assignment');
-		$this->dropTable('tbl_activity_predecessor_assignment');
-		$this->dropTable('tbl_activity_resource_assignment');		
-		$this->dropTable('tbl_activity_stock_assignment');		
 		$this->dropTable('tbl_currency');
 		$this->dropTable('tbl_customer');
 		$this->dropTable('tbl_file');
 		$this->dropTable('tbl_invoice');
 		$this->dropTable('tbl_issue');
 		$this->dropTable('tbl_issue_list');
+		$this->dropTable('tbl_issue_part_assignment');
+		$this->dropTable('tbl_issue_predecessor_assignment');
+		$this->dropTable('tbl_issue_stock_assignment');		
+		$this->dropTable('tbl_issue_user_assignment');		
 		$this->dropTable('tbl_manufacturer');
 		$this->dropTable('tbl_manufacturer_part');
 		//$this->dropTable('tbl_migration');

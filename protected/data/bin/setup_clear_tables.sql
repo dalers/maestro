@@ -8,16 +8,15 @@
 
 SET FOREIGN_KEY_CHECKS=0;
 
-TRUNCATE TABLE `tbl_activity`;
-TRUNCATE TABLE `tbl_activity_part_assignment`;
-TRUNCATE TABLE `tbl_activity_predecessor_assignment`;
-TRUNCATE TABLE `tbl_activity_resource_assignment`;
-TRUNCATE TABLE `tbl_activity_stock_assignment`;
 TRUNCATE TABLE `tbl_currency`;
 TRUNCATE TABLE `tbl_customer`;
 TRUNCATE TABLE `tbl_file`;
 TRUNCATE TABLE `tbl_invoice`;
 TRUNCATE TABLE `tbl_issue`;
+TRUNCATE TABLE `tbl_issue_part_assignment`;
+TRUNCATE TABLE `tbl_issue_predecessor_assignment`;
+TRUNCATE TABLE `tbl_issue_user_assignment`;
+TRUNCATE TABLE `tbl_issue_stock_assignment`;
 TRUNCATE TABLE `tbl_manufacturer`;
 TRUNCATE TABLE `tbl_manufacturer_part`;
 TRUNCATE TABLE `tbl_order`;

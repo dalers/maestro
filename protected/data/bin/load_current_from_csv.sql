@@ -78,78 +78,6 @@ SET foreign_key_checks = 0;
 -- save time, anything unique is guaranteed to be unique in import
 SET unique_checks = 0;
 
--- activity (GanttProject -> csv -> project.xlsx -> csv)
--- Windows EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/activity.csv'
-INTO TABLE maestro.tbl_activity
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\r\n'
-IGNORE 1 LINES
-(id,name,status_id,begin_date,end_date,duration,completion,outline_number,cost,web_link,notes,coordinator_id,project_id,create_time,create_user_id,update_time,update_user_id);
-
--- NO DATA
--- activity_part_assignment (GanttProject -> csv -> project.xlsx -> csv)
--- Windows EOL
--- LOAD DATA INFILE '/home/maestro/scc/csv/activity_part_assignment].csv'
--- INTO TABLE maestro.tbl_activity_part_assignment
--- CHARACTER SET ascii
--- FIELDS
--- 	TERMINATED BY ','
--- 	OPTIONALLY ENCLOSED BY '"'
--- 	ESCAPED BY '"'
--- LINES
--- 	TERMINATED BY '\r\n'
--- IGNORE 1 LINES
--- (activity_id,part_id);
-
--- activity_predecessor_assignment (GanttProject -> csv -> project.xlsx -> csv)
--- Windows EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/activity_predecessor_assignment.csv'
-INTO TABLE maestro.tbl_activity_predecessor_assignment
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\r\n'
-IGNORE 1 LINES
-(activity_id,predecessor_id);
-
--- activity_resource_assignment (GanttProject -> csv -> project.xlsx -> csv)
--- Windows EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/activity_resource_assignment.csv'
-INTO TABLE maestro.tbl_activity_resource_assignment
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\r\n'
-IGNORE 1 LINES
-(activity_id,resource_id);
-
--- NO DATA
--- activity_stock_assignment (GanttProject -> csv -> project.xlsx -> csv)
--- Windows EOL
--- LOAD DATA INFILE '/home/maestro/scc/csv/activity_stock_assignment.csv'
--- INTO TABLE maestro.tbl_activity_stock_assignment
--- CHARACTER SET ascii
--- FIELDS
---	TERMINATED BY ','
---	OPTIONALLY ENCLOSED BY '"'
---	ESCAPED BY '"'
--- LINES
---	TERMINATED BY '\r\n'
--- IGNORE 1 LINES
--- (activity_id,stock_id);
-
 -- currency (origin: parts&vendors CUR)
 -- use Unix EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/pv_cur.csv'
@@ -206,7 +134,8 @@ LINES
 IGNORE 1 LINES
 (id,part_id,FILPNPartNumber,FILFilePath,FILFileName,FILView,FILNotes);
 
--- issue (issue.xlsx)
+-- issue
+-- non-conformance-type issues (BUG or FEATURE)(issue.xlsx)
 -- Windows EOL
 LOAD DATA INFILE '/home/maestro/scc/csv/issue.csv'
 INTO TABLE maestro.tbl_issue
@@ -221,12 +150,99 @@ IGNORE 1 LINES
 (id,name,description,@owner_id,@part_id,@project_id,@requester_id,@status_id,@stock_id,@type_id,create_time,create_user_id,update_time,update_user_id)
 SET
     owner_id     = nullif(@owner_id, ''),
-    part_id      = nullif(@part_id, ''),
     project_id   = nullif(@project_id, ''),
     requester_id = nullif(@part_id, ''),
     status_id    = nullif(@status_id, ''),
-    stock_id     = nullif(@stock_id, ''),
     type_id      = nullif(@type_id, '');
+
+-- issue
+-- TASK-type issues (project activities/tasks)(GanttProject -> csv -> project.xlsx -> csv)
+-- Windows EOL
+LOAD DATA INFILE '/home/maestro/scc/csv/project-issue.csv'
+INTO TABLE maestro.tbl_issue
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(id,name,type_id,status_id,begin_date,end_date,duration,completion,outline_number,cost,web_link,description,owner_id,project_id,create_time,create_user_id,update_time,update_user_id);
+
+-- issue_list
+-- issues determined to be related (child issues)
+-- Windows EOL
+-- LOAD DATA INFILE '/home/maestro/scc/csv/issue_list.csv'
+-- INTO TABLE maestro.tbl_issue_list
+-- CHARACTER SET ascii
+-- FIELDS
+-- 	TERMINATED BY ','
+-- 	OPTIONALLY ENCLOSED BY '"'
+-- 	ESCAPED BY '"'
+-- LINES
+-- 	TERMINATED BY '\r\n'
+-- IGNORE 1 LINES
+-- (id,issue_id,related_id);
+
+-- issue_part_assignment
+-- parts required to resolve an issue, or which themselves require resolution
+-- Windows EOL
+-- LOAD DATA INFILE '/home/maestro/scc/csv/issue_part_assignment].csv'
+-- INTO TABLE maestro.tbl_activity_part_assignment
+-- CHARACTER SET ascii
+-- FIELDS
+-- 	TERMINATED BY ','
+-- 	OPTIONALLY ENCLOSED BY '"'
+-- 	ESCAPED BY '"'
+-- LINES
+-- 	TERMINATED BY '\r\n'
+-- IGNORE 1 LINES
+-- (activity_id,part_id);
+
+-- issue_predecessor_assignment
+-- issues which require resolution before an issue (GanttProject -> csv -> project.xlsx -> csv)
+-- Windows EOL
+LOAD DATA INFILE '/home/maestro/scc/csv/project-issue-predecessor.csv'
+INTO TABLE maestro.tbl_issue_predecessor_assignment
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(issue_id,predecessor_id);
+
+-- issue_stock_assignment (GanttProject -> csv -> project.xlsx -> csv)
+-- stock required to resolve an issue, or which themselves require resolution
+-- Windows EOL
+-- LOAD DATA INFILE '/home/maestro/scc/csv/issue_stock_assignment.csv'
+-- INTO TABLE maestro.tbl_issue_stock_assignment
+-- CHARACTER SET ascii
+-- FIELDS
+--	TERMINATED BY ','
+--	OPTIONALLY ENCLOSED BY '"'
+--	ESCAPED BY '"'
+-- LINES
+--	TERMINATED BY '\r\n'
+-- IGNORE 1 LINES
+-- (issue_id,stock_id);
+
+-- issue_user_assignment (GanttProject -> csv -> project.xlsx -> csv)
+-- Windows EOL
+LOAD DATA INFILE '/home/maestro/scc/csv/project-issue-user.csv'
+INTO TABLE maestro.tbl_issue_user_assignment
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(issue_id,user_id);
 
 -- manufacturer (origin: parts&vendors MFR)
 -- Unix EOL
