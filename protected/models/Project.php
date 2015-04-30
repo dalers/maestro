@@ -150,7 +150,7 @@ class Project extends CActiveRecord
 	 */ 
 	public function getUserOptions()
 	{
-		$usersArray = CHtml::listData($this->tblPeople, 'id', 'username');	
+		$usersArray = CHtml::listData($this->users, 'id', 'username');	
 		return $usersArray;
 	} 
 }
