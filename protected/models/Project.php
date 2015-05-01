@@ -19,7 +19,6 @@
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
- * @property Activity[] $activities
  * @property Issue[] $issues
  * @property Order[] $orders
  * @property User $createUser
@@ -64,7 +63,6 @@ class Project extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'activities' => array(self::HAS_MANY, 'Activity', 'project_id'),
 			'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
 			'orders' => array(self::HAS_MANY, 'Order', 'project_id'),
 			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
@@ -146,7 +144,7 @@ class Project extends CActiveRecord
 	}
 	
 	/**
-	 * @return array of valid users for this project, indexed by user IDs
+	 * @return array of users for this project, indexed by user IDs
 	 */ 
 	public function getUserOptions()
 	{

@@ -7,12 +7,17 @@
  * @property integer $id
  * @property string $name
  * @property string $description
+ * @property string $begin_date
+ * @property string $end_date
+ * @property integer $duration
+ * @property double $completion
+ * @property string $outline_number
+ * @property double $cost
+ * @property string $web_link
  * @property integer $owner_id
- * @property integer $part_id
  * @property integer $project_id
  * @property integer $requester_id
  * @property integer $status_id
- * @property integer $stock_id
  * @property integer $type_id
  * @property string $create_time
  * @property integer $create_user_id
@@ -22,13 +27,16 @@
  * The followings are the available model relations:
  * @property User $createUser
  * @property User $owner
- * @property Part $part
  * @property Project $project
  * @property User $requester
- * @property Stock $stock
  * @property User $updateUser
  * @property IssueList[] $issueLists
  * @property IssueList[] $issueLists1
+ * @property Part[] $parts
+ * @property IssuePredecessorAssignment[] $issuePredecessorAssignments
+ * @property IssuePredecessorAssignment[] $issuePredecessorAssignments1
+ * @property Stock[] $stocks
+ * @property User[] $users
  */
 class Issue extends CActiveRecord
 {
@@ -57,14 +65,15 @@ class Issue extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('owner_id, part_id, project_id, requester_id, status_id, stock_id, type_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('duration, owner_id, project_id, requester_id, status_id, type_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('type_id', 'in', 'range'=>self::getAllowedTypeRange()),
 			array('status_id', 'in', 'range'=>self::getAllowedStatusRange()),			
-			array('name', 'length', 'max'=>255),
-			array('description, create_time, update_time', 'safe'),
+			array('completion, cost', 'numerical'),
+			array('name, outline_number, web_link', 'length', 'max'=>255),
+			array('description, begin_date, end_date, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, description, owner_id, part_id, project_id, requester_id, status_id, stock_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, name, description, begin_date, end_date, duration, completion, outline_number, cost, web_link, owner_id, project_id, requester_id, status_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,13 +87,16 @@ class Issue extends CActiveRecord
 		return array(
 			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
 			'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
-			'part' => array(self::BELONGS_TO, 'Part', 'part_id'),
 			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 			'requester' => array(self::BELONGS_TO, 'User', 'requester_id'),
-			'stock' => array(self::BELONGS_TO, 'Stock', 'stock_id'),
 			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
-			'issueLists' => array(self::HAS_MANY, 'IssueList', 'related_issue_id'),
+			'issueLists' => array(self::HAS_MANY, 'IssueList', 'related_id'),
 			'issueLists1' => array(self::HAS_MANY, 'IssueList', 'issue_id'),
+			'parts' => array(self::MANY_MANY, 'Part', 'tbl_issue_part_assignment(issue_id, part_id)'),
+			'issuePredecessorAssignments' => array(self::HAS_MANY, 'IssuePredecessorAssignment', 'issue_id'),
+			'issuePredecessorAssignments1' => array(self::HAS_MANY, 'IssuePredecessorAssignment', 'predecessor_id'),
+			'stocks' => array(self::MANY_MANY, 'Stock', 'tbl_issue_stock_assignment(issue_id, stock_id)'),
+			'users' => array(self::MANY_MANY, 'User', 'tbl_issue_user_assignment(issue_id, user_id)'),
 		);
 	}
 
@@ -97,12 +109,17 @@ class Issue extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'description' => 'Description',
+			'begin_date' => 'Begin Date',
+			'end_date' => 'End Date',
+			'duration' => 'Duration',
+			'completion' => 'Completion',
+			'outline_number' => 'Outline Number',
+			'cost' => 'Cost',
+			'web_link' => 'Web Link',
 			'owner_id' => 'Owner',
-			'part_id' => 'Part',
 			'project_id' => 'Project',
 			'requester_id' => 'Requester',
 			'status_id' => 'Status',
-			'stock_id' => 'Stock',
 			'type_id' => 'Type',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
@@ -132,12 +149,17 @@ class Issue extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('begin_date',$this->begin_date,true);
+		$criteria->compare('end_date',$this->end_date,true);
+		$criteria->compare('duration',$this->duration);
+		$criteria->compare('completion',$this->completion);
+		$criteria->compare('outline_number',$this->outline_number,true);
+		$criteria->compare('cost',$this->cost);
+		$criteria->compare('web_link',$this->web_link,true);
 		$criteria->compare('owner_id',$this->owner_id);
-		$criteria->compare('part_id',$this->part_id);
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('requester_id',$this->requester_id);
 		$criteria->compare('status_id',$this->status_id);
-		$criteria->compare('stock_id',$this->stock_id);
 		$criteria->compare('type_id',$this->type_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);

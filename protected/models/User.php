@@ -21,16 +21,13 @@
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
- * @property Activity[] $activities
- * @property Activity[] $activities1
- * @property Activity[] $activities2
- * @property Activity[] $tblActivities
  * @property Invoice[] $invoices
  * @property Invoice[] $invoices1
  * @property Issue[] $issues
  * @property Issue[] $issues1
  * @property Issue[] $issues2
  * @property Issue[] $issues3
+ * @property Issue[] $issues4
  * @property Order[] $orders
  * @property Order[] $orders1
  * @property OrderItem[] $orderItems
@@ -81,16 +78,13 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'activities' => array(self::HAS_MANY, 'Activity', 'coordinator_id'),
-			'activities1' => array(self::HAS_MANY, 'Activity', 'create_user_id'),
-			'activities2' => array(self::HAS_MANY, 'Activity', 'update_user_id'),
-			'tblActivities' => array(self::MANY_MANY, 'Activity', 'tbl_activity_resource_assignment(resource_id, activity_id)'),
 			'invoices' => array(self::HAS_MANY, 'Invoice', 'create_user_id'),
 			'invoices1' => array(self::HAS_MANY, 'Invoice', 'update_user_id'),
 			'issues' => array(self::HAS_MANY, 'Issue', 'create_user_id'),
 			'issues1' => array(self::HAS_MANY, 'Issue', 'owner_id'),
 			'issues2' => array(self::HAS_MANY, 'Issue', 'requester_id'),
 			'issues3' => array(self::HAS_MANY, 'Issue', 'update_user_id'),
+			'issues4' => array(self::MANY_MANY, 'Issue', 'tbl_issue_user_assignment(user_id, issue_id)'),
 			'orders' => array(self::HAS_MANY, 'Order', 'create_user_id'),
 			'orders1' => array(self::HAS_MANY, 'Order', 'update_user_id'),
 			'orderItems' => array(self::HAS_MANY, 'OrderItem', 'create_user_id'),

@@ -27,13 +27,43 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'owner_id'); ?>
-		<?php echo $form->textField($model,'owner_id'); ?>
+		<?php echo $form->label($model,'begin_date'); ?>
+		<?php echo $form->textField($model,'begin_date'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'part_id'); ?>
-		<?php echo $form->textField($model,'part_id'); ?>
+		<?php echo $form->label($model,'end_date'); ?>
+		<?php echo $form->textField($model,'end_date'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'duration'); ?>
+		<?php echo $form->textField($model,'duration'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'completion'); ?>
+		<?php echo $form->textField($model,'completion'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'outline_number'); ?>
+		<?php echo $form->textField($model,'outline_number',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'cost'); ?>
+		<?php echo $form->textField($model,'cost'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'web_link'); ?>
+		<?php echo $form->textField($model,'web_link',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'owner_id'); ?>
+		<?php echo $form->textField($model,'owner_id'); ?>
 	</div>
 
 	<div class="row">
@@ -49,11 +79,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'status_id'); ?>
 		<?php echo $form->textField($model,'status_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'stock_id'); ?>
-		<?php echo $form->textField($model,'stock_id'); ?>
 	</div>
 
 	<div class="row">
