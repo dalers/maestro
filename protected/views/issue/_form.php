@@ -106,50 +106,6 @@
 		<?php echo $form->error($model,'type_id'); ?>
 	</div>
 
-	<?php /*
-	<div class="row">
-		<?php echo $form->labelEx($model,'begin_date'); ?>
-		<?php echo $form->textField($model,'begin_date'); ?>
-		<?php echo $form->error($model,'begin_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'end_date'); ?>
-		<?php echo $form->textField($model,'end_date'); ?>
-		<?php echo $form->error($model,'end_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'duration'); ?>
-		<?php echo $form->textField($model,'duration'); ?>
-		<?php echo $form->error($model,'duration'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'completion'); ?>
-		<?php echo $form->textField($model,'completion'); ?>
-		<?php echo $form->error($model,'completion'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'outline_number'); ?>
-		<?php echo $form->textField($model,'outline_number',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'outline_number'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'cost'); ?>
-		<?php echo $form->textField($model,'cost'); ?>
-		<?php echo $form->error($model,'cost'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'web_link'); ?>
-		<?php echo $form->textField($model,'web_link',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'web_link'); ?>
-	</div>
-	*/ ?>	
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
