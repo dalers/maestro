@@ -231,8 +231,8 @@ class Issue extends CActiveRecord
 	 */ 
 	public function getStatusText()
 	{
-		//$statusOptions=$this->statusOptions;
-		$statusOptions=$this->getStatusOptions();
+		// following is equivalent to $statusOptions=$this->getStatusOptions();
+		$statusOptions=$this->statusOptions;
 		return isset($statusOptions[$this->status_id]) ? $statusOptions[$this->status_id] : "unknown status ({$this->status_id})";
 	}
 
