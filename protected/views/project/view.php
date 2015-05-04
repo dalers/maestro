@@ -27,7 +27,10 @@ $this->menu=array(
 		'description',
 		'code',
 		'customer_id',
-		'owner_id',
+		array(        
+			'name'=>'owner_id',
+				'value'=>isset($model->owner)?CHtml::encode($model->owner->username):"unknown"
+		),		
 		'phase_id',
 		'status_id',
 		'type_id',
