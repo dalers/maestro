@@ -34,8 +34,14 @@ $this->menu=array(
 		'owner_id',
 		'project_id',
 		'requester_id',
-		'status_id',
-		'type_id',
+		array(        
+		  'name'=>'status_id',
+			'value'=>CHtml::encode($model->getStatusText())
+		),
+		array(        
+		  'name'=>'type_id',
+			'value'=>CHtml::encode($model->getTypeText())
+		),
 		'create_time',
 		'create_user_id',
 		'update_time',
