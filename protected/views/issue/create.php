@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Issue', 'url'=>array('index')),
-	array('label'=>'Manage Issue', 'url'=>array('admin')),
+	array('label'=>'List Issues', 'url'=>array('index', 'pid'=>$model->project->id)),
+	array('label'=>'Manage Issues', 'url'=>array('admin', 'pid'=>$model->project->id)),
 );
 ?>
 

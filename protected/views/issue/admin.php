@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Issue', 'url'=>array('index')),
-	array('label'=>'Create Issue', 'url'=>array('create')),
+	array('label'=>'List Issues', 'url'=>array('index', 'pid'=>$model->project->id)),
+	array('label'=>'Create Issue', 'url'=>array('create', 'pid'=>$model->project->id)),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -48,18 +48,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'name',
 		'description',
-		'begin_date',
-		'end_date',
-		'duration',
-		/*
-		'completion',
-		'outline_number',
-		'cost',
-		'web_link',
 		'owner_id',
+		'part_id',
 		'project_id',
+		/*
 		'requester_id',
 		'status_id',
+		'stock_id',
 		'type_id',
 		'create_time',
 		'create_user_id',
