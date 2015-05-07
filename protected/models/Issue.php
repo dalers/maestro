@@ -146,26 +146,34 @@ class Issue extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
+		//$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('begin_date',$this->begin_date,true);
 		$criteria->compare('end_date',$this->end_date,true);
-		$criteria->compare('duration',$this->duration);
-		$criteria->compare('completion',$this->completion);
-		$criteria->compare('outline_number',$this->outline_number,true);
-		$criteria->compare('cost',$this->cost);
-		$criteria->compare('web_link',$this->web_link,true);
+		//$criteria->compare('duration',$this->duration);
+		//$criteria->compare('completion',$this->completion);
+		//$criteria->compare('outline_number',$this->outline_number,true);
+		//$criteria->compare('cost',$this->cost);
+		//$criteria->compare('web_link',$this->web_link,true);
 		$criteria->compare('owner_id',$this->owner_id);
-		$criteria->compare('project_id',$this->project_id);
+		//$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('requester_id',$this->requester_id);
 		$criteria->compare('status_id',$this->status_id);
 		$criteria->compare('type_id',$this->type_id);
 		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('create_user_id',$this->create_user_id);
+		//$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_time',$this->update_time,true);
-		$criteria->compare('update_user_id',$this->update_user_id);
+		//$criteria->compare('update_user_id',$this->update_user_id);
 
+		//winesett implementation breaks on-the-fly and advanced search
+		//$criteria->condition='project_id=:projectID';
+		//$criteria->params=array(':projectID'=>$this->project_id);
+		//by rewriting previously prepared conditions. project_id is set
+		//before calling search, so no reason to add complication
+		//see: http://stackoverflow.com/questions/10577198/yii-advanced-search-at-admin-page-does-not-work-changed-model-search-criteri
+		$criteria->compare('project_id',$this->project_id);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

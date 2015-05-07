@@ -83,7 +83,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'name' => 'string NOT NULL',
 			'description' => 'text',
 			
-			'begin_date' => 'datetime NULL',
+			'begin_date' => 'datetime DEFAULT NULL',
 			'end_date' => 'datetime DEFAULT NULL',
 			'duration' => 'integer DEFAULT NULL', //in work units
 			'completion' => 'float DEFAULT NULL', //percentage of activity completed
