@@ -53,14 +53,14 @@ class ProjectController extends Controller
 	{
 		$issueDataProvider=new CActiveDataProvider('Issue', array(
 			'criteria'=>array(
-		 		'condition'=>'project_id=:projectId',
-		 		'params'=>array(':projectId'=>$this->loadModel($id)->id),
-		 	),
-		 	'pagination'=>array(
-		 		'pageSize'=>1,
-		 	),
+				'condition'=>'project_id=:projectId',
+				'params'=>array(':projectId'=>$this->loadModel($id)->id),
+			),
+			'pagination'=>array(
+				'pageSize'=>1,
+			),
 		 ));
-		
+
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 			'issueDataProvider'=>$issueDataProvider,

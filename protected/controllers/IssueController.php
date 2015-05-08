@@ -11,8 +11,8 @@ class IssueController extends Controller
 	/**
 	 * @var private property containing the associated Project model instance.
 	 */
-	private $_project = null; 
-	
+	private $_project = null;
+
 	/**
 	 * @return array action filters
 	 */
@@ -149,7 +149,7 @@ class IssueController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Issue']))
 			$model->attributes=$_GET['Issue'];
-		
+
 		$model->project_id = $this->_project->id;
 
 		$this->render('admin',array(
@@ -188,37 +188,37 @@ class IssueController extends Controller
 	/**
 	 * Protected method to load the associated Project model class
 	 * @param integer projectId the primary identifier of the associated Project
-	 * @return object the Project data model based on the primary key 
+	 * @return object the Project data model based on the primary key
 	 */
-	protected function loadProject($projectId)	 
+	protected function loadProject($projectId)
 	{
 		//if _project property is null, define it based on input project id
 		if($this->_project===null)
 		{
 			$this->_project=Project::model()->findByPk($projectId);
 			if($this->_project===null)
-	        {
-				throw new CHttpException(404,'The requested project does not exist.'); 
+			{
+				throw new CHttpException(404,'The requested project does not exist.');
 			}
 		}
 
-		return $this->_project; 
-	} 
-		
+		return $this->_project;
+	}
+
 	/**
 	 * In-class defined filter method, configured for use in the above filters() method
 	 * It is called before the actionCreate() action method is run in order to ensure a proper project context
 	 */
 	public function filterProjectContext($filterChain)
-	{   
-		//set the project identifier based on either the GET input 
-	    //request variables   
+	{
+		//set the project identifier based on either the GET input
+		//request variables
 		if(isset($_GET['pid']))
-			$this->loadProject($_GET['pid']);   
+			$this->loadProject($_GET['pid']);
 		else
 			throw new CHttpException(403,'Must specify project before performing this action.');
-			
+
 		//complete the running of other filters and execute the requested action
-		$filterChain->run(); 
-	} 	
+		$filterChain->run();
+	}
 }
