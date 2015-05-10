@@ -27,7 +27,7 @@
  * @property User $updateUser
  * @property User[] $users
  */
-class Project extends CActiveRecord
+class Project extends MaestroActiveRecord
 {
     /**
      * @return string the associated database table name

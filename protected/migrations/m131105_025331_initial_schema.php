@@ -91,9 +91,9 @@ class m131105_025331_initial_schema extends CDbMigration
 			'cost' => 'float DEFAULT NULL', //$$$s
 			'web_link' => 'string DEFAULT NULL', //URL of arbitrary web resource
 
-			'owner_id' => 'integer DEFAULT NULL', //user accountable for resolution of issuehaving issue resolved
-			'project_id' =>'integer DEFAULT NULL', //project that the issue relates to
-			'requester_id' => 'integer DEFAULT NULL', //user taking accountability for having issue recorded
+			'owner_id' => 'integer DEFAULT NULL', //the user who is accountable for the resolution of the issue
+			'project_id' =>'integer DEFAULT NULL', //the project which the issue is being managed as part of
+			'requester_id' => 'integer DEFAULT NULL', //the user taking responsibility for having the issue recorded
 			'status_id' => 'integer DEFAULT NULL', //[NOT_STARTED|STARTED|FINISHED], defined in class, not fk
 			'type_id' => 'integer DEFAULT NULL', //[BUG|FEATURE|TASK], defined in class, not fk
 
@@ -390,8 +390,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'code' => 'string DEFAULT NULL', //e.g. "P2015-001"
 			'description' => 'text NOT NULL', //e.g. "New smaller wireless for 2-seaters"
 
-			'customer_id' => 'integer DEFAULT NULL', //customer in case of a customer-directed project
-			'owner_id' => 'integer DEFAULT NULL', //primary stakeholder
+			'customer_id' => 'integer DEFAULT NULL', //customer, if the project has a direct customer
+			'owner_id' => 'integer DEFAULT NULL', //primary stakeholder user
 			'phase_id' => 'integer DEFAULT NULL', //[Idea|Definition|Design|Test|Pilot|Termination], defined in class, not fk
 			'status_id' => 'integer DEFAULT NULL', //[NotStarted|Started|Finished], defined in class, not fk
 			'type_id' => 'integer DEFAULT NULL', //[PDev|PCi|Rsrch|Infra], defined in class, not fk
@@ -593,6 +593,7 @@ class m131105_025331_initial_schema extends CDbMigration
 			'profile_id' => 'integer DEFAULT NULL', //[Admin|Demo|Eng|Finance|MfgBuild|PurchRcv|RelCtrl|Sales|View], defined in class, not fk
 
 			'last_login_time' => 'datetime DEFAULT NULL',
+			
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'int(11) DEFAULT NULL',
 			'update_time' => 'datetime DEFAULT NULL',

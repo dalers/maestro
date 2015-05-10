@@ -38,7 +38,7 @@
  * @property Stock[] $stocks
  * @property User[] $users
  */
-class Issue extends CActiveRecord
+class Issue extends MaestroActiveRecord
 {
     const TYPE_BUG=0;
     const TYPE_FEATURE=1;

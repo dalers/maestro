@@ -42,7 +42,7 @@
  * @property PurchaseOrder[] $purchaseOrders
  * @property PurchaseOrder[] $purchaseOrders1
  */
-class User extends CActiveRecord
+class User extends MaestroActiveRecord
 {
     /**
      * @return string the associated database table name
