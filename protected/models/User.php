@@ -44,6 +44,8 @@
  */
 class User extends MaestroActiveRecord
 {
+	public $password_repeat; //password confirmation for create/update (*_repeat is default comparision form)
+	
     /**
      * @return string the associated database table name
      */
@@ -60,11 +62,13 @@ class User extends MaestroActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('username, password, email', 'required'),
+            array('username, password, password_repeat, email', 'required'),
             array('status_id, profile_id', 'numerical', 'integerOnly'=>true),
             array('username, password, email, nick, lname, fname, initial', 'length', 'max'=>255),
 			array('username, email', 'unique'),
 			array('email', 'email'),
+			array('password', 'compare'), //compare/confirm password with password_repeat
+			array('password_repeat', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, username, password, email, nick, lname, fname, initial, status_id, profile_id, last_login_time, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
