@@ -65,12 +65,12 @@ class Issue extends MaestroActiveRecord
         // will receive user inputs.
         return array(
             array('name', 'required'),
-            array('duration, owner_id, project_id, requester_id, status_id, type_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+            array('duration, owner_id, project_id, requester_id, status_id, type_id', 'numerical', 'integerOnly'=>true),
             array('type_id', 'in', 'range'=>self::getAllowedTypeRange()),
             array('status_id', 'in', 'range'=>self::getAllowedStatusRange()),			
             array('completion, cost', 'numerical'),
             array('name, outline_number, web_link', 'length', 'max'=>255),
-            array('description, begin_date, end_date, create_time, update_time', 'safe'),
+            array('description, begin_date, end_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, description, begin_date, end_date, duration, completion, outline_number, cost, web_link, owner_id, project_id, requester_id, status_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),

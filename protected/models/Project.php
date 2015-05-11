@@ -46,9 +46,8 @@ class Project extends MaestroActiveRecord
         // will receive user inputs.
         return array(
             array('name, description', 'required'),
-            array('customer_id, owner_id, phase_id, status_id, type_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+            array('customer_id, owner_id, phase_id, status_id, type_id', 'numerical', 'integerOnly'=>true),
             array('name, code', 'length', 'max'=>255),
-            array('create_time, update_time', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, code, description, customer_id, owner_id, phase_id, status_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),

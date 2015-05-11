@@ -581,9 +581,10 @@ class m131105_025331_initial_schema extends CDbMigration
 		//user
 		$this->createTable('tbl_user', array(
 			'id' => 'pk',
-			'username' => 'string NOT NULL', //preferably same as network login id
-			'password' => 'string NOT NULL',
-			'email' => 'string',
+			'username' => 'string NOT NULL', //user *must* have a unique username (preferably network login id)
+			'email' => 'string NOT NULL', //user *must* have a unique email address
+			'password' => 'string NOT NULL', //user *must* have a password
+
 			'nick' => 'string',
 			'lname' => 'string', //e.g. "Tom"
 			'fname' => 'string', //e.g. "Swift"
