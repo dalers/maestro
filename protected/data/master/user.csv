@@ -1,6 +1,6 @@
 id,username,password,email,nick,lname,fname,initial,status_id,profile_id
-1,admin,admin,tswift@swiftconstructioncompany.net,AD,User,Admin,,2,1
-2,demo,demo,tswift@swiftconstructioncompany.net,DU,User,Demo,,2,2
+1,admin,admin,admin@swiftconstructioncompany.net,AU,User,Admin,,2,1
+2,demo,demo,admin@swiftconstructioncompany.net,DU,User,Demo,,2,2
 3,bjenks,appleton,bjenks@swiftconstructioncompany.net,BJ,Jenks,Barcoe,,2,3
 4,bswift,appleton,bswift@swiftconstructioncompany.net,BS,Swift,Barton,,2,9
 5,barmstrong,appleton,barmstrong@swiftconstructioncompany.net,BA,Armstrong,Bub,,2,3
