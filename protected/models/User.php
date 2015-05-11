@@ -44,7 +44,7 @@
  */
 class User extends MaestroActiveRecord
 {
-	public $password_repeat; //password confirmation for create/update (*_repeat is default comparision form)
+	public $password_repeat; //for password confirmation (*_repeat provides default comparision)
 	
     /**
      * @return string the associated database table name
@@ -179,4 +179,26 @@ class User extends MaestroActiveRecord
     {
         return parent::model($className);
     }
+		
+	/**
+	 * store hash of password in database
+	 */
+	protected function afterValidate()
+	{   
+		parent::afterValidate();
+		//ensure we don't have any errors
+		if(!$this->hasErrors())
+			$this->password = $this->hashPassword($this->password);                     
+	}
+
+	/**
+	 * generates password hash
+	 * @param string password
+	 * @return string hash
+	 */
+	public function hashPassword($password)
+	{
+		return md5($password);
+	}
+	
 }
