@@ -548,7 +548,7 @@ SET
     password = MD5(@password);
 
 -- parts&vendors
--- tables specific to PV6EX or PV6ECO, not yet fully understood, or to be refactored
+-- tables specific to PV6EX or PV6ECO and not yet fully understood, or to be refactored
 
 -- pv_al (PV6EX and PV6ECO only)
 -- for managing client jobs

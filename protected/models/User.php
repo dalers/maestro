@@ -181,7 +181,7 @@ class User extends MaestroActiveRecord
     }
 		
 	/**
-	 * store hash of password in database
+	 * apply hash to password before storing in database
 	 */
 	protected function afterValidate()
 	{   
@@ -192,13 +192,25 @@ class User extends MaestroActiveRecord
 	}
 
 	/**
-	 * generates password hash
+	 * generate password hash
 	 * @param string password
 	 * @return string hash
 	 */
 	public function hashPassword($password)
 	{
+		//todo replace md5() with crypt() after solving bulk load
+		//of current data from master user spreadsheet
 		return md5($password);
 	}
-	
+
+	/**
+	 * Check if given password is correct
+	 * @param string the password to be validated
+	 * @return boolean whether the password is valid
+	 */
+	public function validatePassword($password)
+	{
+		return $this->hashPassword($password)===$this->password;
+	}
+
 }

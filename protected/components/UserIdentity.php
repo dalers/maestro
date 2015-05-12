@@ -8,45 +8,37 @@
 class UserIdentity extends CUserIdentity
 {
 	/**
-	 * Authenticates a user.
-	 * The example implementation makes sure if the username and password
-	 * are both 'demo'.
-	 * In practical applications, this should be changed to authenticate
-	 * against some persistent user identity storage (e.g. database).
+	 * Authenticate user
+	 * Username and password are authenticated against database
 	 * @return boolean whether authentication succeeds.
 	 */
 	 
 	private $_id;
-	private $_username;
-	
-	public function getName()
+
+	public function authenticate()
 	{
-		return $this->_username;
+		$user=User::model()->find('LOWER(username)=?',array(strtolower($this->username)));
+		if($user===null)
+			$this->errorCode=self::ERROR_USERNAME_INVALID;
+		else if(!$user->validatePassword($this->password))
+			$this->errorCode=self::ERROR_PASSWORD_INVALID;
+		else
+		{
+			$this->_id=$user->id;
+			$this->username=$user->username;
+			$this->setState('lastLogin', date("Y-m-d g:i A", strtotime($user->last_login_time)));
+			$user->saveAttributes(array(
+				'last_login_time'=>date("Y-m-d H:i:s", time()),
+			));
+			$this->errorCode=self::ERROR_NONE;
+		}
+		return $this->errorCode==self::ERROR_NONE;
 	}
-	 
+
+	//override parent to return numeric id from database instead of username
 	public function getId()
 	{
 		return $this->_id;
 	}
 	 
-	public function authenticate()
-	{
-		$user=User::model()->find('lower(username)=?', array(strtolower($this->username)));
-
-		if ($user === null)
-		{
-			$this->errorCode= self::ERROR_UNKNOWN_IDENTITY;
-		}
-		elseif($user->password !== $this->password) //Plain-text password
-		{
-			$this->errorCode= self::ERROR_PASSWORD_INVALID;
-		}
-		else
-		{
-			$this->_id = $user->id;
-			$this->_username = $user->username;
-			$this->errorCode=self::ERROR_NONE;
-		}
-		return !$this->errorCode;
-	}
 }
