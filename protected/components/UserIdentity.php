@@ -15,19 +15,24 @@ class UserIdentity extends CUserIdentity
 	 * against some persistent user identity storage (e.g. database).
 	 * @return boolean whether authentication succeeds.
 	 */
-	 private $_id;
-	 private $_username;
-	 public function getName()
-	 {
+	 
+	private $_id;
+	private $_username;
+	
+	public function getName()
+	{
 		return $this->_username;
-	 }
-	 public function getId()
-	 {
+	}
+	 
+	public function getId()
+	{
 		return $this->_id;
-	 }
+	}
+	 
 	public function authenticate()
 	{
 		$user=User::model()->find('lower(username)=?', array(strtolower($this->username)));
+
 		if ($user === null)
 		{
 			$this->errorCode= self::ERROR_UNKNOWN_IDENTITY;
