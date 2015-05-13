@@ -63,10 +63,9 @@ If you require assistance, please try the following in order:
 * Update your repository.
 * Submit an issue to the [Maestro issue tracker](https://github.com/dalers/maestro/issues)
 
-If you post an issue to the issue tracker, please try to include answers to the following questions:
+If posting a new issue to the issue tracker, please try to include answers to the following questions:
 
 * What are you trying to achieve?
-* What are the symptoms of your problem? Why do you think this *is* a problem?
-* What is the version of Maestro you are using?
-* What target application and version are you are using?
+* What are the symptoms? Why do you think this **is** a problem?
+* What version of Maestro you are using? (are you using a release version?, current master branch head?)
 * Include as an example, the **simplest** sequence of operations that demonstrates the undesired or unanticipated behaviour.
