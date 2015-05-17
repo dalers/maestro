@@ -30,6 +30,14 @@ return array(
 			//'ipFilters'=>array('127.0.0.1','::1'),
 			'ipFilters'=>false,
 		),
+		'rbac'=>array(
+			'class'=>'application.modules.rbacui.RbacuiModule',
+			'userClass' => 'User',
+			'userIdColumn' => 'id',
+			'userNameColumn' => 'username',
+			'rbacUiAdmin' => true,
+			'rbacUiAssign' => true,
+		),		
 	),
 
 	// application components

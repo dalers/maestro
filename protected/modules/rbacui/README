@@ -1,0 +1,98 @@
+﻿rbacUI 1.0.5
+============
+
+Copyright (c) 2014, rbacUI - Ronald van Belzen. All rights reserved.  
+ - See accompanying LICENSE for license information.
+
+rbacUI is an extension to the Yii Framework (http://www.yiiframework.com/license/) 
+in the form of a module. rbacUI adds and integrates an UI for maintaining rbac 
+to an existing Yii application.
+
+
+##Requirements
+
+Yii 1.1 and above.
+Javascript enabled webbrowser.
+
+##Usage
+
+* Extract the zip file to the application's protected/modules directory
+* Edit your configuration to register the module (the default option values may 
+  need to be adjusted):
+~~~
+[php]
+'modules'=>array(
+	'rbac'=>array(
+		'class'=>'application.modules.rbacui.RbacuiModule',
+		'userClass' => 'User',
+		'userIdColumn' => 'id',
+		'userNameColumn' => 'username',
+		'rbacUiAdmin' => true,
+		'rbacUiAssign' => true,
+	),
+),
+~~~
+
+* rbacUI requires a user database table to be present that at least contains an 
+  integer User ID field and a varchar User name field. rbacUI also expects 
+  Yii::app()->user->id to return the User ID, not the User name. The model for 
+  the user table and the column names for the User ID column and the User name 
+  column are part of the module options. Also rbacUI expects the component for
+  the AuthManager to be defined for the application.
+* Log in to your application.
+* Navigate to http://<your base url>/rbac.
+* Create a role for the rbacUI administrator and a role for the rbacUI operator. 
+  Assign the administrator role to yourself.
+* Change the module parameter settings for 'rbacUiAdmin' and 'rbacUiAssign'
+  to the names of the roles you just created.
+
+##Options
+
+The following configuration options can be used:
+userClass:      	The model name of the database table that contains the user 
+					authentication information for User ID and User name 
+					(default value: 'User').
+userIdColumn:   	The column name of the User class field that contains the 
+					User ID (default value: 'id').
+userNameColumn: 	The column name of the User class field that contains the 
+					User name (default value: 'user').
+userActiveScope: 	The scope that is used for selecting active users (default 
+					value: false).
+					The default value false means that no scope is used for 
+					selecting users to be displayed.
+rbacUiAdmin:		The role name for the rbacUI administrator (default value: 
+					false).
+					The rbacUI administrator can create/update/delete 
+					authorization items and assign/revoke authorization items 
+					to/from users.
+					The default value false means that no one has access to 
+					this functionality.
+rbacUiAssign:		The role name for the rbacUI operator (default value: false).
+					The rbacUI operator can only assign/revoke authorization 
+					items to/from users.
+					The default value false means that no one has access to 
+					this functionality.
+rbacUiAssignRole:	The role name for the rbacUI role operator (default value: 
+					false).
+					The rbacUI operator can only assign/revoke roles to/from 
+					users.
+					The default value false means that no one has access to 
+					this functionality.
+
+##Versions
+
+* v1.0.5 (Aug 4, 2014):
+	Added the parameter rbacUiAssignRole.
+* v1.0.4 (July 13, 2014):
+	Bugfix of Auth item attaching.
+* v1.0.3 (July 7, 2014):
+	More reliable URL's for tab content.
+	Renamed RController to RbController.
+* v1.0.2 (July 3, 2014):
+	Restricted items to revoke in dropdown list to assigned items.
+	Added a background grid to the authItems hierarchy tab.
+* v1.0.1 (July 2, 2014):
+	Bugfix.
+* v1.0.0 (June 30, 2014):
+	Initial release.
+	
