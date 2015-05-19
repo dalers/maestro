@@ -24,8 +24,8 @@ TM</em></sup>, Maestro includes enterprise features, single-entry
 accounting, and true multi-user operation.</p> 
 
 <p>This is the demo for the <a 
-href="http://www.github.com/dalers/maestro/">Maestro development 
-project</a>. Maestro includes complete data for the (fictional) 
+href="http://www.github.com/dalers/maestro/">Maestro ERP project</a>. Maestro
+includes complete data for the (fictional) 
 <b><em>Swift Construction Company</em></b> (the <b><em>SCC</em></b>),
 including projects, parts, documents, stock (un-serialized, serialized
 and lot controlled), issues and people.</p> 
