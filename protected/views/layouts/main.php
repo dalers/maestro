@@ -34,7 +34,7 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Parts', 'url'=>array('/partNumber/index')),
+				array('label'=>'Parts', 'url'=>array('/part/index')),
 				array('label'=>'Projects', 'url'=>array('/project/index')),
 				array('label'=>'Issues', 'url'=>array('/issue/index')),
 				array('label'=>'Stock', 'url'=>array('/stockSerial/index')),
