@@ -1,6 +1,6 @@
 <?php
-/* @var $this PartNumberController */
-/* @var $model PvPn */
+/* @var $this PartController */
+/* @var $model Part */
 
 $this->breadcrumbs=array(
 	'Parts'=>array('index'),
@@ -65,7 +65,7 @@ $this->menu=array(
 	),
 )); ?>
 
-<h2>User's notes</h2>
+<h2>Notes</h2>
 
 <?php if (empty($model->PNNotes)) { ?>
     <span style="font-style: italic">There are no user notes</span>
@@ -89,7 +89,7 @@ $this->menu=array(
 	),
 )); ?>
 
-<h2>Stock</h2>
+<h2>Stock Properties</h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -103,7 +103,7 @@ $this->menu=array(
 	),
 )); ?>
 
-<h2>Assy Cost</h2>
+<h2>Assembly Cost</h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -113,7 +113,7 @@ $this->menu=array(
 	),
 )); ?>
 
-<h2>Kitting properties</h2>
+<h2>Kitting Properties</h2>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -179,7 +179,7 @@ $this->menu=array(
 
 ?>
 
-<h2>Part of</h2>
+<h2>Used On</h2>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider' => $model->parents($model->id, -1),

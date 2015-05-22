@@ -1,6 +1,6 @@
 <?php
-/* @var $this PartNumberController */
-/* @var $model PvPn */
+/* @var $this PartController */
+/* @var $model Part */
 /* @var $form CActiveForm */
 ?>
 
@@ -247,8 +247,28 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'type_id'); ?>
-		<?php echo $form->textField($model,'type_id'); ?>
+		<?php echo $form->label($model,'is_serialized'); ?>
+		<?php echo $form->textField($model,'is_serialized'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'iteration_number'); ?>
+		<?php echo $form->textField($model,'iteration_number'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'is_current_iteration'); ?>
+		<?php echo $form->textField($model,'is_current_iteration'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'requester_id'); ?>
+		<?php echo $form->textField($model,'requester_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
 	</div>
 
 	<div class="row">
@@ -257,8 +277,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'requester_id'); ?>
-		<?php echo $form->textField($model,'requester_id'); ?>
+		<?php echo $form->label($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id'); ?>
 	</div>
 
 	<div class="row">

@@ -1,6 +1,6 @@
 <?php
-/* @var $this PartNumberController */
-/* @var $data PvPn */
+/* @var $this PartController */
+/* @var $data Part */
 ?>
 
 <div class="view">
@@ -194,16 +194,32 @@
 	<?php echo CHtml::encode($data->PNUserLock); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('type_id')); ?>:</b>
-	<?php echo CHtml::encode($data->type_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('is_serialized')); ?>:</b>
+	<?php echo CHtml::encode($data->is_serialized); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('iteration_number')); ?>:</b>
+	<?php echo CHtml::encode($data->iteration_number); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('is_current_iteration')); ?>:</b>
+	<?php echo CHtml::encode($data->is_current_iteration); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('requester_id')); ?>:</b>
+	<?php echo CHtml::encode($data->requester_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status_id')); ?>:</b>
+	<?php echo CHtml::encode($data->status_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('stock_location_id')); ?>:</b>
 	<?php echo CHtml::encode($data->stock_location_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('requester_id')); ?>:</b>
-	<?php echo CHtml::encode($data->requester_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->type_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>

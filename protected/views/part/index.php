@@ -1,6 +1,5 @@
 <?php
-/* @var $this PartNumberController */
-/* @var $model PvPn */
+/* @var $this PartController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
@@ -59,7 +58,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 250px; display: table-cell; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;'),
 			'value'=>'CHtml::encode($data->PNDetail)',
-		),/*
+		),
+		/*
 		array(
 			'class'=>'CButtonColumn',
 		),*/

@@ -1,6 +1,6 @@
 <?php
-/* @var $this PartNumberController */
-/* @var $model PvPn */
+/* @var $this PartController */
+/* @var $model Part */
 /* @var $form CActiveForm */
 ?>
 
@@ -18,12 +18,6 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'PNIDToLNK'); ?>
-		<?php echo $form->textField($model,'PNIDToLNK'); ?>
-		<?php echo $form->error($model,'PNIDToLNK'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'PNUNID'); ?>
@@ -296,15 +290,21 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'type_id'); ?>
-		<?php echo $form->textField($model,'type_id'); ?>
-		<?php echo $form->error($model,'type_id'); ?>
+		<?php echo $form->labelEx($model,'is_serialized'); ?>
+		<?php echo $form->textField($model,'is_serialized'); ?>
+		<?php echo $form->error($model,'is_serialized'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'stock_location_id'); ?>
-		<?php echo $form->textField($model,'stock_location_id'); ?>
-		<?php echo $form->error($model,'stock_location_id'); ?>
+		<?php echo $form->labelEx($model,'iteration_number'); ?>
+		<?php echo $form->textField($model,'iteration_number'); ?>
+		<?php echo $form->error($model,'iteration_number'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'is_current_iteration'); ?>
+		<?php echo $form->textField($model,'is_current_iteration'); ?>
+		<?php echo $form->error($model,'is_current_iteration'); ?>
 	</div>
 
 	<div class="row">
@@ -314,27 +314,21 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'create_time'); ?>
-		<?php echo $form->textField($model,'create_time'); ?>
-		<?php echo $form->error($model,'create_time'); ?>
+		<?php echo $form->labelEx($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->error($model,'status_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'create_user_id'); ?>
-		<?php echo $form->textField($model,'create_user_id'); ?>
-		<?php echo $form->error($model,'create_user_id'); ?>
+		<?php echo $form->labelEx($model,'stock_location_id'); ?>
+		<?php echo $form->textField($model,'stock_location_id'); ?>
+		<?php echo $form->error($model,'stock_location_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'update_time'); ?>
-		<?php echo $form->textField($model,'update_time'); ?>
-		<?php echo $form->error($model,'update_time'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'update_user_id'); ?>
-		<?php echo $form->textField($model,'update_user_id'); ?>
-		<?php echo $form->error($model,'update_user_id'); ?>
+		<?php echo $form->labelEx($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id'); ?>
+		<?php echo $form->error($model,'type_id'); ?>
 	</div>
 
 	<div class="row buttons">

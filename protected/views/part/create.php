@@ -1,6 +1,6 @@
 <?php
-/* @var $this PartNumberController */
-/* @var $model PvPn */
+/* @var $this PartController */
+/* @var $model Part */
 
 $this->breadcrumbs=array(
 	'Parts'=>array('index'),

@@ -1,10 +1,10 @@
 <?php
 
-// MGAJUDO Import ECSVExport
+//support exporting partlist as csv
 Yii::import('ext.ECSVExport');
 require_once('protected/extensions/ECSVExport/ECSVExport.php');
 
-class PartNumberController extends Controller
+class PartController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -61,7 +61,7 @@ class PartNumberController extends Controller
 	}
 
 	/**
-	 * Displays a particular model in a view prepared for saving into PDF .
+	 * Displays a particular model in a view prepared for saving into PDF.
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView4PDF($id)
@@ -78,6 +78,9 @@ class PartNumberController extends Controller
      * wkhtmltopdf tool is used for convertations HTML->PDF
      * wkhtmltopdf-i386 (static) you can download from https://code.google.com/p/wkhtmltopdf/ and store it in folder protected/bin
      * make sure that this tool has permissions to be executed
+	 * 
+	 * TODO remove! (Maestro now exclusively uses Yii-PDF with HTML2PDF) 
+	 * 
 	 * @param obect $model the model of the partNumber to be displayed
 	 */
     public function actionSaveAsPDF_wkhtmltopdf($model, $pdfname)
@@ -119,6 +122,9 @@ class PartNumberController extends Controller
      * mPDF PHP class is used for convertations HTML->PDF 
      * You have to install yii-pdf extension (http://www.yiiframework.com/extension/pdf#hh3) and store it in protected/extensions folder
      * and mPDF PHP library (http://mpdf1.com/) and store it under name 'mpdf' in protected/vendor folder
+	 * 
+	 * TODO remove! (Maestro now exclusively uses Yii-PDF with HTML2PDF) 
+	 * 
 	 * @param obect $model the model of the partNumber to be displayed
 	 */
     public function actionSaveAsPDF_mpdf($model, $pdfname)
@@ -176,7 +182,8 @@ class PartNumberController extends Controller
     }
 
 	/**
-	 * Displays a particular model.
+	 * Save model as PDF file
+	 * TODO remove! (Maestro exclusively uses Yii-PDF with HTML2PDF)
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionSaveAsPDF($id)
@@ -199,14 +206,14 @@ class PartNumberController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new PvPn;
+		$model=new Part;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['PvPn']))
+		if(isset($_POST['Part']))
 		{
-			$model->attributes=$_POST['PvPn'];
+			$model->attributes=$_POST['Part'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -228,9 +235,9 @@ class PartNumberController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['PvPn']))
+		if(isset($_POST['Part']))
 		{
-			$model->attributes=$_POST['PvPn'];
+			$model->attributes=$_POST['Part'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -261,12 +268,12 @@ class PartNumberController extends Controller
 	{
         //print_r(StockLocation::getLocations()); die;
 
-        $model = new PvPn('search');
+        $model = new Part('search');
 
         $model->unsetAttributes();
 
-		if (isset($_GET['PvPn']))
-			$model->attributes = $_GET['PvPn'];
+		if (isset($_GET['Part']))
+			$model->attributes = $_GET['Part'];
 
         $this->render('index', array(
             'dataProvider' => $model->search(),
@@ -274,7 +281,10 @@ class PartNumberController extends Controller
 		));
 	}
 
-    public function actionSuggestLocation($id)
+	/**
+	 * Suggest stocking location based on provided attributes
+	 */
+	public function actionSuggestLocation($id)
     {
         $bins = array();
 
@@ -292,22 +302,23 @@ class PartNumberController extends Controller
 
 	/**
 	* Display CSV
-	* @auth MGAJUDO
 	* Filters for the query will be required for this function
 	* Possibly the column names should be hidden/shown
 	* Possibly dynamically build the SELECT statement
-	* BEWARE: Potential bug with this CSV extension where it may be unable to handle any null value that is not the last right column
+	* 
+	* TODO Investigate potential bug in CSV extension - may not correctly
+	* handle nulls other than in last (right-most) column
 	*/
 	public function actionSaveAsCSV()
 	{
 		$csvname = "parts.csv";
 		$path = Yii::app()->basePath;
 		$filename = $path."/runtime/".$csvname;		
-		$cmd = Yii::app()->db->createCommand("SELECT PNPartNumber, PNType, PNStatus, PNRevision, PNTitle, PNDetail FROM maestro.tbl_pv_pn");
+		$cmd = Yii::app()->db->createCommand("SELECT PNPartNumber, PNType, PNStatus, PNRevision, PNTitle, PNDetail FROM maestro.tbl_part");
 		
 		$csv = new ECSVExport($cmd);
 		
-		$csv->setHeader('PNPartNumber', 'Part Number');
+		$csv->setHeader('PNPartNumber', 'PartNumber');
 		$csv->setHeader('PNType', 'Type');
 		$csv->setHeader('PNStatus', 'Status');
 		$csv->setHeader('PNRevision', 'Revision');
@@ -325,10 +336,10 @@ class PartNumberController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new PvPn('search');
+		$model=new Part('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['PvPn']))
-			$model->attributes=$_GET['PvPn'];
+		if(isset($_GET['Part']))
+			$model->attributes=$_GET['Part'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -344,7 +355,7 @@ class PartNumberController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=PvPn::model()->findByPk($id);
+		$model=Part::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

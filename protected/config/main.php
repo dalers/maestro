@@ -93,6 +93,7 @@ return array(
 		'ePdf' => array(
 			'class'         => 'ext.yii-pdf.EYiiPdf',
 			'params'        => array(
+				//TODO remove mpdf (Maestro now exclusively uses Yii-PDF with HTML2PDF)
 				'mpdf'     => array(
 					'librarySourcePath' => 'application.vendor.mpdf.*',
 					'constants'         => array(
@@ -136,8 +137,9 @@ return array(
 		'adminEmail'=>'admin@swiftconstructioncompany.net',
 		'pagesize' => 30,
 		'partListPageSize' => 20,
-		'PDFconverter' => 3, // 1 - wkhtmltopdf, 2 - mpdf, 3 - html2pdf
 		'PDFPageSize' => 'Letter', // allowed 'A4', 'Letter'
+		//TODO remove PDFconverter and Path2Wkhtmltopdf (Maestro now exclusively uses Yii-PDF with HTML2PDF)
+		'PDFconverter' => 3, // 1 - wkhtmltopdf, 2 - mpdf, 3 - html2pdf
 		'Path2Wkhtmltopdf' => "/usr/local/bin/wkhtmltopdf", // name with path for wkhtmltopdf converter
 		//'Path2Wkhtmltopdf' => "/opt/wkhtmltopdf-i386",
 	),

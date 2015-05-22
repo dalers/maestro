@@ -1,6 +1,6 @@
 <?php
-/* @var $this PartNumberController */
-/* @var $model PvPn */
+/* @var $this PartController */
+/* @var $model Part */
 
 $this->breadcrumbs=array(
 	'Parts'=>array('index'),
@@ -41,17 +41,23 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'pv-pn-grid',
+	'id'=>'part-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
+		'PNPartNumber',
+		'PNType',
+		'PNStatus',
+		'PNRevision',
+		'PNTitle',
+		'PNDetail',
+		/*
 		'id',
 		'PNIDToLNK',
 		'PNUNID',
 		'PNTabParentID',
 		'PNPrefix',
 		'PNPartNumber',
-		/*
 		'PNSuffix',
 		'PNType',
 		'PNRevision',
@@ -93,9 +99,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'PNLastRollupCost',
 		'PNUSRID',
 		'PNUserLock',
-		'type_id',
-		'stock_location_id',
+		'is_serialized',
+		'iteration_number',
+		'is_current_iteration',
 		'requester_id',
+		'status_id',
+		'stock_location_id',
+		'type_id',
 		'create_time',
 		'create_user_id',
 		'update_time',

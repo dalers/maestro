@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "tbl_pv_pn".
+ * This is the model class for table "tbl_part".
  *
- * The followings are the available columns in table 'tbl_pv_pn':
+ * The followings are the available columns in table 'tbl_part':
  * @property integer $id
  * @property integer $PNIDToLNK
  * @property integer $PNUNID
@@ -51,40 +51,45 @@
  * @property double $PNLastRollupCost
  * @property integer $PNUSRID
  * @property integer $PNUserLock
- * @property integer $type_id
- * @property integer $stock_location_id
- * @property integer $requester_id
+ * @property integer $is_serialized
  * @property integer $iteration_number
  * @property integer $is_current_iteration
+ * @property integer $requester_id
+ * @property integer $status_id
+ * @property integer $stock_location_id
+ * @property integer $type_id
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
- * @property Issue[] $issues
- * @property PvFil[] $pvFils
- * @property PvLnk[] $pvLnks
- * @property PvPl[] $pvPls
- * @property PvPl[] $pvPls1
- * @property User $updateUser
+ * @property File[] $files
+ * @property Issue[] $tblIssues
+ * @property Order[] $orders
+ * @property OrderItem[] $orderItems
  * @property User $createUser
  * @property User $requester
  * @property StockLocation $stockLocation
- * @property PvPn $pNTabParent
- * @property PvPn[] $pvPns
- * @property PvType $type
- * @property PvUn $pNUN
- * @property StockSerial[] $stockSerials
+ * @property Part $pNTabParent
+ * @property Part[] $parts
+ * @property PartType $type
+ * @property Unit $pNUN
+ * @property User $updateUser
+ * @property PartList[] $partLists
+ * @property PartList[] $partLists1
+ * @property PartSourceAssignment[] $partSourceAssignments
+ * @property Stock[] $stocks
+ * @property StockTransaction[] $stockTransactions
  */
-class PvPn extends CActiveRecord
+class Part extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tbl_pv_pn';
+		return 'tbl_part';
 	}
 
 	/**
@@ -96,7 +101,7 @@ class PvPn extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('PNPartNumber', 'required'),
-			array('PNIDToLNK, PNUNID, PNTabParentID, PNTab, PNControlled, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitBy, PNOverKitFor, PNUSRID, PNUserLock, type_id, stock_location_id, requester_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('PNIDToLNK, PNUNID, PNTabParentID, PNTab, PNControlled, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitBy, PNOverKitFor, PNUSRID, PNUserLock, is_serialized, iteration_number, is_current_iteration, requester_id, status_id, stock_location_id, type_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('PNQty, PNQty2, PNMinStockQty, PNOverKitQty, PNCurrentCost, PNLastRollupCost', 'numerical'),
 			array('PNPrefix, PNPartNumber, PNSuffix, PNAux1', 'length', 'max'=>50),
 			array('PNType', 'length', 'max'=>5),
@@ -107,7 +112,22 @@ class PvPn extends CActiveRecord
 			array('PNNotes, PNDate, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, PNType, PNRevision, PNTitle, PNDetail, PNStatus, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, type_id, stock_location_id, requester_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, PNType, PNRevision, PNTitle, PNDetail, PNStatus, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, is_serialized, iteration_number, is_current_iteration, requester_id, status_id, stock_location_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			
+//			maestro v0.0.1
+//			array('PNPartNumber', 'required'),
+//			array('PNIDToLNK, PNUNID, PNTabParentID, PNTab, PNControlled, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitBy, PNOverKitFor, PNUSRID, PNUserLock, type_id, stock_location_id, requester_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+//			array('PNQty, PNQty2, PNMinStockQty, PNOverKitQty, PNCurrentCost, PNLastRollupCost', 'numerical'),
+//			array('PNPrefix, PNPartNumber, PNSuffix, PNAux1', 'length', 'max'=>50),
+//			array('PNType', 'length', 'max'=>5),
+//			array('PNRevision, PNReqBy', 'length', 'max'=>10),
+//			array('PNTitle, PNDetail', 'length', 'max'=>255),
+//			array('PNStatus', 'length', 'max'=>1),
+//			array('PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10', 'length', 'max'=>100),
+//			array('PNNotes, PNDate, create_time, update_time', 'safe'),
+//			// The following rule is used by search().
+//			// @todo Please remove those attributes that should not be searched.
+//			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, PNType, PNRevision, PNTitle, PNDetail, PNStatus, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, type_id, stock_location_id, requester_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -119,23 +139,45 @@ class PvPn extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'issues' => array(self::HAS_MANY, 'Issue', 'part_id'),
-			'pvFils' => array(self::HAS_MANY, 'PvFil', 'FILPNID'),
-			'pvLnks' => array(self::HAS_MANY, 'PvLnk', 'LNKPNID'),
-			'pvPls' => array(self::HAS_MANY, 'PvPl', 'PLPartID'),
-			'pvPls1' => array(self::HAS_MANY, 'PvPl', 'PLListID'),
-			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
+			'files' => array(self::HAS_MANY, 'File', 'part_id'),
+			'tblIssues' => array(self::MANY_MANY, 'Issue', 'tbl_issue_part_assignment(part_id, issue_id)'),
+			'orders' => array(self::HAS_MANY, 'Order', 'partslist_id'),
+			'orderItems' => array(self::HAS_MANY, 'OrderItem', 'TASKPNID'),
 			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
 			'requester' => array(self::BELONGS_TO, 'User', 'requester_id'),
 			'stockLocation' => array(self::BELONGS_TO, 'StockLocation', 'stock_location_id'),
-			'pNTabParent' => array(self::BELONGS_TO, 'PvPn', 'PNTabParentID'),
-			'pvPns' => array(self::HAS_MANY, 'PvPn', 'PNTabParentID'),
-			'type' => array(self::BELONGS_TO, 'PvType', 'type_id'),
-			'pNUN' => array(self::BELONGS_TO, 'PvUn', 'PNUNID'),
-			'stockSerials' => array(self::HAS_MANY, 'StockSerial', 'part_id'),
-
-			'unit' => array(self::BELONGS_TO, 'PvUn', 'PNUNID'),
-			'tabparent' => array(self::BELONGS_TO, 'PvPn', 'PNTabParentID'),
+			'pNTabParent' => array(self::BELONGS_TO, 'Part', 'PNTabParentID'),
+			'parts' => array(self::HAS_MANY, 'Part', 'PNTabParentID'),
+			'type' => array(self::BELONGS_TO, 'PartType', 'type_id'),
+			'pNUN' => array(self::BELONGS_TO, 'Unit', 'PNUNID'),
+			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
+			'partLists' => array(self::HAS_MANY, 'PartList', 'PLPartID'),
+			'partLists1' => array(self::HAS_MANY, 'PartList', 'PLListID'),
+			'partSourceAssignments' => array(self::HAS_MANY, 'PartSourceAssignment', 'LNKPNID'),
+			'stocks' => array(self::HAS_MANY, 'Stock', 'part_id'),
+			'stockTransactions' => array(self::HAS_MANY, 'StockTransaction', 'part_id'),
+			
+			'unit' => array(self::BELONGS_TO, 'Unit', 'PNUNID'),
+			'tabparent' => array(self::BELONGS_TO, 'Part', 'PNTabParentID'),			
+			
+//			maestro 0.0.1
+//			'issues' => array(self::HAS_MANY, 'Issue', 'part_id'),
+//			'pvFils' => array(self::HAS_MANY, 'PvFil', 'FILPNID'),
+//			'pvLnks' => array(self::HAS_MANY, 'PvLnk', 'LNKPNID'),
+//			'pvPls' => array(self::HAS_MANY, 'PvPl', 'PLPartID'),
+//			'pvPls1' => array(self::HAS_MANY, 'PvPl', 'PLListID'),
+//			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
+//			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
+//			'requester' => array(self::BELONGS_TO, 'User', 'requester_id'),
+//			'stockLocation' => array(self::BELONGS_TO, 'StockLocation', 'stock_location_id'),
+//			'pNTabParent' => array(self::BELONGS_TO, 'PvPn', 'PNTabParentID'),
+//			'pvPns' => array(self::HAS_MANY, 'PvPn', 'PNTabParentID'),
+//			'type' => array(self::BELONGS_TO, 'PvType', 'type_id'),
+//			'pNUN' => array(self::BELONGS_TO, 'PvUn', 'PNUNID'),
+//			'stockSerials' => array(self::HAS_MANY, 'StockSerial', 'part_id'),
+//
+//			'unit' => array(self::BELONGS_TO, 'PvUn', 'PNUNID'),
+//			'tabparent' => array(self::BELONGS_TO, 'PvPn', 'PNTabParentID'),
 		);
 	}
 
@@ -146,8 +188,8 @@ class PvPn extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'PNIDToLNK' => 'To ID',
-			'PNUNID' => 'Unit ID',
+			'PNIDToLNK' => 'PNIDToLNK',
+			'PNUNID' => 'UOM',
 			'PNTabParentID' => 'Parent Part Number',
 			'PNPrefix' => 'Prefix',
 			'PNPartNumber' => 'Part Number',
@@ -192,16 +234,18 @@ class PvPn extends CActiveRecord
 			'PNLastRollupCost' => 'Last Calculated Cost',
 			'PNUSRID' => 'User ID',
 			'PNUserLock' => 'User Lock',
-
-			'type_id' => 'Type',
-			'stock_location_id' => 'Stock Location',
-			'requester_id' => 'Requester',
+			
+			'is_serialized' => 'Is Serialized',
 			'iteration_number' => 'Iteration Number',
 			'is_current_iteration' => 'Is Current Iteration',
+			'requester_id' => 'Requester',
+			'status_id' => 'Status',
+			'stock_location_id' => 'Stock Location',
+			'type_id' => 'Type',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
-			'update_user_id' => 'Update User',
+			'update_user_id' => 'Update User',			
 		);
 	}
 
@@ -240,7 +284,7 @@ class PvPn extends CActiveRecord
 	}
 
     /**
-	 * Retrieves the list of parts that are childs of the specified part.
+	 * Retrieves a list of child parts of the specified part.
 	 * @return CActiveDataProvider the data provider that can return the needed details.
 	 */
 	public function childs($id, $pagesize = -1)
@@ -250,7 +294,7 @@ class PvPn extends CActiveRecord
 
 		$criteria->compare('PLListID', $id, false);
 
-		return new CActiveDataProvider('PvPl', array(
+		return new CActiveDataProvider('PartList', array(
 			'criteria' => $criteria,
             'pagination'=>array(
                 'pageSize'=>$pagesize,
@@ -262,7 +306,7 @@ class PvPn extends CActiveRecord
 	}
 
     /**
-	 * Retrieves the list of parts that are parents to the speified part.
+	 * Retrieves a list of parts that are parents of the specified part.
 	 * @return CActiveDataProvider the data provider that can return the needed details.
 	 */
 	public function parents($id, $pagesize = -1)
@@ -273,7 +317,7 @@ class PvPn extends CActiveRecord
 
 		$criteria->compare('PLPartID', $id, false);
 
-		return new CActiveDataProvider('PvPl', array(
+		return new CActiveDataProvider('PartList', array(
 			'criteria' => $criteria,
             'pagination'=>array(
                 'pageSize'=>$pagesize,

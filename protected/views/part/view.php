@@ -1,6 +1,6 @@
 <?php
-/* @var $this PartNumberController */
-/* @var $model PvPn */
+/* @var $this PartController */
+/* @var $model Part */
 
 $this->breadcrumbs=array(
 	'Parts'=>array('index'),
@@ -9,9 +9,9 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Parts', 'url'=>array('index')),
-	array('label'=>'Create', 'url'=>array('create')),
-	array('label'=>'Update', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Create Part', 'url'=>array('create')),
+	array('label'=>'Update Part', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete Part', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Parts', 'url'=>array('admin')),
 	array('label'=>'Save As PDF', 'url'=> array('saveAsPDF', 'id' => $model->id), 'linkOptions' => array('target' => '_blank')),
     array('label'=>'Suggest Location', 'url'=> array('suggestLocation', 'id' => $model->id)),
@@ -40,18 +40,18 @@ $this->menu=array(
 
 <!-- Create jQuery's tabs using <li> tags -->
 <ul>
- <li><a href="#tabs-1">General</a></li>
+ <li><a href="#tabs-1">Part Master</a></li>
  <li><a href="#tabs-2">Parts List</a></li>
  <li><a href="#tabs-3">Used On</a></li>
 </ul>
 
 <div id="tabs-1">
-<h2>General properties</h2>
+<h2>General Properties</h2>
 
 <?php 
 
-    // I separated all detail information of Part Number by logical parts.
-    // To show some understandable values of fields instead of just their codes I created two functions 'valueToText' and 'YesNo'
+    //detail Part information separated into logical parts.
+    //uses helper functions 'valueToText' and 'YesNo' declared in Part model
 
     $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -83,13 +83,13 @@ $this->menu=array(
 	),
 )); ?>
 
-<h2>User's notes</h2>
+<h2>Notes</h2>
 
 <?php if (empty($model->PNNotes)) { ?>
-    <span style="font-style: italic">There are no user notes</span>
+    <span style="font-style: italic">No notes.</span>
 <?php } else { echo CHtml::encode($model->PNNotes); } ?>
 
-<h2>User's information</h2>
+<h2>User Defined Fields</h2>
 
 <?php 
 
@@ -113,7 +113,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	),
 )); ?>
 
-<h2>Stock</h2>
+<h2>Stocking Properties</h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -127,7 +127,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	),
 )); ?>
 
-<h2>Assy Cost</h2>
+<h2>Assembly Cost</h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -137,7 +137,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	),
 )); ?>
 
-<h2>Kitting properties</h2>
+<h2>Kitting Properties</h2>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -255,10 +255,10 @@ $this->widget('zii.widgets.CDetailView', array(
 
 </div> <!-- <div id="tabs-3"> -->
 
-<!-- The folowing code initializes DIV's above as TAB control -->
+<!-- The following code initializes DIV's above as TAB control -->
 
 <script>
-  $(function() {
-    $( "#tabs" ).tabs();
-  });
+	$(function() {
+		$( "#tabs" ).tabs();
+	});
 </script>
