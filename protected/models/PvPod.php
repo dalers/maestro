@@ -117,7 +117,8 @@ class PvPod extends CActiveRecord
 	}
 
     /**
-	 * Returns the POD for the specified field name.
+	 * Returns the caption for the specified part user defined field
+	 * captions are duplicated in pv_hpref, but more convenient to access here
 	 * @param string field name
 	 * @return string the caption for given field.
 	 */

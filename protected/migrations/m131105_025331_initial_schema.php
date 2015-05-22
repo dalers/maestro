@@ -4,9 +4,6 @@ class m131105_025331_initial_schema extends CDbMigration
 {
 	public function up()
 	{
-		//TODO review typical fk constraints "CASCADE", "RESTRICT" constraints.
-		//E.g. deleting a PO must not delete user and vice versa.
-
 		//currency (origin: parts&vendors CUR)
 		//currencies with print symbol, formatting and exchange rate
 		$this->createTable('tbl_currency', array(
@@ -739,19 +736,20 @@ class m131105_025331_initial_schema extends CDbMigration
 
 		//pv_pod (PV6EX and PV6ECO only)
 		//purchase order data included in PO line item
+		//P&V duplicates UDF captions here and in pv_hpref
 		$this->createTable('tbl_pv_pod', array(
 			'id' => 'pk',
-			'PODField' => 'VARCHAR(50)', 
-			'PODCaption' => 'VARCHAR(50)', 
-			'PODOrder' => 'INTEGER DEFAULT 0', 
-			'PODUse' => 'TINYINT(1) DEFAULT 0', 
-			'PODNewLine' => 'TINYINT(1) DEFAULT 0', 
-			'PODUseCaption' => 'TINYINT(1) DEFAULT 0', 
+			'PODField' => 'VARCHAR(50)', //field to potentially show on order or job
+			'PODCaption' => 'VARCHAR(50)', //order-specific caption (override pv_hpref?)
+			'PODOrder' => 'INTEGER DEFAULT 0', //order of appearance on order
+			'PODUse' => 'TINYINT(1) DEFAULT 0', //use on order (boolean)
+			'PODNewLine' => 'TINYINT(1) DEFAULT 0', //on new line on order (boolean)
+			'PODUseCaption' => 'TINYINT(1) DEFAULT 0', //use local caption in order (boolean)
 			'PODMode' => 'INTEGER DEFAULT 0', //0=PO; 1=JOB
-			'PODOrderJOB' => 'INTEGER DEFAULT 0', 
-			'PODUseJOB' => 'TINYINT(1) DEFAULT 0', 
-			'PODNewLineJOB' => 'TINYINT(1) DEFAULT 0', 
-			'PODUseCaptionJOB' => 'TINYINT(1) DEFAULT 0', 
+			'PODOrderJOB' => 'INTEGER DEFAULT 0', //order of appearance on job
+			'PODUseJOB' => 'TINYINT(1) DEFAULT 0', //use on job (boolean)
+			'PODNewLineJOB' => 'TINYINT(1) DEFAULT 0', //on new line on job (boolean)
+			'PODUseCaptionJOB' => 'TINYINT(1) DEFAULT 0', //use local caption in job (boolean)
 		), 'ENGINE=InnoDB');  
 
 		//pv_pom (PV6EX and PV6ECO only)
