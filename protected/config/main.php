@@ -137,10 +137,6 @@ return array(
 		'adminEmail'=>'admin@swiftconstructioncompany.net',
 		'pagesize' => 30,
 		'partListPageSize' => 20,
-		'PDFPageSize' => 'Letter', // allowed 'A4', 'Letter'
-		//TODO remove PDFconverter and Path2Wkhtmltopdf (Maestro now exclusively uses Yii-PDF with HTML2PDF)
-		'PDFconverter' => 3, // 1 - wkhtmltopdf, 2 - mpdf, 3 - html2pdf
-		'Path2Wkhtmltopdf' => "/usr/local/bin/wkhtmltopdf", // name with path for wkhtmltopdf converter
-		//'Path2Wkhtmltopdf' => "/opt/wkhtmltopdf-i386",
+		'PDFPageSize' => 'Letter', //allowed 'A4', 'Letter'
 	),
 );

@@ -61,116 +61,23 @@ class PartController extends Controller
 	}
 
 	/**
-	 * Displays a particular model in a view prepared for saving into PDF.
-	 * @param integer $id the ID of the model to be displayed
+	 * Save Part view as PDF (and download to user)
+	 * @param integer $id the ID of the model to be converted to PDF
+	 * 
+     * html2pdf PHP class is used to convert HTML (created using "pdf"
+	 * Part view) to PDF.
+	 * 
+     * Requires:
+	 *   Yii-pdf extension (http://www.yiiframework.com/extension/pdf#hh3)
+	 *   is installed to protected/extensions/
+	 * 
+     *   HTML2PDF (http://html2pdf.fr/en/default) is installed to
+	 *   protected/vendor/html2pdf/
 	 */
-	public function actionView4PDF($id)
+	public function actionSaveAsPDF($id)
 	{
-        $this->layout='//layouts/pdf';
-
-        $this->render('view4PDF',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
-	 * Converts HTML file (special view of Part Number) to PDF format and downloads it to user.
-     * wkhtmltopdf tool is used for convertations HTML->PDF
-     * wkhtmltopdf-i386 (static) you can download from https://code.google.com/p/wkhtmltopdf/ and store it in folder protected/bin
-     * make sure that this tool has permissions to be executed
-	 * 
-	 * TODO remove! (Maestro now exclusively uses Yii-PDF with HTML2PDF) 
-	 * 
-	 * @param obect $model the model of the partNumber to be displayed
-	 */
-    public function actionSaveAsPDF_wkhtmltopdf($model, $pdfname)
-    {
-        // URL to HTML file (view) that will be converted to PDF
-        $url = "http://" . $_SERVER['HTTP_HOST'] . Yii::app()->request->baseUrl . "/index.php/partNumber/view4PDF/" . $model->id;
-        // Name with full path of PDF file that will be created
-        $fname = Yii::getPathOfAlias('application.runtime') . '/' . $pdfname;
-        // Path to wkhtmltopdf converter 
-        //$path = Yii::getPathOfAlias('application.bin') . "/wkhtmltopdf-i386";
-        $path = Yii::app()->params['Path2Wkhtmltopdf'];
-
-        $output = array();
-        $error = 0;
-
-        // Composing a command that will download HTML file (view) and convert it to PDF 
-        // and then dowload it to user
-        $cmd = $path . ' -s ' . Yii::app()->params['PDFPageSize'] . ' "' . $url . '" "' . $fname . '"';
-
-        //echo $cmd;
-
-        exec($cmd, $output, $error);
-
-        if ($error == 0)
-        {
-            // If there was no error then send converted PDF file to a user
-            Yii::app()->request->sendFile($pdfname, file_get_contents($fname), null, true);
-            // TODO: Remove local PDF file! When you remove the file right after calling sendFile then the file can not be downloaded somewhy
-        }
-        else
-        {
-            // TODO: Show error message
-            echo "Error " . $error;
-        }
-    }
-
-	/**
-	 * Converts HTML file (special view of Part Number) to PDF format and downloads it to user
-     * mPDF PHP class is used for convertations HTML->PDF 
-     * You have to install yii-pdf extension (http://www.yiiframework.com/extension/pdf#hh3) and store it in protected/extensions folder
-     * and mPDF PHP library (http://mpdf1.com/) and store it under name 'mpdf' in protected/vendor folder
-	 * 
-	 * TODO remove! (Maestro now exclusively uses Yii-PDF with HTML2PDF) 
-	 * 
-	 * @param obect $model the model of the partNumber to be displayed
-	 */
-    public function actionSaveAsPDF_mpdf($model, $pdfname)
-    {
-        // Set layout that will dispay HTML for converting to PDF
-        $this->layout='//layouts/pdf';
-
-        // You can easily override default constructor's params
-        $mPDF1 = Yii::app()->ePdf->mpdf('', Yii::app()->params['PDFPageSize']);
-
-        // Set needed CSS files
-        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/screen.css');
-        $mPDF1->WriteHTML($stylesheet, 1);
-
-        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/print.css');
-        $mPDF1->WriteHTML($stylesheet, 1);
-
-        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/form.css');
-        $mPDF1->WriteHTML($stylesheet, 1);
-
-        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/ie.css');
-        $mPDF1->WriteHTML($stylesheet, 1);
-
-        //$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
-        //$mPDF1->WriteHTML($stylesheet, 1);
-
-        // render (full page)
-        $mPDF1->WriteHTML($this->render('view4PDF', array(
-			'model' => $model,
-		), true));
-
-        // Outputs ready PDF
-        $mPDF1->Output($pdfname, "D");
-    }
-
-	/**
-	 * Converts HTML file (special view of Part Number) to PDF format and downloads it to user
-     * html2pdf PHP class is used for convertations HTML->PDF 
-     * You have to install yii-pdf extension (http://www.yiiframework.com/extension/pdf#hh3) and store it in protected/extensions folder
-     * and html2pdf PHP library (http://html2pdf.fr/en/default) and store it under name 'html2pdf' in protected/vendor folder
-	 * @param obect $model the model of the partNumber to be displayed
-	 */
-    public function actionSaveAsPDF_html2pdf($model, $pdfname)
-    {
-        // HTML2PDF has very similar syntax
-
+        $model = $this->loadModel($id);
+        $pdfname = $model->PNPartNumber . ".pdf";
         $this->layout='//layouts/pdf';
 
         $html2pdf = Yii::app()->ePdf->HTML2PDF('P', Yii::app()->params['PDFPageSize'], 'en');
@@ -178,26 +85,7 @@ class PartController extends Controller
         //echo $this->renderPartial('view4html2pdf', array('model' => $model));return;
 
         $html2pdf->WriteHTML($this->renderPartial('view4html2pdf', array('model' => $model), true));
-        $html2pdf->Output($pdfname);
-    }
-
-	/**
-	 * Save model as PDF file
-	 * TODO remove! (Maestro exclusively uses Yii-PDF with HTML2PDF)
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionSaveAsPDF($id)
-	{
-        $model = $this->loadModel($id);
-
-        $pdfname = $model->PNPartNumber . ".pdf";
-
-        switch (Yii::app()->params['PDFconverter'])
-        {
-            case 1: $this->actionSaveAsPDF_wkhtmltopdf($model, $pdfname); break;
-            case 2: $this->actionSaveAsPDF_mpdf($model, $pdfname); break;
-            case 3: $this->actionSaveAsPDF_html2pdf($model, $pdfname); break;
-        }       
+        $html2pdf->Output($pdfname);		
 	}
 
 	/**
