@@ -1,21 +1,21 @@
 <?php
-/* @var $this StockSerialController */
-/* @var $model StockSerial */
+/* @var $this StockController */
+/* @var $model Stock */
 
 $this->breadcrumbs=array(
-	'Stock Serials'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+    'Stocks'=>array('index'),
+    $model->id=>array('view','id'=>$model->id),
+    'Update',
 );
 
 $this->menu=array(
-	array('label'=>'List StockSerial', 'url'=>array('index')),
-	array('label'=>'Create StockSerial', 'url'=>array('create')),
-	array('label'=>'View StockSerial', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage StockSerial', 'url'=>array('admin')),
+    array('label'=>'List Stock', 'url'=>array('index')),
+    array('label'=>'Create Stock', 'url'=>array('create')),
+    array('label'=>'View Stock', 'url'=>array('view', 'id'=>$model->id)),
+    array('label'=>'Manage Stock', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update StockSerial <?php echo $model->id; ?></h1>
+<h1>Update Stock <?php echo $model->id; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

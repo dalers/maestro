@@ -1,18 +1,18 @@
 <?php
-/* @var $this StockSerialController */
-/* @var $model StockSerial */
+/* @var $this StockController */
+/* @var $model Stock */
 
 $this->breadcrumbs=array(
-	'Stock Serials'=>array('index'),
-	'Create',
+    'Stocks'=>array('index'),
+    'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List StockSerial', 'url'=>array('index')),
-	array('label'=>'Manage StockSerial', 'url'=>array('admin')),
+    array('label'=>'List Stock', 'url'=>array('index')),
+    array('label'=>'Manage Stock', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create StockSerial</h1>
+<h1>Create Stock</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
