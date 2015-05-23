@@ -26,8 +26,7 @@
 <p>Created on <?php echo empty($model->create_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "Unknown user" : $model->create_user_id; ?>
 
 <?php
-    // Show update information only if the Part Number was updated
-
+    //show update information only if the Part was updated
     if (!empty($model->update_time)) {
 ?>
 , Updated on 
@@ -37,7 +36,7 @@
 ?>
 </p>
 
-<h2>General properties</h2>
+<h2>General Properties</h2>
 
 <table>
 <tr>
@@ -130,13 +129,13 @@
 </tr>
 </table>
 
-<h2>User's notes</h2>
+<h2>Notes</h2>
 
 <?php if (empty($model->PNNotes)) { ?>
-    <span style="font-style: italic">There are no user notes</span>
+    <span style="font-style: italic">There are no notes.</span>
 <?php } else { echo CHtml::encode($model->PNNotes); } ?>
 
-<h2>User's information</h2>
+<h2>User Defined Fields</h2>
 
 <table>
 <tr>
@@ -181,7 +180,7 @@
 </tr>
 </table>
 
-<h2>Stock</h2>
+<h2>Stocking Properties</h2>
 
 <table>
 <tr>
@@ -210,7 +209,7 @@
 </tr>
 </table>
 
-<h2>Assy Cost</h2>
+<h2>Assembly Cost</h2>
 
 <table>
 <tr>
@@ -223,7 +222,7 @@
 </tr>
 </table>
 
-<h2>Kitting properties</h2>
+<h2>Kitting Properties</h2>
 
 <table>
 <tr>
@@ -255,7 +254,7 @@ if (count($childs) == 0)
 
 ?>
 
-<p>The detail has no parts.</p>
+<p>This part has no child parts (i.e. no parts list).</p>
 
 <?php
 
@@ -295,7 +294,7 @@ foreach ($childs as $child)
 }
 ?>
 
-<h2>Part of</h2>
+<h2>Used On</h2>
 
 <?php 
 
@@ -306,7 +305,7 @@ if (count($parents) == 0)
 
 ?>
 
-<p>The detail is not a part of other details.</p>
+<p>This part has no parent parts (i.e. it is not included in an assembly).</p>
 
 <?php
 

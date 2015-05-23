@@ -1,8 +1,6 @@
 <?php
 
 /**
- * This is the model class for table "tbl_stock_serial".
- *
  * This is the model class for table "tbl_stock".
  *
  * The followings are the available columns in table 'tbl_stock':
@@ -52,6 +50,9 @@ class Stock extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			//'issues' => array(self::HAS_MANY, 'Issue', 'stock_serial_id'),
+			//'part' => array(self::BELONGS_TO, 'PvPn', 'part_id'),
+			
             'tblIssues' => array(self::MANY_MANY, 'Issue', 'tbl_issue_stock_assignment(stock_id, issue_id)'),
             'orderItemStockAssignments' => array(self::HAS_MANY, 'OrderItemStockAssignment', 'stock_id'),
             'part' => array(self::BELONGS_TO, 'Part', 'part_id'),

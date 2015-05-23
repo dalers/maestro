@@ -23,8 +23,7 @@ $this->menu=array(
 <p>Created on <?php echo empty($model->create_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "Unknown user" : $model->create_user_id; ?>
 
 <?php
-    // Show update information only if the Part Number was updated
-
+    //show update information only if the Part was updated
     if (!empty($model->update_time)) {
 ?>
 , Updated on 
@@ -86,7 +85,7 @@ $this->menu=array(
 <h2>Notes</h2>
 
 <?php if (empty($model->PNNotes)) { ?>
-    <span style="font-style: italic">No notes.</span>
+    <span style="font-style: italic">There are no notes.</span>
 <?php } else { echo CHtml::encode($model->PNNotes); } ?>
 
 <h2>User Defined Fields</h2>
@@ -158,7 +157,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	'dataProvider' => $model->childs($model->id),
     'id' => 'detail_childs_id',
     'showTableOnEmpty' => false,
-    'emptyText' => 'The detail has no parts.',
+    'emptyText' => 'This part has no child parts (i.e. no parts list).',
 	'columns' => array(
         array(
 			'name'=>'PLItem',
@@ -211,7 +210,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	'dataProvider' => $model->parents($model->id),
     'id' => 'detail_childs_id',
     'showTableOnEmpty' => false,
-    'emptyText' => 'The detail is not a part of other details.',
+    'emptyText' => 'This part has no parent parts (i.e. it is not included in an assembly).',
 	'columns' => array(
         array(
 			'name'=>'PLItem',
