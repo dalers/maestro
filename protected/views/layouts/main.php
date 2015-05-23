@@ -37,7 +37,7 @@
 				array('label'=>'Parts', 'url'=>array('/part/index')),
 				array('label'=>'Projects', 'url'=>array('/project/index')),
 				array('label'=>'Issues', 'url'=>array('/issue/index')),
-				array('label'=>'Stock', 'url'=>array('/stockSerial/index')),
+				array('label'=>'Stock', 'url'=>array('/stock/index')),
 				array('label'=>'Orders', 'url'=>array('/order/index')),
 				array('label'=>'Docs', 'url'=>array('/site/page', 'view'=>'docs')),
 				array('label'=>'Users', 'url'=>array('/site/page', 'view'=>'users')),

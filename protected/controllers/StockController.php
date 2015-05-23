@@ -1,6 +1,6 @@
 <?php
 
-class StockSerialController extends Controller
+class StockController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,14 +62,14 @@ class StockSerialController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new StockSerial;
+        $model=new Stock;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['StockSerial']))
+		if(isset($_POST['Stock']))
 		{
-			$model->attributes=$_POST['StockSerial'];
+			$model->attributes=$_POST['Stock'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class StockSerialController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['StockSerial']))
+		if(isset($_POST['Stock']))
 		{
-			$model->attributes=$_POST['StockSerial'];
+			$model->attributes=$_POST['Stock'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class StockSerialController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('StockSerial');
+		$dataProvider=new CActiveDataProvider('Stock');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class StockSerialController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new StockSerial('search');
+		$model=new Stock('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['StockSerial']))
-			$model->attributes=$_GET['StockSerial'];
+		if(isset($_GET['Stock']))
+			$model->attributes=$_GET['Stock'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class StockSerialController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return StockSerial the loaded model
+	 * @return Stock the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=StockSerial::model()->findByPk($id);
+		$model=Stock::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,7 +160,7 @@ class StockSerialController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param StockSerial $model the model to be validated
+	 * @param Stock $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{

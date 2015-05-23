@@ -1,32 +1,32 @@
 <?php
-/* @var $this StockSerialController */
-/* @var $model StockSerial */
+/* @var $this StockController */
+/* @var $model Stock */
 
 $this->breadcrumbs=array(
-	'Stock Serials'=>array('index'),
-	'Manage',
+    'Stocks'=>array('index'),
+    'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List StockSerial', 'url'=>array('index')),
-	array('label'=>'Create StockSerial', 'url'=>array('create')),
+    array('label'=>'List Stock', 'url'=>array('index')),
+    array('label'=>'Create Stock', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
+    $('.search-form').toggle();
+    return false;
 });
 $('.search-form form').submit(function(){
-	$('#stock-serial-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
+    $('#stock-grid').yiiGridView('update', {
+        data: $(this).serialize()
+    });
+    return false;
 });
 ");
 ?>
 
-<h1>Manage Stock Serials</h1>
+<h1>Manage Stock</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -41,21 +41,17 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'stock-serial-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'serial_number',
-		'part_number',
-		'description',
-		'version',
-		'status',
-		/*
-		'part_id',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+    'id'=>'stock-grid',
+    'dataProvider'=>$model->search(),
+    'filter'=>$model,
+    'columns'=>array(
+        'id',
+        'serial_number',
+        'version',
+        'part_id',
+        'status_id',
+        array(
+            'class'=>'CButtonColumn',
+        ),
+    ),
 )); ?>
