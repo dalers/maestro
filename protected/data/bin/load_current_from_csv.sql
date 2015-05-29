@@ -318,7 +318,7 @@ FIELDS
 LINES
 	TERMINATED BY '\n'
 IGNORE 1 LINES
-(id,PNIDToLNK,PNUNID,@PNTabParentID,PNPrefix,PNPartNumber,PNSuffix,PNType,PNRevision,PNTitle,PNDetail,PNStatus,PNReqBy,PNNotes,PNUser1,PNUser2,PNUser3,PNUser4,PNUser5,PNUser6,PNUser7,PNUser8,PNUser9,PNUser10,PNDate,PNTab,PNControlled,PNAux1,PNQty,PNQty2,PNCostChanged,PNParentCost,PNExpandList,PNAssyCostOption,PNInclAssyOnPurchList,PNMadeFrom,PNMinStockQty,PNOrderToMaintain,PNOnECO,PNOverKit,PNOverKitQty,PNOverKitBy,PNOverKitFor,PNCurrentCost,PNLastRollupCost,PNUSRID,PNUserLock)
+(id,PNIDToLNK,PNUNID,@PNTabParentID,PNPrefix,PNPartNumber,PNSuffix,type_id,PNRevision,PNTitle,PNDetail,status_id,PNReqBy,PNNotes,PNUser1,PNUser2,PNUser3,PNUser4,PNUser5,PNUser6,PNUser7,PNUser8,PNUser9,PNUser10,PNDate,PNTab,PNControlled,PNAux1,PNQty,PNQty2,PNCostChanged,PNParentCost,PNExpandList,PNAssyCostOption,PNInclAssyOnPurchList,PNMadeFrom,PNMinStockQty,PNOrderToMaintain,PNOnECO,PNOverKit,PNOverKitQty,PNOverKitBy,PNOverKitFor,PNCurrentCost,PNLastRollupCost,PNUSRID,PNUserLock)
 SET
     PNTabParentID = nullif(@PNTabParentID, '');
 
@@ -369,20 +369,6 @@ LINES
 IGNORE 1 LINES
 (id,LNKSUID,LNKMFRPNID,LNKMFRID,LNKUNID,LNKPNID,LNKToPNID,LNKUse,LNKLeadtime,LNKChoice,LNKVendorPN,LNKVendorDesc,LNKAtQty,LNKRFQDate,LNKMinIncrement,LNKCurrentCost,LNKSetupCost,LNKRoHS,LNKRoHSDoc,
 LNKRoHSNote);
-
--- part_type (origin: parts&vendors TYPE)
--- Unix EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/pv_type.csv'
-INTO TABLE maestro.tbl_part_type
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\n'
-IGNORE 1 LINES
-(id,TYPEType);
 
 -- project (GanttProject -> csv -> project.xlsx -> csv)
 -- Windows EOL
@@ -744,7 +730,19 @@ IGNORE 1 LINES
 -- refactored to order_item
 
 -- pv_type
--- refactored to part_type
+-- part types (PV client cannot edit, add or delete types)
+-- Unix EOL
+LOAD DATA INFILE '/home/maestro/scc/csv/pv_type.csv'
+INTO TABLE maestro.tbl_pv_type
+CHARACTER SET ascii
+FIELDS
+	TERMINATED BY ','
+	OPTIONALLY ENCLOSED BY '"'
+	ESCAPED BY '"'
+LINES
+	TERMINATED BY '\n'
+IGNORE 1 LINES
+(id,TYPEType);
 
 -- pv_un
 -- refactored to unit

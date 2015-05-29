@@ -50,9 +50,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'PNType'); ?>
-		<?php echo $form->textField($model,'PNType',array('size'=>5,'maxlength'=>5)); ?>
-		<?php echo $form->error($model,'PNType'); ?>
+		<?php echo $form->labelEx($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id',array('size'=>5,'maxlength'=>5)); ?>
+		<?php echo $form->error($model,'type_id'); ?>
 	</div>
 
 	<div class="row">
@@ -74,9 +74,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'PNStatus'); ?>
-		<?php echo $form->textField($model,'PNStatus',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'PNStatus'); ?>
+		<?php echo $form->labelEx($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id',array('size'=>1,'maxlength'=>1)); ?>
+		<?php echo $form->error($model,'status_id'); ?>
 	</div>
 
 	<div class="row">

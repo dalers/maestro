@@ -11,11 +11,11 @@
  * @property string $PNPrefix
  * @property string $PNPartNumber
  * @property string $PNSuffix
- * @property string $PNType
+ * @property string $type_id
  * @property string $PNRevision
  * @property string $PNTitle
  * @property string $PNDetail
- * @property string $PNStatus
+ * @property string $status_id
  * @property string $PNReqBy
  * @property string $PNNotes
  * @property string $PNUser1
@@ -52,12 +52,8 @@
  * @property integer $PNUSRID
  * @property integer $PNUserLock
  * @property integer $is_serialized
- * @property integer $iteration_number
- * @property integer $is_current_iteration
  * @property integer $requester_id
- * @property integer $status_id
  * @property integer $stock_location_id
- * @property integer $type_id
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
@@ -73,7 +69,6 @@
  * @property StockLocation $stockLocation
  * @property Part $pNTabParent
  * @property Part[] $parts
- * @property PartType $type
  * @property Unit $pNUN
  * @property User $updateUser
  * @property PartList[] $partLists
@@ -84,6 +79,17 @@
  */
 class Part extends CActiveRecord
 {
+	const TYPE_CAT="CAT";
+    const TYPE_PL="PL";
+    const TYPE_DWG="DWG";
+    const TYPE_PS="PS";
+    const TYPE_AW="AW";
+    const TYPE_DOC="DOC";
+
+    const STATUS_UNRELEASED="U";
+    const STATUS_RELEASED="R";
+    const STATUS_OBSOLETE="O";
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -101,33 +107,33 @@ class Part extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('PNPartNumber', 'required'),
-			array('PNIDToLNK, PNUNID, PNTabParentID, PNTab, PNControlled, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitBy, PNOverKitFor, PNUSRID, PNUserLock, is_serialized, iteration_number, is_current_iteration, requester_id, status_id, stock_location_id, type_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('PNIDToLNK, PNUNID, PNTabParentID, PNTab, PNControlled, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitBy, PNOverKitFor, PNUSRID, PNUserLock, is_serialized, iteration_number, is_current_iteration, requester_id, stock_location_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('PNQty, PNQty2, PNMinStockQty, PNOverKitQty, PNCurrentCost, PNLastRollupCost', 'numerical'),
 			array('PNPrefix, PNPartNumber, PNSuffix, PNAux1', 'length', 'max'=>50),
-			array('PNType', 'length', 'max'=>5),
+            array('type_id', 'in', 'range'=>self::getAllowedTypeRange()),
 			array('PNRevision, PNReqBy', 'length', 'max'=>10),
 			array('PNTitle, PNDetail', 'length', 'max'=>255),
-			array('PNStatus', 'length', 'max'=>1),
+            array('status_id', 'in', 'range'=>self::getAllowedStatusRange()),			
 			array('PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10', 'length', 'max'=>100),
 			array('PNNotes, PNDate, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, PNType, PNRevision, PNTitle, PNDetail, PNStatus, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, is_serialized, iteration_number, is_current_iteration, requester_id, status_id, stock_location_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, type_id, PNRevision, PNTitle, PNDetail, status_id, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, is_serialized, iteration_number, is_current_iteration, requester_id, status_id, stock_location_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 			
 //			maestro v0.0.1
 //			array('PNPartNumber', 'required'),
 //			array('PNIDToLNK, PNUNID, PNTabParentID, PNTab, PNControlled, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitBy, PNOverKitFor, PNUSRID, PNUserLock, type_id, stock_location_id, requester_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 //			array('PNQty, PNQty2, PNMinStockQty, PNOverKitQty, PNCurrentCost, PNLastRollupCost', 'numerical'),
 //			array('PNPrefix, PNPartNumber, PNSuffix, PNAux1', 'length', 'max'=>50),
-//			array('PNType', 'length', 'max'=>5),
+//			array('type_id', 'length', 'max'=>5),
 //			array('PNRevision, PNReqBy', 'length', 'max'=>10),
 //			array('PNTitle, PNDetail', 'length', 'max'=>255),
-//			array('PNStatus', 'length', 'max'=>1),
+//			array('status_id', 'length', 'max'=>1),
 //			array('PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10', 'length', 'max'=>100),
 //			array('PNNotes, PNDate, create_time, update_time', 'safe'),
 //			// The following rule is used by search().
 //			// @todo Please remove those attributes that should not be searched.
-//			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, PNType, PNRevision, PNTitle, PNDetail, PNStatus, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, type_id, stock_location_id, requester_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+//			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, type_id, PNRevision, PNTitle, PNDetail, status_id, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, type_id, stock_location_id, requester_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -194,11 +200,11 @@ class Part extends CActiveRecord
 			'PNPrefix' => 'Prefix',
 			'PNPartNumber' => 'Part Number',
 			'PNSuffix' => 'Suffix',
-			'PNType' => 'Type',
+			'type_id' => 'Type',
 			'PNRevision' => 'Revision',
 			'PNTitle' => 'Title',
 			'PNDetail' => 'Detail',
-			'PNStatus' => 'Status',
+			'status_id' => 'Status',
 			'PNReqBy' => 'Req. By',
 			'PNNotes' => 'Notes',
 			'PNUser1' => 'User 1',
@@ -239,9 +245,7 @@ class Part extends CActiveRecord
 			'iteration_number' => 'Iteration Number',
 			'is_current_iteration' => 'Is Current Iteration',
 			'requester_id' => 'Requester',
-			'status_id' => 'Status',
 			'stock_location_id' => 'Stock Location',
-			'type_id' => 'Type',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
@@ -266,11 +270,11 @@ class Part extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('PNPartNumber',$this->PNPartNumber,true);
-		$criteria->compare('PNType',$this->PNType,true);
+		$criteria->compare('type_id',$this->type_id,true);
 		$criteria->compare('PNRevision',$this->PNRevision,true);
 		$criteria->compare('PNTitle',$this->PNTitle,true);
 		$criteria->compare('PNDetail',$this->PNDetail,true);
-		$criteria->compare('PNStatus',$this->PNStatus,true);
+		$criteria->compare('status_id',$this->status_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -282,6 +286,76 @@ class Part extends CActiveRecord
 			),
 		));
 	}
+
+    /**
+     * Retrieves a list of part types
+     * @return Array an array of available part types.
+     */
+    public function getTypeOptions()
+    {
+        return array(
+            self::TYPE_CAT=>'Catalogue Part',
+            self::TYPE_PL=>'Assembly',
+            self::TYPE_DWG=>'Custom',
+            self::TYPE_PS=>'Specification',
+            self::TYPE_AW=>'Artwork',
+            self::TYPE_DOC=>'Documentation',
+        );
+    }
+
+    public static function getAllowedTypeRange()
+    {
+        return array(
+            self::TYPE_CAT,
+            self::TYPE_PL,
+            self::TYPE_DWG,
+            self::TYPE_PS,
+            self::TYPE_AW,
+            self::TYPE_DOC,
+        );
+    }
+
+    /**
+     * Retrieves a list of part statuses
+     * @return Array an array of available part statuses.
+     */
+    public function getStatusOptions()
+    {
+        return array(
+            self::STATUS_UNRELEASED=>'Not Released',
+            self::STATUS_RELEASED=>'Released',
+            self::STATUS_OBSOLETE=>'Obsolete',
+        );
+    }
+
+    public function getAllowedStatusRange()
+    {
+        return array(
+            self::STATUS_UNRELEASED,
+            self::STATUS_RELEASED,
+            self::STATUS_OBSOLETE,
+        );
+    }	
+
+    /**
+     * @return string the status text display for the current issue
+     */ 
+    public function getStatusText()
+    {
+        // following is equivalent to $statusOptions=$this->getStatusOptions();
+        $statusOptions=$this->statusOptions;
+        return isset($statusOptions[$this->status_id]) ? $statusOptions[$this->status_id] : "unknown status ({$this->status_id})";
+    }
+
+    /**
+     * @return string the type text display for the current issue
+     */ 
+    public function getTypeText()
+    {
+        $typeOptions=$this->typeOptions;
+        return isset($typeOptions[$this->type_id]) ? $typeOptions[$this->type_id] : "unknown type ({$this->type_id})";
+    }
+	
 
     /**
 	 * Retrieves a list of child parts of the specified part.

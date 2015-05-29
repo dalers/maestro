@@ -239,7 +239,7 @@ class Order extends CActiveRecord
 
 	public function getPartsList()
 	{
-		$partslist= Yii::app()->db->createCommand('SELECT id, PNTitle FROM tbl_pv_pn WHERE PNType = \'PL\'')->queryAll();
+		$partslist= Yii::app()->db->createCommand('SELECT id, PNTitle FROM tbl_pv_pn WHERE type_id = \'PL\'')->queryAll();
 
 		$list = CHtml::listData($partslist,'id','PNTitle');
 

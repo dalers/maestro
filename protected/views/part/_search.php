@@ -47,8 +47,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'PNType'); ?>
-		<?php echo $form->textField($model,'PNType',array('size'=>5,'maxlength'=>5)); ?>
+		<?php echo $form->label($model,'type_id'); ?>
+		<?php echo $form->textField($model,'type_id',array('size'=>5,'maxlength'=>5)); ?>
 	</div>
 
 	<div class="row">
@@ -67,8 +67,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'PNStatus'); ?>
-		<?php echo $form->textField($model,'PNStatus',array('size'=>1,'maxlength'=>1)); ?>
+		<?php echo $form->label($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id',array('size'=>1,'maxlength'=>1)); ?>
 	</div>
 
 	<div class="row">

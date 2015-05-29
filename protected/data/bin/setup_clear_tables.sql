@@ -26,7 +26,6 @@ TRUNCATE TABLE `tbl_part`;
 TRUNCATE TABLE `tbl_part_cost`;
 TRUNCATE TABLE `tbl_part_list`;
 TRUNCATE TABLE `tbl_part_source_assignment`;
-TRUNCATE TABLE `tbl_part_type`;
 TRUNCATE TABLE `tbl_project`;
 TRUNCATE TABLE `tbl_project_user_assignment`;
 TRUNCATE TABLE `tbl_purchase_order_item`;
@@ -50,5 +49,6 @@ TRUNCATE TABLE `tbl_pv_org`;
 TRUNCATE TABLE `tbl_pv_pll`;
 TRUNCATE TABLE `tbl_pv_pod`;
 TRUNCATE TABLE `tbl_pv_rpx`;
+TRUNCATE TABLE `tbl_pv_type`;
 
 SET FOREIGN_KEY_CHECKS=1;

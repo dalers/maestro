@@ -68,16 +68,16 @@
 <td><?php echo CHtml::encode($model->PNDetail); ?></td>
 </tr>
 <tr>
-<th class="details"><?php echo $model->getAttributeLabel('PNType'); ?></th>
-<td><?php echo CHtml::encode($model->PNType); ?></td>
+<th class="details"><?php echo $model->getAttributeLabel('type_id'); ?></th>
+<td><?php echo CHtml::encode($model->type_id); ?></td>
 </tr>
 <tr>
 <th class="details"><?php echo $model->getAttributeLabel('PNRevision'); ?></th>
 <td><?php echo CHtml::encode($model->PNRevision); ?></td>
 </tr>
 <tr>
-<th class="details"><?php echo $model->getAttributeLabel('PNStatus'); ?></th>
-<td><?php echo $model->valueToText($model->PNStatus, array('U' => 'Unreleased', 'R' => 'Released', 'O' => 'Obsolete')); ?></td>
+<th class="details"><?php echo $model->getAttributeLabel('status_id'); ?></th>
+<td><?php echo $model->valueToText($model->status_id, array('U' => 'Unreleased', 'R' => 'Released', 'O' => 'Obsolete')); ?></td>
 </tr>
 <tr>
 <th class="details"><?php echo "Units"; ?></th>
@@ -268,7 +268,7 @@ else
 <th style="width:30px"><?php echo ('Item'); ?></th>
 <th style="width:90px"><?php echo $model->getAttributeLabel('PNPartNumber'); ?></th>
 <th style="width:30px"><?php echo ('Qty'); ?></th>
-<th style="width:40px"><?php echo $model->getAttributeLabel('PNType'); ?></th>
+<th style="width:40px"><?php echo $model->getAttributeLabel('type_id'); ?></th>
 <th style="width:350px"><?php echo $model->getAttributeLabel('PNTitle'); ?></th>
 <!-- <th><?php echo $model->getAttributeLabel('PNDetail'); ?></th> -->
 </tr>
@@ -281,7 +281,7 @@ foreach ($childs as $child)
     echo "<td>" . CHtml::encode($child->PLItem) . "</td>";
     echo "<td>" . CHtml::encode($child->detail->PNPartNumber) . "</td>";
     echo "<td>" . CHtml::encode($child->PLQty) . "</td>";
-    echo "<td>" . CHtml::encode($child->detail->PNType) . "</td>";
+    echo "<td>" . CHtml::encode($child->detail->type_id) . "</td>";
     echo "<td>" . CHtml::encode($child->detail->PNTitle) . "</td>";
     //echo "<td>" . CHtml::encode($child->detail->PNDetail) . "</td>";
     echo "</tr>";
@@ -320,7 +320,7 @@ else
 <th style="width:30px"><?php echo ('Item'); ?></th>
 <th style="width:90px"><?php echo $model->getAttributeLabel('PNPartNumber'); ?></th>
 <th style="width:30px"><?php echo ('Qty'); ?></th>
-<th style="width:40px"><?php echo $model->getAttributeLabel('PNType'); ?></th>
+<th style="width:40px"><?php echo $model->getAttributeLabel('type_id'); ?></th>
 <th style="width:350px"><?php echo $model->getAttributeLabel('PNTitle'); ?></th>
 <!-- <th><?php echo $model->getAttributeLabel('PNDetail'); ?></th> -->
 </tr>
@@ -333,7 +333,7 @@ foreach ($parents as $item)
     echo "<td>" . CHtml::encode($item->PLItem) . "</td>";
     echo "<td>" . CHtml::encode($item->partof->PNPartNumber) . "</td>";
     echo "<td>" . CHtml::encode($item->PLQty) . "</td>";
-    echo "<td>" . CHtml::encode($item->partof->PNType) . "</td>";
+    echo "<td>" . CHtml::encode($item->partof->type_id) . "</td>";
     echo "<td>" . CHtml::encode($item->partof->PNTitle) . "</td>";
     //echo "<td>" . CHtml::encode($item->partof->PNDetail) . "</td>";
     echo "</tr>";

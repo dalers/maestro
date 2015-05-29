@@ -50,8 +50,6 @@ $this->menu=array(
 <?php 
 
     //detail Part information separated into logical parts.
-    //uses helper functions 'valueToText' and 'YesNo' declared in Part model
-
     $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -62,9 +60,9 @@ $this->menu=array(
 		'PNSuffix',
 		'PNTitle',
 		'PNDetail',
-		'PNType',
+		'type_id',
 		'PNRevision',
-        array('label' => $model->getAttributeLabel('PNStatus'), 'type' => 'raw', 'value' => ViewHelpers::valueToText($model->PNStatus, array('U' => 'Unreleased', 'R' => 'Released', 'O' => 'Obsolete'))),
+        array('label' => $model->getAttributeLabel('status_id'), 'type' => 'raw', 'value' => ViewHelpers::valueToText($model->status_id, array('U' => 'Unreleased', 'R' => 'Released', 'O' => 'Obsolete'))),
         array('label' => 'Units', 'type' => 'raw', 'value' => $model->unit->UNUseUnits . ' '),
         'PNReqBy',
 		'PNTab',
@@ -178,10 +176,10 @@ $this->widget('zii.widgets.CDetailView', array(
 			'value'=>'CHtml::encode($data->PLQty)',
 		),
         array(
-			'name'=>$model->getAttributeLabel('PNType'),
+			'name'=>$model->getAttributeLabel('type_id'),
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->detail->PNType)',
+			'value'=>'CHtml::encode($data->detail->type_id)',
 		),
 		array(
 			'name'=>$model->getAttributeLabel('PNTitle'),
@@ -231,10 +229,10 @@ $this->widget('zii.widgets.CDetailView', array(
 			'value'=>'CHtml::encode($data->PLQty)',
 		),
         array(
-			'name'=>$model->getAttributeLabel('PNType'),
+			'name'=>$model->getAttributeLabel('type_id'),
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->partof->PNType)',
+			'value'=>'CHtml::encode($data->partof->type_id)',
 		),
 		array(
 			'name'=>$model->getAttributeLabel('PNTitle'),

@@ -202,13 +202,13 @@ class PartController extends Controller
 		$csvname = "parts.csv";
 		$path = Yii::app()->basePath;
 		$filename = $path."/runtime/".$csvname;		
-		$cmd = Yii::app()->db->createCommand("SELECT PNPartNumber, PNType, PNStatus, PNRevision, PNTitle, PNDetail FROM maestro.tbl_part");
+		$cmd = Yii::app()->db->createCommand("SELECT PNPartNumber, type_id, status_id, PNRevision, PNTitle, PNDetail FROM maestro.tbl_part");
 		
 		$csv = new ECSVExport($cmd);
 		
 		$csv->setHeader('PNPartNumber', 'PartNumber');
-		$csv->setHeader('PNType', 'Type');
-		$csv->setHeader('PNStatus', 'Status');
+		$csv->setHeader('type_id', 'Type');
+		$csv->setHeader('status_id', 'Status');
 		$csv->setHeader('PNRevision', 'Revision');
 		$csv->setHeader('PNTitle', 'Title');
 		$csv->setHeader('PNDetail', 'Detail');

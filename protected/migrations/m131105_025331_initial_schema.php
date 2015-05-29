@@ -264,11 +264,11 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PNPrefix' => 'VARCHAR(50)', 
 			'PNPartNumber' => 'VARCHAR(50) NOT NULL',
 			'PNSuffix' => 'VARCHAR(50)', 
-			'PNType' => 'VARCHAR(5)', //part type (value), see type_id for fk to part_type
+			'type_id' => 'VARCHAR(5)', //[CAT|PL|DWG|PS|AW|DOC], defined in class
 			'PNRevision' => 'VARCHAR(10)',
 			'PNTitle' => 'VARCHAR(255)', 
 			'PNDetail' => 'VARCHAR(255)',
-			'PNStatus' => 'VARCHAR(1)', //[R|U|O], defined in class, not fk
+			'status_id' => 'VARCHAR(1)', //[U|R|O], defined in class
 			'PNReqBy' => 'VARCHAR(10)', //initials or nickname of requester (requester_id is fk to user)
 			'PNNotes' => 'LONGTEXT',
 			'PNUser1' => 'VARCHAR(100)', 
@@ -306,13 +306,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'PNUserLock' => 'TINYINT(1) DEFAULT 0', 
 
 			'is_serialized' => 'boolean', //stock of part is serialized
-			'iteration_number' => 'integer',
-			'is_current_iteration' => 'boolean',
-
 			'requester_id' => 'integer',
-			'status_id' => 'integer', //[Inactive|Active], defined in class, not fk
 			'stock_location_id' => 'integer',
-			'type_id' => 'integer DEFAULT NULL',
 
 			'create_time' => 'datetime',
 			'create_user_id' => 'integer',
@@ -371,13 +366,6 @@ class m131105_025331_initial_schema extends CDbMigration
 			'LNKRoHS' => 'TINYINT(1) DEFAULT 0', 
 			'LNKRoHSDoc' => 'VARCHAR(50)', 
 			'LNKRoHSNote' => 'VARCHAR(255)', 
-		), 'ENGINE=InnoDB');  
-
-		//part_type (origin: parts&vendors TYPE)
-		//part type lookup
-		$this->createTable('tbl_part_type', array(
-			'id' => 'pk',
-			'TYPEType' => 'VARCHAR(6)',
 		), 'ENGINE=InnoDB');  
 
 		//project
@@ -776,7 +764,11 @@ class m131105_025331_initial_schema extends CDbMigration
 		//refactored to order_item
 
 		//pv_type
-		//refactored to part_type
+		//part types (PV client cannot edit, add or delete types)
+		$this->createTable('tbl_pv_type', array(
+			'id' => 'pk',
+			'TYPEType' => 'VARCHAR(6)',
+		), 'ENGINE=InnoDB');  
 
 		//pv_un
 		//refactored to unit
@@ -842,7 +834,6 @@ class m131105_025331_initial_schema extends CDbMigration
 		//part
 		$this->addForeignKey("fk_part_to_units", "tbl_part", "PNUNID", "tbl_unit", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_part_to_tab_parent", "tbl_part", "PNTabParentID", "tbl_part", "id", "CASCADE", "RESTRICT");
-		$this->addForeignKey("fk_part_to_type", "tbl_part", "type_id", "tbl_part_type", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_part_to_stock_location", "tbl_part", "stock_location_id", "tbl_stock_location", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_part_to_requestor", "tbl_part", "requester_id", "tbl_user", "id", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_part_to_create_user", "tbl_part", "create_user_id", "tbl_user", "id", "CASCADE", "RESTRICT");
@@ -927,7 +918,6 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_part_cost');
 		$this->dropTable('tbl_part_list');
 		$this->dropTable('tbl_part_source_assignment');
-		$this->dropTable('tbl_part_type');
 		$this->dropTable('tbl_project');
 		$this->dropTable('tbl_project_user_assignment');
 		$this->dropTable('tbl_purchase_order');
@@ -951,6 +941,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		$this->dropTable('tbl_pv_pll');
 		$this->dropTable('tbl_pv_pod');
 		$this->dropTable('tbl_pv_rpx');
+		$this->dropTable('tbl_pv_type');
 
 		$this->execute("SET foreign_key_checks = 0;");
 	}

@@ -29,16 +29,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=>'CHtml::link(CHtml::encode($data->PNPartNumber), array(\'view\', \'id\' => $data->id))',
 		),
         array(
-			'name'=>'PNType',
+			'name'=>'type_id',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->PNType)',
+			'value'=>'CHtml::encode($data->type_id)',
 		),
         array(
-			'name'=>'PNStatus',
+			'name'=>'status_id',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->PNStatus)',
+			'value'=>'CHtml::encode($data->status_id)',
 		),
         array(
 			'name'=>'PNRevision',

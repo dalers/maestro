@@ -34,8 +34,8 @@
 	<br />
 
 	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('PNType')); ?>:</b>
-	<?php echo CHtml::encode($data->PNType); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->type_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('PNRevision')); ?>:</b>
@@ -50,8 +50,8 @@
 	<?php echo CHtml::encode($data->PNDetail); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('PNStatus')); ?>:</b>
-	<?php echo CHtml::encode($data->PNStatus); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status_id')); ?>:</b>
+	<?php echo CHtml::encode($data->status_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('PNReqBy')); ?>:</b>
