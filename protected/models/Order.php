@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'tbl_order':
  * @property integer $id
- * @property string $type
- * @property string $name
- * @property string $status
+ * @property integer $type_id
+ * @property string $JOBNumber
+ * @property integer $status_id
  * @property integer $project_id
  * @property string $create_time
  * @property integer $create_user_id
@@ -39,11 +39,11 @@ class Order extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('project_id, parts_list_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('name, type, status', 'length', 'max'=>255),
+			array('JOBNumber, type_id, status_id', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, type, status, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, JOBNumber, type_id, status_id, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,9 +70,9 @@ class Order extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'type' => 'Type',
-			'status' => 'Status',
+			'JOBNumber' => 'Name',
+			'type_id' => 'Type',
+			'status_id' => 'Status',
 			'project_id' => 'Project',
 			'parts_list_id' => 'Parts List',
 			'create_time' => 'Create Time',
@@ -101,9 +101,9 @@ class Order extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('type',$this->type,true);
-		$criteria->compare('status',$this->status,true);
+		$criteria->compare('JOBNumber',$this->JOBNumber,true);
+		$criteria->compare('type_id',$this->type_id,true);
+		$criteria->compare('status_id',$this->status_id,true);
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);

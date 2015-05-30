@@ -207,8 +207,8 @@ class m131105_025331_initial_schema extends CDbMigration
 			'partslist_id' => 'integer', //parts list used as order template (if used)
 			'project_id' => 'integer', //project associated with order
 			'shipper_id' => 'integer',
-			'status_id' => 'integer', //[New|Invoiced|Shipped|Closed], defined in class, not fk
-			'type_id' => 'integer', //[Internal|External], defined in class, not fk
+			'status_id' => 'integer', //[New|Invoiced|Shipped|Closed], defined in class
+			'type_id' => 'integer', //[Internal|Customer], defined in class
 
 			'create_time' => 'datetime DEFAULT NULL',
 			'create_user_id' => 'integer DEFAULT NULL',
