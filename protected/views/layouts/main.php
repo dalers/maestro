@@ -40,7 +40,8 @@
 				array('label'=>'Stock', 'url'=>array('/stock/index')),
 				array('label'=>'Orders', 'url'=>array('/order/index')),
 				array('label'=>'Docs', 'url'=>array('/site/page', 'view'=>'docs')),
-				array('label'=>'Users', 'url'=>array('/site/page', 'view'=>'users')),
+//				array('label'=>'Users', 'url'=>array('/site/page', 'view'=>'users')),
+				array('label'=>'Users', 'url'=>array('/user/index')),
 				array('label'=>'Help', 'url'=>array('/site/page', 'view'=>'help')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
