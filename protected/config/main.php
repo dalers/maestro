@@ -85,9 +85,10 @@ return array(
 					'levels'=>'error, warning, info, trace',
 				),
 				//comment the following to not show log messages on web pages
-				array(
+				/* array(
 					'class'=>'CWebLogRoute',
 				),
+				*/
 			),
 		),
 		'ePdf' => array(
