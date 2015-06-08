@@ -28,22 +28,22 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=>'CHtml::link(CHtml::encode($data->id), array(\'view\', \'id\' => $data->id))',
 		),
 		array(
-			'name'=>'JOBNumber',
+			'name'=>'name',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 25px; text-align: center;'),
-			'value'=>'CHtml::encode($data->JOBNumber)',
+			'value'=>'CHtml::encode($data->name)',
 		),
 		array(
-			'name'=>'type_id',
+			'name'=>'type',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 25px; text-align: center;'),
-			'value'=>'CHtml::encode($data->type_id)',
+			'value'=>'CHtml::encode($data->type)',
 		),
 		array(
-			'name'=>'status_id',
+			'name'=>'status',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 25px; text-align: center;'),
-			'value'=>'CHtml::encode($data->status_id)',
+			'value'=>'CHtml::encode($data->status)',
 		),
 		array(
 			'name'=>'project_id',

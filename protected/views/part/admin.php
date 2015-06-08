@@ -100,8 +100,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'PNUSRID',
 		'PNUserLock',
 		'is_serialized',
-		'iteration_number',
-		'is_current_iteration',
 		'requester_id',
 		'status_id',
 		'stock_location_id',

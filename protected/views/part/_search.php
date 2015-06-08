@@ -252,16 +252,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'iteration_number'); ?>
-		<?php echo $form->textField($model,'iteration_number'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'is_current_iteration'); ?>
-		<?php echo $form->textField($model,'is_current_iteration'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'requester_id'); ?>
 		<?php echo $form->textField($model,'requester_id'); ?>
 	</div>

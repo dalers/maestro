@@ -11,7 +11,7 @@
  * @property integer $sublocation_max
  *
  * The followings are the available model relations:
- * @property PvPn[] $pvPns
+ * @property Part[] $pvPns
  */
 class StockLocation extends CActiveRecord
 {
@@ -47,7 +47,7 @@ class StockLocation extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'pvPns' => array(self::HAS_MANY, 'PvPn', 'stock_location_id'),
+			'pvPns' => array(self::HAS_MANY, 'Part', 'stock_location_id'),
 		);
 	}
 

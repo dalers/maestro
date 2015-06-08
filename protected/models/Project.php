@@ -29,6 +29,21 @@
  */
 class Project extends MaestroActiveRecord
 {
+    const PHASE_IDEA=0;
+    const PHASE_DEFIN=1;
+    const PHASE_DESIGN=2;
+    const PHASE_TEST=3;
+    const PHASE_PILOT=4;
+    const PHASE_PROD=5;
+    const PHASE_TERM=6;
+
+    const STATUS_NOT_STARTED=0;
+    const STATUS_STARTED=1;
+    const STATUS_FINISHED=2;	
+
+	const TYPE_INT=0;
+    const TYPE_EXT=1;
+
     /**
      * @return string the associated database table name
      */
@@ -41,18 +56,21 @@ class Project extends MaestroActiveRecord
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array(
-            array('name, description', 'required'),
-            array('customer_id, owner_id, phase_id, status_id, type_id', 'numerical', 'integerOnly'=>true),
-            array('name, code', 'length', 'max'=>255),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, name, code, description, customer_id, owner_id, phase_id, status_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
-        );
-    }
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('name, description', 'required'),
+			array('customer_id, owner_id', 'numerical', 'integerOnly'=>true),
+			array('phase_id', 'in', 'range'=>self::getAllowedPhaseRange()),
+			array('status_id', 'in', 'range'=>self::getAllowedStatusRange()),			
+			array('type_id', 'in', 'range'=>self::getAllowedTypeRange()),
+			array('name, code', 'length', 'max'=>255),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, name, code, description, customer_id, owner_id, phase_id, status_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+		);
+	}
 
     /**
      * @return array relational rules.
@@ -142,7 +160,108 @@ class Project extends MaestroActiveRecord
         return parent::model($className);
     }
 
+   /**
+     * Retrieves a list of project phases
+     * @return Array an array of available project phases.
+     */
+    public function getPhaseOptions()
+    {
+        return array(
+            self::PHASE_IDEA=>'Idea',
+            self::PHASE_DEFIN=>'Definition',
+            self::PHASE_DESIGN=>'Design',
+            self::PHASE_TEST=>'Test',
+            self::PHASE_PILOT=>'Pilot',
+            self::PHASE_PROD=>'Production',
+            self::PHASE_TERM=>'Termination',
+        );
+    }
+
+    public function getAllowedPhaseRange()
+    {
+        return array(
+            self::PHASE_IDEA,
+            self::PHASE_DEFIN,
+            self::PHASE_DESIGN,
+            self::PHASE_TEST,
+            self::PHASE_PILOT,
+            self::PHASE_PROD,
+            self::PHASE_TERM,
+        );
+    }	
+
     /**
+     * @return string the status text display for the current issue
+     */ 
+    public function getPhaseText()
+    {
+        // following is equivalent to $phaseOptions=$this->getPhaseOptions();
+        $phaseOptions=$this->phaseOptions;
+        return isset($phaseOptions[$this->phase_id]) ? $phaseOptions[$this->phase_id] : "unknown phase ({$this->phase_id})";
+    }
+
+    /**
+     * Retrieves a list of project statuses
+     * @return Array an array of available project statuses.
+     */
+    public function getStatusOptions()
+    {
+        return array(
+            self::STATUS_NOT_STARTED=>'Not Yet Started',
+            self::STATUS_STARTED=>'Started',
+            self::STATUS_FINISHED=>'Finished',
+        );
+    }
+
+    public function getAllowedStatusRange()
+    {
+        return array(
+            self::STATUS_NOT_STARTED,
+            self::STATUS_STARTED,
+            self::STATUS_FINISHED,
+        );
+    }	
+
+    /**
+     * @return string the status text display for the current issue
+     */ 
+    public function getStatusText()
+    {
+        // following is equivalent to $statusOptions=$this->getStatusOptions();
+        $statusOptions=$this->statusOptions;
+        return isset($statusOptions[$this->status_id]) ? $statusOptions[$this->status_id] : "unknown status ({$this->status_id})";
+    }
+
+    /**
+     * Retrieves a list of project types
+     * @return Array an array of available project types.
+     */
+    public function getTypeOptions()
+    {
+        return array(
+            self::TYPE_INT=>'Internal',
+            self::TYPE_EXT=>'External',
+        );
+    }
+
+    public function getAllowedTypeRange()
+    {
+        return array(
+            self::TYPE_INT,
+            self::TYPE_EXT,
+        );
+    }
+
+    /**
+     * @return string the type text display for the current issue
+     */ 
+    public function getTypeText()
+    {
+        $typeOptions=$this->typeOptions;
+        return isset($typeOptions[$this->type_id]) ? $typeOptions[$this->type_id] : "unknown type ({$this->type_id})";
+    }
+
+	/**
      * @return array of users for this project, indexed by user IDs
      */ 
     public function getUserOptions()

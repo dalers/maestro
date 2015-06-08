@@ -1,29 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "tbl_stock".
+ * This is the model class for table "tbl_stock_serial".
  *
- * The followings are the available columns in table 'tbl_stock':
+ * The followings are the available columns in table 'tbl_stock_serial':
  * @property integer $id
  * @property string $serial_number
+ * @property string $part_number
+ * @property string $description
  * @property string $version
+ * @property string $status
  * @property integer $part_id
- * @property integer $status_id
  *
  * The followings are the available model relations:
- * @property Issue[] $tblIssues
- * @property OrderItemStockAssignment[] $orderItemStockAssignments
+ * @property Issue[] $issues
  * @property Part $part
- * @property StockTransaction[] $stockTransactions
  */
-class Stock extends CActiveRecord
+class StockSerial extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tbl_stock';
+		return 'tbl_stock_serial';
 	}
 
 	/**
@@ -34,11 +34,11 @@ class Stock extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('part_id, status_id', 'numerical', 'integerOnly'=>true),
-            array('serial_number, version', 'length', 'max'=>255),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, serial_number, version, part_id, status_id', 'safe', 'on'=>'search'),
+			array('part_id', 'numerical', 'integerOnly'=>true),
+			array('serial_number, part_number, description, version, status', 'length', 'max'=>255),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, serial_number, part_number, description, version, status, part_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,13 +50,8 @@ class Stock extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			//'issues' => array(self::HAS_MANY, 'Issue', 'stock_serial_id'),
-			//'part' => array(self::BELONGS_TO, 'Part', 'part_id'),
-			
-            'tblIssues' => array(self::MANY_MANY, 'Issue', 'tbl_issue_stock_assignment(stock_id, issue_id)'),
-            'orderItemStockAssignments' => array(self::HAS_MANY, 'OrderItemStockAssignment', 'stock_id'),
-            'part' => array(self::BELONGS_TO, 'Part', 'part_id'),
-            'stockTransactions' => array(self::HAS_MANY, 'StockTransaction', 'stock_id'),
+			'issues' => array(self::HAS_MANY, 'Issue', 'stock_serial_id'),
+			'part' => array(self::BELONGS_TO, 'Part', 'part_id'),
 		);
 	}
 
@@ -66,11 +61,13 @@ class Stock extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-            'id' => 'ID',
-            'serial_number' => 'Serial Number',
-            'version' => 'Version',
-            'part_id' => 'Part',
-            'status_id' => 'Status',
+			'id' => 'ID',
+			'serial_number' => 'Serial Number',
+			'part_number' => 'Part Number',
+			'description' => 'Description',
+			'version' => 'Version',
+			'status' => 'Status',
+			'part_id' => 'Part',
 		);
 	}
 
@@ -92,11 +89,13 @@ class Stock extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('serial_number',$this->serial_number,true);
-        $criteria->compare('version',$this->version,true);
-        $criteria->compare('part_id',$this->part_id);
-        $criteria->compare('status_id',$this->status_id);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('serial_number',$this->serial_number,true);
+		$criteria->compare('part_number',$this->part_number,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('version',$this->version,true);
+		$criteria->compare('status',$this->status,true);
+		$criteria->compare('part_id',$this->part_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +106,7 @@ class Stock extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Stock the static model class
+	 * @return StockSerial the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

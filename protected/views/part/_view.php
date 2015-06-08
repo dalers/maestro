@@ -198,14 +198,6 @@
 	<?php echo CHtml::encode($data->is_serialized); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('iteration_number')); ?>:</b>
-	<?php echo CHtml::encode($data->iteration_number); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('is_current_iteration')); ?>:</b>
-	<?php echo CHtml::encode($data->is_current_iteration); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('requester_id')); ?>:</b>
 	<?php echo CHtml::encode($data->requester_id); ?>
 	<br />

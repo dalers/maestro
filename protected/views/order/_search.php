@@ -17,8 +17,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'JOBNumber'); ?>
-		<?php echo $form->textField($model,'JOBNumber'); ?>
+		<?php echo $form->label($model,'name'); ?>
+		<?php echo $form->textField($model,'name'); ?>
 	</div>
 	
 	<div class="row">

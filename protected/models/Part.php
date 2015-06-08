@@ -107,7 +107,7 @@ class Part extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('PNPartNumber', 'required'),
-			array('PNIDToLNK, PNUNID, PNTabParentID, PNTab, PNControlled, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitBy, PNOverKitFor, PNUSRID, PNUserLock, is_serialized, iteration_number, is_current_iteration, requester_id, stock_location_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('PNIDToLNK, PNUNID, PNTabParentID, PNTab, PNControlled, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitBy, PNOverKitFor, PNUSRID, PNUserLock, is_serialized, requester_id, stock_location_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('PNQty, PNQty2, PNMinStockQty, PNOverKitQty, PNCurrentCost, PNLastRollupCost', 'numerical'),
 			array('PNPrefix, PNPartNumber, PNSuffix, PNAux1', 'length', 'max'=>50),
             array('type_id', 'in', 'range'=>self::getAllowedTypeRange()),
@@ -118,7 +118,7 @@ class Part extends CActiveRecord
 			array('PNNotes, PNDate, create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, type_id, PNRevision, PNTitle, PNDetail, status_id, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, is_serialized, iteration_number, is_current_iteration, requester_id, status_id, stock_location_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, PNIDToLNK, PNUNID, PNTabParentID, PNPrefix, PNPartNumber, PNSuffix, type_id, PNRevision, PNTitle, PNDetail, status_id, PNReqBy, PNNotes, PNUser1, PNUser2, PNUser3, PNUser4, PNUser5, PNUser6, PNUser7, PNUser8, PNUser9, PNUser10, PNDate, PNTab, PNControlled, PNAux1, PNQty, PNQty2, PNCostChanged, PNParentCost, PNExpandList, PNAssyCostOption, PNInclAssyOnPurchList, PNMadeFrom, PNMinStockQty, PNOrderToMaintain, PNOnECO, PNOverKit, PNOverKitQty, PNOverKitBy, PNOverKitFor, PNCurrentCost, PNLastRollupCost, PNUSRID, PNUserLock, is_serialized, requester_id, status_id, stock_location_id, type_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 			
 //			maestro v0.0.1
 //			array('PNPartNumber', 'required'),
@@ -242,8 +242,6 @@ class Part extends CActiveRecord
 			'PNUserLock' => 'User Lock',
 			
 			'is_serialized' => 'Is Serialized',
-			'iteration_number' => 'Iteration Number',
-			'is_current_iteration' => 'Is Current Iteration',
 			'requester_id' => 'Requester',
 			'stock_location_id' => 'Stock Location',
 			'create_time' => 'Create Time',
@@ -421,7 +419,7 @@ class Part extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return PvPn the static model class
+	 * @return Part the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

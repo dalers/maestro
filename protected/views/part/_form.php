@@ -296,18 +296,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'iteration_number'); ?>
-		<?php echo $form->textField($model,'iteration_number'); ?>
-		<?php echo $form->error($model,'iteration_number'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'is_current_iteration'); ?>
-		<?php echo $form->textField($model,'is_current_iteration'); ?>
-		<?php echo $form->error($model,'is_current_iteration'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'requester_id'); ?>
 		<?php echo $form->textField($model,'requester_id'); ?>
 		<?php echo $form->error($model,'requester_id'); ?>

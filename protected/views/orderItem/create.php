@@ -43,7 +43,7 @@ $this->menu=array(
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'part_id'); ?>
-		<?php echo $form->dropDownList($model,'part_id', CHtml::listData(PvPn::model()->findAll(array('order' => 'PNPartNumber')),'id','PNPartNumber'));?>
+		<?php echo $form->dropDownList($model,'part_id', CHtml::listData(Part::model()->findAll(array('order' => 'PNPartNumber')),'id','PNPartNumber'));?>
 		<?php echo $form->error($model,'part_id'); ?>
 	</div>
 

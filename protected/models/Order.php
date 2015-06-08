@@ -5,10 +5,11 @@
  *
  * The followings are the available columns in table 'tbl_order':
  * @property integer $id
- * @property integer $type_id
- * @property string $JOBNumber
- * @property integer $status_id
+ * @property string $name
+ * @property string $type
+ * @property string $status
  * @property integer $project_id
+ * @property integer $parts_list_id
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
@@ -39,11 +40,11 @@ class Order extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('project_id, parts_list_id, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('JOBNumber, type_id, status_id', 'length', 'max'=>255),
+			array('name, type, status', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, JOBNumber, type_id, status_id, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+			array('id, name, type, status, project_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,7 +60,7 @@ class Order extends CActiveRecord
 			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
 			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 			'OrderItems' => array(self::HAS_MANY, 'OrderItem', 'order_id'),
-			'partslist' => array(self::BELONGS_TO, 'PvPn', 'parts_list_id'),
+			'partslist' => array(self::BELONGS_TO, 'Part', 'parts_list_id'),
 		);
 	}
 
@@ -70,9 +71,9 @@ class Order extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'JOBNumber' => 'Name',
-			'type_id' => 'Type',
-			'status_id' => 'Status',
+			'name' => 'Name',
+			'type' => 'Type',
+			'status' => 'Status',
 			'project_id' => 'Project',
 			'parts_list_id' => 'Parts List',
 			'create_time' => 'Create Time',
@@ -101,9 +102,9 @@ class Order extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('JOBNumber',$this->JOBNumber,true);
-		$criteria->compare('type_id',$this->type_id,true);
-		$criteria->compare('status_id',$this->status_id,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('type',$this->type,true);
+		$criteria->compare('status',$this->status,true);
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('create_user_id',$this->create_user_id);
@@ -173,7 +174,7 @@ class Order extends CActiveRecord
 
 		$criteria->compare('id', $id, false);
 
-		return new CActiveDataProvider('PvPn', array(
+		return new CActiveDataProvider('Part', array(
 			'criteria' => $criteria,
             'pagination'=>array(
                 'pageSize'=>$pagesize,
@@ -217,7 +218,7 @@ class Order extends CActiveRecord
 
 	private function fetchPartsFromPartsList($id)
 	{
-		$list= Yii::app()->db->createCommand('SELECT pl.PLPartID AS PLPartID, pl.PLQty AS PNQty FROM tbl_pv_pl pl, tbl_pv_pn pn WHERE pl.PLPartID = pn.id AND pl.PLListID=:plid')->bindValue('plid',$id)->queryAll();
+		$list= Yii::app()->db->createCommand('SELECT pl.PLPartID AS PLPartID, pl.PLQty AS PNQty FROM tbl_part_list pl, tbl_part pn WHERE pl.PLPartID = pn.id AND pl.PLListID=:plid')->bindValue('plid',$id)->queryAll();
 	
 		$rs=array();
 	
@@ -239,7 +240,7 @@ class Order extends CActiveRecord
 
 	public function getPartsList()
 	{
-		$partslist= Yii::app()->db->createCommand('SELECT id, PNTitle FROM tbl_pv_pn WHERE type_id = \'PL\'')->queryAll();
+		$partslist= Yii::app()->db->createCommand('SELECT id, PNTitle FROM tbl_part WHERE type_id = \'PL\'')->queryAll();
 
 		$list = CHtml::listData($partslist,'id','PNTitle');
 

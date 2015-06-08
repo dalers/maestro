@@ -63,12 +63,16 @@ class m150515_162243_create_rbac_tables extends CDbMigration
 
 	public function down()
 	{
+		$this->execute("SET foreign_key_checks = 0;");
+
 		$this->truncateTable('tbl_auth_assignment');
 		$this->truncateTable('tbl_auth_item_child');
 		$this->truncateTable('tbl_auth_item');
 		$this->dropTable('tbl_auth_assignment');
 		$this->dropTable('tbl_auth_item_child');
 		$this->dropTable('tbl_auth_item');
+
+		$this->execute("SET foreign_key_checks = 1;");
 	}
 
 	/*

@@ -26,15 +26,15 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'description'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'code'); ?>
 		<?php echo $form->textField($model,'code',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'code'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'description'); ?>
+		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'description'); ?>
 	</div>
 
 	<div class="row">
@@ -51,22 +51,25 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'phase_id'); ?>
-		<?php echo $form->textField($model,'phase_id'); ?>
+		<?php //echo $form->textField($model,'phase_id'); ?>
+		<?php echo $form->dropDownList($model,'phase_id', $model->getPhaseOptions()); ?>
 		<?php echo $form->error($model,'phase_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'status_id'); ?>
-		<?php echo $form->textField($model,'status_id'); ?>
+		<?php //echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->dropDownList($model,'status_id', $model->getStatusOptions()); ?>
 		<?php echo $form->error($model,'status_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'type_id'); ?>
-		<?php echo $form->textField($model,'type_id'); ?>
+		<?php //echo $form->textField($model,'type_id'); ?>
+		<?php echo $form->dropDownList($model,'type_id', $model->getTypeOptions()); ?>
 		<?php echo $form->error($model,'type_id'); ?>
 	</div>
-
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

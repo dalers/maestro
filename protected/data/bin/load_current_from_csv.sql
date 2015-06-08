@@ -275,33 +275,39 @@ IGNORE 1 LINES
 
 -- order (origin: parts&vendors JOB - PV6EX and PV6ECO only)
 -- job master data for customer jobs
+--
+-- IMPORTING FROM PV JOB/TASK TO ORDER/ORDER_ITEM NOT SUPPORTED
+--
 -- Unix EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/pv_job.csv'
-INTO TABLE maestro.tbl_order
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\n'
-IGNORE 1 LINES
-(id,JOBNumber,JOBCUID,JOBCustomer,JOBDateCreated,JOBDatePromised,JOBDateCompleted,JOBAccount,JOBNotes,JOBAllocateStock,JOBFOB,JOBTerms,JOBShipMethod,JOBAttnTo,JOBTaxRate,JOBTaxRate2,JOBTax2OnTax1,JOBTotalCost,JOBSubTotalCost,JOBTotalPrice,JOBSubTotalPrice,JOBTax1,JOBTax2,JOBCustOrderNumber,JOBDateInvoiced,JOBDateShipped);
+-- LOAD DATA INFILE '/home/maestro/scc/csv/pv_job.csv'
+-- INTO TABLE maestro.tbl_order
+-- CHARACTER SET ascii
+-- FIELDS
+-- 	TERMINATED BY ','
+-- 	OPTIONALLY ENCLOSED BY '"'
+-- 	ESCAPED BY '"'
+-- LINES
+-- 	TERMINATED BY '\n'
+-- IGNORE 1 LINES
+-- (id,JOBNumber,JOBCUID,JOBCustomer,JOBDateCreated,JOBDatePromised,JOBDateCompleted,JOBAccount,JOBNotes,JOBAllocateStock,JOBFOB,JOBTerms,JOBShipMethod,JOBAttnTo,JOBTaxRate,JOBTaxRate2,JOBTax2OnTax1,JOBTotalCost,JOBSubTotalCost,JOBTotalPrice,JOBSubTotalPrice,JOBTax1,JOBTax2,JOBCustOrderNumber,JOBDateInvoiced,JOBDateShipped);
 
 -- order_item (origin: parts&vendors TASK - PV6EX, PV6ECO)	
 -- line items for jobs	
+--
+-- IMPORTING FROM PV JOB/TASK TO ORDER/ORDER_ITEM NOT SUPPORTED
+--
 -- Unix EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/pv_task.csv'
-INTO TABLE maestro.tbl_order_item
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\n'
-IGNORE 1 LINES
-(id,TASKJOBID,TASKPNID,TASKIHPartNumber,TASKPartNumber,TASKRevision,TASKDescription,TASKItem,TASKQty,TASKCost,TASKCostExt,TASKPrice,TASKPriceExt,TASKNotes,TASKShowOnQuote,TASKShowOnInvoice,TASKShowOnPackingList,TASKTaxable,TASKPriceExtPlusTax);
+-- LOAD DATA INFILE '/home/maestro/scc/csv/pv_task.csv'
+-- INTO TABLE maestro.tbl_order_item
+-- CHARACTER SET ascii
+-- FIELDS
+-- 	TERMINATED BY ','
+-- 	OPTIONALLY ENCLOSED BY '"'
+-- 	ESCAPED BY '"'
+-- LINES
+-- 	TERMINATED BY '\n'
+-- IGNORE 1 LINES
+-- (id,TASKJOBID,TASKPNID,TASKIHPartNumber,TASKPartNumber,TASKRevision,TASKDescription,TASKItem,TASKQty,TASKCost,TASKCostExt,TASKPrice,TASKPriceExt,TASKNotes,TASKShowOnQuote,TASKShowOnInvoice,TASKShowOnPackingList,TASKTaxable,TASKPriceExtPlusTax);
 
 -- order_item_stock_assignment
 -- NO DATA
@@ -446,18 +452,18 @@ IGNORE 1 LINES
 
 -- stock (stock.xlsx)
 -- Windows EOL
-LOAD DATA INFILE '/home/maestro/scc/csv/stock.csv'
-INTO TABLE maestro.tbl_stock
-CHARACTER SET ascii
-FIELDS
-	TERMINATED BY ','
-	OPTIONALLY ENCLOSED BY '"'
-	ESCAPED BY '"'
-LINES
-	TERMINATED BY '\r\n'
-IGNORE 1 LINES
-(serial_number,version,part_id,status_id)
-SET id = NULL;
+-- LOAD DATA INFILE '/home/maestro/scc/csv/stock.csv'
+-- INTO TABLE maestro.tbl_stock
+-- CHARACTER SET ascii
+-- FIELDS
+-- 	TERMINATED BY ','
+-- 	OPTIONALLY ENCLOSED BY '"'
+-- 	ESCAPED BY '"'
+-- LINES
+-- 	TERMINATED BY '\r\n'
+-- IGNORE 1 LINES
+-- (serial_number,version,part_id,status_id)
+-- SET id = NULL;
 
 -- stock_location (stock_location.xlsx)
 -- Windows EOL

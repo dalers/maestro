@@ -9,7 +9,7 @@
  * @property integer $part_id
  *
  * The followings are the available model relations:
- * @property PvPn $part
+ * @property Part $part
  * @property Order $order
  */
 class OrderItem extends CActiveRecord
@@ -51,7 +51,7 @@ class OrderItem extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'part' => array(self::BELONGS_TO, 'PvPn', 'part_id'),
+			'part' => array(self::BELONGS_TO, 'Part', 'part_id'),
 			'order' => array(self::BELONGS_TO, 'Order', 'order_id'),
 		);
 	}
@@ -217,7 +217,7 @@ class OrderItem extends CActiveRecord
 	private function isValidSN($sn, $partId)
 	{
 		$command= Yii::app()->db->createCommand(
-			"SELECT ss.id AS id FROM maestro.tbl_stock_serial ss, maestro.tbl_pv_pn pn WHERE ss.part_number = pn.PNPartNumber AND ss.serial_number=:sn AND pn.id=:part_id ORDER BY id"
+			"SELECT ss.id AS id FROM maestro.tbl_stock_serial ss, maestro.tbl_part pn WHERE ss.part_number = pn.PNPartNumber AND ss.serial_number=:sn AND pn.id=:part_id ORDER BY id"
 		);
 		$command->bindValue(":sn", $sn, PDO::PARAM_STR);
 		$command->bindValue(":part_id", $partId, PDO::PARAM_INT);

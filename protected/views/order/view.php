@@ -57,45 +57,45 @@ $this->menu=array(
             'value'=>$model->project->name,
         ),
 		array(
-            'label'=>'Client',
-            'value'=>$model->project->client,
+            'label'=>'Customer',
+            'value'=>$model->project->customer_id,
         ),
 		array(
             'label'=>'Description',
             'value'=>$model->project->description,
         ),
-		array(
-            'label'=>'Type',
-            'value'=>$model->project->type,
-        ),
-		array(
-            'label'=>'Status',
-            'value'=>$model->project->status,
-        ),
-		array(
-            'label'=>'Acct1',
-            'value'=>$model->project->acct1,
-		),
-		array(
-            'label'=>'Acct2',
-            'value'=>$model->project->acct2,
-		),
-		array(
-            'label'=>'Acct3',
-            'value'=>$model->project->acct3,
-		),
-		array(
-            'label'=>'User1',
-            'value'=>$model->project->user1,
-		),
-		array(
-            'label'=>'User2',
-            'value'=>$model->project->user2,
-		),
-		array(
-            'label'=>'User3',
-            'value'=>$model->project->user3,
-		),
+//		array(
+//            'label'=>'Type',
+//            'value'=>$model->project->type,
+//        ),
+//		array(
+//            'label'=>'Status',
+//            'value'=>$model->project->status,
+//        ),
+//		array(
+//            'label'=>'Acct1',
+//            'value'=>$model->project->acct1,
+//		),
+//		array(
+//            'label'=>'Acct2',
+//            'value'=>$model->project->acct2,
+//		),
+//		array(
+//            'label'=>'Acct3',
+//            'value'=>$model->project->acct3,
+//		),
+//		array(
+//            'label'=>'User1',
+//            'value'=>$model->project->user1,
+//		),
+//		array(
+//            'label'=>'User2',
+//            'value'=>$model->project->user2,
+//		),
+//		array(
+//            'label'=>'User3',
+//            'value'=>$model->project->user3,
+//		),
 	),
 )); ?>
 
@@ -112,7 +112,10 @@ $this->menu=array(
 			'name'=>'part_id',
 			'type'=>'raw',
             'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->part->PNPartNumber)',
+			//TODO link to part needs to use Part controller, but renders
+			//using Order controller
+			//'value'=>'CHtml::link(CHtml::encode($data->part->PNPartNumber))',
+			'value'=>'CHtml::encode($data->part->PNPartNumber)',			
 		),
         array(
 			'name'=>'desired_qty',
