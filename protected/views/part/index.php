@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Create Part', 'url'=>array('create')),
 	array('label'=>'Manage Parts', 'url'=>array('admin')),
-	array('label'=>'Save As CSV', 'url'=> array('saveAsCSV')),
+	array('label'=>'Save Parts as CSV', 'url'=> array('saveAsCSV')),
 );
 ?>
 

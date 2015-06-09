@@ -29,10 +29,11 @@ class Controller extends CController
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow authenticated users to perform 'index' and 'view' actions
+			array('allow', // allow all users to perform 'index' and 'view' actions
 				'controllers'=>array('issue','project','user'),
 				'actions'=>array('index','view'),
-				'users'=>array('@'),
+				//'users'=>array('@'), // allow authenticated users to perform 'index' and 'view' actions
+				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'controllers'=>array('issue','project','user'),
