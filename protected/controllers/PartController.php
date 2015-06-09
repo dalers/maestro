@@ -189,13 +189,12 @@ class PartController extends Controller
     }
 
 	/**
-	* Display CSV
-	* Filters for the query will be required for this function
-	* Possibly the column names should be hidden/shown
-	* Possibly dynamically build the SELECT statement
-	* 
-	* TODO Investigate potential bug in CSV extension - may not correctly
-	* handle nulls other than in last (right-most) column
+	* Save as CSV
+	* TODO create filters for query
+	* - hide/show column names?
+	* - dynamically build SELECT statement?
+	* TODO investigate potential bug in CSV extension
+	* - may not correctly handle nulls other than in last (right-most) column
 	*/
 	public function actionSaveAsCSV()
 	{

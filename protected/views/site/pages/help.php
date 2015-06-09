@@ -8,6 +8,5 @@ $this->breadcrumbs=array(
 ?>
 <h1>Help</h1>
 
-<p>This page will provide access to the Maestro Help module
-	when available.</p>
+<p>This page will provide access to Maestro <b><em>Help</em></b> when available.</p>
 

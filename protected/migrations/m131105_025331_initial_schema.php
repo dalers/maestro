@@ -101,7 +101,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB');
 
 		//issue_list
-		//issues determined to be related (child issues)
+		//hierarchical issue relationships (issues lists) and related data
 		$this->createTable('tbl_issue_list', array(
 			'id' => 'pk',
 			'issue_id' => 'integer DEFAULT NULL',
@@ -368,7 +368,7 @@ class m131105_025331_initial_schema extends CDbMigration
 		), 'ENGINE=InnoDB'); 
 
 		//part_list (origin: parts&vendors PL)
-		//part part relationships and related data
+		//hierarchical part relationships (parts lists) and related data
 		$this->createTable('tbl_part_list', array(
 			'id' => 'pk',
 			'PLListID' => 'integer NOT NULL DEFAULT 0',

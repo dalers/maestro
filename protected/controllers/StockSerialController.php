@@ -122,9 +122,20 @@ class StockSerialController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('StockSerial');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+//		$dataProvider=new CActiveDataProvider('StockSerial');
+//		$this->render('index',array(
+//			'dataProvider'=>$dataProvider,
+		
+		$model = new StockSerial('search');
+		$model->unsetAttributes();
+
+		if (isset($_GET['StocvkSerial']))
+			$model->attributes = $_GET['StockSerial'];
+
+		$this->render('index', array(
+			'dataProvider' => $model->search(),
+			'model' => $model,
+
 		));
 	}
 

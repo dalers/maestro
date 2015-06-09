@@ -1,18 +1,18 @@
 <?php
-/* @var $this UserController */
+/* @var $this FileController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Users',
+	'Files',
 );
 
 $this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'RBAC Admin', 'url'=>array('rbac/rbacui')),);
+	array('label'=>'Create File', 'url'=>array('create')),
+	array('label'=>'Manage File', 'url'=>array('admin')),
+);
 ?>
 
-<h1>Users</h1>
+<h1>Files</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -20,36 +20,32 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </p>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'user-grid',
+	'id'=>'file-grid',
 	//'dataProvider'=>$model->search(),
 	'dataProvider' => $dataProvider,	
 	'filter'=>$model,
 	'columns'=>array(
 		array(
-			'name'=> 'username',
+			'name'=> 'id',
 			'htmlOptions'=>array('style'=>'width: 100px;'),
 			'type'=>'raw',
-			'value'=>'CHtml::link(CHtml::encode($data->username), array(\'view\', \'id\' => $data->id))',
+			'value'=>'CHtml::link(CHtml::encode($data->id), array(\'view\', \'id\' => $data->id))',
 		),
-		'fname',
-		'lname',
-		'email',
+		array(
+			'name'=> 'part_id',
+			'htmlOptions'=>array('style'=>'width: 100px;'),
+			'type'=>'raw',
+			//'value'=>'CHtml::link(CHtml::encode($data->id), array(\'view\', \'id\' => $data->id))',
+		),
+		'FILFileName',
 		/*
 		'id',
-		'username',
-		'password',
-		'email',
-		'nick',
-		'lname',
-		'fname',
-		'initial',
-		'status_id',
-		'profile_id',
-		'last_login_time',
-		'create_time',
-		'create_user_id',
-		'update_time',
-		'update_user_id',
+		'FILPNPartNumber',
+		'FILFilePath',
+		'FILFileName',
+		'FILView',
+		'FILNotes',
+		'part_id',
 		*/
 		/*
 		array('class'=>'CButtonColumn',
