@@ -39,7 +39,7 @@
 				array('label'=>'Issues', 'url'=>array('/issue/index')),
 				//array('label'=>'Stock', 'url'=>array('/stock/index')),
 				array('label'=>'Stock', 'url'=>array('/stockSerial/index')),
-				array('label'=>'CRM', 'url'=>array('/customer/index')),
+				array('label'=>'Customers', 'url'=>array('/customer/index')),
 				array('label'=>'Orders', 'url'=>array('/order/index')),
 				//array('label'=>'Files', 'url'=>array('/site/page', 'view'=>'files')),
 				array('label'=>'Files', 'url'=>array('/file/index')),
