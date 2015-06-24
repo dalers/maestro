@@ -33,26 +33,7 @@ $this->menu=array(
 ?>
 </p>
 
-<!-- DIV's for jQuery tab control. Tab control is initialized at end of file via JavaScript -->
-<div id="tabs">
-
-<!-- Create jQuery tabs using <li> tags -->
-<ul>
-	<li><a href="#tab-master">Master</a></li>
-	<li><a href="#tab-more">More</a></li>
-	<li><a href="#tab-kitting">Kitting</a></li>
-	<li><a href="#tab-stock">Stock</a></li>
-	<li><a href="#tab-assy-cost">Assy Cost</a></li>
-	<li><a href="#tab-parts-list">Parts List</a></li>
-	<li><a href="#tab-used-on">Used On</a></li>
-	<li><a href="#tab-files-urls">Files/URLs</a></li>
-	<li><a href="#tab-sources">Sources</a></li>
-	<li><a href="#tab-issues">Issues</a></li>
-	<li><a href="#tab-orders">Orders</a></li>
-</ul>
-
-<div id="tab-master">
-<h2>Master Attributes</h2>
+<h2>Part Master</h2>
 
 <?php
     $this->widget('zii.widgets.CDetailView', array(
@@ -93,12 +74,33 @@ $this->menu=array(
 ));
 ?>
 
+</p>
+
+<!-- DIV's for jQuery tab control. Tab control is initialized at end of file via JavaScript -->
+<div id="tabs">
+
+<!-- Create jQuery tabs using <li> tags -->
+<ul>
+	<li><a href="#tab-notes">Notes</a></li>
+	<li><a href="#tab-more">More</a></li>
+	<li><a href="#tab-kitting">Kitting</a></li>
+	<li><a href="#tab-stock">Stock</a></li>
+	<li><a href="#tab-assy-cost">Assy Cost</a></li>
+	<li><a href="#tab-parts-list">Parts List</a></li>
+	<li><a href="#tab-used-on">Used On</a></li>
+	<li><a href="#tab-files-urls">Files/URLs</a></li>
+	<li><a href="#tab-sources">Sources</a></li>
+	<li><a href="#tab-issues">Issues</a></li>
+	<li><a href="#tab-orders">Orders</a></li>
+</ul>
+
+<div id="tab-notes">
 <h2>Notes</h2>
 <?php if (empty($model->PNNotes)) { ?>
     <span style="font-style: italic">There are no notes.</span>
 <?php } else { echo CHtml::encode($model->PNNotes); } ?>
 
-</div> <!-- <div id="tab-master"> -->
+</div> <!-- <div id="tab-notes"> -->
 
 <div id="tab-more">
 <h2>User Defined Fields</h2>
