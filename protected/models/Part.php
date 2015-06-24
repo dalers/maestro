@@ -237,7 +237,7 @@ class Part extends CActiveRecord
 			'PNOverKitBy' => 'Over Kit By',
 			'PNOverKitFor' => 'Over Kit For',
 			'PNCurrentCost' => 'Current Cost',
-			'PNLastRollupCost' => 'Last Calculated Cost',
+			'PNLastRollupCost' => 'Last Calculated Assy Cost',
 			'PNUSRID' => 'User ID',
 			'PNUserLock' => 'User Lock',
 			

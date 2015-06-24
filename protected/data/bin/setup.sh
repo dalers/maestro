@@ -18,7 +18,7 @@ chmod a+rw ../../runtime/
 echo
 
 echo "Load db with stored procedures..."
-mysql -uroot -pappleton --show-warnings maestro < ./setup_db_stored_procedure.sql
+mysql -uroot -pappleton --show-warnings maestro < ../sql/suggest_location.sql
 echo
 
 echo "Migrate database schema..."

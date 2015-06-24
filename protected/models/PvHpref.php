@@ -155,9 +155,10 @@ class PvHpref extends CActiveRecord
         {
             if (strtolower($model->GPREFKey) == strtolower('UserFields'))
             {
-                // This is hardcode, but at this time I do not know to do it better
-                // In the table tbl_pv_hpref there is no information about PvPn fields (PNUserN) 
-                // but insteadthere are fields GPREFTextN
+                //hardcoded because at this time I do not know to do it better
+                //labels for user defined fields are stored by P&V in table
+				//tbl_pv_hpref using fields GPREFText[1..10] for the record
+				//in which GPRefKey = "UserFields"
 			    self::$_UserFields['PNUser1'] = $model->GPREFText1;
 			    self::$_UserFields['PNUser2'] = $model->GPREFText2;
 			    self::$_UserFields['PNUser3'] = $model->GPREFText3;

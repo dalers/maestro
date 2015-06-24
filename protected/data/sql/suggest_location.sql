@@ -33,8 +33,8 @@ DECLARE loc_name VARCHAR(100) DEFAULT '';
 DECLARE i INT DEFAULT 0; /* outer loop index: min..max for given location */
 DECLARE p INT DEFAULT 0; /* inner loop index: row of select from pn_pv for given location */
 
-/* create cursor for stepping through PvPn rows that have specified location (i.e. filtered by PvPn.PNUser9 field) */
-DECLARE cur CURSOR FOR SELECT CONVERT(PNUser10, UNSIGNED) FROM tbl_pv_pn WHERE PNUser9 = (SELECT name FROM tbl_stock_location WHERE id = location_id) ORDER BY 1 ASC;
+/* create cursor for stepping through Parts having specified location (i.e. filter by Part.PNUser9) */
+DECLARE cur CURSOR FOR SELECT CONVERT(PNUser10, UNSIGNED) FROM tbl_part WHERE PNUser9 = (SELECT name FROM tbl_stock_location WHERE id = location_id) ORDER BY 1 ASC;
 /* create handle to get noticed when no more data in cursor */
 DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_finished = 1;
 
