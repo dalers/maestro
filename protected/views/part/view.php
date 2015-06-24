@@ -74,6 +74,7 @@ $this->menu=array(
 ));
 ?>
 
+<h2>Additional Information</h2>
 </p>
 
 <!-- DIV's for jQuery tab control. Tab control is initialized at end of file via JavaScript -->
