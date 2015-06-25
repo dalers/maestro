@@ -1,6 +1,6 @@
 <?php
 
-//support exporting partlist as csv
+//partslist save as csv
 Yii::import('ext.ECSVExport');
 require_once('protected/extensions/ECSVExport/ECSVExport.php');
 
@@ -157,7 +157,6 @@ class PartController extends Controller
         //print_r(StockLocation::getLocations()); die;
 
         $model = new Part('search');
-
         $model->unsetAttributes();
 
 		if (isset($_GET['Part']))

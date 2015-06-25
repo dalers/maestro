@@ -33,7 +33,7 @@ class ProjectController extends Controller
 				'params'=>array(':projectId'=>$this->loadModel($id)->id),
 			),
 			'pagination'=>array(
-				'pageSize'=>1,
+				'pageSize'=>2,
 			),
 		 ));
 
@@ -110,9 +110,10 @@ class ProjectController extends Controller
 	 */
 	public function actionIndex()
 	{
-//		$dataProvider=new CActiveDataProvider('Project');
-//		$this->render('index',array(
-//			'dataProvider'=>$dataProvider,
+		//gii boiler plate
+		//$dataProvider=new CActiveDataProvider('Project');
+		//$this->render('index',array(
+		//'dataProvider'=>$dataProvider,
 		
 		$model = new Project('search');
 		$model->unsetAttributes();
@@ -123,7 +124,6 @@ class ProjectController extends Controller
 		$this->render('index', array(
 			'dataProvider' => $model->search(),
 			'model' => $model,
-
 		));
 	}
 	

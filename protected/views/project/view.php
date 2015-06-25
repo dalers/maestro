@@ -19,6 +19,14 @@ $this->menu=array(
 
 <h1>View Project "<?php echo $model->name; ?>"</h1>
 
+Last-updated or Created 
+<?php 
+	echo empty($model->update_time) ? '<em>Unknown</em>' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "<em>Unknown</em>" : $model->update_user_id;
+?>
+</p>
+
+<h2>Project Master</h2>
+
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
