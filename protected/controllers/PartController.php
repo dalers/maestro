@@ -157,7 +157,7 @@ class PartController extends Controller
         //print_r(StockLocation::getLocations()); die;
 
         $model = new Part('search');
-        $model->unsetAttributes();
+        $model->unsetAttributes();  //clear any default values
 
 		if (isset($_GET['Part']))
 			$model->attributes = $_GET['Part'];
@@ -223,7 +223,8 @@ class PartController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Part('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();  //clear any default values
+		
 		if(isset($_GET['Part']))
 			$model->attributes=$_GET['Part'];
 
