@@ -64,14 +64,14 @@ class PartController extends Controller
 	 * Save Part view as PDF (and download to user)
 	 * @param integer $id the ID of the model to be converted to PDF
 	 * 
-     * html2pdf PHP class is used to convert HTML (created using "pdf"
+	 * html2pdf PHP class is used to convert HTML (created using "pdf"
 	 * Part view) to PDF.
 	 * 
-     * Requires:
+	 * Requires:
 	 *   Yii-pdf extension (http://www.yiiframework.com/extension/pdf#hh3)
 	 *   is installed to protected/extensions/
 	 * 
-     *   HTML2PDF (http://html2pdf.fr/en/default) is installed to
+	 *   HTML2PDF (http://html2pdf.fr/en/default) is installed to
 	 *   protected/vendor/html2pdf/
 	 */
 	public function actionSaveAsPDF($id)
@@ -154,13 +154,13 @@ class PartController extends Controller
 	 */
 	public function actionIndex()
 	{
-        $model = new Part('search');
-        $model->unsetAttributes();  //clear any default values
+		$model = new Part('search');
+		$model->unsetAttributes();  //clear any default values
 
 		if (isset($_GET['Part']))
 			$model->attributes = $_GET['Part'];
 
-        $this->render('index', array(
+		$this->render('index', array(
 			'model' => $model,
 		));
 	}
@@ -170,16 +170,16 @@ class PartController extends Controller
 	 */
 	public function actionSuggestLocation($id)
     {
-        $bins = array();
+		$bins = array();
 
-        $model = $this->loadModel($id);
-        $location = StockLocation::findLocationByName($model->PNUser9);
-        if ($location != null)
-            $bins = StockLocation::suggestLocation($location->id);
+		$model = $this->loadModel($id);
+		$location = StockLocation::findLocationByName($model->PNUser9);
+		if ($location != null)
+			$bins = StockLocation::suggestLocation($location->id);
 
-        $this->render('suggestLocation', array(
-            'location' => $location,
-            'bins' => $bins,
+		$this->render('suggestLocation', array(
+			'location' => $location,
+			'bins' => $bins,
 			'model' => $model,
 		));
     }

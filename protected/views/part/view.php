@@ -276,7 +276,6 @@ $this->widget('zii.widgets.CDetailView', array(
 </div> <!-- <div id="tab-orders"> -->
 
 </div> <!-- <div id="tabs"> -->
-
 <!-- The following code initializes DIV's above as TAB control -->
 
 <script>

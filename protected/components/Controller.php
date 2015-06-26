@@ -31,7 +31,8 @@ class Controller extends CController
 		return array(
 			array('allow', // allow all users to perform 'index' and 'view' actions
 				'controllers'=>array('issue','project','user'),
-				'actions'=>array('index','view'),
+				//TODO index() should be modified to accept optional pid rather than create a new action which then requires a new control rule
+				'actions'=>array('index','indexProject','view'),
 				//'users'=>array('@'), // allow authenticated users to perform 'index' and 'view' actions
 				'users'=>array('*'),
 			),

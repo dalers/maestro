@@ -21,7 +21,7 @@ class IssueController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-			'projectContext + create index admin', //check for valid project context
+			'projectContext + create admin indexProject', //check for valid project context (load project if needed)
 		);
 	}
 
@@ -46,6 +46,11 @@ class IssueController extends Controller
 	{
 		$model=new Issue;
 		$model->project_id = $this->_project->id;
+		//if _project property is not null, use it to set project for new issue
+//		if(!$this->_project===null)
+//		{
+//			$model->project_id = $this->_project->id;
+//		}
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -104,6 +109,23 @@ class IssueController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
+	{
+        $model = new Issue('search');
+        $model->unsetAttributes();  //clear any default values
+
+		if (isset($_GET['Issue']))
+			$model->attributes = $_GET['Issue'];
+
+        $this->render('index', array(
+			'dataProvider' => $model->search(),			
+			'model' => $model,
+		));
+	}
+
+	/**
+	 * Lists all models associated with the specified project.
+	 */
+	public function actionIndexProject()
 	{
 		$dataProvider=new CActiveDataProvider('Issue', array(
 			'criteria'=>array(
@@ -192,7 +214,7 @@ class IssueController extends Controller
 		if(isset($_GET['pid']))
 			$this->loadProject($_GET['pid']);
 		else
-			throw new CHttpException(403,'Must specify project before performing this action.');
+			throw new CHttpException(403,'Must be accessed from Project view (i.e. the project must be selected first).');
 
 		//complete the running of other filters and execute the requested action
 		$filterChain->run();

@@ -14,7 +14,7 @@ $this->menu=array(
 	//an issue model is not passed to this view, and so no model to set
 	//project_id on as was done in similar views.
 	//
-	//array('label'=>'Create Issue', 'url'=>array('create')),
+	array('label'=>'Create Issue', 'url'=>array('create')),
 	//array('label'=>'Manage Issue', 'url'=>array('admin')),
 );
 ?>
