@@ -154,8 +154,6 @@ class PartController extends Controller
 	 */
 	public function actionIndex()
 	{
-        //print_r(StockLocation::getLocations()); die;
-
         $model = new Part('search');
         $model->unsetAttributes();  //clear any default values
 
@@ -163,7 +161,6 @@ class PartController extends Controller
 			$model->attributes = $_GET['Part'];
 
         $this->render('index', array(
-            'dataProvider' => $model->search(),
 			'model' => $model,
 		));
 	}

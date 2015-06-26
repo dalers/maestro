@@ -8,8 +8,21 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Create Project', 'url'=>array('create')),
-	array('label'=>'Manage Projects', 'url'=>array('admin')),
+	//array('label'=>'Manage Projects', 'url'=>array('admin')),
 );
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$('#project-grid').yiiGridView('update', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
 ?>
 
 <h1>Projects</h1>
@@ -19,52 +32,59 @@ You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&g
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
+<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div><!-- search-form -->
+
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'project-grid',
-	'dataProvider' => $dataProvider,
+	'dataProvider'=>$model->search(),
 	'filter' => $model,
 	'columns' => array(
 		array(
 			'name'=> 'code',
-			'htmlOptions'=>array('style'=>'width: 100px;'),
+			//'htmlOptions'=>array('style'=>'width: 100px;'),
 			'type'=>'raw',
 			'value'=>'CHtml::link(CHtml::encode($data->code), array(\'view\', \'id\' => $data->id))',
 		),
 		array(
 			'name'=>'name',
-			'type'=>'raw',
-			'htmlOptions'=>array('style'=>'width: 150px; text-align: left;'),
-			'value'=>'CHtml::encode($data->name)',
+			//'type'=>'raw',
+			//'htmlOptions'=>array('style'=>'width: 150px; text-align: left;'),
+			//'value'=>'CHtml::encode($data->name)',
 		),
 		array(
 			'name'=>'customer_id',
-			'type'=>'raw',
-			'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->customer_id)',
+			//'type'=>'raw',
+			//'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
+			//'value'=>'CHtml::encode($data->customer_id)',
 		),
 		array(
 			'name'=>'owner_id',
-			'type'=>'raw',
-			'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->owner_id)',
+			//'type'=>'raw',
+			//'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
+			//'value'=>'CHtml::encode($data->owner_id)',
 		),
 		array(
 			'name'=>'phase_id',
-			'type'=>'raw',
-			'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->phase_id)',
+			//'type'=>'raw',
+			//'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
+			//'value'=>'CHtml::encode($data->phase_id)',
 		),
 		array(
 			'name'=>'status_id',
-			'type'=>'raw',
-			'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->status_id)',
+			//'type'=>'raw',
+			//'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
+			//'value'=>'CHtml::encode($data->status_id)',
 		),
 		array(
 			'name'=>'type_id',
-			'type'=>'raw',
-			'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
-			'value'=>'CHtml::encode($data->type_id)',
+			//'type'=>'raw',
+			//'htmlOptions'=>array('style'=>'width: 50px; text-align: center;'),
+			//'value'=>'CHtml::encode($data->type_id)',
 		),
 		/*
 		'description',
@@ -73,10 +93,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'update_time',
 		'update_user_id',
 		*/
-		/*
 		array(
 			'class'=>'CButtonColumn',
-		),*/
+		),
 	),
 ));
 

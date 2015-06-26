@@ -41,7 +41,6 @@ class ProjectController extends Controller
 			'model'=>$this->loadModel($id),
 			'issueDataProvider'=>$issueDataProvider,
 		));
-
 	}
 
 	/**
@@ -110,20 +109,14 @@ class ProjectController extends Controller
 	 */
 	public function actionIndex()
 	{
-		//gii boiler plate
-		//$dataProvider=new CActiveDataProvider('Project');
-		//$this->render('index',array(
-		//'dataProvider'=>$dataProvider,
+		$model=new Project('search');
+		$model->unsetAttributes();  //clear any default values
 		
-		$model = new Project('search');
-		$model->unsetAttributes();
+		if(isset($_GET['Project']))
+			$model->attributes=$_GET['Project'];
 
-		if (isset($_GET['Project']))
-			$model->attributes = $_GET['Project'];
-
-		$this->render('index', array(
-			'dataProvider' => $model->search(),
-			'model' => $model,
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 	
@@ -133,7 +126,8 @@ class ProjectController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Project('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();  //clear any default values
+		
 		if(isset($_GET['Project']))
 			$model->attributes=$_GET['Project'];
 

@@ -12,7 +12,7 @@ $this->menu=array(
 	array('label'=>'Create Part', 'url'=>array('create')),
 	array('label'=>'Update Part', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete Part', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Parts', 'url'=>array('admin')),
+	//array('label'=>'Manage Parts', 'url'=>array('admin')),
 	array('label'=>'Save As PDF', 'url'=> array('saveAsPDF', 'id' => $model->id), 'linkOptions' => array('target' => '_blank')),
     array('label'=>'Suggest Location', 'url'=> array('suggestLocation', 'id' => $model->id)),
 );
@@ -67,6 +67,7 @@ Last-updated or Created
 ));
 ?>
 
+<br /><br />
 <h2>Additional Information</h2>
 </p>
 
@@ -93,7 +94,6 @@ Last-updated or Created
 <?php if (empty($model->PNNotes)) { ?>
     <span style="font-style: italic">There are no notes.</span>
 <?php } else { echo CHtml::encode($model->PNNotes); } ?>
-
 </div> <!-- <div id="tab-notes"> -->
 
 <div id="tab-more">
@@ -274,6 +274,8 @@ $this->widget('zii.widgets.CDetailView', array(
 <div id="tab-orders">
 <h2>Orders</h2>
 </div> <!-- <div id="tab-orders"> -->
+
+</div> <!-- <div id="tabs"> -->
 
 <!-- The following code initializes DIV's above as TAB control -->
 
