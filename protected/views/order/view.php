@@ -3,35 +3,27 @@
 /* @var $model Order */
 
 $this->breadcrumbs=array(
-	'Orders'=>array('index'),
+	'Order'=>array('index'),
 	// $model->id,
 );
 
 $this->menu=array(
-	array('label'=>'List All Orders', 'url'=>array('index')),
-	array('label'=>'Create New Order', 'url'=>array('create')),	
-	array('label'=>'Update This Order', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete This Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this order?')),
-	array('label'=>'Manage This Order', 'url'=>array('admin'),
+	array('label'=>'List Orders', 'url'=>array('index')),
+	array('label'=>'Create Order', 'url'=>array('create')),	
+	array('label'=>'Update Order', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete Order', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this order?')),
+	array('label'=>'Manage Order', 'url'=>array('admin'),
 	),
 );
 ?>
 
 <h1>View Order #<?php echo $model->id; ?></h1>
 
-<p>Created on <?php echo empty($model->create_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "Unknown user" : $model->createUser->username; ?>
-
-<?php
-    // Show update information only if the Part Number was updated
-
-    if (!empty($model->update_time)) {
-?>
-, Updated on 
-<?php 
-        echo empty($model->update_time) ? 'Unknown date/time' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "Unknown user" : $model->updateUser->username;
-    }
-?>
+<p>Created: <?php echo empty($model->create_time) ? 'unknown' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "unknown" : $model->createUser->username; ?>
+<br />Updated:  <?php echo empty($model->update_time) ? 'unknown' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "unknown" : $model->updateUser->username; ?>
 </p>
+
+<h2>Order Master</h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -41,72 +33,41 @@ $this->menu=array(
 		'type',
 		'status',
 		array(
-			'label'=>'Original Parts List',
-			'value'=>$model->partslist->PNTitle,
+            'label'=>'Project',
+            'value'=>$model->project->name,
+        ),
+		array(
+			'label'=>'Source Parts List',
+			'value'=>$model->partslist->PNPartNumber,
 		),
 	),
 )); ?>
 
-<h2>Project</h2>
+<br /><br />
+<h2>Additional Information</h2>
+</p>
 
-<?php $this->widget('zii.widgets.CDetailView' , array(
-	'data'=>$model,
-	'attributes'=>array(
-		array(
-            'label'=>'Name',
-            'value'=>$model->project->name,
-        ),
-		array(
-            'label'=>'Customer',
-            'value'=>$model->project->customer_id,
-        ),
-		array(
-            'label'=>'Description',
-            'value'=>$model->project->description,
-        ),
-//		array(
-//            'label'=>'Type',
-//            'value'=>$model->project->type,
-//        ),
-//		array(
-//            'label'=>'Status',
-//            'value'=>$model->project->status,
-//        ),
-//		array(
-//            'label'=>'Acct1',
-//            'value'=>$model->project->acct1,
-//		),
-//		array(
-//            'label'=>'Acct2',
-//            'value'=>$model->project->acct2,
-//		),
-//		array(
-//            'label'=>'Acct3',
-//            'value'=>$model->project->acct3,
-//		),
-//		array(
-//            'label'=>'User1',
-//            'value'=>$model->project->user1,
-//		),
-//		array(
-//            'label'=>'User2',
-//            'value'=>$model->project->user2,
-//		),
-//		array(
-//            'label'=>'User3',
-//            'value'=>$model->project->user3,
-//		),
-	),
-)); ?>
+<!-- DIV's for jQuery tab control. Tab control is initialized at end of file via JavaScript -->
+<div id="tabs">
 
-<h2>Order Items</h2>
+<!-- Create jQuery tabs using <li> tags -->
+<ul>
+	<li><a href="#tab-parts-list">Parts List</a></li>
+	<li><a href="#tab-comments">Comments</a></li>
+	<li><a href="#tab-files">Files</a></li>
+	<li><a href="#tab-issues">Issues</a></li>
+	<li><a href="#tab-stock">Stock</a></li>
+	<li><a href="#tab-projects">Projects</a></li>
+</ul>
 
+<div id="tab-parts-list">
+<h2>Parts List</h2>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider' => $dataProvider,
 	'filter' => $oimodel,
     'id' => 'detail_childs_id',
     //'showTableOnEmpty' => false,
-    'emptyText' => 'This Order has no Order Items.',
+    'emptyText' => 'There are no parts associated with this order.',
 	'columns' => array(
         array(
 			'name'=>'part_id',
@@ -131,5 +92,39 @@ $this->menu=array(
 		),
 	),
 ));
-
 ?>
+</div> <!-- <div id="tab-parts-list"> -->
+
+<div id="tab-comments">
+<h2>Comments</h2>
+<p><em>There are no comments associated with this order.</em></p>
+</div> <!-- <div id="tab-comments"> -->
+
+<div id="tab-files">
+<h2>Files</h2>
+<p><em>There are no files associated with this order.</em></p>
+</div> <!-- <div id="tab-files"> -->
+
+<div id="tab-issues">
+<h2>Issues</h2>
+<p><em>There are no issues associated with this order.</em></p>
+</div> <!-- <div id="tab-issues"> -->
+
+<div id="tab-stock">
+<h2>Stock</h2>
+<p><em>There is no stock associated with this order.</em></p>
+</div> <!-- <div id="tab-stock"> -->
+
+<div id="tab-projects">
+<h2>Projects</h2>
+<p><em>There are no projects associated with this order.</em></p>
+</div> <!-- <div id="tab-projects"> -->
+
+</div> <!-- <div id="tabs"> -->
+<!-- The following code initializes DIV's above as TAB control -->
+
+<script>
+	$(function() {
+		$( "#tabs" ).tabs();
+	});
+</script>
