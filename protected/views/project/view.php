@@ -3,7 +3,7 @@
 /* @var $model Project */
 
 $this->breadcrumbs=array(
-	'Projects'=>array('index'),
+	'Project'=>array('index'),
 	$model->name,
 );
 
@@ -19,10 +19,8 @@ $this->menu=array(
 
 <h1>View Project "<?php echo $model->name; ?>"</h1>
 
-Last-updated or Created 
-<?php 
-	echo empty($model->update_time) ? '<em>Unknown</em>' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "<em>Unknown</em>" : $model->update_user_id;
-?>
+<p>Created: <?php echo empty($model->create_time) ? '<em>unknown</em>' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->create_time))); ?> by <?php echo empty($model->create_user_id) ? "<em>unknown</em>" : $model->createUser->username; ?>
+<br />Updated:  <?php echo empty($model->update_time) ? '<em>unknown</em>' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "<em>unknown</em>" : $model->updateUser->username; ?>
 </p>
 
 <h2>Project Master</h2>
@@ -58,9 +56,28 @@ Last-updated or Created
 
 <!-- Create jQuery tabs using <li> tags -->
 <ul>
+	<li><a href="#tab-parts">Parts</a></li>
+	<li><a href="#tab-comments">Comments</a></li>
+	<li><a href="#tab-files">Files</a></li>	
 	<li><a href="#tab-issues">Issues</a></li>
 	<li><a href="#tab-orders">Orders</a></li>
+	<li><a href="#tab-stock">Stock</a></li>
 </ul>
+
+<div id="tab-parts">
+<h2>Parts</h2>
+<p><em>There are no parts associated with this project.</em></p>
+</div> <!-- <div id="tab-parts"> -->
+
+<div id="tab-comments">
+<h2>Comments</h2>
+<p><em>There are no comments associated with this project.</em></p>
+</div> <!-- <div id="tab-comments"> -->
+
+<div id="tab-files">
+<h2>Files</h2>
+<p><em>There are no files associated with this project.</em></p>
+</div> <!-- <div id="tab-files"> -->
 
 <div id="tab-issues">
 <h2>Issues</h2>
@@ -72,7 +89,13 @@ Last-updated or Created
 
 <div id="tab-orders">
 <h2>Orders</h2>
+<p><em>There are no orders associated with this project.</em></p>
 </div> <!-- <div id="tab-orders"> -->
+
+<div id="tab-stock">
+<h2>Stock</h2>
+<p><em>There is no stock associated with this project.</em></p>
+</div> <!-- <div id="tab-stock"> -->
 
 </div> <!-- <div id="tabs"> -->
 <!-- The following code initializes DIV's above as TAB control -->

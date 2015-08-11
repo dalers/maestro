@@ -3,7 +3,7 @@
 /* @var $model Part */
 
 $this->breadcrumbs=array(
-	'Parts'=>array('index'),
+	'Part'=>array('index'),
 	CHtml::encode($model->PNPartNumber),
 );
 
@@ -22,7 +22,7 @@ $this->menu=array(
 
 Last-updated or Created 
 <?php 
-	echo empty($model->update_time) ? '<em>Unknown</em>' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "<em>Unknown</em>" : $model->update_user_id;
+	echo empty($model->update_time) ? '<em>unknown</em>' : strftime("%B %d, %Y", strtotime(CHtml::encode($model->update_time))); ?> by <?php echo empty($model->update_user_id) ? "<em>unknown</em>" : $model->update_user_id;
 ?>
 </p>
 
@@ -76,28 +76,66 @@ Last-updated or Created
 
 <!-- Create jQuery tabs using <li> tags -->
 <ul>
-	<li><a href="#tab-notes">Notes</a></li>
 	<li><a href="#tab-more">More</a></li>
-	<li><a href="#tab-kitting">Kitting</a></li>
-	<li><a href="#tab-stock">Stock</a></li>
 	<li><a href="#tab-assy-cost">Assy Cost</a></li>
-	<li><a href="#tab-parts-list">Parts List</a></li>
-	<li><a href="#tab-used-on">Used On</a></li>
-	<li><a href="#tab-files-urls">Files/URLs</a></li>
-	<li><a href="#tab-sources">Sources</a></li>
+	<li><a href="#tab-comments">Comments</a></li>
+	<li><a href="#tab-files">Files</a></li>
 	<li><a href="#tab-issues">Issues</a></li>
+	<li><a href="#tab-kitting">Kitting</a></li>
 	<li><a href="#tab-orders">Orders</a></li>
+	<li><a href="#tab-parts-list">Parts List</a></li>
+	<li><a href="#tab-projects">Projects</a></li>
+	<li><a href="#tab-sources">Sources</a></li>
+	<li><a href="#tab-stock">Stock</a></li>
+	<li><a href="#tab-used-on">Used On</a></li>
 </ul>
 
-<div id="tab-notes">
-<h2>Notes</h2>
+<div id="tab-assy-cost">
+<h2>Assembly Cost</h2>
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+        array('label' => $model->getAttributeLabel('PNAssyCostOption'), 'type' => 'raw', 'value' => ViewHelpers::valueToText($model->PNAssyCostOption, array('1' => 'Use as Total', '2' => 'Ignore', '3' => 'Add to Total'))),
+        'PNLastRollupCost',
+	),
+));
+?>
+</div> <!-- <div id="tab-assy-cost"> -->
+
+<div id="tab-comments">
+<h2>Comments</h2>
 <?php if (empty($model->PNNotes)) { ?>
-    <span style="font-style: italic">There are no notes.</span>
+    <span style="font-style: italic">There are no comments associated with this part.</span>
 <?php } else { echo CHtml::encode($model->PNNotes); } ?>
-</div> <!-- <div id="tab-notes"> -->
+</div> <!-- <div id="tab-comments"> -->
+
+<div id="tab-files">
+<h2>Files / URLs</h2>
+<p><em>There are no files associated with this part.</em></p>
+</div> <!-- <div id="tab-files"> -->
+
+<div id="tab-issues">
+<h2>Issues</h2>
+<p><em>There are no issues associated with this part.</em></p>
+</div> <!-- <div id="tab-issues"> -->
+
+<div id="tab-kitting">
+<h2>Kitting Properties</h2>
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+        array('label' => $model->getAttributeLabel('PNOverKit'), 'type' => 'raw', 'value' => ViewHelpers::YesNo($model->PNOverKit, 1, 'Yes', 'No')),
+        array('label' => $model->getAttributeLabel('PNOverKitFor'), 'type' => 'raw', 'value' => ViewHelpers::valueToText($model->PNOverKitFor, array('0' => 'Entire Build', '-1' => 'Each Top Assy'))),
+		array('label' => $model->getAttributeLabel('PNOverKitBy'), 'type' => 'raw', 'value' => ViewHelpers::valueToText($model->PNOverKitBy, array('0' => 'By Count', '-1' => 'By Percent'))),
+		'PNOverKitQty',
+	),
+));
+?>
+</div> <!-- <div id="tab-kitting"> -->
 
 <div id="tab-more">
-<h2>User Defined Fields</h2>
+<h2>More Fields</h2>
+<h3>User Defined Fields</h3>
 <?php 
 //here I use static function PvHpref::captionByField to get captions for user
 //defined fields. When PvHpref::captionByField called first time it loads all
@@ -121,45 +159,15 @@ $this->widget('zii.widgets.CDetailView', array(
 ?>
 </div> <!-- <div id="tab-more"> -->
 
-<div id="tab-kitting">
-<h2>Kitting Properties</h2>
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-        array('label' => $model->getAttributeLabel('PNOverKit'), 'type' => 'raw', 'value' => ViewHelpers::YesNo($model->PNOverKit, 1, 'Yes', 'No')),
-        array('label' => $model->getAttributeLabel('PNOverKitFor'), 'type' => 'raw', 'value' => ViewHelpers::valueToText($model->PNOverKitFor, array('0' => 'Entire Build', '-1' => 'Each Top Assy'))),
-		array('label' => $model->getAttributeLabel('PNOverKitBy'), 'type' => 'raw', 'value' => ViewHelpers::valueToText($model->PNOverKitBy, array('0' => 'By Count', '-1' => 'By Percent'))),
-		'PNOverKitQty',
-	),
-));
-?>
-</div> <!-- <div id="tab-kitting"> -->
+<div id="tab-orders">
+<h2>Orders</h2>
+<p><em>There are no orders associated with this part.</em></p>
+</div> <!-- <div id="tab-orders"> -->
 
-<div id="tab-stock">
-<h2>Stock Properties</h2>
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-        'PNMinStockQty',
-        array('label' => $model->getAttributeLabel('PNOrderToMaintain'), 'type' => 'raw', 'value' => ViewHelpers::YesNo($model->PNOrderToMaintain, 1, 'Yes', 'No')),
-        array('label' => $model->getAttributeLabel('PNExpandList'), 'type' => 'raw', 'value' => ViewHelpers::YesNo($model->PNExpandList, 1, 'Yes', 'No')),
-        array('label' => $model->getAttributeLabel('PNInclAssyOnPurchList'), 'type' => 'raw', 'value' => ViewHelpers::YesNo($model->PNInclAssyOnPurchList, 1, 'Yes', 'No')),
-	),
-));
-?>
-</div> <!-- <div id="tab-stock"> -->
-
-<div id="tab-assy-cost">
-<h2>Assembly Cost</h2>
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-        array('label' => $model->getAttributeLabel('PNAssyCostOption'), 'type' => 'raw', 'value' => ViewHelpers::valueToText($model->PNAssyCostOption, array('1' => 'Use as Total', '2' => 'Ignore', '3' => 'Add to Total'))),
-        'PNLastRollupCost',
-	),
-));
-?>
-</div> <!-- <div id="tab-assy-cost"> -->
+<div id="tab-projects">
+<h2>Projects</h2>
+<p><em>There are no projects associated with this part.</em></p>
+</div> <!-- <div id="tab-orders"> -->
 
 <div id="tab-parts-list">
 <h2>Parts List</h2>
@@ -210,6 +218,28 @@ $this->widget('zii.widgets.CDetailView', array(
 ?>
 </div> <!-- <div id="tab-parts-list"> -->
 
+<div id="tab-sources">
+<h2>Sources</h2>
+<p><em>There are no sources identified for this part.</em></p>
+</div> <!-- <div id="tab-sources"> -->
+
+<div id="tab-stock">
+<h2>Stock Properties</h2>
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+        'PNMinStockQty',
+        array('label' => $model->getAttributeLabel('PNOrderToMaintain'), 'type' => 'raw', 'value' => ViewHelpers::YesNo($model->PNOrderToMaintain, 1, 'Yes', 'No')),
+        array('label' => $model->getAttributeLabel('PNExpandList'), 'type' => 'raw', 'value' => ViewHelpers::YesNo($model->PNExpandList, 1, 'Yes', 'No')),
+        array('label' => $model->getAttributeLabel('PNInclAssyOnPurchList'), 'type' => 'raw', 'value' => ViewHelpers::YesNo($model->PNInclAssyOnPurchList, 1, 'Yes', 'No')),
+	),
+));
+?>
+</br>
+<h2>Stock Items</h2>
+<p><em>There are no stock items associated with this part.</em></p>
+</div> <!-- <div id="tab-stock"> -->
+
 <div id="tab-used-on">
 <h2>Used On</h2>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -258,22 +288,6 @@ $this->widget('zii.widgets.CDetailView', array(
 ));
 ?>
 </div> <!-- <div id="tab-used-on"> -->
-
-<div id="tab-files-urls">
-<h2>Files/URLs</h2>
-</div> <!-- <div id="tab-files-urls"> -->
-
-<div id="tab-sources">
-<h2>Sources</h2>
-</div> <!-- <div id="tab-sources"> -->
-
-<div id="tab-issues">
-<h2>Issues</h2>
-</div> <!-- <div id="tab-issues"> -->
-
-<div id="tab-orders">
-<h2>Orders</h2>
-</div> <!-- <div id="tab-orders"> -->
 
 </div> <!-- <div id="tabs"> -->
 <!-- The following code initializes DIV's above as TAB control -->
