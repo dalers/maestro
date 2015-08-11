@@ -18,7 +18,7 @@ mysql -u root -pappleton -e 'DROP DATABASE `maestro`'
 mysql -u root -pappleton -e 'CREATE DATABASE `maestro`'
 
 # load database
-gunzip < epd2-yyyymmddhhmmss.sql.gz | mysql -u root -pappleton maestro
+gunzip < maestro-yyyymmddhhmmss.sql.gz | mysql -u root -pappleton maestro
 
 # restore files
 cd /home
