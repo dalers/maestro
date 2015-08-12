@@ -12,7 +12,7 @@ $this->menu=array(
 	array('label'=>'Create Stock Item', 'url'=>array('create')),
 	array('label'=>'Update Stock Item', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete Stock Item', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Stock', 'url'=>array('admin')),
+	//array('label'=>'Manage Stock', 'url'=>array('admin')),
 );
 ?>
 
