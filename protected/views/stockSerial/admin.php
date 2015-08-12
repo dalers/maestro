@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Stock', 'url'=>array('index')),
-	array('label'=>'Create Stock', 'url'=>array('create')),
+	array('label'=>'List Stock Items', 'url'=>array('index')),
+	array('label'=>'Create Stock Item', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List StockSerial', 'url'=>array('index')),
-	array('label'=>'Manage StockSerial', 'url'=>array('admin')),
+	array('label'=>'List Stock Items', 'url'=>array('index')),
+	//array('label'=>'Manage StockSerial', 'url'=>array('admin')),
 );
 ?>
 

@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Stock', 'url'=>array('index')),
+	array('label'=>'List Stock Items', 'url'=>array('index')),
 	array('label'=>'Create Stock Item', 'url'=>array('create')),
 	array('label'=>'Update Stock Item', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete Stock Item', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),

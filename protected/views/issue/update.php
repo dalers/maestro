@@ -12,7 +12,7 @@ $this->menu=array(
 	array('label'=>'List Issues', 'url'=>array('index', 'pid'=>$model->project->id)),
 	array('label'=>'Create Issue', 'url'=>array('create', 'pid'=>$model->project->id)),
 	array('label'=>'View Issue', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Issues', 'url'=>array('admin', 'pid'=>$model->project->id)),
+	//array('label'=>'Manage Issues', 'url'=>array('admin', 'pid'=>$model->project->id)),
 );
 ?>
 

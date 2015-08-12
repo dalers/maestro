@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List File', 'url'=>array('index')),
+	array('label'=>'List Files', 'url'=>array('index')),
 	array('label'=>'Create File', 'url'=>array('create')),
 	array('label'=>'View File', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage File', 'url'=>array('admin')),
+	//array('label'=>'Manage File', 'url'=>array('admin')),
 );
 ?>
 

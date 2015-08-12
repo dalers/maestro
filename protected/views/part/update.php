@@ -12,7 +12,7 @@ $this->menu=array(
 	array('label'=>'List Parts', 'url'=>array('index')),
 	array('label'=>'Create part', 'url'=>array('create')),
 	array('label'=>'View Part', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Parts', 'url'=>array('admin')),
+	//array('label'=>'Manage Parts', 'url'=>array('admin')),
 );
 ?>
 

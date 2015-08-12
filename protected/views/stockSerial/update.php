@@ -9,13 +9,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List StockSerial', 'url'=>array('index')),
-	array('label'=>'Create StockSerial', 'url'=>array('create')),
-	array('label'=>'View StockSerial', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage StockSerial', 'url'=>array('admin')),
+	array('label'=>'List Stock Items', 'url'=>array('index')),
+	array('label'=>'Create Stock Item', 'url'=>array('create')),
+	array('label'=>'View Stock Item', 'url'=>array('view', 'id'=>$model->id)),
+	//array('label'=>'Manage Stock Item', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update StockSerial <?php echo $model->id; ?></h1>
+<h1>Update Stock Item <?php echo $model->id; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
