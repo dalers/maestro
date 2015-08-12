@@ -23,11 +23,11 @@ to design, manufacturing and support teams.</p>
 <ul>
 	<li>Parts (part numbers, revisions, sources, bills-of-materials, drawings...)</li>
 	<li>Projects (people, schedule, effort, material...)</li>
-	<li>Issues (initiate, investigate, conclusion, action, closure)</li>
-	<li>Stock (serial numbers, quantities, kitting and production...)</li>
-	<li>Documents (revisions, author, editor, tags)</li>
-	<li>People (users, customers, suppliers)</li>
+	<li>Issues (relationships, investigations, conclusions, actions...)</li>
+	<li>Stock (serial numbers and quantities, purchasing, production, sales…)</li>
+	<li>Files (engineering and ad hoc documents, revisions, author, editors, tags...)</li>
+	<li>Users (user truth, role-based access control...)</li>
 </ul></p>
 
 <p>Maestro includes data for the (fictional) <b><em>Swift Construction
-			Company</em></b> (the <b><em>SCC</em></b>).</p>
+			Company</em></b>, or <b><em>SCC</em></b>.</p>
