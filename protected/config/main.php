@@ -7,6 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	//maintenance mode - Yii 1.1 Application Development Cookbook, p. 360
+	//maintenance mode if file maestro/protected/config/.maintenance exists
 	'catchAllRequest'=>file_exists(dirname(__FILE__).'/.maintenance') && !(isset($_COOKIE['secret']) && $_COOKIE['secret']=="password") ? array('maintenance/index') : null,
 
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
