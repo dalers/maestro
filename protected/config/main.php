@@ -68,6 +68,7 @@ return array(
 		),    
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=maestro',
+			//'connectionString' => 'mysql:host=127.0.0.1;dbname=maestro', //may be required instead of above in some environments
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => 'appleton',
