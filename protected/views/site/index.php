@@ -12,8 +12,7 @@ $this->pageTitle=Yii::app()->name;
 </p>
 <?php endif;?>
 
-<p>This is the demo for the <a 
-		href="http://www.github.com/dalers/maestro/">Maestro project</a>.</p>
+<p>This is the <a href="http://www.github.com/dalers/maestro/">Maestro project</a> demo.</p>
 
 <p><b><em>Maestro</em></b><sup>TM</sup> is the <b><em>ERP for Engineers</em></b><sup>TM</sup>, an Open-Source
 Enterprise Resource Planning System that provides <b><em>Transparency with Trust</em></b><sup>TM</sup>
@@ -30,4 +29,4 @@ to design, manufacturing and support teams.</p>
 </ul></p>
 
 <p>Maestro includes data for the (fictional) <b><em>Swift Construction
-			Company</em></b>, or <b><em>SCC</em></b>.</p>
+			Company</em></b> (CC).</p>
