@@ -1,8 +1,8 @@
-sMaestro
+Maestro
 =======
-***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>, an open-source web-based ERP system providing ***Transparency with Trust***<sup><em>TM</em></sup> to design, manufacturing and support teams.
+***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>, an open-source web-based ERP system that provides ***Transparency with Trust***<sup><em>TM</em></sup> to design, manufacturing and support teams.
 
-*Maesto is in active development and is likely not suitable for use in production.*
+*Maesto is in active development and is likely <b>not</b> suitable for production use as-is.*
 
 Maestro manages information related to projects, parts, stock, issues and people. Drawing inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro includes enterprise features, single-entry accounting, and true multi-user operation.
 
