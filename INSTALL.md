@@ -25,7 +25,7 @@ installed on a FreeBSD system.
 1) Download the [latest Yii v1.x release](http://www.yiiframework.com) 
  to your system. 
 
-* Extract the contents to your system and make it readable by Apache.
+* Extract the contents to your system and make the Apache process owner of the directory structure (optional).
 
 ```
 # cd /usr/local/www
@@ -48,11 +48,12 @@ Create a link in the /usr/local/www/ to the yii install directory
 ```
 
 3) Clone the [Maestro project 
- repo](https://github.com/dalers/maestro-yii) to your system. 
+ repo](https://github.com/dalers/maestro-yii) and make the Apache process owner of the directory structure. The Yii framework writes to certain directories at runtime, which are set correctly in the repo for owner "www".
 
 ```
 > cd /usr/local/www/
 > git clone git://github.com/dalers/maestro maestro
+# chown -R www:www maestro
 ```
 
 4) Create a maestro.conf file and restart Apache.
@@ -70,7 +71,7 @@ Alias /maestro "/usr/local/www/maestro"
 > service apache24 restart
 ```
 
-*This is not necessarily secure, but it's a place to start.*
+*The following configuration may not necessaraly be secure, but is a start.*
 
 5) Create the maestro database.
 
