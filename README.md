@@ -1,14 +1,14 @@
 Maestro
 =======
-***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>, an open-source web-based ERP system that provides ***Transparency with Trust***<sup><em>TM</em></sup> to design, manufacturing and support teams.
+***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>, an open-source web-based ERP system that provides ***Trust and Transparency***<sup><em>TM</em></sup> to design, manufacturing and support teams.
 
 *Maesto is in active development and is likely <b>not</b> suitable for production use as-is.*
 
 Maestro manages information related to projects, parts, stock, issues and people. Drawing inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro includes enterprise features, single-entry accounting, and true multi-user operation.
 
-Maestro includes a complete data set for the fictional ***Swift Construction Company*** (SCC), including projects, parts, stock (unserialized, serialized and lot controlled), issues and users. A demo is hosted on [dalescott.net](http://maestro.dalescott.net). 
+Maestro includes a complete data set for the fictional ***Swift Construction Company*** (SCC), including projects, parts, stock (unserialized, serialized and lot controlled), issues and users. A demo is hosted on [dalescott.net](http://www.dalescott.net). 
 
-Maestro is developed as an open source project and uses the permissive business-friendly [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause) for maximum flexibility of use to the Maestro community. The goal of the Maestro project is to provide a superior integrated business management solution to small-to-medium enterprises (SME) for managing parts, projects, material, issues and people.
+Maestro is developed as an open source project using the business-friendly permissive [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause). The goal of the Maestro project is to provide a superior integrated business management solution for managing parts, projects, material, issues and people.
 
 Getting Started
 ---------------
@@ -55,7 +55,7 @@ Maestro source is copyright by its authors, as recorded in the maestro repositor
 
 Support
 -------
-If you require assistance, please try the following in order:
+Shoul you desire assistance, please try the following in order:
 
 * Review the [Maestro project Wiki](https://github.com/dalers/maestro/wiki/).
 * Investigate expected behaviour using the [Maestro demo system](http://maestro.dalescott.net)
