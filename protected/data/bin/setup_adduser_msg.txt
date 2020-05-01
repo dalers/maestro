@@ -1,6 +1,0 @@
-Welcome to the Swift Construction Company. Your IT
-services access account has been configured and is
-now available for use.
-
-Mary Nestor
-Director, MIS/IT

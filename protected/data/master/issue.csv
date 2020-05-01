@@ -1,4 +1,0 @@
-id,name,description,owner_id,part_id,project_id,requestor_id,status_id,stock_id,type_id,create_time,create_user_id,update_time,update_user_id
-1,Incorrect PCB layout,Connectivity of PCB-type inductor is incorrect.,3,15,2,3,1,,0,2014-09-17,22,2014-09-17,22
-2,Difficult assembly procedure,Manufacturing staff report assembly of wireless unit is difficult to assemble and test due to copper-side-up orientation of PCA. Suggestion is to orient PCA component-side up providing for full access to components for more effective visual inspection and easier troubleshooting after assembly.,3,1,2,3,1,,1,2014-09-17,22,2014-09-17,22
-3,No field spares kit.,Customers are requesting we provide a field spares kit with most-commonly used repair items for convenience of repair technicians.,6,,2,6,1,,1,2014-09-17,11,2014-09-17,11
