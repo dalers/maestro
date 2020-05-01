@@ -1,6 +1,0 @@
-HISTID,HISTWho,HISTWhat,HISTWhen,HISTWhy,HISTHowMany
-1,"gjackson","Kit for All rows of items for 15 units of assy 20000001","2015-04-16",,1.50000000e+01
-2,"gjackson","Increase  inventory by 15 units of assy 20000001","2015-04-16",,1.50000000e+01
-3,"gjackson","Kit for All rows of items for 10 units of assy 20000003","2015-04-16",,1.00000000e+01
-4,"gjackson","Increase  inventory by 10 units of assy 20000003","2015-04-16",,1.00000000e+01
-5,"gjackson","Reduce  inventory by -5 units of assy 20000003","2015-04-16",,-5.00000000e+00

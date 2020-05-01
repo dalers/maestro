@@ -1,2 +1,0 @@
-CURID,CURCurrencyName,CURExchangeRate,CURCurrencyChar,CURFormat,CURFormatExt
-1,"$ USD",1.0000000000000000e+00,"$","$#,##0.000;($#,##0.000)","$#,##0.00;($#,##0.00)"
