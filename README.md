@@ -1,12 +1,12 @@
 Maestro
 =======
-***Maestro***<sup>*TM*</sup> is ***The ERP for Engineers***<sup><em>TM</em></sup>, an open-source web-based ERP system that provides ***Trust and Transparency***<sup><em>TM</em></sup> to design, manufacturing and support teams.
+***Maestro*** is ***The ERP for Engineers***, a web-based ERP system that provides ***Trust and Transparency*** to design, manufacturing and support teams.
 
-*Maesto was created as a Proof-of-Concept. It is <b>no longer actively developed</b> and <b>not suitable for production</b>.*
+*Maesto is in active development and <b>NOT</b> suitable for production use.*
 
 Maestro manages information related to projects, parts, stock, issues and people. Drawing inspiration from  [*Parts&Vendors*<sup>*TM*</sup>](http://www.trilogydesign.com/), Maestro includes enterprise features, single-entry accounting, and true multi-user operation.
 
-Maestro includes a complete data set for the fictional ***Swift Construction Company*** (SCC), including projects, parts, stock (unserialized, serialized and lot controlled), issues and users. A demo is hosted on [dalescott.net](http://www.dalescott.net). 
+Maestro includes data for the fictional ***Swift Construction Company*** (SCC), including projects, parts, stock (unserialized, serialized and lot controlled), issues and users. A demo is hosted on [dalescott.net](http://www.dalescott.net). 
 
 Maestro is developed as an open source project using the business-friendly permissive [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause). The goal of the Maestro project is to provide a superior integrated business management solution for managing parts, projects, material, issues and people.
 

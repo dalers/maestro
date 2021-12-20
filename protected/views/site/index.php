@@ -4,7 +4,7 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i><sup>TM</sup></h1>
+<h1>Welcome to <?php echo CHtml::encode(Yii::app()->name); ?></h1>
 
 <?php if(!Yii::app()->user->isGuest):?>
 <p>
@@ -12,11 +12,8 @@ $this->pageTitle=Yii::app()->name;
 </p>
 <?php endif;?>
 
-<p>This is the <a href="http://www.github.com/dalers/maestro/">Maestro project</a> demo.</p>
-
-<p><b><em>Maestro</em></b><sup>TM</sup> is the <b><em>ERP for Engineers</em></b><sup>TM</sup>, an Open-Source
-Enterprise Resource Planning System that provides <b><em>Transparency with Trust</em></b><sup>TM</sup>
-to design, manufacturing and support teams.</p>
+<p><b><em>Maestro</em></b> is the <b><em>ERP for Engineers</em></b>, an 
+Enterprise Resource Planning System that provides <b><em>Transparency with Trust</em></b>.</p>
 
 <p>Maestro manages information relating to:
 <ul>
@@ -28,5 +25,6 @@ to design, manufacturing and support teams.</p>
 	<li>Users (user truth, role-based access control...)</li>
 </ul></p>
 
-<p>Maestro includes data for the (fictional) <b><em>Swift Construction
-			Company</em></b> (CC).</p>
+<p><b><em>This is a demo of the <a href="http://www.github.com/dalers/maestro/">Maestro project</a>, a
+proof-of-concept PLM system with data from the fictional Swift Construction Company (SCC). Not all
+features are functional.</em></b></p>
