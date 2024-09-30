@@ -4,7 +4,7 @@ Maestro
 
 *Maesto is <b>NOT</b> suitable for production use at this time.*
 
-Maestro manages information related to projects, parts, stock, issues and people. Maestro draws basic inspiration from  *Parts&Vendors*<sup>*TM*</sup>, PLM software that was produced by  Trilogy Design (no longer in business), and adds enterprise features, including single-entry accounting and true multi-user operation.
+Maestro manages information related to projects, parts, stock, issues and people. Maestro draws inspiration from  *Parts&Vendors*<sup>*TM*</sup>, a Windows desktop PLM software application produced by Trilogy Design (no longer in business), adding enterprise features that include single-entry accounting and true multi-user operation (Parts&Vendors used a Microsoft Jet-2 database, aka Access, which became problematic with a large number of users and/or saving the database on a network).
 
 Maestro includes data for the fictional ***Swift Construction Company*** (SCC), including projects, parts, stock (unserialized, serialized and lot controlled), issues and users. A demo is hosted on [dalescott.net](http://www.dalescott.net). 
 
